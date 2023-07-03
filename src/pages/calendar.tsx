@@ -20,10 +20,10 @@ export default function Calendar() {
     useEffect(() => {
         // Set the container scroll position based on the current time.
         const currentMinute = new Date().getHours() * 60;
-        container.current.scrollTop =
-            ((container.current.scrollHeight - containerNav.current.offsetHeight - containerOffset.current.offsetHeight) *
-                currentMinute) /
-            1440;
+        // container.current.scrollTop =
+        //     ((container.current.scrollHeight - containerNav.current.offsetHeight - containerOffset.current.offsetHeight) *
+        //         currentMinute) /
+        //     1440;
     }, []);
 
     return (

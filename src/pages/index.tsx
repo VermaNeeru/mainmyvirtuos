@@ -3,7 +3,8 @@ import Dashboardcount from '@/Component/Dashboard/dashboardcount'
 import Monthlyexpensechart from '@/Component/Dashboard/monthlyexpensechart'
 import Calendar from '@/Component/Dashboard/Calendar'
 import Birthdays from '@/Component/Dashboard/birthdays'
-import Leavechart from '@/Component/Dashboard/leavechart'
+import Leavechart from '@/Component/Dashboard/Leavechart'
+
 import Facebook from '@/Component/Dashboard/Facebook'
 import PublicDocument from '@/Component/Dashboard/PublicDocument'
 
