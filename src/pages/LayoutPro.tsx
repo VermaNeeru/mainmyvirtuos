@@ -10,13 +10,13 @@ import {
 } from '@heroicons/react/24/outline'
 
 const navigation = [
-    { name: 'Dashboard', href: '#', icon: HomeIcon, current: true },
+    { name: 'Dashboard', href: '/', icon: HomeIcon, current: true },
     {
         name: 'Activity',
         icon: UsersIcon,
         current: false,
         children: [
-            { name: 'Activity Stream', href: '#' },
+            { name: 'Activity Stream', href: '/activity' },
         ],
     },
     {
@@ -24,9 +24,9 @@ const navigation = [
         icon: FolderIcon,
         current: false,
         children: [
-            { name: 'My Attendance', href: '#' },
-            { name: 'All Attendance', href: '#' },
-            { name: 'Upload Attendance Sheet', href: '#' },
+            { name: 'My Attendance', href: '/current_month_attendance' },
+            { name: 'All Attendance', href: '/' },
+            { name: 'Upload Attendance Sheet', href: '/' },
         ],
     },
     {
@@ -34,12 +34,12 @@ const navigation = [
         icon: FolderIcon,
         current: false,
         children: [
-            { name: 'My Leave Balance', href: '#' },
-            { name: 'New Leave Request', href: '#' },
-            { name: 'My Leave Status', href: '#' },
-            { name: 'My Leave Calendar', href: '#' },
-            { name: 'My WFH/SL Status', href: '#' },
-            { name: 'New WFH/SL Request', href: '#' },
+            { name: 'My Leave Balance', href: '/my_leaves' },
+            { name: 'New Leave Request', href: '/leave' },
+            { name: 'My Leave Status', href: '/leave_list' },
+            { name: 'My Leave Calendar', href: '/my_leave_calendar' },
+            { name: 'My WFH/SL Status', href: '/wfh' },
+            { name: 'New WFH/SL Request', href: '/add_wfh' },
 
         ],
     },
@@ -48,8 +48,8 @@ const navigation = [
         icon: FolderIcon,
         current: false,
         children: [
-            { name: 'My Travel', href: '#' },
-            { name: 'New Travel Request', href: '#' },
+            { name: 'My Travel', href: '/' },
+            { name: 'New Travel Request', href: '/' },
 
         ],
     },
@@ -58,9 +58,9 @@ const navigation = [
         icon: FolderIcon,
         current: false,
         children: [
-            { name: 'Other Expense', href: '#' },
-            { name: 'New Travel Request', href: '#' },
-            { name: 'Add Travel Expenses', href: '#' },
+            { name: 'Other Expense', href: '/' },
+            { name: 'New Travel Request', href: '/' },
+            { name: 'Add Travel Expenses', href: '/' },
 
         ],
     },
@@ -69,11 +69,11 @@ const navigation = [
         icon: FolderIcon,
         current: false,
         children: [
-            { name: 'Upload New Document', href: '#' },
-            { name: 'My Official Documents', href: '#' },
-            { name: 'Uploaded Document List', href: '#' },
-            { name: 'My Payslips', href: '#' },
-            { name: 'Public Documents', href: '#' },
+            { name: 'Upload New Document', href: '/' },
+            { name: 'My Official Documents', href: '/' },
+            { name: 'Uploaded Document List', href: '/' },
+            { name: 'My Payslips', href: '/' },
+            { name: 'Public Documents', href: '/' },
 
         ],
     },
@@ -82,8 +82,8 @@ const navigation = [
         icon: FolderIcon,
         current: false,
         children: [
-            { name: 'My Calendar', href: '#' },
-            { name: 'My Drive', href: '#' },
+            { name: 'My Calendar', href: '/' },
+            { name: 'My Drive', href: '/' },
 
         ],
     },
@@ -92,10 +92,10 @@ const navigation = [
         icon: FolderIcon,
         current: false,
         children: [
-            { name: 'View Gallery', href: '#' },
-            { name: 'Manage Category', href: '#' },
-            { name: 'Upload Images', href: '#' },
-            { name: 'Manage Gallery', href: '#' },
+            { name: 'View Gallery', href: '/' },
+            { name: 'Manage Category', href: '/' },
+            { name: 'Upload Images', href: '/' },
+            { name: 'Manage Gallery', href: '/' },
 
         ],
     },
@@ -104,8 +104,8 @@ const navigation = [
         icon: FolderIcon,
         current: false,
         children: [
-            { name: 'My Ideas', href: '#' },
-            { name: 'Add New Idea', href: '#' },
+            { name: 'My Ideas', href: '/' },
+            { name: 'Add New Idea', href: '/' },
         ],
     },
 
@@ -114,9 +114,9 @@ const navigation = [
         icon: FolderIcon,
         current: false,
         children: [
-            { name: 'My Issues', href: '#' },
-            { name: 'Add New Issue', href: '#' },
-            { name: 'All Issues', href: '#' },
+            { name: 'My Issues', href: '/' },
+            { name: 'Add New Issue', href: '/' },
+            { name: 'All Issues', href: '/' },
         ],
     },
 
@@ -125,15 +125,15 @@ const navigation = [
         icon: FolderIcon,
         current: false,
         children: [
-            { name: 'Company Directory', href: '#' },
-            { name: 'Holiday Calendar', href: '#' },
-            { name: 'Manage Holiday Calendar', href: '#' },
-            { name: 'Official Requirements', href: '#' },
-            { name: 'Employee Referral', href: '#' },
-            { name: 'All Referral', href: '#' },
-            { name: 'All official Requirements', href: '#' },
-            { name: 'Tutorial Referral', href: '#' },
-            { name: 'Tutorial Myvirtuos', href: '#' },
+            { name: 'Company Directory', href: '/' },
+            { name: 'Holiday Calendar', href: '/' },
+            { name: 'Manage Holiday Calendar', href: '/' },
+            { name: 'Official Requirements', href: '/' },
+            { name: 'Employee Referral', href: '/' },
+            { name: 'All Referral', href: '/' },
+            { name: 'All official Requirements', href: '/' },
+            { name: 'Tutorial Referral', href: '/' },
+            { name: 'Tutorial Myvirtuos', href: '/' },
         ],
     },
 
@@ -142,8 +142,8 @@ const navigation = [
         icon: FolderIcon,
         current: false,
         children: [
-            { name: 'Basic Info', href: '#' },
-            { name: 'Training', href: '#' },
+            { name: 'Basic Info', href: '/' },
+            { name: 'Training', href: '/' },
         ],
     },
 
@@ -152,7 +152,7 @@ const navigation = [
         icon: FolderIcon,
         current: false,
         children: [
-            { name: 'FAQ', href: '#' },
+            { name: 'FAQ', href: '/' },
         ],
     },
 
@@ -161,11 +161,11 @@ const navigation = [
         icon: FolderIcon,
         current: false,
         children: [
-            { name: 'Other Expense Report', href: '#' },
-            { name: 'Asset Report', href: '#' },
-            { name: 'Attendance Report', href: '#' },
-            { name: 'Issue Report', href: '#' },
-            { name: 'Leave Report', href: '#' },
+            { name: 'Other Expense Report', href: '/' },
+            { name: 'Asset Report', href: '/' },
+            { name: 'Attendance Report', href: '/' },
+            { name: 'Issue Report', href: '/' },
+            { name: 'Leave Report', href: '/' },
         ],
     },
 
@@ -174,12 +174,12 @@ const navigation = [
         icon: FolderIcon,
         current: false,
         children: [
-            { name: 'Manage Asset Status', href: '#' },
-            { name: 'Manage Asset Model', href: '#' },
-            { name: 'Manage Manufacturer', href: '#' },
-            { name: 'Manage Company', href: '#' },
-            { name: 'Manage Suppliers', href: '#' },
-            { name: 'Manage Asset Category', href: '#' },
+            { name: 'Manage Asset Status', href: '/' },
+            { name: 'Manage Asset Model', href: '/' },
+            { name: 'Manage Manufacturer', href: '/' },
+            { name: 'Manage Company', href: '/' },
+            { name: 'Manage Suppliers', href: '/' },
+            { name: 'Manage Asset Category', href: '/' },
         ],
     },
 
@@ -188,11 +188,11 @@ const navigation = [
         icon: FolderIcon,
         current: false,
         children: [
-            { name: 'Licenses', href: '#' },
-            { name: 'Asset List', href: '#' },
-            { name: 'Accessories List', href: '#' },
-            { name: 'Consumables List', href: '#' },
-            { name: 'Asset Inventory', href: '#' },
+            { name: 'Licenses', href: '/' },
+            { name: 'Asset List', href: '/' },
+            { name: 'Accessories List', href: '/' },
+            { name: 'Consumables List', href: '/' },
+            { name: 'Asset Inventory', href: '/' },
         ],
     },
 
@@ -201,8 +201,8 @@ const navigation = [
         icon: FolderIcon,
         current: false,
         children: [
-            { name: 'All WFH/Short Leaves', href: '#' },
-            { name: 'All Leaves', href: '#' },
+            { name: 'All WFH/Short Leaves', href: '/' },
+            { name: 'All Leaves', href: '/' },
         ],
     },
 
@@ -211,9 +211,9 @@ const navigation = [
         icon: FolderIcon,
         current: false,
         children: [
-            { name: 'Add New Employee', href: '#' },
-            { name: 'Employee List', href: '#' },
-            { name: 'OTE Availed', href: '#' },
+            { name: 'Add New Employee', href: '/' },
+            { name: 'Employee List', href: '/' },
+            { name: 'OTE Availed', href: '/' },
         ],
     },
 
@@ -223,20 +223,20 @@ const navigation = [
     //     icon: FolderIcon,
     //     current: false,
     //     children: [
-    //         { name: '', href: '#' },
+    //         { name: '', href: '/' },
     //     ],
     // },
 
     // { name: 'Layoutold', href: '/layoutold', icon: CalendarIcon, current: false },
-    // { name: 'Documents', href: '#', icon: DocumentDuplicateIcon, current: false },
-    // { name: 'Reports', href: '#', icon: ChartPieIcon, current: false },
+    // { name: 'Documents', href: '/', icon: DocumentDuplicateIcon, current: false },
+    // { name: 'Reports', href: '/', icon: ChartPieIcon, current: false },
 ]
 
 function classNames(...classes: any) {
     return classes.filter(Boolean).join(' ')
 }
 
-export default function Testing() {
+export default function LayoutPro() {
     return (
         <div className="flex grow flex-col gap-y-5 overflow-y-auto no-scrollbar bg-gray-900 px-6">
             <div className="flex h-16 shrink-0 items-center">

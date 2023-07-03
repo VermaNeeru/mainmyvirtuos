@@ -6,6 +6,7 @@ import Birthdays from '@/Component/Dashboard/birthdays'
 import Leavechart from '@/Component/Dashboard/leavechart'
 import Facebook from '@/Component/Dashboard/Facebook'
 import PublicDocument from '@/Component/Dashboard/PublicDocument'
+import GoogleDrive from '@/Component/Dashboard/GoogleDrive'
 
 
 // const inter = Inter({ subsets: ['latin'] })
@@ -33,7 +34,7 @@ export default function Home() {
 
         </div>
       </div>
-      <div className="grid grid-rows-1 relative flex items-center space-x-3 rounded-lg  px-6 py-5 shadow-sm focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 hover:border-gray-400">
+      <div className="grid grid-rows-1 relative  items-center space-x-3 rounded-lg  px-6 py-5 shadow-sm focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 hover:border-gray-400">
         <div className="grid grid-cols-2 gap-4 sm:grid-cols-2 xs:grid-cols-1">
           <div className=' shadow-lg'>
             <Calendar />
@@ -53,6 +54,13 @@ export default function Home() {
         </div>
       </div>
 
+      <div className="relative items-center  rounded-lg  px-6 py-5 ">
+        <div className="grid grid-cols-1 sm:grid-cols-1 xs:grid-cols-1">
+          <div className=' shadow-lg'>
+            <GoogleDrive />
+          </div>
+        </div>
+      </div>
 
     </div>
 

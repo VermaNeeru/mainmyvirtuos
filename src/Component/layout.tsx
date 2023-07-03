@@ -27,7 +27,8 @@ import {
     XMarkIcon,
 } from '@heroicons/react/24/outline'
 import { ChevronDownIcon, MagnifyingGlassIcon } from '@heroicons/react/20/solid'
-import Test from '@/pages/test'
+import LayoutPro from '@/pages/LayoutPro'
+import Footer from './footer'
 
 const navigation = [
     { name: 'Dashboard', href: '#', icon: HomeIcon, current: true },
@@ -174,7 +175,7 @@ export default function Layout({ children }: any) {
                                                     </a>
                                                 </li>
                                             </ul> */}
-                                        <Test />
+                                        <LayoutPro />
                                     </nav>
                                     {/* </div> */}
                                 </Dialog.Panel>
@@ -186,7 +187,8 @@ export default function Layout({ children }: any) {
                 {/* Static sidebar for desktop */}
                 <div className="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-72 lg:flex-col">
                     {/* Sidebar component, swap this element with another sidebar if you like */}
-                    <Test />
+                    <LayoutPro />
+
                 </div>
 
                 <div className="lg:pl-72">
@@ -273,11 +275,19 @@ export default function Layout({ children }: any) {
                         </div>
                     </div>
 
-                    <main className="py-10">
-                        <div className="px-4 sm:px-6 lg:px-8">{children}</div>
+                    <main className="py-10 ">
+                        <div className="px-4 sm:px-6 lg:px-8 mb-16 " >{children}</div>
+
                     </main>
-                </div>
-            </div>
+                    {/* <div className=' absolute inset-x-0 bottom-0 h-16  ml-72 mb-0'>
+                       
+                    </div> */}
+
+                    <Footer />
+
+                </div >
+
+            </div >
         </>
     )
 }
