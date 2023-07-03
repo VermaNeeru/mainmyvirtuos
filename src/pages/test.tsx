@@ -8,6 +8,7 @@ import {
     HomeIcon,
     UsersIcon,
 } from '@heroicons/react/24/outline'
+import Image from 'next/image'
 
 const navigation = [
     { name: 'Dashboard', href: '#', icon: HomeIcon, current: true },
@@ -240,10 +241,12 @@ export default function Testing() {
     return (
         <div className="flex grow flex-col gap-y-5 overflow-y-auto no-scrollbar bg-gray-900 px-6">
             <div className="flex h-16 shrink-0 items-center">
-                <img
+                <Image
                     className="h-10 w-20 ml-16"
                     src="https://myvirtuos.com/assets/images/happiests-logo_white.svg"
                     alt="Your Company"
+                    height={100}
+                    width={100}
                 />
             </div>
             <nav className="flex flex-1 flex-col">
@@ -317,7 +320,7 @@ export default function Testing() {
                             href="#"
                             className="flex items-center gap-x-4 px-6 py-3 text-sm font-semibold leading-6 text-gray-900 hover:bg-gray-50"
                         >
-                            <img
+                            <Image
                                 className="h-8 w-8 rounded-full bg-gray-50"
                                 src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
                                 alt=""
