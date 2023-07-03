@@ -27,8 +27,8 @@ import {
     XMarkIcon,
 } from '@heroicons/react/24/outline'
 import { ChevronDownIcon, MagnifyingGlassIcon } from '@heroicons/react/20/solid'
-import LayoutPro from '@/pages/LayoutPro'
-import Footer from './footer'
+import Test from '@/pages/test'
+import Image from 'next/image'
 
 const navigation = [
     { name: 'Dashboard', href: '#', icon: HomeIcon, current: true },
@@ -231,10 +231,13 @@ export default function Layout({ children }: any) {
                                 <Menu as="div" className="relative">
                                     <Menu.Button className="-m-1.5 flex items-center p-1.5">
                                         <span className="sr-only">Open user menu</span>
-                                        <img
-                                            className="h-8 w-8 rounded-full bg-gray-50"
-                                            src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                                        <Image
+                                            src="https://myvirtuos.com/uploads/profile/medium_thumb/Neeru_1632373943_mediumthumb.png"
                                             alt=""
+                                            width={100}
+                                            height={100}
+                                            className="h-8 w-8 rounded-full bg-gray-50"
+                                            loader={({ src }) => `${src}`}
                                         />
                                         <span className="hidden lg:flex lg:items-center">
                                             <span className="ml-4 text-sm font-semibold leading-6 text-white" aria-hidden="true">

@@ -1,4 +1,5 @@
 import { EnvelopeIcon, PhoneIcon } from '@heroicons/react/20/solid'
+import Image from 'next/image'
 
 const people = [
     {
@@ -42,7 +43,7 @@ export default function Birthdays() {
                         className="col-span-1 flex flex-col divide-y divide-gray-400 rounded-lg bg-gray-200 text-center drop-shadow-lg"
                     >
                         <div className="flex flex-1 flex-col p-4">
-                            <img className="mx-auto h-20 w-20 flex-shrink-0 rounded-full" src={person.imageUrl} alt="" />
+                            <Image loader={({ src }) => `${src}`} className="mx-auto h-20 w-20 flex-shrink-0 rounded-full" height={100} width={100} src={person.imageUrl} alt="" />
                             <h3 className="mt-2 text-sm font-medium text-gray-900">{person.name}</h3>
                             <dl className="mt-1 flex flex-grow flex-col justify-between">
                                 <dt className="sr-only">Title</dt>
