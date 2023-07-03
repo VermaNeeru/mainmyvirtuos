@@ -11,13 +11,13 @@ import {
 import Image from 'next/image'
 
 const navigation = [
-    { name: 'Dashboard', href: '#', icon: HomeIcon, current: true },
+    { name: 'Dashboard', href: '/', icon: HomeIcon, current: true },
     {
         name: 'Activity',
         icon: UsersIcon,
         current: false,
         children: [
-            { name: 'Activity Stream', href: '#', current: false },
+            { name: 'Activity Stream', href: '/activity', current: false },
         ],
     },
     {
@@ -25,9 +25,9 @@ const navigation = [
         icon: FolderIcon,
         current: false,
         children: [
-            { name: 'My Attendance', href: '#', current: false },
-            { name: 'All Attendance', href: '#', current: false },
-            { name: 'Upload Attendance Sheet', href: '#', current: false },
+            { name: 'My Attendance', href: '/current_month_attendance', current: false },
+            { name: 'All Attendance', href: '/all_attendance', current: false },
+            { name: 'Upload Attendance Sheet', href: '/attendance', current: false },
         ],
     },
     {
@@ -35,165 +35,14 @@ const navigation = [
         icon: FolderIcon,
         current: false,
         children: [
-            { name: 'My Leave Balance', href: '#', current: false },
-            { name: 'New Leave Request', href: '#', current: false },
-            { name: 'My Leave Status', href: '#', current: false },
-            { name: 'My Leave Calendar', href: '#', current: false },
-            { name: 'My WFH/SL Status', href: '#', current: false },
-            { name: 'New WFH/SL Request', href: '#', current: false },
+            { name: 'Leave Callendar', href: '/leave_calendar', current: false },
+            { name: 'My Leave Balance', href: '/my_leaves', current: false },
+            { name: 'New Leave Request', href: '/leave', current: false },
+            { name: 'My Leave Status', href: '/leave_list', current: false },
+            { name: 'My Leave Calendar', href: '/my_leave_calendar', current: false },
+            { name: 'My WFH/SL Status', href: '/wfh', current: false },
+            { name: 'New WFH/SL Request', href: '/add_wfh', current: false },
 
-        ],
-    },
-    {
-        name: 'Travel',
-        icon: FolderIcon,
-        current: false,
-        children: [
-            { name: 'My Travel', href: '#', current: false },
-            { name: 'New Travel Request', href: '#', current: false },
-
-        ],
-    },
-    {
-        name: 'Expense',
-        icon: FolderIcon,
-        current: false,
-        children: [
-            { name: 'Other Expense', href: '#', current: false },
-            { name: 'New Travel Request', href: '#', current: false },
-            { name: 'Add Travel Expenses', href: '#', current: false },
-
-        ],
-    },
-    {
-        name: 'Documents',
-        icon: FolderIcon,
-        current: false,
-        children: [
-            { name: 'Upload New Document', href: '#', current: false },
-            { name: 'My Official Documents', href: '#', current: false },
-            { name: 'Uploaded Document List', href: '#', current: false },
-            { name: 'My Payslips', href: '#', current: false },
-            { name: 'Public Documents', href: '#', current: false },
-
-        ],
-    },
-    {
-        name: 'Google Apps',
-        icon: FolderIcon,
-        current: false,
-        children: [
-            { name: 'My Calendar', href: '#', current: false },
-            { name: 'My Drive', href: '#', current: false },
-
-        ],
-    },
-    {
-        name: 'Gallery',
-        icon: FolderIcon,
-        current: false,
-        children: [
-            { name: 'View Gallery', href: '#', current: false },
-            { name: 'Manage Category', href: '#', current: false },
-            { name: 'Upload Images', href: '#', current: false },
-            { name: 'Manage Gallery', href: '#', current: false },
-
-        ],
-    },
-    {
-        name: 'Idea',
-        icon: FolderIcon,
-        current: false,
-        children: [
-            { name: 'My Ideas', href: '#', current: false },
-            { name: 'Add New Idea', href: '#', current: false },
-        ],
-    },
-
-    {
-        name: 'Issues',
-        icon: FolderIcon,
-        current: false,
-        children: [
-            { name: 'My Issues', href: '#', current: false },
-            { name: 'Add New Issue', href: '#', current: false },
-            { name: 'All Issues', href: '#', current: false },
-        ],
-    },
-
-    {
-        name: 'Important Links',
-        icon: FolderIcon,
-        current: false,
-        children: [
-            { name: 'Company Directory', href: '#', current: false },
-            { name: 'Holiday Calendar', href: '#', current: false },
-            { name: 'Manage Holiday Calendar', href: '#', current: false },
-            { name: 'Official Requirements', href: '#', current: false },
-            { name: 'Employee Referral', href: '#', current: false },
-            { name: 'All Referral', href: '#', current: false },
-            { name: 'All official Requirements', href: '#', current: false },
-            { name: 'Tutorial Referral', href: '#', current: false },
-            { name: 'Tutorial Myvirtuos', href: '#', current: false },
-        ],
-    },
-
-    {
-        name: 'Personal Information',
-        icon: FolderIcon,
-        current: false,
-        children: [
-            { name: 'Basic Info', href: '#', current: false },
-            { name: 'Training', href: '#', current: false },
-        ],
-    },
-
-    {
-        name: 'FAQ',
-        icon: FolderIcon,
-        current: false,
-        children: [
-            { name: 'FAQ', href: '#', current: false },
-        ],
-    },
-
-    {
-        name: 'Reports',
-        icon: FolderIcon,
-        current: false,
-        children: [
-            { name: 'Other Expense Report', href: '#', current: false },
-            { name: 'Asset Report', href: '#', current: false },
-            { name: 'Attendance Report', href: '#', current: false },
-            { name: 'Issue Report', href: '#', current: false },
-            { name: 'Leave Report', href: '#', current: false },
-        ],
-    },
-
-    {
-        name: 'Settings',
-        icon: FolderIcon,
-        current: false,
-        children: [
-            { name: 'Manage Asset Status', href: '#', current: false },
-            { name: 'Manage Asset Model', href: '#', current: false },
-            { name: 'Manage Manufacturer', href: '#', current: false },
-            { name: 'Manage Company', href: '#', current: false },
-            { name: 'Manage Suppliers', href: '#', current: false },
-            { name: 'Manage Asset Category', href: '#', current: false },
-        ],
-    },
-
-    {
-        name: 'Assets',
-        icon: FolderIcon,
-        current: false,
-        children: [
-            { name: 'Licenses', href: '#', current: false },
-            { name: 'Asset List', href: '#', current: false },
-            { name: 'Accessories List', href: '#', current: false },
-            { name: 'Consumables List', href: '#', current: false },
-            { name: 'Asset Inventory', href: '#', current: false },
         ],
     },
 
@@ -202,8 +51,162 @@ const navigation = [
         icon: FolderIcon,
         current: false,
         children: [
-            { name: 'All WFH/Short Leaves', href: '#', current: false },
-            { name: 'All Leaves', href: '#', current: false },
+            { name: 'All WFH/Short Leaves', href: '/current_month_wfh', current: false },
+            { name: 'All Leaves', href: '/all_leaves', current: false },
+        ],
+    },
+
+    {
+        name: 'Travel',
+        icon: FolderIcon,
+        current: false,
+        children: [
+            { name: 'My Travel', href: '/travel', current: false },
+            { name: 'New Travel Request', href: '/add_travel_req', current: false },
+
+        ],
+    },
+    {
+        name: 'Expense',
+        icon: FolderIcon,
+        current: false,
+        children: [
+            { name: 'Other Expense', href: '/user_advance_list', current: false },
+            { name: 'New Travel Request', href: '/add_travel_req', current: false },
+            { name: 'Add Travel Expenses', href: '/travel', current: false },
+
+        ],
+    },
+    {
+        name: 'Documents',
+        icon: FolderIcon,
+        current: false,
+        children: [
+            { name: 'Upload New Document', href: '/add_document', current: false },
+            { name: 'My Official Documents', href: '/my_document', current: false },
+            { name: 'Uploaded Document List', href: '/document', current: false },
+            { name: 'Shared Document', href: '/admin_document_list', current: false },
+            { name: 'My Payslips', href: '/my_payroll', current: false },
+            { name: 'Public Documents', href: '/public_document', current: false },
+
+        ],
+    },
+    {
+        name: 'Google Apps',
+        icon: FolderIcon,
+        current: false,
+        children: [
+            { name: 'My Calendar', href: '/google_calendar', current: false },
+            { name: 'My Drive', href: '/googledrive', current: false },
+
+        ],
+    },
+    {
+        name: 'Gallery',
+        icon: FolderIcon,
+        current: false,
+        children: [
+            { name: 'View Gallery', href: '/view_images', current: false },
+            { name: 'Manage Category', href: '/gallery', current: false },
+            { name: 'Upload Images', href: '/upload_images', current: false },
+            { name: 'Manage Gallery', href: '/manage_gallery', current: false },
+
+        ],
+    },
+    {
+        name: 'Idea',
+        icon: FolderIcon,
+        current: false,
+        children: [
+            { name: 'My Ideas', href: '/idea', current: false },
+            { name: 'Add New Idea', href: '/add_idea', current: false },
+        ],
+    },
+
+    {
+        name: 'Issues',
+        icon: FolderIcon,
+        current: false,
+        children: [
+            { name: 'My Issues', href: '/issue', current: false },
+            { name: 'Add New Issue', href: '/add_issue', current: false },
+            { name: 'All Issues', href: '/all_issues', current: false },
+        ],
+    },
+
+    {
+        name: 'Important Links',
+        icon: FolderIcon,
+        current: false,
+        children: [
+            { name: 'Company Directory', href: '/extension_list', current: false },
+            { name: 'Holiday Calendar', href: '/holiday_list', current: false },
+            { name: 'Manage Holiday Calendar', href: '/holiday', current: false },
+            { name: 'Official Requirements', href: '/weblink', current: false },
+            { name: 'Employee Referral', href: '/employee_referral', current: false },
+            { name: 'All Referral', href: '/all_referrals', current: false },
+            { name: 'All official Requirements', href: '/all_requisitions', current: false },
+            { name: 'Tutorial Referral', href: '/', current: false },
+            { name: 'Tutorial Myvirtuos', href: '/tutorial', current: false },
+        ],
+    },
+
+    {
+        name: 'Personal Information',
+        icon: FolderIcon,
+        current: false,
+        children: [
+            { name: 'Basic Info', href: '/edit_user', current: false },
+            { name: 'Training', href: '/', current: false },
+        ],
+    },
+
+    {
+        name: 'FAQ',
+        icon: FolderIcon,
+        current: false,
+        children: [
+            { name: 'FAQ', href: '/', current: false },
+        ],
+    },
+
+    {
+        name: 'Reports',
+        icon: FolderIcon,
+        current: false,
+        children: [
+            { name: 'Other Expense Report', href: '/', current: false },
+            { name: 'Asset Report', href: '/', current: false },
+            { name: 'Attendance Report', href: '/', current: false },
+            { name: 'Issue Report', href: '/', current: false },
+            { name: 'Leave Report', href: '/', current: false },
+        ],
+    },
+
+    {
+        name: 'Settings',
+        icon: FolderIcon,
+        current: false,
+        children: [
+            { name: 'Manage Asset Status', href: '/', current: false },
+            { name: 'Manage Asset Model', href: '/', current: false },
+            { name: 'Manage Manufacturer', href: '/', current: false },
+            { name: 'Manage Company', href: '/', current: false },
+            { name: 'Manage Suppliers', href: '/', current: false },
+            { name: 'Manage Asset Category', href: '/', current: false },
+        ],
+    },
+
+    {
+        name: 'Assets',
+        icon: FolderIcon,
+        current: false,
+        children: [
+            { name: 'Licenses', href: '/', current: false },
+            { name: 'Asset List', href: '/', current: false },
+            { name: 'Accessories List', href: '/', current: false },
+            { name: 'Consumables List', href: '/', current: false },
+            { name: 'Asset Inventory', href: '/', current: false },
         ],
     },
 
@@ -212,9 +215,9 @@ const navigation = [
         icon: FolderIcon,
         current: false,
         children: [
-            { name: 'Add New Employee', href: '#', current: false },
-            { name: 'Employee List', href: '#', current: false },
-            { name: 'OTE Availed', href: '#', current: false },
+            { name: 'Add New Employee', href: '/', current: false },
+            { name: 'Employee List', href: '/', current: false },
+            { name: 'OTE Availed', href: '/', current: false },
         ],
     },
 
@@ -224,13 +227,13 @@ const navigation = [
     //     icon: FolderIcon,
     //     current: false,
     //     children: [
-    //         { name: '', href: '#' },
+    //         { name: '', href: '/' },
     //     ],
     // },
 
     // { name: 'Layoutold', href: '/layoutold', icon: CalendarIcon, current: false },
-    // { name: 'Documents', href: '#', icon: DocumentDuplicateIcon, current: false },
-    // { name: 'Reports', href: '#', icon: ChartPieIcon, current: false },
+    // { name: 'Documents', href: '/', icon: DocumentDuplicateIcon, current: false },
+    // { name: 'Reports', href: '/', icon: ChartPieIcon, current: false },
 ]
 
 function classNames(...classes: any[]) {

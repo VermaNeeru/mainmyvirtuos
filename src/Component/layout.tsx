@@ -234,7 +234,7 @@ export default function Layout({ children }: any) {
                                     <Menu.Button className="-m-1.5 flex items-center p-1.5">
                                         <span className="sr-only">Open user menu</span>
                                         <Image
-                                            src="https://myvirtuos.com/uploads/profile/medium_thumb/Neeru_1632373943_mediumthumb.png"
+                                            src="https://myvirtuos.com/assets/images/happiests-logo_white.svg"
                                             alt=""
                                             width={100}
                                             height={100}
