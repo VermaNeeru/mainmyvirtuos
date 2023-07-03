@@ -1,5 +1,5 @@
 import React from 'react'
-
+import Link from 'next/link';
 
 
 export default function CurrentMonthAttendance() {
@@ -28,13 +28,13 @@ export default function CurrentMonthAttendance() {
                             <dt className="sr-only">Title</dt>
                             <dt className="sr-only">Role</dt>
                             <dd className="mt-3">
-                                <a href="/current_my_logon_hours"><button
+                                <Link href="/current_my_logon_hours"><button
                                     type="button"
                                     className="rounded-md bg-indigo-600 px-2.5 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                                 >
                                     View Detail
                                 </button>
-                                </a>
+                                </Link>
 
                             </dd>
                         </dl>
@@ -51,13 +51,15 @@ export default function CurrentMonthAttendance() {
                             <dt className="sr-only">Title</dt>
                             <dt className="sr-only">Role</dt>
                             <dd className="mt-3">
-                                <a href="/current_my_attendance"><button
-                                    type="button"
-                                    className="rounded-md bg-indigo-600 px-2.5 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                                >
-                                    View Detail
-                                </button>
-                                </a>
+                                <Link href="/current_my_logon_hours">
+                                    <button
+                                        type="button"
+                                        className="rounded-md bg-indigo-600 px-2.5 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                                    >
+                                        View Detail
+                                    </button>
+
+                                </Link>
                             </dd>
                         </dl>
                     </div>

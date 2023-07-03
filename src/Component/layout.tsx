@@ -28,6 +28,8 @@ import {
 } from '@heroicons/react/24/outline'
 import { ChevronDownIcon, MagnifyingGlassIcon } from '@heroicons/react/20/solid'
 import Test from '@/pages/test'
+import LayoutPro from '@/pages/LayoutPro'
+import Footer from '@/Component/footer'
 import Image from 'next/image'
 
 const navigation = [
