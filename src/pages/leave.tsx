@@ -54,7 +54,7 @@ const faqs = [
 ]
 
 
-export default function leave() {
+export default function Leave() {
     const [startDate, setStartDate] = useState(new Date());
     const [endDate, setEndDate] = useState(new Date());
     return (

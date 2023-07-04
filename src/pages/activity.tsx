@@ -1,4 +1,4 @@
-import ActivityPart1 from '@/Component/activityPart1'
+import ActivityPart1 from '@/Component/ActivityPart1'
 import Post from '@/Component/post'
 import Image from 'next/image'
 import React from 'react'
@@ -8,7 +8,7 @@ const people = [
         name: 'Leslie Alexander',
         comment: 'Congratulations Bhola',
         imageUrl:
-            'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
+            'https://myvirtuos.com/uploads/profile/medium_thumb/Sarika_1624601136_mediumthumb.png',
         href: '#',
         lastSeen: '3h ago',
         lastSeenDateTime: '09-01-2023 at 03:51:25',
@@ -17,7 +17,7 @@ const people = [
         name: 'Michael Foster',
         comment: 'Congratulations Bhola',
         imageUrl:
-            'https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
+            'https://myvirtuos.com/uploads/profile/medium_thumb/Sarika_1624601136_mediumthumb.png',
         href: '#',
         lastSeen: '3h ago',
         lastSeenDateTime: '09-01-2023 at 03:52:32',
@@ -49,7 +49,7 @@ export default function activity() {
                             >
                                 <div className='flex'>
                                     <div className="flex-shrink-0">
-                                        <Image className="h-10 w-10 rounded-full" height={100} width={100} src="https://myvirtuos.com/assets/images/happiests-logo_white.svg" alt="" />
+                                        <Image loader={({ src }) => `${src}`} className="h-10 w-10 rounded-full" height={100} width={100} src='https://myvirtuos.com/assets/images/happiests-logo_white.svg' alt="" />
                                     </div>
                                     <div className="min-w-0 flex-1 px-2">
                                         <a href="#" className="focus:outline-none">
@@ -68,13 +68,13 @@ export default function activity() {
 
                                 <div className="min-w-0 flex-1 mt-4">
                                     <ul role="list" className="divide-y divide-gray-100">
-                                        {people.map((person) => (
+                                        {people.map((person, index) => (
                                             <li
-
+                                                key={index}
                                                 className="relative flex justify-between gap-x-6 px-4 py-5 hover:bg-gray-50 sm:px-6 lg:px-8"
                                             >
                                                 <div className="flex gap-x-4">
-                                                    <img className="h-12 w-12 flex-none rounded-full bg-gray-50" src={person.imageUrl} alt="" />
+                                                    <Image loader={({ src }) => `${src}`} height={100} width={100} className="h-12 w-12 flex-none rounded-full bg-gray-50" src={person.imageUrl} alt="" />
                                                     <div className="min-w-0 flex-auto">
                                                         <p className="text-sm font-semibold leading-6 text-gray-900">
                                                             <a href={person.href}>

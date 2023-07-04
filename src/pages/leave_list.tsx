@@ -16,7 +16,7 @@ const user_attendance = [
 ]
 
 
-export default function leave_list() {
+export default function LeaveList() {
     return (
         <div className=' w-full rounded px-2'>
             <div className="rounded-t mb-4 px-4 bg-transparent">
@@ -52,9 +52,9 @@ export default function leave_list() {
                                     <table className="min-w-full divide-y divide-gray-300">
                                         <thead className="bg-gray-50">
                                             <tr>
-                                                {table_header.map((val) => (
+                                                {table_header.map((val, index) => (
 
-                                                    <th scope="col" className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">
+                                                    <th scope="col" key={index} className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">
                                                         {val.name}
                                                     </th>
                                                 ))}

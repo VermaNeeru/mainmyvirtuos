@@ -3,7 +3,7 @@ import LeaveCalendar from '@/Component/LeaveCalendar'
 import React, { useState } from 'react'
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-export default function leave_calendar() {
+export default function LeaveCalendar() {
     const [selectMonth, setSelectMonth] = useState(new Date());
     return (
         <div className=' w-full rounded px-2'>

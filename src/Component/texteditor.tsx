@@ -43,7 +43,7 @@ const formats = [
     'image',
     'video',
 ]
-export default function Home() {
+export default function TextEditor() {
     return (
         <div className='h-72'>
             <QuillNoSSRWrapper modules={modules} formats={formats} theme="snow" className='h-52' />

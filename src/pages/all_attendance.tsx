@@ -25,7 +25,7 @@ const user_attendance = [
 ]
 
 
-export default function all_attendance() {
+export default function AllAttendance() {
     const [startDate, setStartDate] = useState(new Date());
     const [endDate, setEndDate] = useState(new Date());
     const people = [
@@ -235,9 +235,9 @@ export default function all_attendance() {
                                     <table className="min-w-full divide-y divide-gray-300">
                                         <thead className="bg-gray-50">
                                             <tr>
-                                                {table_header.map((val) => (
+                                                {table_header.map((val, index) => (
 
-                                                    <th scope="col" className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">
+                                                    <th key={index} scope="col" className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">
                                                         {val.name}
                                                     </th>
                                                 ))}
