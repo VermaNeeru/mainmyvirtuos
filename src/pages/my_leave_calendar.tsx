@@ -1,10 +1,10 @@
 import EmployeeSearch from '@/Component/EmployeeSearch'
-import LeaveCalendarCompo from '@/Component/LeaveCalendar'
-
+import LeaveCalendar from '@/Component/LeaveCalendar'
 import React, { useState } from 'react'
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-export default function LeaveCalendar() {
+
+export default function MyLeaveCalendar() {
     const [selectMonth, setSelectMonth] = useState(new Date());
     return (
         <div className=' w-full rounded px-2'>
@@ -12,7 +12,7 @@ export default function LeaveCalendar() {
                 <div className="flex flex-wrap items-center">
                     <div className="relative w-full max-w-full flex-grow flex-1">
                         <h2 className="text-blueGray-700 text-xl font-semibold">
-                            Leave Calendar
+                            My Leave Calendar
                         </h2>
 
                     </div>
@@ -115,7 +115,7 @@ export default function LeaveCalendar() {
                     </div>
                 </div>
                 <div className="w-2/3 ...  px-2">
-                    <LeaveCalendarCompo />
+                    <LeaveCalendar />
                 </div>
 
             </div>
