@@ -20,7 +20,7 @@ const user_attendance = [
     // More people...
 ]
 
-export default function search_wfh() {
+export default function SearchWfh() {
 
     const [wfhdate, setwfhdate] = useState(new Date());
     const [fromdate, setfromdate] = useState(new Date());
