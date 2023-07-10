@@ -311,7 +311,7 @@ export default function Testing() {
                                                                 <Link href={subItem.href}>
                                                                     <span className={classNames(
                                                                         subItem?.current ? 'bg-gray-800' : 'text-gray-150 hover:bg-gray-800',
-                                                                        'block rounded-md py-2 pr-2 pl-9 text-sm leading-6 text-gray-700'
+                                                                        'block rounded-md py-2 pr-2 pl-9 text-sm leading-6 text-gray-500'
                                                                     )}>
                                                                         {subItem.name}
                                                                     </span>

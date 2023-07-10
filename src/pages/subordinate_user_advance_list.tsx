@@ -4,6 +4,7 @@ import { Dialog, Menu, Transition } from '@headlessui/react'
 import { XMarkIcon, ChevronDownIcon } from '@heroicons/react/20/solid'
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import EmployeeSearch from '@/Component/EmployeeSearch';
 
 const table_header = [
     { name: 'Month' },
@@ -14,10 +15,12 @@ const table_header = [
 
 ];
 const accounts_travel = [
-    { id: 1, month: 'February', total_advance_req: '0', total_advance_approved: '0', total_expenses: '198' },
+    { id: 1, month: 'January', total_advance_req: '0', total_advance_approved: '0', total_expenses: '198' },
+    { id: 2, month: 'February', total_advance_req: '2', total_advance_approved: '0', total_expenses: '208' },
+    { id: 3, month: 'March', total_advance_req: '0', total_advance_approved: '0', total_expenses: '198' },
     // More people...
 ]
-export default function AllUserAdvanceList() {
+export default function SubordinateUserAdvanceList() {
     const [selectedYear, setSelectedYear] = useState<Date | null>(null);
 
     const handleYearChange = (date: Date) => {
@@ -32,8 +35,9 @@ export default function AllUserAdvanceList() {
                 <div className="flex flex-wrap items-center">
                     <div className="relative w-full max-w-full flex-grow flex-1">
                         <h2 className="text-blueGray-700 text-xl font-semibold">
-                            All Users Advances for Year 2023
+                            Subordinate Advance List
                         </h2>
+
                     </div>
                 </div>
             </div>
@@ -41,32 +45,47 @@ export default function AllUserAdvanceList() {
                 <div className=" mb-4 px-4 py-4">
 
                     <form>
-                        <div className="mt-2 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-1">
-                            <div className="sm:col-span-1 ">
-                                <div className='grid grid-cols-3 gap-x-6 gap-y-8 sm:grid-cols-6'>
-                                    <label htmlFor="start-date" className="sm:col-span-1  block text-sm font-medium leading-6 text-gray-900">
-                                        Search by Year
-                                    </label>
-                                    <div className="sm:col-span-1 ">
-                                        <DatePicker
-                                            dateFormat="yyyy"
-                                            showYearPicker
-                                            selected={selectedYear}
-                                            onChange={handleYearChange}
-                                            placeholderText="Select Year"
-                                            className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 px-2"
-                                        />
-                                    </div>
+                        <div className="mt-2 grid grid-cols-3 gap-x-6 gap-y-8 sm:grid-cols-6">
+                            <div className="sm:col-span-2">
+                                <label htmlFor="start-date" className="block text-sm font-medium leading-6 text-gray-900">
+                                    Search by Year
+                                </label>
+                                <div className="mt-3">
+                                    <DatePicker
+                                        dateFormat="yyyy"
+                                        showYearPicker
+                                        selected={selectedYear}
+                                        onChange={handleYearChange}
+                                        placeholderText="Select Year"
+                                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 px-2"
+                                    />
+
+                                </div>
+                            </div>
+
+
+                            <div className="sm:col-span-2">
+                                <div className="mt-1">
+                                    <EmployeeSearch />
+                                </div>
+                            </div>
+                            <div className="sm:col-span-2">
+                                <div className="mt-8">
                                     <button
-                                        type="button"
-                                        className="sm:col-span-1  rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                                        type="submit"
+                                        className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                                     >
                                         Search
                                     </button>
-                                </div>
 
+                                </div>
                             </div>
+
+
+
+
                         </div>
+
 
                     </form>
                 </div>
