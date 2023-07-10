@@ -7,18 +7,18 @@ interface Message {
 }
 export default function Notification({ message }: Message) {
     const [show, setShow] = useState(true);
-    useEffect(() => {
-        const timer = setTimeout(() => {
-            setShow(false);
-        }, 3000);
+    // useEffect(() => {
+    //     const timer = setTimeout(() => {
+    //         setShow(false);
+    //     }, 3000);
 
-        return () => {
-            clearTimeout(timer);
-        };
-    }, []);
-    if (!show) {
-        return null;
-    }
+    //     return () => {
+    //         clearTimeout(timer);
+    //     };
+    // }, []);
+    // if (!show) {
+    //     return null;
+    // }
     return (
         <>
             {/* Global notification live region, render this permanently at the end of the document */}

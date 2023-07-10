@@ -9,6 +9,8 @@ import {
     UsersIcon,
 } from '@heroicons/react/24/outline'
 import Image from 'next/image'
+import Link from 'next/link'
+
 
 const navigation = [
     { name: 'Dashboard', href: '/', icon: HomeIcon, current: true },
@@ -51,7 +53,15 @@ const navigation = [
         icon: FolderIcon,
         current: false,
         children: [
+            { name: 'All Travel Request', href: '/accounts_travel', current: false },
+            { name: 'All other advance', href: '/all_user_advance_list', current: false },
+            { name: 'Subordinate other advance', href: '/subordinate_user_advance_list', current: false },
+            { name: 'Subordinate WFH/Short Leaves', href: '/subordinate_wfh', current: false },
             { name: 'All WFH/Short Leaves', href: '/current_month_wfh', current: false },
+            { name: 'Other WFH/Short Leaves', href: '/other_wfh', current: false },
+            { name: 'Subordinate Leaves', href: '/all_subordinateleaves', current: false },
+            { name: 'All travel Expenses', href: '/all_expense_list', current: false },
+            { name: 'Subordinate travel Request', href: '/all_travel_request', current: false },
             { name: 'All Leaves', href: '/all_leaves', current: false },
         ],
     },
@@ -259,7 +269,7 @@ export default function Testing() {
                             {navigation.map((item) => (
                                 <li key={item.name}>
                                     {!item.children ? (
-                                        <a
+                                        <Link
                                             href={item.href}
                                             className={classNames(
                                                 item?.current
@@ -270,7 +280,7 @@ export default function Testing() {
                                         >
                                             <item.icon className="h-6 w-6 shrink-0 text-gray-400" aria-hidden="true" />
                                             {item.name}
-                                        </a>
+                                        </Link>
                                     ) : (
                                         <Disclosure as="div">
                                             {({ open }) => (
@@ -293,23 +303,23 @@ export default function Testing() {
                                                             aria-hidden="true"
                                                         />
                                                     </Disclosure.Button>
+
                                                     <Disclosure.Panel as="ul" className="mt-1 px-2">
                                                         {item.children.map((subItem) => (
                                                             <li key={subItem.name}>
-                                                                {/* 44px */}
-                                                                <Disclosure.Button
-                                                                    as="a"
-                                                                    href={subItem.href}
-                                                                    className={classNames(
+                                                                {/* Replace <a> with <Link> */}
+                                                                <Link href={subItem.href}>
+                                                                    <span className={classNames(
                                                                         subItem?.current ? 'bg-gray-800' : 'text-gray-150 hover:bg-gray-800',
                                                                         'block rounded-md py-2 pr-2 pl-9 text-sm leading-6 text-gray-700'
-                                                                    )}
-                                                                >
-                                                                    {subItem.name}
-                                                                </Disclosure.Button>
+                                                                    )}>
+                                                                        {subItem.name}
+                                                                    </span>
+                                                                </Link>
                                                             </li>
                                                         ))}
                                                     </Disclosure.Panel>
+
                                                 </>
                                             )}
                                         </Disclosure>
@@ -319,7 +329,7 @@ export default function Testing() {
                         </ul>
                     </li>
                     {/* <li className="-mx-6 mt-auto">
-                        <a
+                        <Link
                             href="#"
                             className="flex items-center gap-x-4 px-6 py-3 text-sm font-semibold leading-6 text-gray-900 hover:bg-gray-50"
                         >

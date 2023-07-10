@@ -1,13 +1,14 @@
-import React, { Fragment, useState, useRef } from 'react'
+import React, { Fragment, useState, useRef, useEffect } from 'react'
 
 import { ExclamationTriangleIcon, BarsArrowUpIcon, MagnifyingGlassIcon } from '@heroicons/react/20/solid'
 import Link from 'next/link';
 import { Dialog, Menu, Transition } from '@headlessui/react'
 import { XMarkIcon, ChevronDownIcon } from '@heroicons/react/20/solid'
+import Alert from '@/Component/Alert';
 
 const table_header = [
-    { name: 'By' },
     { name: 'Leave Type' },
+    { name: 'By' },
     { name: 'Applied Date' },
     { name: 'From Date' },
     { name: 'To Date' },
@@ -52,10 +53,29 @@ export default function AllLeaves() {
 
     const cancelButtonRef = useRef(null)
 
-    const [deletealert, setDeleteAlert] = useState('none')
-    const [updatealert, setUpdateAlert] = useState('none')
+    const [showUpdateMessage, setshowUpdateMessage] = useState(false);
+    const [showDeleteMessage, setshowDeleteMessage] = useState(false);
+
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            console.log('update', showUpdateMessage)
+            console.log('delete', showDeleteMessage)
+            setshowUpdateMessage(false);
+            setshowDeleteMessage(false);
+        }, 3000);
+
+        return () => {
+            clearTimeout(timer);
+        };
+    }, [showUpdateMessage, showDeleteMessage]);
     return (
         <div className=' w-full rounded px-2'>
+            {showUpdateMessage && (
+                <Alert message="Please select leaves/status to update!" />
+            )}
+            {showDeleteMessage && (
+                <Alert message="Please select leaves to delete!" />
+            )}
             <div className="rounded-t mb-4 px-4 bg-transparent">
                 <div className="flex flex-wrap items-center">
                     <div className="relative w-full max-w-full flex-grow flex-1">
@@ -152,45 +172,13 @@ export default function AllLeaves() {
                     </ul>
 
                 </div>
-                <div style={{ display: deletealert }} className="border-l-4 border-yellow-400 bg-yellow-50 p-4">
-                    <div className="flex w-full">
-                        <div className="flex-shrink-0">
-                            <ExclamationTriangleIcon className="h-5 w-5 text-yellow-400" aria-hidden="true" />
-                        </div>
-                        <div className="ml-3">
-                            <p className="text-sm text-yellow-700">
-                                Please select leaves to delete
 
-                            </p>
-                        </div>
-                        <div className='text-right ml-10'>
-                            <XMarkIcon className="h-6 w-6  text-yellow-700" onClick={() => setDeleteAlert('none')} />
-                        </div>
-                    </div>
-                </div>
-                <div style={{ display: updatealert }} className="border-l-4 border-yellow-400 bg-yellow-50 p-4">
-                    <div className="flex w-full">
-                        <div className="flex-shrink-0">
-                            <ExclamationTriangleIcon className="h-5 w-5 text-yellow-400" aria-hidden="true" />
-                        </div>
-                        <div className="ml-3">
-                            <p className="text-sm text-yellow-700">
-                                Please select leaves/Status to update
-
-                            </p>
-                        </div>
-                        <div className='text-right ml-10'>
-                            <XMarkIcon className="h-6 w-6  text-yellow-700" onClick={() => setUpdateAlert('none')} />
-                        </div>
-                    </div>
-                </div>
                 <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 rounded mt-6">
                     <div className=" py-3 px-4 flex-auto">
                         <div className="tab-content tab-space">
                             <div className={openTab === 1 ? "block" : "hidden"} id="link1">
                                 <div className=' rounded-lg border border-gray-300 bg-white mb-4'>
                                     <div className=" mb-4 px-4 py-4">
-
                                         <form>
                                             <div className="space-y-2">
                                                 <div className="pb-4">
@@ -265,7 +253,7 @@ export default function AllLeaves() {
                                                                         </select>
 
                                                                     </div>
-                                                                    <button onClick={() => setUpdateAlert('block')}
+                                                                    <button onClick={() => setshowUpdateMessage(true)}
                                                                         type="button"
                                                                         className="ml-10 relative   bg-indigo-600  text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 inline-flex gap-x-1.5 px-3 py-2 text-sm font-semibold ring-1 ring-inset ring-gray-300"
                                                                     >
@@ -274,7 +262,7 @@ export default function AllLeaves() {
                                                                 </div>
                                                                 <div className='mt-2 '>
 
-                                                                    <button onClick={() => setDeleteAlert('block')}
+                                                                    <button onClick={() => setshowDeleteMessage(true)}
                                                                         type="button"
                                                                         className="relative   bg-indigo-600  text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 inline-flex gap-x-1.5 px-3 py-2 text-sm font-semibold ring-1 ring-inset ring-gray-300"
                                                                     >
