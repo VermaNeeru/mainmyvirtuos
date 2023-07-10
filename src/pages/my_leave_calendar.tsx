@@ -86,7 +86,7 @@ export default function MyLeaveCalendar() {
 
                                                 <div className="mt-3">
                                                     <DatePicker selected={selectMonth} onChange=
-                                                        {(date: React.SetStateAction<Date>) => setselectMonth(date)} className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 px-2"
+                                                        {(date: React.SetStateAction<Date>) => setSelectMonth(date)} className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 px-2"
                                                     />
 
                                                 </div>

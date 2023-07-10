@@ -68,6 +68,14 @@ export default function AllLeaves() {
             clearTimeout(timer);
         };
     }, [showUpdateMessage, showDeleteMessage]);
+    function setUpdateAlert(arg0: string): void {
+        throw new Error('Function not implemented.');
+    }
+
+    function setDeleteAlert(arg0: string): void {
+        throw new Error('Function not implemented.');
+    }
+
     return (
         <div className=' w-full rounded px-2'>
             {showUpdateMessage && (
@@ -447,7 +455,9 @@ export default function AllLeaves() {
                                                                         </select>
 
                                                                     </div>
-                                                                    <button onClick={() => setUpdateAlert('block')}
+                                                                    <button onClick={() => {
+                                                                        return setUpdateAlert('block');
+                                                                    }}
                                                                         type="button"
                                                                         className="ml-10 relative   bg-indigo-600  text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 inline-flex gap-x-1.5 px-3 py-2 text-sm font-semibold ring-1 ring-inset ring-gray-300"
                                                                     >
