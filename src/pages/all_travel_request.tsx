@@ -157,6 +157,7 @@ export default function SubordinateWfh() {
                 </div>
 
                 <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 rounded mt-6">
+                    <p className='px-1 py-1 text-gray-600 text-sm'>All Details already emailed .Please refer your Inbox.</p>
                     <div className=" py-3 px-4 flex-auto">
                         <div className="tab-content tab-space">
                             <div className={openTab === 1 ? "block" : "hidden"} id="link1">

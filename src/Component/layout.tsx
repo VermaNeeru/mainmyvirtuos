@@ -279,8 +279,8 @@ export default function Layout({ children }: any) {
                         </div>
                     </div>
 
-                    <main className="py-10 ">
-                        <div className="px-4 sm:px-6 lg:px-8 mb-16 " >{children}</div>
+                    <main className="py-6 ">
+                        <div className="px-2 sm:px-6 lg:px-4 mb-16 " >{children}</div>
 
                     </main>
                     {/* <div className=' absolute inset-x-0 bottom-0 h-16  ml-72 mb-0'>
