@@ -9,6 +9,7 @@ const documents = [
     { id: 1, by: 'Aakash Sharma', dname: 'Virtuos Spectacular Handbook' },
     { id: 1, by: 'Aakash Sharma', dname: 'Virtuos Programs Guide' },
     { id: 1, by: 'Aakash Sharma', dname: 'Virtuos Policies' },
+    { id: 1, by: 'Aakash Sharma', dname: 'Virtuos Policies' },
     // More people...
 ]
 
