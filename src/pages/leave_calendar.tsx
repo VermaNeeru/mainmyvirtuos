@@ -5,7 +5,12 @@ import React, { useState } from 'react'
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 export default function LeaveCalendar() {
-    const [selectMonth, setSelectMonth] = useState(new Date());
+    const [selectedYear, setSelectedYear] = useState<Date | null>(null);
+
+    const handleYearChange = (date: Date) => {
+
+        setSelectedYear(date);
+    };
     return (
         <div className=' w-full rounded px-2'>
             <div className="rounded-t mb-4 px-4 bg-transparent">
@@ -85,8 +90,13 @@ export default function LeaveCalendar() {
                                                 </label>
 
                                                 <div className="mt-3">
-                                                    <DatePicker selected={selectMonth} onChange=
-                                                        {(date: React.SetStateAction<Date>) => setSelectMonth(date)} className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 px-2"
+                                                    <DatePicker
+                                                        dateFormat="MMMM yyyy"
+                                                        showMonthYearPicker
+                                                        selected={selectedYear}
+                                                        onChange={handleYearChange}
+                                                        placeholderText="Select Year"
+                                                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 px-2"
                                                     />
 
                                                 </div>

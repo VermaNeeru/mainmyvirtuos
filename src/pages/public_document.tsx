@@ -35,7 +35,7 @@ export default function PublicDocument() {
                     <div className="sm:flex sm:items-center ">
                         <div className="sm:flex-auto">
                             {/* <h1 className="text-base font-semibold leading-6 text-gray-900">My Logon Hours - Current Month</h1> */}
-                            <div className="w-96 mt-1 flex rounded-md shadow-sm">
+                            <div className="lg:w-96 mt-1 flex rounded-md shadow-sm">
                                 <div className="relative flex flex-grow items-stretch focus-within:z-10">
                                     <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
                                         <MagnifyingGlassIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
@@ -122,7 +122,7 @@ export default function PublicDocument() {
                                                                 <div className="mt-1">
                                                                     <table className="min-w-full divide-y divide-gray-300">
                                                                         <tr key="1">
-                                                                            <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-600 sm:pl-6">
+                                                                            <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm text-gray-600 sm:pl-6">
                                                                                 Document Name
                                                                             </td>
                                                                             <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-500 sm:pl-6">
@@ -131,7 +131,7 @@ export default function PublicDocument() {
 
                                                                         </tr>
                                                                         <tr key="1">
-                                                                            <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-600 sm:pl-6">
+                                                                            <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm text-gray-600 sm:pl-6">
                                                                                 Detail
                                                                             </td>
                                                                             <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-500 sm:pl-6">
@@ -140,7 +140,7 @@ export default function PublicDocument() {
 
                                                                         </tr>
                                                                         <tr key="1">
-                                                                            <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-600 sm:pl-6">
+                                                                            <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm text-gray-600 sm:pl-6">
                                                                                 Added on
                                                                             </td>
                                                                             <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-500 sm:pl-6">
@@ -149,7 +149,7 @@ export default function PublicDocument() {
 
                                                                         </tr>
                                                                         <tr key="1">
-                                                                            <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-600 sm:pl-6">
+                                                                            <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm text-gray-600 sm:pl-6">
 
                                                                             </td>
                                                                             <td className="flex whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-500 sm:pl-6">

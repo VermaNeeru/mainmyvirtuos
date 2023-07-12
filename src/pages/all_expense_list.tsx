@@ -81,7 +81,7 @@ export default function AccountsTravel() {
                                             <a onClick={() => setViewDoc(true)} className="bg-gray-100 text-gray-600 block px-2 py-2 ">View Documents</a>
 
                                         </td>
-                                        <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
+                                        <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                                             <select
                                                 id="location"
                                                 name="location"

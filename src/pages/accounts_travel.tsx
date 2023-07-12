@@ -121,7 +121,7 @@ export default function AccountsTravel() {
                                                                 <div className="mt-1">
                                                                     <table className="min-w-full divide-y divide-gray-300">
                                                                         <tr key="1">
-                                                                            <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-600 sm:pl-6">
+                                                                            <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm text-gray-600 sm:pl-6">
                                                                                 By
                                                                             </td>
                                                                             <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-500 sm:pl-6">
@@ -130,7 +130,7 @@ export default function AccountsTravel() {
 
                                                                         </tr>
                                                                         <tr key="1">
-                                                                            <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-600 sm:pl-6">
+                                                                            <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm text-gray-600 sm:pl-6">
                                                                                 Name
                                                                             </td>
                                                                             <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-500 sm:pl-6">
@@ -139,7 +139,7 @@ export default function AccountsTravel() {
 
                                                                         </tr>
                                                                         <tr key="1">
-                                                                            <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-600 sm:pl-6">
+                                                                            <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm text-gray-600 sm:pl-6">
                                                                                 Purpose
                                                                             </td>
                                                                             <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-500 sm:pl-6">
@@ -148,7 +148,7 @@ export default function AccountsTravel() {
 
                                                                         </tr>
                                                                         <tr key="1">
-                                                                            <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-600 sm:pl-6">
+                                                                            <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm text-gray-600 sm:pl-6">
                                                                                 Date
                                                                             </td>
                                                                             <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-500 sm:pl-6">
@@ -157,7 +157,7 @@ export default function AccountsTravel() {
 
                                                                         </tr>
                                                                         <tr key="1">
-                                                                            <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-600 sm:pl-6">
+                                                                            <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm text-gray-600 sm:pl-6">
                                                                                 Adv Req
                                                                             </td>
                                                                             <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-500 sm:pl-6">
@@ -166,7 +166,7 @@ export default function AccountsTravel() {
                                                                         </tr>
 
                                                                         <tr key="1">
-                                                                            <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-600 sm:pl-6">
+                                                                            <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm text-gray-600 sm:pl-6">
                                                                                 Adv Paid
                                                                             </td>
                                                                             <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-500 sm:pl-6">
@@ -175,7 +175,7 @@ export default function AccountsTravel() {
                                                                         </tr>
 
                                                                         <tr key="1">
-                                                                            <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-600 sm:pl-6">
+                                                                            <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm text-gray-600 sm:pl-6">
                                                                                 Total Expenses
                                                                             </td>
                                                                             <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-500 sm:pl-6">

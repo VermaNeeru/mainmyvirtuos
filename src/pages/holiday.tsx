@@ -1,3 +1,4 @@
+import YearViewCalendar from '@/Component/Calendar/YearViewCalendar'
 import React from 'react'
 
 export default function Template() {
@@ -7,14 +8,14 @@ export default function Template() {
                 <div className="flex flex-wrap items-center">
                     <div className="relative w-full max-w-full flex-grow flex-1">
                         <h2 className="text-blueGray-700 text-xl font-semibold">
-                            Template
+                            Holiday Calendar
                         </h2>
 
                     </div>
                 </div>
             </div>
-            <div className=' rounded-lg border border-gray-300 bg-white '>
-
+            <div className=' rounded-lg border border-gray-300 bg-white  py-6 mb-2'>
+                <YearViewCalendar />
             </div>
         </div>
     )

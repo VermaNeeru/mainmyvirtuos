@@ -33,7 +33,7 @@ export default function AdminDocumentList() {
                     <div className="sm:flex sm:items-center">
                         <div className="sm:flex-auto">
                             {/* <h1 className="text-base font-semibold leading-6 text-gray-900">My Logon Hours - Current Month</h1> */}
-                            <div className="w-96 mt-1 flex rounded-md shadow-sm">
+                            <div className="lg:w-96 mt-1 flex rounded-md shadow-sm">
                                 <div className="relative flex flex-grow items-stretch focus-within:z-10">
                                     <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
                                         <MagnifyingGlassIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />

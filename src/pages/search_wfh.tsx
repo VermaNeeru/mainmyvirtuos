@@ -197,7 +197,7 @@ export default function SearchWfh() {
                                                                                 <div className="mt-1">
                                                                                     <table className="min-w-full divide-y divide-gray-300">
                                                                                         <tr key="1">
-                                                                                            <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-600 sm:pl-6">
+                                                                                            <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm text-gray-600 sm:pl-6">
                                                                                                 Date
                                                                                             </td>
                                                                                             <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-500 sm:pl-6">
@@ -206,7 +206,7 @@ export default function SearchWfh() {
 
                                                                                         </tr>
                                                                                         <tr key="1">
-                                                                                            <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-600 sm:pl-6">
+                                                                                            <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm text-gray-600 sm:pl-6">
                                                                                                 Type
                                                                                             </td>
                                                                                             <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-500 sm:pl-6">
@@ -215,7 +215,7 @@ export default function SearchWfh() {
 
                                                                                         </tr>
                                                                                         <tr key="1">
-                                                                                            <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-600 sm:pl-6">
+                                                                                            <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm text-gray-600 sm:pl-6">
                                                                                                 Time slot
                                                                                             </td>
                                                                                             <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-500 sm:pl-6">
@@ -224,7 +224,7 @@ export default function SearchWfh() {
 
                                                                                         </tr>
                                                                                         <tr key="1">
-                                                                                            <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-600 sm:pl-6">
+                                                                                            <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm text-gray-600 sm:pl-6">
                                                                                                 Description
                                                                                             </td>
                                                                                             <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-500 sm:pl-6">

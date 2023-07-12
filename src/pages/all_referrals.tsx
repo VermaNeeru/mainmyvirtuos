@@ -1,26 +1,25 @@
 import React, { Fragment, useState, useRef, useEffect } from 'react'
 
-import { ExclamationTriangleIcon, BarsArrowUpIcon, MagnifyingGlassIcon } from '@heroicons/react/20/solid'
+import { ExclamationTriangleIcon, BarsArrowUpIcon, MagnifyingGlassIcon, DocumentIcon } from '@heroicons/react/20/solid'
 import Link from 'next/link';
 import { Dialog, Menu, Transition } from '@headlessui/react'
 import { XMarkIcon, ChevronDownIcon, TrashIcon } from '@heroicons/react/20/solid'
 import Alert from '@/Component/Alert';
 const table_header = [
-    { name: 'Category Name' },
-    { name: 'Status' },
+    { name: 'Reffered By' },
+    { name: 'Name' },
+    { name: 'Phone' },
+    { name: 'Email' },
+    { name: 'Job' },
+    { name: 'Resume' },
     { name: '' },
-    { name: '' },
-
-
 ];
-const accounts_travel = [
-    { id: 1, cname: 'Christmas Celebration 2019', status: 'Active' },
-    { id: 1, cname: 'Diwali Celebration 2019', status: 'Active' },
-    { id: 1, cname: 'FRIBDAY', status: 'Active' },
+const refferals = [
+    { id: 1, by: 'Neeru', rname: 'test', phone: '1234567890', email: 'test@virtuos.com', job: 'test', resume: '', },
     // More people...
 ]
 
-export default function Gallery() {
+export default function AllReferrals() {
     const [showDeleteMessage, setshowDeleteMessage] = useState(false);
     return (
         <div className=' w-full rounded px-2'>
@@ -31,7 +30,7 @@ export default function Gallery() {
                 <div className="flex flex-wrap items-center">
                     <div className="relative w-full max-w-full flex-grow flex-1">
                         <h2 className="text-blueGray-700 text-xl font-semibold">
-                            Manage Category
+                            My refferals
                         </h2>
                     </div>
                 </div>
@@ -63,15 +62,7 @@ export default function Gallery() {
                                     </button>
                                 </div>
                             </div>
-                            <div className="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
-                                <Link href="/add_category" >
-                                    <span
-                                        className="block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                                    >
-                                        Add New Category
-                                    </span>
-                                </Link>
-                            </div>
+
                         </div>
                         <div className="mt-4 overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg">
                             <table className="min-w-full divide-y divide-gray-300">
@@ -98,56 +89,21 @@ export default function Gallery() {
                                                 {val.name}
                                             </th>
                                         ))}
-
-                                        <th></th>
                                     </tr>
                                 </thead>
                                 <tbody className="divide-y divide-gray-200 bg-white">
-                                    {accounts_travel.map((person) => (
+                                    {refferals.map((person) => (
                                         <tr key={person.id}>
                                             <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
-                                                {person.cname}
+                                                {person.by}
                                             </td>
-                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.status}</td>
+                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.rname}</td>
+                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.phone}</td>
+                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.email}</td>
+                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.job}</td>
                                             <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-
-                                            </td>
-                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                                                <Menu as="div" className="relative inline-block text-left">
-                                                    <div>
-                                                        <Menu.Button className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-600 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
-                                                            Actions
-                                                            <ChevronDownIcon className="-mr-1 h-5 w-5 text-gray-400" aria-hidden="true" />
-                                                        </Menu.Button>
-                                                    </div>
-
-                                                    <Transition
-                                                        as={Fragment}
-                                                        enter="transition ease-out duration-100"
-                                                        enterFrom="transform opacity-0 scale-95"
-                                                        enterTo="transform opacity-100 scale-100"
-                                                        leave="transition ease-in duration-75"
-                                                        leaveFrom="transform opacity-100 scale-100"
-                                                        leaveTo="transform opacity-0 scale-95"
-                                                    >
-                                                        <Menu.Items className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                                                            <div className="py-1">
-                                                                <Menu.Item>
-                                                                    <Link href="/load_category">
-                                                                        <span className="bg-gray-100 text-gray-600 block px-4 py-2 text-sm">Edit</span>
-                                                                    </Link>
-
-                                                                </Menu.Item>
-
-                                                                <Menu.Item>
-                                                                    <a onClick={() => setshowDeleteMessage(true)} className="bg-gray-100 text-gray-600 block px-4 py-2 text-sm">Delete</a>
-                                                                </Menu.Item>
-
-
-                                                            </div>
-                                                        </Menu.Items>
-                                                    </Transition>
-                                                </Menu>
+                                                {/* {person.job} */}
+                                                <DocumentIcon className="h-6 w-6 text-gray-500" />
 
                                             </td>
                                             <td>

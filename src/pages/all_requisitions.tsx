@@ -5,38 +5,39 @@ import { XMarkIcon, ChevronDownIcon } from '@heroicons/react/20/solid'
 import Link from 'next/link';
 
 const table_header = [
-    { name: 'Type' },
     { name: 'By' },
-    { name: 'Date' },
-    { name: 'Manager Status' },
-    { name: "Manager's Manager Status" },
-    { name: 'Detail' },
+    { name: 'For' },
+    { name: 'Type' },
+    { name: 'Item' },
+    { name: "Quantity" },
+    { name: 'Req On' },
+    { name: 'Status' },
 
 ];
 const pending_leaves = [
-    { id: 1, type: 'Short Leave', by: 'Shivam Chawla', applieddate: '04-07-2023', status: 'Pending', mstatus: 'Pending' },
-    { id: 2, type: 'Short Leave', by: 'Zishan Khan', applieddate: '04-07-2023', status: 'Pending', mstatus: 'Pending' },
-    { id: 3, type: 'WFH', by: '	Ayushi Chandra', applieddate: '04-07-2023', status: 'Pending', mstatus: 'Pending' },
+    { id: 1, type: 'IT Related', by: 'Shivam Chawla', fordate: '04-07-2023', reqon: '12-07-2023', quantity: '1', item: 'Laptop..', status: 'Pending', mstatus: 'Pending' },
+    { id: 2, type: 'IT Related', by: 'Zishan Khan', fordate: '04-07-2023', reqon: '12-07-2023', quantity: '1', item: 'Laptop..', status: 'Pending', mstatus: 'Pending' },
+    { id: 3, type: 'Stationary', by: '	Ayushi Chandra', fordate: '04-07-2023', reqon: '12-07-2023', quantity: '1', item: 'pens..', status: 'Pending', mstatus: 'Pending' },
     // More people...
 ]
 
 const approved_leaves = [
-    { id: 1, type: 'WFH', by: 'Neeru Verma', applieddate: '04-07-2023', status: 'Pending', mstatus: 'Approved' },
-    { id: 2, type: 'Short Leave', by: 'Zishan Khan', applieddate: '04-07-2023', status: 'Pending', mstatus: 'Approved' },
-    { id: 3, type: 'WFH', by: '	Ayushi Chandra', applieddate: '04-07-2023', status: 'Pending', mstatus: 'Approved' },
+    { id: 1, type: 'Dongle', by: 'Neeru Verma', fordate: '04-07-2023', reqon: '12-07-2023', quantity: '1', item: 'GC-Order Task..', status: 'Pending', mstatus: 'Approved' },
+    { id: 2, type: 'IT Related', by: 'Zishan Khan', fordate: '04-07-2023', reqon: '12-07-2023', quantity: '1', item: 'Laptop..', status: 'Pending', mstatus: 'Approved' },
+    { id: 3, type: 'Stationary', by: '	Ayushi Chandra', fordate: '04-07-2023', reqon: '12-07-2023', quantity: '1', item: 'pens..', status: 'Pending', mstatus: 'Approved' },
     // More people...
 ]
 
 const rejected_leaves = [
-    { id: 1, type: 'Full Day', by: 'Bhumika Bist', applieddate: '04-07-2023', status: 'Pending', mstatus: 'Rejected' },
-    { id: 2, type: 'Short Leave', by: 'Zishan Khan', applieddate: '04-07-2023', status: 'Pending', mstatus: 'Rejected' },
-    { id: 3, type: 'WFH', by: '	Ayushi Chandra', applieddate: '04-07-2023', status: 'Pending', mstatus: 'Rejected' },
+    { id: 1, type: 'IT Related', by: 'Bhumika Bist', fordate: '04-07-2023', reqon: '12-07-2023', quantity: '1', item: 'pens..', status: 'Pending', mstatus: 'Rejected' },
+    { id: 2, type: 'IT Related', by: 'Zishan Khan', fordate: '04-07-2023', reqon: '12-07-2023', quantity: '1', item: 'pens..', status: 'Pending', mstatus: 'Rejected' },
+    { id: 3, type: 'Stationary', by: '	Ayushi Chandra', fordate: '04-07-2023', reqon: '12-07-2023', quantity: '1', item: 'pens..', status: 'Pending', mstatus: 'Rejected' },
     // More people...
 ]
 
-export default function CurrentMonthWfh() {
+export default function AllRequisitions() {
     const [openTab, setOpenTab] = useState<number>(1);
-    const [leavedetail, setLeaveDetail] = useState(false)
+    const [reqdetail, setReqDetail] = useState(false)
     const cancelButtonRef = useRef(null)
 
     return (
@@ -45,7 +46,7 @@ export default function CurrentMonthWfh() {
                 <div className="flex flex-wrap items-center">
                     <div className="relative w-full max-w-full flex-grow flex-1">
                         <h2 className="text-blueGray-700 text-xl font-semibold">
-                            Current Month - WFH/Short Leave
+                            All Requistions
                         </h2>
 
                     </div>
@@ -151,32 +152,11 @@ export default function CurrentMonthWfh() {
                                                                 </button>
                                                             </div>
                                                         </div>
-
-                                                        <div className="sm:col-span-1">
-                                                            <div className='mt-2 text-right'>
-                                                                <Link href="/search_wfh">
-                                                                    <button
-                                                                        type="button"
-                                                                        className="relative   bg-indigo-600  text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 inline-flex gap-x-1.5 px-3 py-2 text-sm font-semibold ring-1 ring-inset ring-gray-300"
-                                                                    >
-                                                                        Search WFH
-                                                                    </button>
-                                                                </Link>
-                                                            </div>
-
-                                                        </div>
-
                                                     </div>
                                                 </div>
-
-
                                             </div>
-
-
                                         </form>
                                     </div>
-
-
                                 </div>
                                 <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                                     <div className="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
@@ -191,32 +171,20 @@ export default function CurrentMonthWfh() {
                                                             </th>
                                                         ))}
 
-
-                                                        <th className="py-3.5 pl-4 pr-3"></th>
                                                     </tr>
                                                 </thead>
                                                 <tbody className="divide-y divide-gray-200 bg-white">
                                                     {pending_leaves.map((person) => (
                                                         <tr key={person.id}>
-                                                            <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
-                                                                {person.type}
-                                                            </td>
                                                             <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.by}</td>
-                                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.applieddate}</td>
+                                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.fordate}</td>
+                                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.type}</td>
+                                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.item}</td>
+                                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.quantity}</td>
+                                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.reqon}
+                                                                <span onClick={() => setReqDetail(true)} className=" text-indigo-600 text-sm font-medium">..See More</span>
+                                                            </td>
                                                             <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.status}</td>
-                                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.mstatus}</td>
-                                                            <td className="flex whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                                                                <a onClick={() => setLeaveDetail(true)} className="bg-gray-100 text-gray-600 block px-4 py-2 ">Detail</a>
-                                                            </td>
-                                                            <td>
-                                                                <input
-                                                                    id="comments"
-                                                                    aria-describedby="comments-description"
-                                                                    name="comments"
-                                                                    type="checkbox"
-                                                                    className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
-                                                                />
-                                                            </td>
                                                         </tr>
                                                     ))}
                                                 </tbody>
@@ -255,32 +223,11 @@ export default function CurrentMonthWfh() {
                                                                 </button>
                                                             </div>
                                                         </div>
-                                                        <div className="sm:col-span-1">
-                                                            <div className='mt-2 text-right'>
-                                                                <Link href="/search_wfh">
-                                                                    <button
-                                                                        type="button"
-                                                                        className="relative   bg-indigo-600  text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 inline-flex gap-x-1.5 px-3 py-2 text-sm font-semibold ring-1 ring-inset ring-gray-300"
-                                                                    >
-                                                                        Search WFH
-                                                                    </button>
-                                                                </Link>
-                                                            </div>
-
-                                                        </div>
-
-
                                                     </div>
                                                 </div>
-
-
                                             </div>
-
-
                                         </form>
                                     </div>
-
-
                                 </div>
                                 <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                                     <div className="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
@@ -295,32 +242,20 @@ export default function CurrentMonthWfh() {
                                                             </th>
                                                         ))}
 
-
-                                                        <th className="py-3.5 pl-4 pr-3"></th>
                                                     </tr>
                                                 </thead>
                                                 <tbody className="divide-y divide-gray-200 bg-white">
                                                     {approved_leaves.map((person) => (
                                                         <tr key={person.id}>
-                                                            <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
-                                                                {person.type}
-                                                            </td>
                                                             <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.by}</td>
-                                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.applieddate}</td>
+                                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.fordate}</td>
+                                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.type}</td>
+                                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.item}</td>
+                                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.quantity}</td>
+                                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.reqon}
+                                                                <span onClick={() => setReqDetail(true)} className=" text-indigo-600 text-sm font-medium">..See More</span>
+                                                            </td>
                                                             <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.status}</td>
-                                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.mstatus}</td>
-                                                            <td className="flex whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                                                                <a onClick={() => setLeaveDetail(true)} className="bg-gray-100 text-gray-600 block px-4 py-2 ">Detail</a>
-                                                            </td>
-                                                            <td>
-                                                                <input
-                                                                    id="comments"
-                                                                    aria-describedby="comments-description"
-                                                                    name="comments"
-                                                                    type="checkbox"
-                                                                    className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
-                                                                />
-                                                            </td>
                                                         </tr>
                                                     ))}
                                                 </tbody>
@@ -359,34 +294,11 @@ export default function CurrentMonthWfh() {
                                                                 </button>
                                                             </div>
                                                         </div>
-                                                        <div className="sm:col-span-1">
-                                                            <div className='mt-2 text-right'>
-                                                                <Link href="/search_wfh">
-                                                                    <button
-                                                                        type="button"
-                                                                        className="relative   bg-indigo-600  text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 inline-flex gap-x-1.5 px-3 py-2 text-sm font-semibold ring-1 ring-inset ring-gray-300"
-                                                                    >
-                                                                        Search WFH
-                                                                    </button>
-                                                                </Link>
-                                                            </div>
-
-                                                        </div>
-
-
-
                                                     </div>
-
                                                 </div>
-
-
                                             </div>
-
-
                                         </form>
                                     </div>
-
-
                                 </div>
                                 <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                                     <div className="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
@@ -401,32 +313,20 @@ export default function CurrentMonthWfh() {
                                                             </th>
                                                         ))}
 
-
-                                                        <th className="py-3.5 pl-4 pr-3"></th>
                                                     </tr>
                                                 </thead>
                                                 <tbody className="divide-y divide-gray-200 bg-white">
                                                     {rejected_leaves.map((person) => (
                                                         <tr key={person.id}>
-                                                            <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
-                                                                {person.type}
-                                                            </td>
                                                             <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.by}</td>
-                                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.applieddate}</td>
+                                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.fordate}</td>
+                                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.type}</td>
+                                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.item}</td>
+                                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.quantity}</td>
+                                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.reqon}
+                                                                <span onClick={() => setReqDetail(true)} className=" text-indigo-600 text-sm font-medium">..See More</span>
+                                                            </td>
                                                             <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.status}</td>
-                                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.mstatus}</td>
-                                                            <td className="flex whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                                                                <a onClick={() => setLeaveDetail(true)} className="bg-gray-100 text-gray-600 block px-4 py-2 ">Detail</a>
-                                                            </td>
-                                                            <td>
-                                                                <input
-                                                                    id="comments"
-                                                                    aria-describedby="comments-description"
-                                                                    name="comments"
-                                                                    type="checkbox"
-                                                                    className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
-                                                                />
-                                                            </td>
                                                         </tr>
                                                     ))}
                                                 </tbody>
@@ -435,13 +335,13 @@ export default function CurrentMonthWfh() {
                                     </div>
                                 </div>
                             </div>
-
                         </div>
                     </div>
                 </div>
+
             </div>
-            <Transition.Root show={leavedetail} as={Fragment}>
-                <Dialog as="div" className="relative z-10" initialFocus={cancelButtonRef} onClose={setLeaveDetail}>
+            <Transition.Root show={reqdetail} as={Fragment}>
+                <Dialog as="div" className="relative z-10" initialFocus={cancelButtonRef} onClose={setReqDetail}>
                     <Transition.Child
                         as={Fragment}
                         enter="ease-out duration-300"
@@ -468,7 +368,7 @@ export default function CurrentMonthWfh() {
                                 <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg sm:p-6">
                                     <div className="space-y-2">
                                         <div className="border-b border-gray-900/10 pb-4">
-                                            <h2 className="text-lg font-semibold leading-7 text-gray-900">  WFH Detail</h2>
+                                            <h2 className="text-lg font-semibold leading-7 text-gray-900">Requisition Detail</h2>
 
 
                                             <div className="mt-2 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-1">
@@ -477,39 +377,29 @@ export default function CurrentMonthWfh() {
                                                         <table className="min-w-full divide-y divide-gray-300">
                                                             <tr key="1">
                                                                 <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm text-gray-600 sm:pl-6">
-                                                                    Date
+                                                                    By
                                                                 </td>
                                                                 <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-500 sm:pl-6">
-                                                                    2023-07-10
+                                                                    Test A
                                                                 </td>
 
                                                             </tr>
                                                             <tr key="1">
                                                                 <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm text-gray-600 sm:pl-6">
-                                                                    Type
+                                                                    For
                                                                 </td>
                                                                 <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-500 sm:pl-6">
-                                                                    WFH
+                                                                    0000-00-00
                                                                 </td>
 
                                                             </tr>
                                                             <tr key="1">
                                                                 <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm text-gray-600 sm:pl-6">
-                                                                    Day type
+                                                                    Item
                                                                 </td>
                                                                 <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-500 sm:pl-6">
-                                                                    Full Day
+                                                                    Pens
                                                                 </td>
-
-                                                            </tr>
-                                                            <tr key="1">
-                                                                <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm text-gray-600 sm:pl-6">
-                                                                    Description
-                                                                </td>
-                                                                <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-500 sm:pl-6">
-                                                                    water logging
-                                                                </td>
-
                                                             </tr>
                                                         </table>
                                                     </div>
@@ -520,7 +410,7 @@ export default function CurrentMonthWfh() {
                                                     <button
                                                         type="button"
                                                         className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
-                                                        onClick={() => setLeaveDetail(false)}
+                                                        onClick={() => setReqDetail(false)}
                                                         ref={cancelButtonRef}
                                                     >
                                                         Cancel

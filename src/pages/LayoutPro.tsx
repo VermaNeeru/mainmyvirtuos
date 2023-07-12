@@ -138,6 +138,7 @@ const navigation = [
         icon: FolderIcon,
         current: false,
         children: [
+            { name: 'Overall Issues', href: '/all_issues_list', current: false },
             { name: 'My Issues', href: '/issue', current: false },
             { name: 'Add New Issue', href: '/add_issue', current: false },
             { name: 'All Issues', href: '/all_issues', current: false },
@@ -231,19 +232,6 @@ const navigation = [
         ],
     },
 
-
-    // {
-    //     name: '',
-    //     icon: FolderIcon,
-    //     current: false,
-    //     children: [
-    //         { name: '', href: '/' },
-    //     ],
-    // },
-
-    // { name: 'Layoutold', href: '/layoutold', icon: CalendarIcon, current: false },
-    // { name: 'Documents', href: '/', icon: DocumentDuplicateIcon, current: false },
-    // { name: 'Reports', href: '/', icon: ChartPieIcon, current: false },
 ]
 
 function classNames(...classes: any[]) {

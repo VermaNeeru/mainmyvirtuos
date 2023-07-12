@@ -88,7 +88,7 @@ export default function SubordinateWfh() {
                 </div>
             </div>
             <div>
-                <div className="w-96 ">
+                <div className="lg:w-96 ">
                     <ul
                         className="h-12 isolate flex divide-x divide-gray-200 rounded-lg shadow" aria-label="Tabs"
                         role="tablist"
@@ -172,7 +172,7 @@ export default function SubordinateWfh() {
                                                                 <div className="mt-2 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-1">
                                                                     <div className="sm:col-span-1">
                                                                         <div className=" grid grid-cols-2">
-                                                                            <div className="w-96 mt-2 flex rounded-md shadow-sm">
+                                                                            <div className="lg:w-96 mt-2 flex rounded-md shadow-sm">
                                                                                 <div className="relative flex flex-grow items-stretch focus-within:z-10">
                                                                                     <select
                                                                                         id="location"
@@ -204,7 +204,7 @@ export default function SubordinateWfh() {
 
                                                         </div>
                                                         <div className="sm:col-span-1">
-                                                            <div className="w-96 mt-14 flex rounded-md shadow-sm">
+                                                            <div className="lg:w-96 mt-14 flex rounded-md shadow-sm">
                                                                 <div className="relative flex flex-grow items-stretch focus-within:z-10">
                                                                     <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
                                                                         <MagnifyingGlassIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
@@ -261,7 +261,7 @@ export default function SubordinateWfh() {
                                                             <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.applieddate}</td>
                                                             <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.detail}</td>
                                                             <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.mstatus}</td>
-                                                            <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
+                                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                                                                 <select
                                                                     id="location"
                                                                     name="location"
@@ -306,7 +306,7 @@ export default function SubordinateWfh() {
                                                                 <div className="mt-2 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-1">
                                                                     <div className="sm:col-span-1">
                                                                         <div className=" grid grid-cols-2">
-                                                                            <div className="w-96 mt-2 flex rounded-md shadow-sm">
+                                                                            <div className="lg:w-96 mt-2 flex rounded-md shadow-sm">
                                                                                 <div className="relative flex flex-grow items-stretch focus-within:z-10">
                                                                                     <select
                                                                                         id="location"
@@ -338,7 +338,7 @@ export default function SubordinateWfh() {
 
                                                         </div>
                                                         <div className="sm:col-span-1">
-                                                            <div className="w-96 mt-14 flex rounded-md shadow-sm">
+                                                            <div className="lg:w-96 mt-14 flex rounded-md shadow-sm">
                                                                 <div className="relative flex flex-grow items-stretch focus-within:z-10">
                                                                     <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
                                                                         <MagnifyingGlassIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
@@ -395,7 +395,7 @@ export default function SubordinateWfh() {
                                                             <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.applieddate}</td>
                                                             <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.detail}</td>
                                                             <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.mstatus}</td>
-                                                            <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
+                                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                                                                 <select
                                                                     id="location"
                                                                     name="location"
@@ -439,7 +439,7 @@ export default function SubordinateWfh() {
                                                                 <div className="mt-2 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-1">
                                                                     <div className="sm:col-span-1">
                                                                         <div className=" grid grid-cols-2">
-                                                                            <div className="w-96 mt-2 flex rounded-md shadow-sm">
+                                                                            <div className="lg:w-96 mt-2 flex rounded-md shadow-sm">
                                                                                 <div className="relative flex flex-grow items-stretch focus-within:z-10">
                                                                                     <select
                                                                                         id="location"
@@ -471,7 +471,7 @@ export default function SubordinateWfh() {
 
                                                         </div>
                                                         <div className="sm:col-span-1">
-                                                            <div className="w-96 mt-14 flex rounded-md shadow-sm">
+                                                            <div className="lg:w-96 mt-14 flex rounded-md shadow-sm">
                                                                 <div className="relative flex flex-grow items-stretch focus-within:z-10">
                                                                     <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
                                                                         <MagnifyingGlassIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
@@ -527,7 +527,7 @@ export default function SubordinateWfh() {
                                                             <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.applieddate}</td>
                                                             <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.detail}</td>
                                                             <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.mstatus}</td>
-                                                            <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
+                                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                                                                 <select
                                                                     id="location"
                                                                     name="location"
@@ -593,7 +593,7 @@ export default function SubordinateWfh() {
                                                                 <div className="mt-1">
                                                                     <table className="min-w-full divide-y divide-gray-300">
                                                                         <tr key="1">
-                                                                            <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-600 sm:pl-6">
+                                                                            <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm text-gray-600 sm:pl-6">
                                                                                 No. of Leaves Available
                                                                             </td>
                                                                             <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-500 sm:pl-6">
@@ -602,7 +602,7 @@ export default function SubordinateWfh() {
 
                                                                         </tr>
                                                                         <tr key="1">
-                                                                            <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-600 sm:pl-6">
+                                                                            <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm text-gray-600 sm:pl-6">
                                                                                 No. of Leaves Requested
                                                                             </td>
                                                                             <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-500 sm:pl-6">
@@ -611,7 +611,7 @@ export default function SubordinateWfh() {
 
                                                                         </tr>
                                                                         <tr key="1">
-                                                                            <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-600 sm:pl-6">
+                                                                            <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm text-gray-600 sm:pl-6">
                                                                                 Reason for Applying leave
                                                                             </td>
                                                                             <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-500 sm:pl-6">
@@ -620,7 +620,7 @@ export default function SubordinateWfh() {
 
                                                                         </tr>
                                                                         <tr key="1">
-                                                                            <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-600 sm:pl-6">
+                                                                            <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm text-gray-600 sm:pl-6">
                                                                                 Leave Date
                                                                             </td>
                                                                             <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-500 sm:pl-6">
@@ -629,7 +629,7 @@ export default function SubordinateWfh() {
 
                                                                         </tr>
                                                                         <tr key="1">
-                                                                            <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-600 sm:pl-6">
+                                                                            <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm text-gray-600 sm:pl-6">
                                                                                 Leave Type
                                                                             </td>
                                                                             <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-500 sm:pl-6">
@@ -638,7 +638,7 @@ export default function SubordinateWfh() {
                                                                         </tr>
 
                                                                         <tr key="1">
-                                                                            <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-600 sm:pl-6">
+                                                                            <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm text-gray-600 sm:pl-6">
                                                                                 Status
                                                                             </td>
                                                                             <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-500 sm:pl-6">
@@ -647,7 +647,7 @@ export default function SubordinateWfh() {
                                                                         </tr>
 
                                                                         <tr key="1">
-                                                                            <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-600 sm:pl-6">
+                                                                            <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm text-gray-600 sm:pl-6">
                                                                                 By
                                                                             </td>
                                                                             <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-500 sm:pl-6">

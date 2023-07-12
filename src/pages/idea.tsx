@@ -6,21 +6,23 @@ import { Dialog, Menu, Transition } from '@headlessui/react'
 import { XMarkIcon, ChevronDownIcon, TrashIcon } from '@heroicons/react/20/solid'
 import Alert from '@/Component/Alert';
 const table_header = [
-    { name: 'Category Name' },
-    { name: 'Status' },
-    { name: '' },
+    { name: 'Idea By' },
+    { name: 'Category' },
+    { name: 'Description' },
+    { name: 'Date' },
+    { name: 'Action' },
     { name: '' },
 
 
 ];
-const accounts_travel = [
-    { id: 1, cname: 'Christmas Celebration 2019', status: 'Active' },
-    { id: 1, cname: 'Diwali Celebration 2019', status: 'Active' },
-    { id: 1, cname: 'FRIBDAY', status: 'Active' },
+const ideas = [
+    { id: 1, by: 'Neeru', cname: 'Christmas Celebration 2019', desc: 'Active', idate: '12-07-2023' },
+    { id: 1, by: 'Gagan', cname: 'Diwali Celebration 2019', desc: 'Active', idate: '12-07-2023' },
+    { id: 1, by: 'Shivam', cname: 'FRIBDAY', desc: 'Active', idate: '12-07-2023' },
     // More people...
 ]
 
-export default function Gallery() {
+export default function Idea() {
     const [showDeleteMessage, setshowDeleteMessage] = useState(false);
     return (
         <div className=' w-full rounded px-2'>
@@ -31,7 +33,7 @@ export default function Gallery() {
                 <div className="flex flex-wrap items-center">
                     <div className="relative w-full max-w-full flex-grow flex-1">
                         <h2 className="text-blueGray-700 text-xl font-semibold">
-                            Manage Category
+                            My Ideas
                         </h2>
                     </div>
                 </div>
@@ -64,11 +66,11 @@ export default function Gallery() {
                                 </div>
                             </div>
                             <div className="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
-                                <Link href="/add_category" >
+                                <Link href="/add_idea" >
                                     <span
                                         className="block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                                     >
-                                        Add New Category
+                                        Add New Idea
                                     </span>
                                 </Link>
                             </div>
@@ -98,20 +100,17 @@ export default function Gallery() {
                                                 {val.name}
                                             </th>
                                         ))}
-
-                                        <th></th>
                                     </tr>
                                 </thead>
                                 <tbody className="divide-y divide-gray-200 bg-white">
-                                    {accounts_travel.map((person) => (
+                                    {ideas.map((person) => (
                                         <tr key={person.id}>
                                             <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
-                                                {person.cname}
+                                                {person.by}
                                             </td>
-                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.status}</td>
-                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-
-                                            </td>
+                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.cname}</td>
+                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.desc}</td>
+                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.idate}</td>
                                             <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                                                 <Menu as="div" className="relative inline-block text-left">
                                                     <div>
