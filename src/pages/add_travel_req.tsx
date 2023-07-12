@@ -101,7 +101,7 @@ export default function AddTravelReq() {
                                 <div className="border-b border-gray-900/10 pb-4">
 
                                     <div className="mt-2 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-1">
-                                        <p className='px-2 py-2 text-sm text-gray-600'>Expenses entailed for this official visit / trip are to be added from the "Add TravelExpenses" section under Expenses. Expenses should be added by last day of the month for ECR reimbursements. Late ECR reimbursement claims shall not be entertained by the Accounts Team</p>
+                                        <p className='px-2 py-2 text-sm text-gray-600'>Expenses entailed for this official visit / trip are to be added from the Add TravelExpenses section under Expenses. Expenses should be added by last day of the month for ECR reimbursements. Late ECR reimbursement claims shall not be entertained by the Accounts Team</p>
                                     </div>
                                     <div className="mt-2 grid grid-cols-2 gap-x-6 gap-y-4 sm:grid-cols-2">
                                         <div className="sm:col-span-1">

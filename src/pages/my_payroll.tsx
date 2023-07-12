@@ -106,7 +106,7 @@ export default function MyPayroll() {
                 </div>
 
                 <div className=" lg:w-1/3 relative  items-center space-x-3 rounded-lg border border-gray-300 bg-white px-6 py-5 shadow-sm focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 hover:border-gray-400">
-                    <h4 className='flex'>FAQ's for Payroll <BanknotesIcon className="ml-2 h-6 w-6 text-gray-500" /></h4>
+                    <h4 className='flex'>FAQ for Payroll <BanknotesIcon className="ml-2 h-6 w-6 text-gray-500" /></h4>
                     <div className=" mb-4 px-2 py-2">
                         <dl className="mt-2 space-y-6 divide-y divide-gray-900/10">
                             {faqs.map((faq) => (

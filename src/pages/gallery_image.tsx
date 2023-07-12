@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 
@@ -37,7 +38,7 @@ export default function GalleryImage() {
                         <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
                             <div key="1" className="group relative">
                                 <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-80">
-                                    <img
+                                    <Image loader={({ src }) => `${src}`} width={100} height={100}
                                         src="https://myvirtuos.com/uploads/gallery/15795890430b8f18c7_71fa_4ed7_90cb_dbc070c9e00a.jpg"
                                         alt=""
                                         className="h-full w-full object-cover object-center lg:h-full lg:w-full"
