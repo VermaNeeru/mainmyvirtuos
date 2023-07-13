@@ -2,36 +2,63 @@ import React, { useState } from 'react'
 import { PhotoIcon, UserCircleIcon } from '@heroicons/react/24/solid'
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
 import { Combobox } from '@headlessui/react'
-export default function EmployeeSearch({ heading }: any) {
-    const people = [
-        { id: 1, name: 'Shivam Chawla' },
-        { id: 1, name: 'Neeru Verma' },
-        { id: 1, name: 'Poorva Sharma' },
-        { id: 1, name: 'Sarika Sharma' },
-        { id: 1, name: 'Bhumika' },
-        { id: 1, name: 'Gagan' },
-        // More users...
-    ]
+export default function StateSearch({ heading }: any) {
 
+    const states = [
+        { id: 1, name: 'Andaman and Nicobar Islands' },
+        { id: 2, name: 'Andhra Pradesh' },
+        { id: 3, name: 'Arunachal Pradesh' },
+        { id: 4, name: 'Assam' },
+        { id: 5, name: 'Bihar' },
+        { id: 6, name: 'Chhattisgarh' },
+        { id: 7, name: 'Dadra and Nagar Haveli' },
+        { id: 8, name: 'Daman and Diu' },
+        { id: 9, name: 'Delhi' },
+        { id: 10, name: 'Goa' },
+        { id: 11, name: 'Gujarat' },
+        { id: 12, name: 'Haryana' },
+        { id: 13, name: 'Himachal Pradesh' },
+        { id: 14, name: 'Jammu and Kashmir' },
+        { id: 15, name: 'Jharkhand' },
+        { id: 16, name: 'Karnataka' },
+        { id: 17, name: 'Kerala' },
+        { id: 18, name: 'Lakshadweep' },
+        { id: 19, name: 'Madhya Pradesh' },
+        { id: 20, name: 'Maharashtra' },
+        { id: 21, name: 'Manipur' },
+        { id: 22, name: 'Meghalaya' },
+        { id: 23, name: 'Mizoram' },
+        { id: 24, name: 'Nagaland' },
+        { id: 25, name: 'Odisha (Orissa)' },
+        { id: 26, name: 'Puducherry' },
+        { id: 27, name: 'Punjab' },
+        { id: 28, name: 'Rajasthan' },
+        { id: 29, name: 'Sikkim' },
+        { id: 30, name: 'Tamil Nadu' },
+        { id: 31, name: 'Telangana' },
+        { id: 32, name: 'Tripura' },
+        { id: 33, name: 'Uttar Pradesh' },
+        { id: 34, name: 'Uttarakhand' }
+    ];
 
     function classNames(...classes: any) {
         return classes.filter(Boolean).join(' ')
     }
 
     const [query, setQuery] = useState('')
-    const [selectedPerson, setSelectedPerson] = useState(null)
+    const [selectedState, setSelectedState] = useState(null)
 
     const filteredPeople =
         query === ''
-            ? people
-            : people.filter((person) => {
+            ? states
+            : states.filter((person) => {
                 return person.name.toLowerCase().includes(query.toLowerCase())
             })
     return (
         <div>
-            <Combobox as="div" value={selectedPerson} onChange={setSelectedPerson}>
-                <Combobox.Label className="block text-sm font-medium leading-6 text-gray-900">{(heading) ? heading : "Employees"}</Combobox.Label>
-                <div className="relative mt-2">
+            <Combobox as="div" value={selectedState} onChange={setSelectedState}>
+                <Combobox.Label className="block text-sm font-medium leading-6 text-gray-900">{(heading) ? heading : "State"}</Combobox.Label>
+                <div className="relative">
                     <Combobox.Input
                         className="w-full rounded-md border-0 bg-white py-1.5 pl-3 pr-10 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                         onChange={(event) => setQuery(event.target.value)}

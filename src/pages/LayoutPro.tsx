@@ -168,7 +168,7 @@ const navigation = [
         current: false,
         children: [
             { name: 'Basic Info', href: '/edit_user', current: false },
-            { name: 'Training', href: '/', current: false },
+            { name: 'Training', href: '/training', current: false },
         ],
     },
 

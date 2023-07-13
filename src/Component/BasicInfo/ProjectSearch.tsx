@@ -2,17 +2,13 @@ import React, { useState } from 'react'
 import { PhotoIcon, UserCircleIcon } from '@heroicons/react/24/solid'
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
 import { Combobox } from '@headlessui/react'
-export default function EmployeeSearch({ heading }: any) {
-    const people = [
-        { id: 1, name: 'Shivam Chawla' },
-        { id: 1, name: 'Neeru Verma' },
-        { id: 1, name: 'Poorva Sharma' },
-        { id: 1, name: 'Sarika Sharma' },
-        { id: 1, name: 'Bhumika' },
-        { id: 1, name: 'Gagan' },
+export default function ProjectSearch({ heading }: any) {
+    const data = [
+        { id: 1, name: 'Project 1' },
+        { id: 1, name: 'Project 2' },
+        { id: 1, name: 'Project 3' },
         // More users...
     ]
-
 
     function classNames(...classes: any) {
         return classes.filter(Boolean).join(' ')
@@ -23,14 +19,15 @@ export default function EmployeeSearch({ heading }: any) {
 
     const filteredPeople =
         query === ''
-            ? people
-            : people.filter((person) => {
+            ? data
+            : data.filter((person) => {
                 return person.name.toLowerCase().includes(query.toLowerCase())
             })
+
     return (
         <div>
             <Combobox as="div" value={selectedPerson} onChange={setSelectedPerson}>
-                <Combobox.Label className="block text-sm font-medium leading-6 text-gray-900">{(heading) ? heading : "Employees"}</Combobox.Label>
+                <Combobox.Label className="block text-sm font-medium leading-6 text-gray-900">{(heading) ? heading : "Project"}</Combobox.Label>
                 <div className="relative mt-2">
                     <Combobox.Input
                         className="w-full rounded-md border-0 bg-white py-1.5 pl-3 pr-10 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
