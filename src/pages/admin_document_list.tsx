@@ -80,7 +80,7 @@ export default function AdminDocumentList() {
                                                     <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.doc_name}</td>
                                                     <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.addedon}</td>
                                                     <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                                                        <DocumentArrowDownIcon class="h-6 w-6 text-gray-500" />
+                                                        <DocumentArrowDownIcon className="h-6 w-6 text-gray-500" />
 
                                                     </td>
                                                 </tr>

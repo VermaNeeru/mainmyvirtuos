@@ -54,10 +54,10 @@ const DropFileInput: React.FC<DropFileInputProps> = ({ onFileChange }) => {
                     <p className="drop-file-preview__title">Ready to upload</p>
                     {fileList.map((item, index) => (
                         <div key={index} className="drop-file-preview__item">
-                            <Image
+                            {/* <Image loader={({ src }) => `${src}`} width={100} height={100}
                                 src={ImageConfig[item.type.split('/')[1]] || ImageConfig['default']}
                                 alt=""
-                            />
+                            /> */}
                             <div className="drop-file-preview__item__info">
                                 <p>{item.name}</p>
                                 <p>{item.size}B</p>

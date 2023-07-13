@@ -147,19 +147,8 @@ export default function EmployeeReferral() {
                                                 placeholder="Attachement"
                                             />
                                         </div>
-
-
-
                                         <div className="sm:col-span-1">
-
                                         </div>
-
-
-
-
-
-
-
                                     </div>
                                 </div>
 
