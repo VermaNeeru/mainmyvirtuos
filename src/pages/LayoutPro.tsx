@@ -177,7 +177,7 @@ const navigation = [
         icon: FolderIcon,
         current: false,
         children: [
-            { name: 'FAQ', href: '/', current: false },
+            { name: 'FAQ', href: '/view_faq', current: false },
         ],
     },
 
@@ -186,11 +186,24 @@ const navigation = [
         icon: FolderIcon,
         current: false,
         children: [
-            { name: 'Other Expense Report', href: '/', current: false },
-            { name: 'Asset Report', href: '/', current: false },
-            { name: 'Attendance Report', href: '/', current: false },
-            { name: 'Issue Report', href: '/', current: false },
-            { name: 'Leave Report', href: '/', current: false },
+            { name: 'Other Expense Report', href: '/other_expense', current: false },
+            { name: 'Asset Report', href: '/asset_report', current: false },
+            { name: 'Attendance Report', href: '/attendance', current: false },
+            { name: 'Expense Report', href: '/expense', current: false },
+            { name: 'Issue Report', href: '/all_issues', current: false },
+            { name: 'Leave Report', href: '/leave_report', current: false },
+        ],
+    },
+
+    {
+        name: 'List of Employee',
+        icon: FolderIcon,
+        current: false,
+        children: [
+            { name: 'Add New Employee', href: '/add_user', current: false },
+            { name: 'Employee List', href: '/users', current: false },
+            { name: 'User Leave Detail', href: '/user_leave_detail', current: false },
+            { name: 'OTE Availed', href: '/search_ote', current: false },
         ],
     },
 
@@ -218,17 +231,6 @@ const navigation = [
             { name: 'Accessories List', href: '/', current: false },
             { name: 'Consumables List', href: '/', current: false },
             { name: 'Asset Inventory', href: '/', current: false },
-        ],
-    },
-
-    {
-        name: 'List of Employee',
-        icon: FolderIcon,
-        current: false,
-        children: [
-            { name: 'Add New Employee', href: '/', current: false },
-            { name: 'Employee List', href: '/', current: false },
-            { name: 'OTE Availed', href: '/', current: false },
         ],
     },
 
