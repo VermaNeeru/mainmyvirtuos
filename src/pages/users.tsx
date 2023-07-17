@@ -1,11 +1,12 @@
 import React, { Fragment, useState, useRef, useEffect } from 'react'
-
+import DepartmentSearch from '@/Component/DepartmentSearch'
 import { ExclamationTriangleIcon, BarsArrowUpIcon, MagnifyingGlassIcon } from '@heroicons/react/20/solid'
 import Link from 'next/link';
 import { Dialog, Menu, Transition } from '@headlessui/react'
 import { XMarkIcon, ChevronDownIcon, TrashIcon, UserIcon } from '@heroicons/react/20/solid'
 import Alert from '@/Component/Alert';
 import Image from 'next/image';
+import RoleSearch from '@/Component/RoleSearch';
 const table_header = [
     { name: 'Name' },
     { name: 'Avtar' },
@@ -416,7 +417,7 @@ export default function Users() {
                                                                                         name="email"
                                                                                         id="email"
                                                                                         className="block w-full rounded-md border-0 py-1.5 pl-10 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                                                                                        placeholder="you@example.com"
+                                                                                        placeholder="First Name"
                                                                                     />
                                                                                 </div>
                                                                             </div>
@@ -431,14 +432,229 @@ export default function Users() {
                                                                                         name="email"
                                                                                         id="email"
                                                                                         className="block w-full rounded-md border-0 py-1.5 pl-10 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                                                                                        placeholder="you@example.com"
+                                                                                        placeholder="Last Name"
                                                                                     />
                                                                                 </div>
                                                                             </div>
 
 
+                                                                            <div className="sm:col-span-1">
+                                                                                <div className="relative mt-2 rounded-md shadow-sm">
+                                                                                    <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+                                                                                        <UserIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
+                                                                                    </div>
+                                                                                    <input
+                                                                                        type="email"
+                                                                                        name="email"
+                                                                                        id="email"
+                                                                                        className="block w-full rounded-md border-0 py-1.5 pl-10 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                                                                        placeholder="Designation"
+                                                                                    />
+                                                                                </div>
+                                                                            </div>
+
+                                                                            <div className="sm:col-span-1">
+                                                                                <div className="relative mt-2 rounded-md shadow-sm">
+                                                                                    <DepartmentSearch heading="hidden" />
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div className="mt-8 mb-8 grid grid-cols-2 gap-x-6 gap-y-4 sm:grid-cols-2">
+                                                                            <div className="sm:col-span-6">
+                                                                                <div className="relative">
+                                                                                    <div className="absolute inset-0 flex items-center" aria-hidden="true">
+                                                                                        <div className="w-full border-t border-gray-300" />
+                                                                                    </div>
+                                                                                    <div className="relative flex justify-center">
+                                                                                        <span className="bg-white px-2 text-sm text-indigo-500">Contact Detail</span>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div className="grid grid-cols-2 lg:grid-cols-2 gap-x-6 gap-y-4 sm:grid-cols-2">
+                                                                            <div className="sm:col-span-1">
+                                                                                <div className="relative mt-2 rounded-md shadow-sm">
+                                                                                    <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+                                                                                        <UserIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
+                                                                                    </div>
+                                                                                    <input
+                                                                                        type="number"
+                                                                                        name="email"
+                                                                                        id="email"
+                                                                                        className="px-2 block w-full rounded-md border-0 py-1.5 pl-10 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                                                                        placeholder=""
+                                                                                    />
+                                                                                </div>
+                                                                            </div>
+
+                                                                            <div className="sm:col-span-1">
+                                                                                <div className="relative mt-2 rounded-md shadow-sm">
+                                                                                    <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+                                                                                        <UserIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
+                                                                                    </div>
+                                                                                    <input
+                                                                                        type="number"
+                                                                                        name="email"
+                                                                                        id="email"
+                                                                                        className="px-2 block w-full rounded-md border-0 py-1.5 pl-10 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                                                                        placeholder=""
+                                                                                    />
+                                                                                </div>
+                                                                            </div>
 
 
+                                                                        </div>
+                                                                        <div className="mt-8 mb-8 grid grid-cols-2 gap-x-6 gap-y-4 sm:grid-cols-2">
+                                                                            <div className="sm:col-span-6">
+                                                                                <div className="relative">
+                                                                                    <div className="absolute inset-0 flex items-center" aria-hidden="true">
+                                                                                        <div className="w-full border-t border-gray-300" />
+                                                                                    </div>
+                                                                                    <div className="relative flex justify-center">
+                                                                                        <span className="bg-white px-2 text-sm text-indigo-500">User Type</span>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div className="mt-2 grid grid-cols-1 lg:grid-cols-2 gap-x-6 gap-y-4 sm:grid-cols-2">
+                                                                            <div className="sm:col-span-1">
+                                                                                <div className="relative mt-2 rounded-md shadow-sm">
+                                                                                    <fieldset className="mt-4">
+                                                                                        <div className="space-y-4 sm:flex sm:items-center sm:space-x-10 sm:space-y-0">
+                                                                                            <div key="1" className="flex items-center">
+                                                                                                <input
+                                                                                                    id="1"
+                                                                                                    name="user_type"
+                                                                                                    type="radio"
+                                                                                                    defaultChecked
+                                                                                                    className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
+                                                                                                />
+                                                                                                <label htmlFor="PE" className="ml-3 block text-sm font-normal leading-6 text-gray-700">
+                                                                                                    PE
+                                                                                                </label>
+                                                                                            </div>
+                                                                                            <div key="2" className="flex items-center">
+                                                                                                <input
+                                                                                                    id="2"
+                                                                                                    name="user_type"
+                                                                                                    type="radio"
+                                                                                                    className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
+                                                                                                />
+                                                                                                <label htmlFor="QE" className="ml-3 block text-sm font-normal leading-6 text-gray-700">
+                                                                                                    QE
+                                                                                                </label>
+                                                                                            </div>
+                                                                                            <div key="2" className="flex items-center">
+                                                                                                <input
+                                                                                                    id="2"
+                                                                                                    name="user_type"
+                                                                                                    type="radio"
+                                                                                                    defaultChecked
+                                                                                                    className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
+                                                                                                />
+                                                                                                <label htmlFor="Intern" className="ml-3 block text-sm font-normal leading-6 text-gray-700">
+                                                                                                    Intern
+                                                                                                </label>
+                                                                                            </div>
+
+                                                                                        </div>
+                                                                                    </fieldset>
+
+                                                                                </div>
+                                                                            </div>
+
+                                                                        </div>
+
+                                                                        <div className="mt-8 mb-8 grid grid-cols-2 gap-x-6 gap-y-4 sm:grid-cols-2">
+                                                                            <div className="sm:col-span-6">
+                                                                                <div className="relative">
+                                                                                    <div className="absolute inset-0 flex items-center" aria-hidden="true">
+                                                                                        <div className="w-full border-t border-gray-300" />
+                                                                                    </div>
+                                                                                    <div className="relative flex justify-center">
+                                                                                        <span className="bg-white px-2 text-sm text-indigo-500">Employee Access</span>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div className="mt-2 grid grid-cols-1 lg:grid-cols-2 gap-x-6 gap-y-4 sm:grid-cols-2">
+                                                                            <div className="sm:col-span-1">
+                                                                                <div className="relative mt-2 rounded-md shadow-sm">
+                                                                                    <fieldset className="mt-4">
+                                                                                        <div className="space-y-4 sm:flex sm:items-center sm:space-x-10 sm:space-y-0">
+                                                                                            <div key="1" className="flex items-center">
+                                                                                                <input
+                                                                                                    id="1"
+                                                                                                    name="emp_access"
+                                                                                                    type="radio"
+                                                                                                    defaultChecked
+                                                                                                    className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
+                                                                                                />
+                                                                                                <label htmlFor="HR" className="ml-3 block text-sm font-normal leading-6 text-gray-700">
+                                                                                                    HR
+                                                                                                </label>
+                                                                                            </div>
+                                                                                            <div key="2" className="flex items-center">
+                                                                                                <input
+                                                                                                    id="2"
+                                                                                                    name="emp_access"
+                                                                                                    type="radio"
+                                                                                                    className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
+                                                                                                />
+                                                                                                <label htmlFor="Manager" className="ml-3 block text-sm font-normal leading-6 text-gray-700">
+                                                                                                    Manager
+                                                                                                </label>
+                                                                                            </div>
+                                                                                            <div key="2" className="flex items-center">
+                                                                                                <input
+                                                                                                    id="2"
+                                                                                                    name="emp_access"
+                                                                                                    type="radio"
+                                                                                                    className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
+                                                                                                />
+                                                                                                <label htmlFor="Associate" className="ml-3 block text-sm font-normal leading-6 text-gray-700">
+                                                                                                    Associate
+                                                                                                </label>
+                                                                                            </div>
+                                                                                            <div key="2" className="flex items-center">
+                                                                                                <input
+                                                                                                    id="2"
+                                                                                                    name="emp_access"
+                                                                                                    type="radio"
+                                                                                                    defaultChecked
+                                                                                                    className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
+                                                                                                />
+                                                                                                <label htmlFor="Director" className="ml-3 block text-sm font-normal leading-6 text-gray-700">
+                                                                                                    Director
+                                                                                                </label>
+                                                                                            </div>
+
+                                                                                        </div>
+                                                                                    </fieldset>
+
+                                                                                </div>
+                                                                            </div>
+
+                                                                        </div>
+                                                                        <div className="mt-8 mb-8 grid grid-cols-2 gap-x-6 gap-y-4 sm:grid-cols-2">
+                                                                            <div className="sm:col-span-6">
+                                                                                <div className="relative">
+                                                                                    <div className="absolute inset-0 flex items-center" aria-hidden="true">
+                                                                                        <div className="w-full border-t border-gray-300" />
+                                                                                    </div>
+                                                                                    <div className="relative flex justify-center">
+                                                                                        <span className="bg-white px-2 text-sm text-indigo-500">Employee Role</span>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div className="grid grid-cols-2 lg:grid-cols-2 gap-x-6 gap-y-4 sm:grid-cols-2">
+                                                                            <div className="sm:col-span-1">
+                                                                                <div className="relative mt-2 rounded-md shadow-sm">
+                                                                                    <RoleSearch heading="hidden" />
+                                                                                </div>
+                                                                            </div>
                                                                         </div>
 
                                                                     </div>
