@@ -4,6 +4,7 @@ import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
 import { Combobox } from '@headlessui/react'
 import TextEditor from "@/Component/TextEditor";
 
+
 export default function ActivityPart1() {
     const [openTab, setOpenTab] = useState<number>(1);
 
