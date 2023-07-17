@@ -405,7 +405,7 @@ export default function Users() {
                                                             <div className="sm:col-span-2">
                                                                 <div className="space-y-2 px-2 py-2">
                                                                     <div className="pb-4">
-                                                                        <div className="grid grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-4 sm:grid-cols-2">
+                                                                        <div className="grid grid-cols-2 lg:grid-cols-2 gap-x-6 gap-y-4 sm:grid-cols-2">
                                                                             <div className="sm:col-span-1">
                                                                                 <div className="relative mt-2 rounded-md shadow-sm">
                                                                                     <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
