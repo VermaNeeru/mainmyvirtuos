@@ -97,11 +97,11 @@ export default function AllReferrals() {
                                             <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
                                                 {person.by}
                                             </td>
-                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.rname}</td>
-                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.phone}</td>
-                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.email}</td>
-                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.job}</td>
-                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                                            <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.rname}</td>
+                                            <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.phone}</td>
+                                            <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.email}</td>
+                                            <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.job}</td>
+                                            <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">
                                                 {/* {person.job} */}
                                                 <DocumentIcon className="h-6 w-6 text-gray-500" />
 

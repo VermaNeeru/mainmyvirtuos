@@ -285,13 +285,13 @@ export default function AllSubordinateLeaves() {
                                                             <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
                                                                 {person.type}
                                                             </td>
-                                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.by}</td>
-                                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.applieddate}</td>
-                                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.fromdate}</td>
-                                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.todate}</td>
-                                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.days}</td>
-                                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.mstatus}</td>
-                                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                                                            <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.by}</td>
+                                                            <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.applieddate}</td>
+                                                            <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.fromdate}</td>
+                                                            <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.todate}</td>
+                                                            <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.days}</td>
+                                                            <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.mstatus}</td>
+                                                            <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">
                                                                 <Menu as="div" className="relative inline-block text-left">
                                                                     <div>
                                                                         <Menu.Button className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-600 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
@@ -438,13 +438,13 @@ export default function AllSubordinateLeaves() {
                                                             <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
                                                                 {person.type}
                                                             </td>
-                                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.by}</td>
-                                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.applieddate}</td>
-                                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.fromdate}</td>
-                                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.todate}</td>
-                                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.days}</td>
-                                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.mstatus}</td>
-                                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                                                            <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.by}</td>
+                                                            <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.applieddate}</td>
+                                                            <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.fromdate}</td>
+                                                            <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.todate}</td>
+                                                            <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.days}</td>
+                                                            <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.mstatus}</td>
+                                                            <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">
                                                                 <Menu as="div" className="relative inline-block text-left">
                                                                     <div>
                                                                         <Menu.Button className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-600 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
@@ -591,13 +591,13 @@ export default function AllSubordinateLeaves() {
                                                             <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
                                                                 {person.type}
                                                             </td>
-                                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.by}</td>
-                                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.applieddate}</td>
-                                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.fromdate}</td>
-                                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.todate}</td>
-                                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.days}</td>
-                                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.mstatus}</td>
-                                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                                                            <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.by}</td>
+                                                            <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.applieddate}</td>
+                                                            <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.fromdate}</td>
+                                                            <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.todate}</td>
+                                                            <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.days}</td>
+                                                            <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.mstatus}</td>
+                                                            <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">
                                                                 <Menu as="div" className="relative inline-block text-left">
                                                                     <div>
                                                                         <Menu.Button className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-600 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
@@ -743,13 +743,13 @@ export default function AllSubordinateLeaves() {
                                                             <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
                                                                 {person.type}
                                                             </td>
-                                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.by}</td>
-                                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.applieddate}</td>
-                                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.fromdate}</td>
-                                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.todate}</td>
-                                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.days}</td>
-                                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.mstatus}</td>
-                                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                                                            <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.by}</td>
+                                                            <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.applieddate}</td>
+                                                            <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.fromdate}</td>
+                                                            <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.todate}</td>
+                                                            <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.days}</td>
+                                                            <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.mstatus}</td>
+                                                            <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">
                                                                 <Menu as="div" className="relative inline-block text-left">
                                                                     <div>
                                                                         <Menu.Button className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-600 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">

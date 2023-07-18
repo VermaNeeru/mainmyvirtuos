@@ -88,16 +88,16 @@ export default function ExtensionList() {
                                 <tbody className="divide-y divide-gray-200 bg-white">
                                     {extension_list.map((person) => (
                                         <tr key={person.id}>
-                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.ename}</td>
-                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.department}</td>
-                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.division}</td>
-                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                                            <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.ename}</td>
+                                            <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.department}</td>
+                                            <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.division}</td>
+                                            <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">
                                                 <Image loader={({ src }) => `${src}`} src={person.avtar} width={100} height={100} alt='avtar' className='w-14 h-14 rounded-full' />
                                             </td>
-                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.designation}</td>
-                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.email}</td>
-                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.extn}</td>
-                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.mobile}</td>
+                                            <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.designation}</td>
+                                            <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.email}</td>
+                                            <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.extn}</td>
+                                            <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.mobile}</td>
 
                                         </tr>
                                     ))}

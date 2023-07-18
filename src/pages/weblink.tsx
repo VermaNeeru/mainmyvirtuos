@@ -95,12 +95,12 @@ export default function Weblink() {
                                                 {person.by}
                                             </td>
 
-                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.fordate}</td>
-                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.rtype}</td>
-                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.item}</td>
-                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.quantity}</td>
-                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.requestedon}</td>
-                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.status}</td>
+                                            <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.fordate}</td>
+                                            <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.rtype}</td>
+                                            <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.item}</td>
+                                            <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.quantity}</td>
+                                            <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.requestedon}</td>
+                                            <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.status}</td>
 
                                         </tr>
                                     ))}

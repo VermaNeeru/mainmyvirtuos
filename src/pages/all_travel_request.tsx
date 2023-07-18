@@ -260,18 +260,18 @@ export default function SubordinateWfh() {
                                                             <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
                                                                 {person.by}
                                                             </td>
-                                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.name}</td>
-                                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.purpose}</td>
-                                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.applieddate}</td>
-                                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.advreq}</td>
-                                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.advpaid}</td>
+                                                            <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.name}</td>
+                                                            <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.purpose}</td>
+                                                            <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.applieddate}</td>
+                                                            <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.advreq}</td>
+                                                            <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.advpaid}</td>
                                                             <td className="flex whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                                                                 <Link href="/subordinate_travel_expenses">
                                                                     <span className="bg-gray-100 text-gray-600 block px-4 py-2">Expenses</span>
                                                                 </Link>
                                                                 <a onClick={() => setLeaveDetail(true)} className="ml-2 bg-gray-100 text-gray-600 block px-4 py-2 ">See Detail</a>
                                                             </td>
-                                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                                                            <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">
                                                                 <select
                                                                     id="location"
                                                                     name="location"
@@ -401,18 +401,18 @@ export default function SubordinateWfh() {
                                                             <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
                                                                 {person.by}
                                                             </td>
-                                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.name}</td>
-                                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.purpose}</td>
-                                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.applieddate}</td>
-                                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.advreq}</td>
-                                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.advpaid}</td>
+                                                            <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.name}</td>
+                                                            <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.purpose}</td>
+                                                            <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.applieddate}</td>
+                                                            <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.advreq}</td>
+                                                            <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.advpaid}</td>
                                                             <td className="flex whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                                                                 <Link href="/subordinate_travel_expenses">
                                                                     <span className="bg-gray-100 text-gray-600 block px-4 py-2">Expenses</span>
                                                                 </Link>
                                                                 <a onClick={() => setLeaveDetail(true)} className="ml-2 bg-gray-100 text-gray-600 block px-4 py-2 ">See Detail</a>
                                                             </td>
-                                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                                                            <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">
                                                                 <select
                                                                     id="location"
                                                                     name="location"
@@ -540,18 +540,18 @@ export default function SubordinateWfh() {
                                                             <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
                                                                 {person.by}
                                                             </td>
-                                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.name}</td>
-                                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.purpose}</td>
-                                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.applieddate}</td>
-                                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.advreq}</td>
-                                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.advpaid}</td>
+                                                            <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.name}</td>
+                                                            <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.purpose}</td>
+                                                            <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.applieddate}</td>
+                                                            <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.advreq}</td>
+                                                            <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.advpaid}</td>
                                                             <td className="flex whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                                                                 <Link href="/subordinate_travel_expenses">
                                                                     <span className="bg-gray-100 text-gray-600 block px-4 py-2">Expenses</span>
                                                                 </Link>
                                                                 <a onClick={() => setLeaveDetail(true)} className="ml-2 bg-gray-100 text-gray-600 block px-4 py-2 ">See Detail</a>
                                                             </td>
-                                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                                                            <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">
                                                                 <select
                                                                     id="location"
                                                                     name="location"

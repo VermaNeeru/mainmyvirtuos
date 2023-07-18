@@ -108,11 +108,11 @@ export default function Training() {
                                             <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
                                                 {person.title}
                                             </td>
-                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.desc}</td>
-                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.period}</td>
-                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.trainer}</td>
-                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.status}</td>
-                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                                            <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.desc}</td>
+                                            <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.period}</td>
+                                            <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.trainer}</td>
+                                            <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.status}</td>
+                                            <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">
                                                 <Menu as="div" className="relative inline-block text-left">
                                                     <div>
                                                         <Menu.Button className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-600 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">

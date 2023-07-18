@@ -207,3 +207,9 @@
 }
 
 /* for Year View Calendar - end */
+
+@media (min-width: 640px){
+.sm\:max-w-xl {
+    max-width: 44rem !important;
+}
+}

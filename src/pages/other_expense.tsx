@@ -138,10 +138,10 @@ export default function OtherExpense() {
                                 <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
                                     {person.emp_name}
                                 </td>
-                                <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.exp_type}</td>
-                                <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.amount}</td>
-                                <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.edate}</td>
-                                <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.status}</td>
+                                <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.exp_type}</td>
+                                <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.amount}</td>
+                                <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.edate}</td>
+                                <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.status}</td>
                             </tr>
                         ))}
                     </tbody>

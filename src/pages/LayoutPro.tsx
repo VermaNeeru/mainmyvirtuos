@@ -208,16 +208,44 @@ const navigation = [
     },
 
     {
+        name: 'Audit Log',
+        icon: FolderIcon,
+        current: false,
+        children: [
+            { name: 'Audit Log', href: '/audit', current: false },
+        ],
+    },
+
+
+    {
         name: 'Settings',
         icon: FolderIcon,
         current: false,
         children: [
-            { name: 'Manage Asset Status', href: '/', current: false },
-            { name: 'Manage Asset Model', href: '/', current: false },
-            { name: 'Manage Manufacturer', href: '/', current: false },
-            { name: 'Manage Company', href: '/', current: false },
-            { name: 'Manage Suppliers', href: '/', current: false },
-            { name: 'Manage Asset Category', href: '/', current: false },
+            { name: 'Manage Division', href: '/division_list', current: false },
+            { name: 'Manage Leave Rules', href: '/leave_rule', current: false },
+            { name: 'Manage User Type', href: '/user_type_list', current: false },
+            { name: 'Manage Manufacturer', href: '/manufacturer_list', current: false },
+            { name: 'Manage Company', href: '/company_list', current: false },
+            { name: 'Manage Suppliers', href: '/supplier_list', current: false },
+            { name: 'Manage Issue Category', href: '/issue_category_list', current: false },
+            { name: 'Manage Faq Category', href: '/faq_category_list', current: false },
+            { name: 'Manage Faq', href: '/faq', current: false },
+            { name: 'Manage Modules', href: '/modules', current: false },
+            { name: 'Manage Expense Type', href: '/expense_type_list', current: false },
+            { name: 'Manage Holiday', href: '/holidays', current: false },
+            { name: 'Manage Public Documents', href: '/all_public_document_list', current: false },
+            { name: 'Manage Email Templates', href: '/email_list', current: false },
+            { name: 'Manage Issues', href: '/admin_issue_list', current: false },
+            { name: 'Manage Certifications', href: '/certifications', current: false },
+            { name: 'Manage Skills', href: '/skills', current: false },
+            { name: 'Manage Access Types', href: '/access_list', current: false },
+            { name: 'Manage Roles', href: '/role_list', current: false },
+            { name: 'Manage Department', href: '/department_list', current: false },
+            { name: 'Manage Category', href: '/leave_category_list', current: false },
+            { name: 'User Leave Balance(Year)', href: '/leave_balance_upload', current: false },
+            { name: 'Video Tutorials', href: '/all_tutorial', current: false },
+
         ],
     },
 

@@ -74,14 +74,14 @@ export default function AccountsTravel() {
                                         <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
                                             {person.by}
                                         </td>
-                                        <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.tdate}</td>
-                                        <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.amount}</td>
-                                        <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.mstatus}</td>
-                                        <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                                        <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.tdate}</td>
+                                        <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.amount}</td>
+                                        <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.mstatus}</td>
+                                        <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">
                                             <a onClick={() => setViewDoc(true)} className="bg-gray-100 text-gray-600 block px-2 py-2 ">View Documents</a>
 
                                         </td>
-                                        <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                                        <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">
                                             <select
                                                 id="location"
                                                 name="location"

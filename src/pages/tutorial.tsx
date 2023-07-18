@@ -74,7 +74,7 @@ export default function Tutorial() {
                                                     <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm text-gray-600 sm:pl-6">
                                                         {person.tname}
                                                     </td>
-                                                    <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                                                    <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">
                                                         <Link href="https://drive.google.com/file/d/1F5qzmnHjfC6se9YfVug1Z1Xs9Rp2yYwa/view" target="_blank">
                                                             <EyeIcon className="h-6 w-6 text-gray-500" />
                                                         </Link>

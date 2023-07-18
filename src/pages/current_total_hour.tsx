@@ -96,11 +96,11 @@ export default function CurrentUserAccess() {
                                                     <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
                                                         {person.name}
                                                     </td>
-                                                    <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.wh}</td>
-                                                    <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.days}</td>
-                                                    <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.sh}</td>
-                                                    <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.toh}</td>
-                                                    <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.shortfall}</td>
+                                                    <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.wh}</td>
+                                                    <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.days}</td>
+                                                    <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.sh}</td>
+                                                    <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.toh}</td>
+                                                    <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.shortfall}</td>
 
                                                 </tr>
                                             ))}

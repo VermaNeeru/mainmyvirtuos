@@ -97,9 +97,9 @@ export default function AssetReport() {
                                 <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
                                     {person.emp_name}
                                 </td>
-                                <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.aname}</td>
-                                <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.model}</td>
-                                <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.assigned_on}</td>
+                                <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.aname}</td>
+                                <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.model}</td>
+                                <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.assigned_on}</td>
                             </tr>
                         ))}
                     </tbody>
@@ -128,9 +128,9 @@ export default function AssetReport() {
                                 <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
                                     {person.emp_name}
                                 </td>
-                                <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.aname}</td>
-                                <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.model}</td>
-                                <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.assigned_on}</td>
+                                <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.aname}</td>
+                                <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.model}</td>
+                                <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.assigned_on}</td>
                             </tr>
                         ))}
                     </tbody>
@@ -159,9 +159,9 @@ export default function AssetReport() {
                                 <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
                                     {person.emp_name}
                                 </td>
-                                <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.aname}</td>
-                                <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.model}</td>
-                                <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.assigned_on}</td>
+                                <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.aname}</td>
+                                <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.model}</td>
+                                <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.assigned_on}</td>
                             </tr>
                         ))}
                     </tbody>

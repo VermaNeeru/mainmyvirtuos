@@ -107,15 +107,15 @@ export default function EarlyDeparture() {
                                             <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
                                                 {person.name}
                                             </td>
-                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.date}</td>
-                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.day}</td>
-                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.in}</td>
-                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.out}</td>
-                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.logonhrs}</td>
-                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.status}</td>
-                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.shortfall}</td>
-                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.excess}</td>
-                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.reason}</td>
+                                            <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.date}</td>
+                                            <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.day}</td>
+                                            <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.in}</td>
+                                            <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.out}</td>
+                                            <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.logonhrs}</td>
+                                            <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.status}</td>
+                                            <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.shortfall}</td>
+                                            <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.excess}</td>
+                                            <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.reason}</td>
                                         </tr>
                                     ))}
                                 </tbody>

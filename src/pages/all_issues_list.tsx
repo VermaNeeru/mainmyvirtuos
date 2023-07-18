@@ -102,13 +102,13 @@ export default function AllIssuesList() {
                                 <tbody className="divide-y divide-gray-200 bg-white">
                                     {accounts_travel.map((person) => (
                                         <tr key={person.id}>
-                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.by}</td>
-                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.issuefor}</td>
-                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.relatedto.substring(0, 50)} <br />
+                                            <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.by}</td>
+                                            <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.issuefor}</td>
+                                            <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.relatedto.substring(0, 50)} <br />
                                                 <span onClick={() => setIssueDetail(true)} className='text-indigo-500 font-semibold'>More..</span>
                                             </td>
-                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.idate}</td>
-                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.status}</td>
+                                            <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.idate}</td>
+                                            <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.status}</td>
                                             <td>
                                                 <input
                                                     id="comments"

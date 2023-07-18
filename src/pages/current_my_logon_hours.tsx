@@ -97,10 +97,10 @@ export default function CurrentMyLogonHours() {
                                                 <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
                                                     {person.name}
                                                 </td>
-                                                <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.title}</td>
-                                                <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.email}</td>
-                                                <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.role}</td>
-                                                <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                                                <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.title}</td>
+                                                <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.email}</td>
+                                                <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.role}</td>
+                                                <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">
                                                     <a href="#" className="text-indigo-600 hover:text-indigo-900">
                                                         Edit<span className="sr-only">, {person.name}</span>
                                                     </a>

@@ -70,13 +70,13 @@ export default function LeaveList() {
                                                     <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
                                                         {person.leave_type}
                                                     </td>
-                                                    <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.fromdate}</td>
-                                                    <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.todate}</td>
-                                                    <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.day}</td>
-                                                    <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.reason}</td>
-                                                    <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.status}</td>
+                                                    <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.fromdate}</td>
+                                                    <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.todate}</td>
+                                                    <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.day}</td>
+                                                    <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.reason}</td>
+                                                    <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.status}</td>
 
-                                                    <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                                                    <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">
                                                         <a href="#" className="text-indigo-600 hover:text-indigo-900">
                                                             Pending<span className="sr-only">, {person.id}</span>
                                                         </a>

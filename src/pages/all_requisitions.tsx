@@ -176,15 +176,15 @@ export default function AllRequisitions() {
                                                 <tbody className="divide-y divide-gray-200 bg-white">
                                                     {pending_leaves.map((person) => (
                                                         <tr key={person.id}>
-                                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.by}</td>
-                                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.fordate}</td>
-                                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.type}</td>
-                                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.item}</td>
-                                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.quantity}</td>
-                                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.reqon}
+                                                            <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.by}</td>
+                                                            <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.fordate}</td>
+                                                            <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.type}</td>
+                                                            <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.item}</td>
+                                                            <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.quantity}</td>
+                                                            <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.reqon}
                                                                 <span onClick={() => setReqDetail(true)} className=" text-indigo-600 text-sm font-medium">..See More</span>
                                                             </td>
-                                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.status}</td>
+                                                            <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.status}</td>
                                                         </tr>
                                                     ))}
                                                 </tbody>
@@ -247,15 +247,15 @@ export default function AllRequisitions() {
                                                 <tbody className="divide-y divide-gray-200 bg-white">
                                                     {approved_leaves.map((person) => (
                                                         <tr key={person.id}>
-                                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.by}</td>
-                                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.fordate}</td>
-                                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.type}</td>
-                                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.item}</td>
-                                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.quantity}</td>
-                                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.reqon}
+                                                            <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.by}</td>
+                                                            <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.fordate}</td>
+                                                            <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.type}</td>
+                                                            <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.item}</td>
+                                                            <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.quantity}</td>
+                                                            <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.reqon}
                                                                 <span onClick={() => setReqDetail(true)} className=" text-indigo-600 text-sm font-medium">..See More</span>
                                                             </td>
-                                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.status}</td>
+                                                            <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.status}</td>
                                                         </tr>
                                                     ))}
                                                 </tbody>
@@ -318,15 +318,15 @@ export default function AllRequisitions() {
                                                 <tbody className="divide-y divide-gray-200 bg-white">
                                                     {rejected_leaves.map((person) => (
                                                         <tr key={person.id}>
-                                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.by}</td>
-                                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.fordate}</td>
-                                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.type}</td>
-                                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.item}</td>
-                                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.quantity}</td>
-                                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.reqon}
+                                                            <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.by}</td>
+                                                            <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.fordate}</td>
+                                                            <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.type}</td>
+                                                            <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.item}</td>
+                                                            <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.quantity}</td>
+                                                            <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.reqon}
                                                                 <span onClick={() => setReqDetail(true)} className=" text-indigo-600 text-sm font-medium">..See More</span>
                                                             </td>
-                                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.status}</td>
+                                                            <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.status}</td>
                                                         </tr>
                                                     ))}
                                                 </tbody>
