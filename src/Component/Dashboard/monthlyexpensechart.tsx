@@ -107,25 +107,26 @@ export default function Monthlyexpensechart() {
         // window.myLine = new Chart(ctx, config);
     }, []);
     return (
-        <>
-            <div className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded bg-blueGray-700">
-                <div className="rounded-t mb-0 px-4 py-3 bg-transparent">
-                    <div className="flex flex-wrap items-center">
-                        <div className="relative w-full max-w-full flex-grow flex-1">
-                            <h6 className="uppercase text-blueGray-100 mb-1 text-xs font-semibold">
-                                Monthly Expense Report
-                            </h6>
-                            <h2 className="text-white text-xl font-semibold">Sales value</h2>
-                        </div>
-                    </div>
-                </div>
-                <div className="p-4 flex-auto">
-                    {/* Chart */}
-                    <div className="relative h-350-px">
-                        <canvas id="line-chart"></canvas>
+
+        <div className="w-full relative items-center space-x-3 rounded-lg border border-gray-300 bg-white px-6 py-5 shadow-sm focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 hover:border-gray-400">
+            <div className="rounded-t mb-0 px-4 py-3 bg-transparent">
+                <div className="flex flex-wrap items-center">
+                    <div className="relative w-full max-w-full flex-grow flex-1">
+                        <h6 className="uppercase text-blueGray-100 mb-1 text-xs font-semibold">
+                            Monthly Expense Report
+                        </h6>
+                        <h2 className="text-white text-xl font-semibold">Sales value</h2>
                     </div>
                 </div>
             </div>
-        </>
+            <div className="p-4 flex-auto">
+                {/* Chart */}
+                <div className="relative h-350-px">
+                    <canvas id="line-chart"></canvas>
+                </div>
+            </div>
+        </div>
+
+
     );
 }

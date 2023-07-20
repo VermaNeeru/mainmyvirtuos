@@ -9,7 +9,7 @@ const people = [
         telephone: '+1-202-555-0170',
         dob: '9 June',
         imageUrl:
-            '	https://myvirtuos.com/uploads/profile/medium_thumb/Sarika_1624601136_mediumthumb.png',
+            'https://myvirtuos.com/uploads/profile/medium_thumb/Saumya_1664510838_mediumthumb.png',
     },
     {
         name: 'Rishabh',
@@ -18,19 +18,19 @@ const people = [
         telephone: '+1-202-555-0170',
         dob: '9 June',
         imageUrl:
-            'https://myvirtuos.com/uploads/profile/medium_thumb/Rishabh_1647849017_mediumthumb.png',
+            'https://myvirtuos.com/uploads/profile/medium_thumb/User_No-Frame_mediumthumb.png',
     },
     // More people...
 ]
 
-export default function Birthdays() {
+export default function WorkAnniversary() {
     return (
         <div className="w-full relative items-center space-x-3 rounded-lg border border-gray-300 bg-white px-6 py-5 shadow-sm focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 hover:border-gray-400">
             <div className="rounded-t mb-4 px-4 py-3 bg-transparent">
                 <div className="flex flex-wrap items-center">
                     <div className="relative w-full max-w-full flex-grow flex-1">
                         <h2 className="text-blueGray-700 text-xl font-semibold">
-                            Birthdays in this Month
+                            Work Anniversaries
                         </h2>
 
                     </div>

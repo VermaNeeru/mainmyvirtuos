@@ -24,7 +24,7 @@ const faqs = [
 export default function PublicDocument() {
     return (
         <div>
-            <div className="bg-white">
+            <div className="w-full relative items-center space-x-3 rounded-lg border border-gray-300 bg-white px-6 py-5 shadow-sm focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 hover:border-gray-400">
                 {/* <div className="mx-auto max-w-7xl px-6 py-24 sm:py-32 lg:px-8 lg:py-40"> */}
                 <div className="mx-auto max-w-7xl px-6 py-10">
                     <div className="mx-auto max-w-4xl divide-y divide-gray-900/10">
