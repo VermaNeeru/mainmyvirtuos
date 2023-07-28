@@ -117,7 +117,7 @@ export default function ViewFaq() {
                 </div>
 
             </div>
-            <div className="grid grid-cols-2 gap-4 sm:grid-cols-2 mt-4">
+            <div className="grid grid-cols-1 gap-4 lg:grid-cols-2 mt-4">
                 <div className=' rounded-lg border border-gray-300 bg-white px-4 py-4'>
                     <ul role="list" className="divide-y divide-gray-200">
                         {faqs.map((item) => (

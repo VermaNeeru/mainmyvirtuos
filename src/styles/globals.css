@@ -213,3 +213,11 @@
     max-width: 44rem !important;
 }
 }
+
+.bg-theme-color{
+  /* background-color: #193d44; */
+  background-color: #143137;
+}
+.bg-top-header{
+  background-color: #17383f;
+}

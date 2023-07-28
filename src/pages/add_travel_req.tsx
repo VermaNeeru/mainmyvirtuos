@@ -77,13 +77,12 @@ export default function AddTravelReq() {
                 </div>
             </div>
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-1">
-                <div className="relative  items-center space-x-3 rounded-lg border border-gray-300 bg-white px-6 py-5 shadow-sm focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 hover:border-gray-400">
-
-                    <div className=" px-2 py-2">
-                        <div className="sm:flex sm:items-center">
-                            <div className="sm:flex-auto">
+                <div className="relative  items-center space-x-3 rounded-lg border border-gray-300 bg-white lg:px-6 lg:py-5 px-2 py-2 shadow-sm focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 hover:border-gray-400">
+                    <div className="px-2 py-2">
+                        <div className="lg:flex sm:items-center">
+                            <div className="lg:flex-auto">
                             </div>
-                            <div className="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
+                            <div className="mt-4 lg:ml-16 ml-0 sm:mt-0 lg:flex-none">
                                 <Link href='/travel'>
                                     <button
                                         type="button"
@@ -98,12 +97,11 @@ export default function AddTravelReq() {
                     <div className=" mb-4 px-2 py-2">
                         <form>
                             <div className="space-y-2">
-                                <div className="border-b border-gray-900/10 pb-4">
-
+                                <div className="pb-4">
                                     <div className="mt-2 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-1">
                                         <p className='px-2 py-2 text-sm text-gray-600'>Expenses entailed for this official visit / trip are to be added from the Add TravelExpenses section under Expenses. Expenses should be added by last day of the month for ECR reimbursements. Late ECR reimbursement claims shall not be entertained by the Accounts Team</p>
                                     </div>
-                                    <div className="mt-2 grid grid-cols-2 gap-x-6 gap-y-4 sm:grid-cols-2">
+                                    <div className="mt-2 grid lg:grid-cols-2 grid-cols-1 gap-x-6 lg:gap-y-4 gap-y-2 sm:grid-cols-2">
                                         <div className="sm:col-span-1">
                                             <div className="relative mt-2 rounded-md shadow-sm">
                                                 <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
@@ -117,11 +115,8 @@ export default function AddTravelReq() {
                                                     placeholder="Reason for Travel"
                                                 />
                                             </div>
-
-
                                         </div>
                                         <div className="sm:col-span-1">
-
                                         </div>
                                         <div className="sm:col-span-1">
                                             <Listbox value={selected} onChange={setSelected}>
@@ -276,7 +271,7 @@ export default function AddTravelReq() {
                                             <Listbox value={selectedFA} onChange={setSelectedFA}>
                                                 {({ open }) => (
                                                     <>
-                                                        <div className="relative mt-10">
+                                                        <div className="relative lg:mt-10">
                                                             <Listbox.Button className="relative w-full cursor-default rounded-md bg-white py-1.5 pl-3 pr-10 text-left text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6">
                                                                 <span className="block truncate">{selectedFA.name}</span>
                                                                 <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
@@ -342,7 +337,7 @@ export default function AddTravelReq() {
                                             <Listbox value={selectedFA2} onChange={setSelectedFA2}>
                                                 {({ open }) => (
                                                     <>
-                                                        <div className="relative mt-10">
+                                                        <div className="relative lg:mt-10">
                                                             <Listbox.Button className="relative w-full cursor-default rounded-md bg-white py-1.5 pl-3 pr-10 text-left text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6">
                                                                 <span className="block truncate">{selectedFA2.name}</span>
                                                                 <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">

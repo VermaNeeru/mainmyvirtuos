@@ -26,11 +26,10 @@ export default function PublicDocument() {
                         <h2 className="text-blueGray-700 text-xl font-semibold">
                             Public Documents
                         </h2>
-
                     </div>
                 </div>
             </div>
-            <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+            <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                 <div className="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
                     <div className="sm:flex sm:items-center ">
                         <div className="sm:flex-auto">
@@ -56,36 +55,32 @@ export default function PublicDocument() {
                                 </button>
                             </div>
                         </div>
-
                     </div>
 
                     <div className="mt-4 overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg">
-                        <table className="min-w-full divide-y divide-gray-300">
-                            <thead className="bg-gray-50">
-                                <tr>
-                                    {table_header.map((val, index) => (
-
-                                        <th scope="col" key={index} className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">
-                                            {val.name}
-                                        </th>
-                                    ))}
-
-                                </tr>
-                            </thead>
-                            <tbody className="divide-y divide-gray-200 bg-white">
-                                {documents.map((person) => (
-                                    <tr key={person.id}>
-                                        <td className="lg:flex whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
-                                            <PlusCircleIcon onClick={() => setDoc(true)} className="h-6 w-6 text-gray-500" />
-                                            {person.dname}
-
-
-                                        </td>
-
+                        <div className="border-2 lg:border-0 overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg">
+                            <table className="min-w-full divide-y divide-gray-300">
+                                <thead className="bg-gray-50">
+                                    <tr>
+                                        {table_header.map((val, index) => (
+                                            <th scope="col" key={index} className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">
+                                                {val.name}
+                                            </th>
+                                        ))}
                                     </tr>
-                                ))}
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody className="divide-y divide-gray-200 bg-white">
+                                    {documents.map((person) => (
+                                        <tr key={person.id}>
+                                            <td className="flex whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
+                                                <PlusCircleIcon onClick={() => setDoc(true)} className="h-6 w-6 text-gray-500" />
+                                                <span>{person.dname}</span>
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
                         <Transition.Root show={doc} as={Fragment}>
                             <Dialog as="div" className="relative z-10" initialFocus={cancelButtonRef} onClose={setDoc}>
                                 <Transition.Child
@@ -101,7 +96,7 @@ export default function PublicDocument() {
                                 </Transition.Child>
 
                                 <div className="fixed inset-0 z-10 overflow-y-auto">
-                                    <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+                                    <div className="flex min-h-full items-end justify-center lg:p-4 -mt-32 lg:mt-0 text-center sm:items-center sm:p-0">
                                         <Transition.Child
                                             as={Fragment}
                                             enter="ease-out duration-300"
@@ -111,45 +106,45 @@ export default function PublicDocument() {
                                             leaveFrom="opacity-100 translate-y-0 sm:scale-100"
                                             leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
                                         >
-                                            <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg sm:p-6">
+                                            <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 lg:w-full w-80 sm:max-w-lg sm:p-6">
                                                 <div className="space-y-2">
                                                     <div className="border-b border-gray-900/10 pb-4">
-                                                        <h2 className="text-lg font-semibold leading-7 text-gray-900">Details for Virtuos Spectacular Handbook Spectacular Handbook</h2>
+                                                        <h2 className="lg:text-lg text-sm font-semibold leading-7 text-gray-900">Details for Virtuos Spectacular Handbook Spectacular Handbook</h2>
 
 
-                                                        <div className="mt-2 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-1">
+                                                        <div className="mt-2 grid grid-cols-1 gap-x-6 lg:gap-y-8  gap-y-2 lg:grid-cols-1">
                                                             <div className="sm:col-span-2">
                                                                 <div className="mt-1">
                                                                     <table className="min-w-full divide-y divide-gray-300">
                                                                         <tr key="1">
-                                                                            <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm text-gray-600 sm:pl-6">
+                                                                            <td className="whitespace-nowrap py-4 pl-4 pr-3 lg:text-sm text-xs text-gray-600 sm:pl-6">
                                                                                 Document Name
                                                                             </td>
-                                                                            <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-500 sm:pl-6">
-                                                                                Virtuos Spectacular Handbook
+                                                                            <td className="whitespace-nowrap py-4 pl-4 pr-3 lg:text-sm text-xs font-medium text-gray-500 sm:pl-6">
+                                                                                Virtuos Spectacular <br />Handbook
                                                                             </td>
 
                                                                         </tr>
                                                                         <tr key="1">
-                                                                            <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm text-gray-600 sm:pl-6">
+                                                                            <td className="whitespace-nowrap py-4 pl-4 pr-3 lg:text-sm text-xs text-gray-600 sm:pl-6">
                                                                                 Detail
                                                                             </td>
-                                                                            <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-500 sm:pl-6">
+                                                                            <td className="whitespace-nowrap py-4 pl-4 pr-3 lg:text-sm text-xs font-medium text-gray-500 sm:pl-6">
                                                                                 Spectacular Handbook
                                                                             </td>
 
                                                                         </tr>
                                                                         <tr key="1">
-                                                                            <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm text-gray-600 sm:pl-6">
+                                                                            <td className="whitespace-nowrap py-4 pl-4 pr-3 lg:text-sm text-xs text-gray-600 sm:pl-6">
                                                                                 Added on
                                                                             </td>
-                                                                            <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-500 sm:pl-6">
+                                                                            <td className="whitespace-nowrap py-4 pl-4 pr-3 lg:text-sm text-xs font-medium text-gray-500 sm:pl-6">
                                                                                 2022-04-08 12:55:11
                                                                             </td>
 
                                                                         </tr>
                                                                         <tr key="1">
-                                                                            <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm text-gray-600 sm:pl-6">
+                                                                            <td className="whitespace-nowrap py-4 pl-4 pr-3 lg:text-sm text-xs text-gray-600 sm:pl-6">
 
                                                                             </td>
                                                                             <td className="flex whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-500 sm:pl-6">
@@ -162,8 +157,8 @@ export default function PublicDocument() {
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div className="mt-2 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-1">
-                                                            <div className="mt-5 sm:mt-4 sm:flex sm:flex-row-reverse">
+                                                        <div className="mt-2 grid grid-cols-1 gap-x-6 gap-y-8 lg:grid-cols-1">
+                                                            <div className="lg:mt-5  sm:flex sm:flex-row-reverse">
                                                                 <button
                                                                     type="button"
                                                                     className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"

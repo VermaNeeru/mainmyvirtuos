@@ -66,7 +66,7 @@ export default function LeaveCategoryList() {
                                     </button>
                                 </div>
                             </div>
-                            <div className="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
+                            <div className="mt-4 lg:ml-16 ml-10 sm:mt-0 sm:flex-none">
                                 <Link href="/add_leave_category">
 
                                     <span
@@ -84,7 +84,7 @@ export default function LeaveCategoryList() {
                                         <th scope="col" className="flex py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">
                                             <input
                                                 id="comments"
-                                                aria-lcoderibedby="comments-lcodeription"
+
                                                 name="comments"
                                                 type="checkbox"
                                                 className="mt-1 h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
@@ -106,7 +106,7 @@ export default function LeaveCategoryList() {
                                             <td className="whitespace-nowrap py-1 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
                                                 <input
                                                     id="comments"
-                                                    aria-lcoderibedby="comments-lcodeription"
+
                                                     name="comments"
                                                     type="checkbox"
                                                     className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"

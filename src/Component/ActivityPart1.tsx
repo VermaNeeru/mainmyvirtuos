@@ -101,7 +101,7 @@ export default function ActivityPart1() {
                                                         /> */}
                                                         <TextEditor />
                                                     </div>
-                                                    <div className="mt-2">
+                                                    <div className="mt-4 lg:mt-2 ">
                                                         <Combobox as="div" value={selectedPerson} onChange={setSelectedPerson}>
                                                             <Combobox.Label className="block text-sm font-medium leading-6 text-gray-900">To</Combobox.Label>
                                                             <div className="relative mt-2">

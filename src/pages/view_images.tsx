@@ -51,17 +51,15 @@ export default function ViewImages() {
                                 </button>
                             </div>
                         </div>
-
                     </div>
                     <div className="mt-4 flow-root">
-                        <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                        <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                             <div className="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
-                                <div className="overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg">
+                                <div className="border-2 lg:border-0 overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg">
                                     <table className="min-w-full divide-y divide-gray-300">
                                         <thead className="bg-gray-50">
                                             <tr>
                                                 {table_header.map((val, index) => (
-
                                                     <th scope="col" key={index} className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">
                                                         {val.name}
                                                     </th>
@@ -78,7 +76,6 @@ export default function ViewImages() {
                                                         <Link href="/gallery_image/">
                                                             <PhotoIcon className="h-6 w-6 text-gray-500" />
                                                         </Link>
-
                                                     </td>
                                                 </tr>
                                             ))}

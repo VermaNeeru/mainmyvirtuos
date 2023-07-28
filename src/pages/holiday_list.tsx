@@ -23,7 +23,6 @@ export default function LeaveCalendar() {
                         <h2 className="text-blueGray-700 text-xl font-semibold">
                             Holiday Calendar
                         </h2>
-
                     </div>
                 </div>
             </div>
@@ -73,27 +72,20 @@ export default function LeaveCalendar() {
                         </li>
 
                     </ul>
-
                 </div>
                 <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 rounded mt-6">
                     <div className=" py-3 px-4 flex-auto">
                         <div className="tab-content tab-space">
                             <div className={openTab === 1 ? "block" : "hidden"} id="link1">
-                                <div className='flex'>
-                                    <div className="w-1/3 ...  px-2">
+                                <div className='lg:flex'>
+                                    <div className="lg:w-1/3 ...  px-2">
                                         <div className=' rounded-lg border border-gray-300 bg-white'>
                                             <div className=" mb-4 px-4 py-4">
-
                                                 <form>
                                                     <div className="space-y-2">
                                                         <div className=" pb-4">
                                                             <h2 className="text-base font-semibold leading-7 text-gray-900">  Filters</h2>
-                                                            {/* <p className="mt-1 text-sm leading-6 text-gray-600">
-                                    This information will be displayed publicly so be careful what you share.
-                                </p> */}
-
                                                             <div className="mt-2 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-
                                                                 <div className="sm:col-span-6">
                                                                     <label htmlFor="end-date" className="block text-sm font-medium leading-6 text-gray-900">
                                                                         Select Month
@@ -136,7 +128,7 @@ export default function LeaveCalendar() {
 
                                         </div>
                                     </div>
-                                    <div className="w-2/3 ...  px-2">
+                                    <div className="lg:w-2/3 ...  px-2 mt-4 lg:mt-0">
                                         <LeaveCalendarCompo />
                                     </div>
 

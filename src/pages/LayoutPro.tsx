@@ -17,8 +17,8 @@ import Link from 'next/link'
 function classNames(...classes: any[]) {
     return classes.filter(Boolean).join(' ')
 }
-
-export default function Testing() {
+const Testing = ({ onStateChange }) => {
+    // export default function Testing() {
     const [sidebarOpen, setSidebarOpen] = useState(false);
     const [currentNavItem, setCurrentNavItem] = useState<string>("Dashboard");
     const [currentNavSubItem, setSubCurrentNavItem] = useState<string>("")
@@ -176,7 +176,6 @@ export default function Testing() {
                 { name: 'Employee Referral', href: '/employee_referral', current: false },
                 { name: 'All Referral', href: '/all_referrals', current: false },
                 { name: 'All official Requirements', href: '/all_requisitions', current: false },
-                { name: 'Tutorial Referral', href: '/', current: false },
                 { name: 'Tutorial Myvirtuos', href: '/tutorial', current: false },
             ],
         },
@@ -283,22 +282,30 @@ export default function Testing() {
 
     ]
     const handleSetCurrentItem = (Current: string) => {
-        console.log('Current', Current)
         setCurrentNavItem(Current)
         setSubCurrentNavItem('')
         setSidebarOpen(false);
+        if (Current == 'Dashboard') {
+            onStateChange(false);
+        }
+        // onStateChange(false);
+        console.log('Current', Current)
         console.log('currentNavItem', currentNavItem)
         console.log('currentNavSubItem', currentNavSubItem)
     };
     const handleSetSubCurrentItem = (Parent: string, Child: string) => {
-        console.log(Parent, Child)
         setCurrentNavItem(Parent)
         setSubCurrentNavItem(Child)
+        setSidebarOpen(false)
+        onStateChange(false);
+        console.log(Parent, Child)
         console.log('currentNavItem', currentNavItem)
         console.log('currentNavSubItem', currentNavSubItem)
+
     };
     return (
-        <div className="flex grow flex-col gap-y-5 overflow-y-auto no-scrollbar bg-gray-900 px-6">
+        // <div className="flex grow flex-col gap-y-5 overflow-y-auto no-scrollbar bg-gray-900 px-6">
+        <div className="flex grow flex-col gap-y-5 overflow-y-auto no-scrollbar bg-theme-color px-6">
             <div className="flex h-16 shrink-0 items-center">
                 <Image
                     className="h-10 w-20 ml-16"
@@ -320,7 +327,7 @@ export default function Testing() {
                                             onClick={() => handleSetCurrentItem(item.name)}
                                             href={item.href}
                                             className={classNames(
-                                                item?.current
+                                                item.name == currentNavItem
                                                     ? 'bg-gray-800 text-white'
                                                     : 'text-gray-400 hover:text-white hover:bg-gray-800',
                                                 'group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold'
@@ -330,57 +337,60 @@ export default function Testing() {
                                             {item.name}
                                         </Link>
                                     ) : (
-                                        <Disclosure as="div" onClick={() => handleSetCurrentItem(item.name)}>
+                                        <Disclosure as="div" onClick={() => handleSetCurrentItem(item.name)}
+                                            data-headlessui-state={item.name == currentNavItem ? 'open' : ''}
+                                        >
 
-                                            {({ open }) => (
-                                                <>
-                                                    <Disclosure.Button
+                                            <>
+                                                <Disclosure.Button
+                                                    className={classNames(
+                                                        item.current
+                                                            ? 'bg-gray-800 text-white'
+                                                            : 'text-gray-400 hover:text-white hover:bg-gray-800',
+                                                        'flex items-center w-full text-left rounded-md p-2 gap-x-3 text-sm leading-6 font-semibold text-gray-400'
+                                                    )}
+                                                    data-headlessui-state={item.name === currentNavItem ? 'open' : ''}
+                                                    aria-expanded={item.name === currentNavItem ? 'true' : 'false'}
+                                                    aria-controls={item.name !== currentNavItem ? '' : ''}
+
+                                                >
+                                                    <item.icon className="h-6 w-6 shrink-0 text-gray-400" aria-hidden="true" />
+                                                    {item.name}
+                                                    <ChevronRightIcon
                                                         className={classNames(
-                                                            item.current
-                                                                ? 'bg-gray-800 text-white'
-                                                                : 'text-gray-400 hover:text-white hover:bg-gray-800',
-                                                            'flex items-center w-full text-left rounded-md p-2 gap-x-3 text-sm leading-6 font-semibold text-gray-400'
+                                                            item.name == currentNavItem ? 'rotate-90 text-gray-500' : 'text-gray-400',
+                                                            'ml-auto h-5 w-5 shrink-0'
                                                         )}
-                                                    >
-                                                        <item.icon className="h-6 w-6 shrink-0 text-gray-400" aria-hidden="true" />
-                                                        {item.name}
-                                                        <ChevronRightIcon
-                                                            className={classNames(
-                                                                open ? 'rotate-90 text-gray-500' : 'text-gray-400',
-                                                                'ml-auto h-5 w-5 shrink-0'
-                                                            )}
-                                                            aria-hidden="true"
-                                                        />
-                                                    </Disclosure.Button>
+                                                        aria-hidden="true"
+                                                    />
+                                                </Disclosure.Button>
 
-                                                    <Disclosure.Panel as="ul" className="mt-1 px-2">
-                                                        {item.children.map((subItem) => (
-                                                            <li key={subItem.name} onClick={() => handleSetSubCurrentItem(item.name, subItem.name)}
+                                                <Disclosure.Panel as="ul" className="mt-1 px-2">
+                                                    {item.children.map((subItem) => (
+                                                        <li key={subItem.name} onClick={() => handleSetSubCurrentItem(item.name, subItem.name)}
+                                                        >
+                                                            {/* Replace <a> with <Link> */}
+                                                            <Link href={subItem.href}
+
                                                             >
-                                                                {/* Replace <a> with <Link> */}
-                                                                <Link href={subItem.href}
-
-                                                                >
-                                                                    {/* <span className={classNames(
+                                                                {/* <span className={classNames(
                                                                         subItem?.current ? 'bg-red-800' : 'text-gray-150 hover:bg-gray-800',
                                                                         'block rounded-md py-2 pr-2 pl-9 text-sm leading-6 text-gray-500'
                                                                     )}> */}
 
-                                                                    <span className={classNames(
-                                                                        (subItem.name == currentNavSubItem) ? 'text-gray-300 font-bold hover:bg-gray-800' : 'bg-gray-800 text-gray-500',
-                                                                        'block rounded-md py-2 pr-2 pl-9 text-sm leading-6 '
-                                                                    )}>
+                                                                <span className={classNames(
+                                                                    (subItem.name == currentNavSubItem) ? 'text-gray-300 font-bold bg-gray-800' : 'hover:bg-gray-800 text-gray-500',
+                                                                    'block rounded-md py-2 pr-2 pl-9 text-sm leading-6 '
+                                                                )}>
+                                                                    {subItem.name}
+                                                                </span>
+                                                            </Link>
+                                                        </li>
+                                                    ))}
+                                                </Disclosure.Panel>
 
+                                            </>
 
-                                                                        {subItem.name}
-                                                                    </span>
-                                                                </Link>
-                                                            </li>
-                                                        ))}
-                                                    </Disclosure.Panel>
-
-                                                </>
-                                            )}
                                         </Disclosure>
                                     )}
                                 </li>
@@ -392,4 +402,6 @@ export default function Testing() {
             </nav >
         </div >
     )
-}
+};
+
+export default Testing;

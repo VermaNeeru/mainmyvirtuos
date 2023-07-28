@@ -150,7 +150,7 @@ export default function AllLeaves() {
                         className="h-12 isolate flex divide-x divide-gray-200 rounded-lg shadow" aria-label="Tabs"
                         role="tablist"
                     >
-                        <li className=" group relative min-w-0 flex-1 overflow-hidden bg-white px-4 text-center text-sm font-medium hover:bg-gray-50 focus:z-10">
+                        <li className=" group relative min-w-0 flex-1 overflow-hidden bg-white lg:px-4 px-1 text-center lg:text-sm text-xs font-medium hover:bg-gray-50 focus:z-10">
                             <a
                                 className={
                                     "flex whitespace-nowrap py-2 px-1 text-sm font-medium " +
@@ -169,7 +169,7 @@ export default function AllLeaves() {
                                 <p className="font-normal text-base">Basic Information</p>
                             </a>
                         </li>
-                        <li className=" group relative min-w-0 flex-1 overflow-hidden bg-white px-4 text-center text-sm font-medium hover:bg-gray-50 focus:z-10">
+                        <li className=" group relative min-w-0 flex-1 overflow-hidden bg-white lg:px-4 px-1 text-center lg:text-sm text-xs font-medium hover:bg-gray-50 focus:z-10">
                             <a
                                 className={
                                     "flex whitespace-nowrap py-2 px-1 text-sm font-medium " +
@@ -188,7 +188,7 @@ export default function AllLeaves() {
                                 <p className="font-normal text-base">Family Inforamtion</p>
                             </a>
                         </li>
-                        <li className=" group relative min-w-0 flex-1 overflow-hidden bg-white px-4 text-center text-sm font-medium hover:bg-gray-50 focus:z-10">
+                        <li className=" group relative min-w-0 flex-1 overflow-hidden bg-white lg:px-4 px-1 text-center lg:text-sm text-xs font-medium hover:bg-gray-50 focus:z-10">
                             <a
                                 className={
                                     "flex whitespace-nowrap py-2 px-1 text-sm font-medium " +
@@ -207,7 +207,12 @@ export default function AllLeaves() {
                                 <p className="font-normal text-base">Qualificaiton</p>
                             </a>
                         </li>
-                        <li className=" group relative min-w-0 flex-1 overflow-hidden bg-white px-4 text-center text-sm font-medium hover:bg-gray-50 focus:z-10">
+                    </ul>
+                    <ul
+                        className="h-12 isolate flex divide-x divide-gray-200 rounded-lg shadow" aria-label="Tabs"
+                        role="tablist"
+                    >
+                        <li className=" group relative min-w-0 flex-1 overflow-hidden bg-white lg:px-4 px-1 text-center lg:text-sm text-xs font-medium hover:bg-gray-50 focus:z-10">
                             <a
                                 className={
                                     "flex whitespace-nowrap py-2 px-1 text-sm font-medium " +
@@ -226,7 +231,7 @@ export default function AllLeaves() {
                                 <p className="font-normal text-base">Bank Information</p>
                             </a>
                         </li>
-                        <li className=" group relative min-w-0 flex-1 overflow-hidden bg-white px-4 text-center text-sm font-medium hover:bg-gray-50 focus:z-10">
+                        <li className=" group relative min-w-0 flex-1 overflow-hidden bg-white lg:px-4 px-1 text-center lg:text-sm text-xs font-medium hover:bg-gray-50 focus:z-10">
                             <a
                                 className={
                                     "flex whitespace-nowrap py-2 px-1 text-sm font-medium " +
@@ -245,7 +250,7 @@ export default function AllLeaves() {
                                 <p className="font-normal text-base">Work Experience</p>
                             </a>
                         </li>
-                        <li className=" group relative min-w-0 flex-1 overflow-hidden bg-white px-4 text-center text-sm font-medium hover:bg-gray-50 focus:z-10">
+                        <li className=" group relative min-w-0 flex-1 overflow-hidden bg-white lg:px-4 px-1 text-center lg:text-sm text-xs font-medium hover:bg-gray-50 focus:z-10">
                             <a
                                 className={
                                     "flex whitespace-nowrap py-2 px-1 text-sm font-medium " +
@@ -271,14 +276,14 @@ export default function AllLeaves() {
                     <div className=" py-3 px-4 flex-auto">
                         <div className="tab-content tab-space">
                             <div className={openTab === 1 ? "block" : "hidden"} id="link1">
-                                <div className="flex ...">
-                                    <div className="w-3/4 ...">
+                                <div className="lg:flex ...">
+                                    <div className="lg:w-3/4 ...">
                                         <div className=" mb-4 px-2 py-2">
                                             <form>
                                                 <div className="space-y-2">
-                                                    <div className="border-b border-gray-700/10 pb-4">
+                                                    <div className="pb-4">
 
-                                                        <div className="grid grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-4 sm:grid-cols-2">
+                                                        <div className="grid grid-cols-1 lg:grid-cols-3 gap-x-6 lg:gap-y-4 gap-y-2">
                                                             <div className="sm:col-span-1">
                                                                 <div className="relative mt-2 rounded-md shadow-sm">
                                                                     <label htmlFor="start-date" className="block text-sm font-medium leading-6 text-gray-700">
@@ -323,7 +328,7 @@ export default function AllLeaves() {
                                                             </div>
 
                                                         </div>
-                                                        <div className="mt-2 grid grid-cols-2 lg:grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-2">
+                                                        <div className="mt-2 grid grid-cols-1 lg:grid-cols-2 gap-x-6 lg:gap-y-4 gap-y-2">
                                                             <div className="sm:col-span-1">
                                                                 <div className="relative mt-2 rounded-md shadow-sm">
                                                                     <label htmlFor="start-date" className="block text-sm font-medium leading-6 text-gray-700">
@@ -355,7 +360,7 @@ export default function AllLeaves() {
 
                                                         </div>
 
-                                                        <div className="mt-8 mb-8 grid grid-cols-2 gap-x-6 gap-y-4 sm:grid-cols-2">
+                                                        <div className="mt-8 mb-8 grid grid-cols-1 gap-x-6 gap-y-2 lg:gap-y-4 lg:grid-cols-2">
 
                                                             <div className="sm:col-span-6">
                                                                 <div className="relative">
@@ -368,7 +373,7 @@ export default function AllLeaves() {
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div className="mt-2 grid grid-cols-1 lg:grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-2">
+                                                        <div className="mt-2 grid grid-cols-1 lg:grid-cols-2 gap-x-6 gap-y-2 lg:gap-y-4">
                                                             <div className="sm:col-span-1">
                                                                 <div className="relative mt-2 rounded-md shadow-sm">
                                                                     <label htmlFor="start-date" className="block text-sm font-medium leading-6 text-gray-700">
@@ -398,7 +403,7 @@ export default function AllLeaves() {
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div className="mt-2 grid grid-cols-1 lg:grid-cols-3 gap-x-6 gap-y-4 sm:grid-cols-2">
+                                                        <div className="mt-2 grid grid-cols-1 lg:grid-cols-3 gap-x-6 gap-y-2 lg:gap-y-4 ">
                                                             <div className="sm:col-span-1">
                                                                 <div className="relative mt-2 rounded-md shadow-sm">
                                                                     <label htmlFor="start-date" className="block text-sm font-medium leading-6 text-gray-700">
@@ -437,7 +442,7 @@ export default function AllLeaves() {
                                                             </div>
 
                                                         </div>
-                                                        <div className="mt-2 grid grid-cols-1 lg:grid-cols-2 gap-x-6 gap-y-4 sm:grid-cols-2">
+                                                        <div className="mt-2 grid grid-cols-1 lg:grid-cols-2 gap-x-6 gap-y-2 lg:gap-y-4">
                                                             <div className="sm:col-span-1">
                                                                 <div className="relative mt-2 rounded-md shadow-sm">
                                                                     <label htmlFor="start-date" className="block text-sm font-medium leading-6 text-gray-700">
@@ -468,7 +473,7 @@ export default function AllLeaves() {
                                                             </div>
                                                         </div>
 
-                                                        <div className="mt-2 grid grid-cols-1 lg:grid-cols-2 gap-x-6 gap-y-4 sm:grid-cols-2">
+                                                        <div className="mt-2 grid grid-cols-1 lg:grid-cols-2 gap-x-6 gap-y-2 lg:gap-y-4">
                                                             <div className="sm:col-span-1">
                                                                 <div className="relative mt-2 rounded-md shadow-sm">
                                                                     <label htmlFor="start-date" className="block text-sm font-medium leading-6 text-gray-700">
@@ -577,7 +582,7 @@ export default function AllLeaves() {
                                                             </div>
 
                                                         </div>
-                                                        <div className="mt-8 mb-8 grid grid-cols-2 gap-x-6 gap-y-4 sm:grid-cols-2">
+                                                        <div className="mt-8 mb-8 grid grid-cols-1 gap-x-6 gap-y-2 lg:gap-y-4 lg:grid-cols-2">
 
                                                             <div className="sm:col-span-6">
                                                                 <div className="relative">
@@ -590,7 +595,7 @@ export default function AllLeaves() {
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div className="mt-2 grid grid-cols-1 lg:grid-cols-3 gap-x-6 gap-y-4 sm:grid-cols-2">
+                                                        <div className="mt-2 grid grid-cols-1 lg:grid-cols-3 gap-x-6 gap-y-2 lg:gap-y-4">
                                                             <div className="sm:col-span-1">
                                                                 <div className="relative mt-2 rounded-md shadow-sm">
                                                                     <label htmlFor="start-date" className="block text-sm font-medium leading-6 text-gray-700">
@@ -679,7 +684,7 @@ export default function AllLeaves() {
 
 
                                                         </div>
-                                                        <div className="mt-8 mb-8 grid grid-cols-2 gap-x-6 gap-y-4 sm:grid-cols-2">
+                                                        <div className="mt-8 mb-8 grid grid-cols-1 gap-x-6 gap-y-2 lg:gap-y-4 lg:grid-cols-2">
                                                             <div className="sm:col-span-6">
                                                                 <div className="relative">
                                                                     <div className="absolute inset-0 flex items-center" aria-hidden="true">
@@ -691,7 +696,7 @@ export default function AllLeaves() {
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div className="mt-2 grid grid-cols-1 lg:grid-cols-2 gap-x-6 gap-y-4 sm:grid-cols-2">
+                                                        <div className="mt-2 grid grid-cols-1 lg:grid-cols-2 gap-x-6 gap-y-2 lg:gap-y-4">
                                                             <div className="sm:col-span-1">
                                                                 <div className="relative mt-2 rounded-md shadow-sm">
                                                                     <fieldset className="mt-4">
@@ -804,7 +809,7 @@ export default function AllLeaves() {
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div className="mt-8 mb-8 grid grid-cols-2 gap-x-6 gap-y-4 sm:grid-cols-2">
+                                                        <div className="mt-8 mb-8 grid grid-cols-1 gap-x-6 gap-y-2 lg:gap-y-4 lg:grid-cols-2">
 
                                                             <div className="sm:col-span-6">
                                                                 <div className="relative">
@@ -853,7 +858,7 @@ export default function AllLeaves() {
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div className="mt-8 mb-8 grid grid-cols-2 gap-x-6 gap-y-4 sm:grid-cols-2">
+                                                        <div className="mt-8 mb-8 grid grid-cols-1 gap-x-6 gap-y-2 lg:gap-y-4 lg:grid-cols-2">
 
                                                             <div className="sm:col-span-6">
                                                                 <div className="relative">
@@ -902,7 +907,7 @@ export default function AllLeaves() {
                                                             </div>
                                                         </div>
 
-                                                        <div className="mt-8 mb-8 grid grid-cols-2 gap-x-6 gap-y-4 sm:grid-cols-2">
+                                                        <div className="mt-8 mb-8 grid grid-cols-1 gap-x-6 gap-y-2 lg:gap-y-4 lg:grid-cols-2">
 
                                                             <div className="sm:col-span-6">
                                                                 <div className="relative">
@@ -951,7 +956,7 @@ export default function AllLeaves() {
                                                             </div>
                                                         </div>
 
-                                                        <div className="mt-8 mb-8 grid grid-cols-2 gap-x-6 gap-y-4 sm:grid-cols-2">
+                                                        <div className="mt-8 mb-8 grid grid-cols-1 gap-x-6 gap-y-2 lg:gap-y-4 lg:grid-cols-2">
 
                                                             <div className="sm:col-span-6">
                                                                 <div className="relative">
@@ -1000,7 +1005,7 @@ export default function AllLeaves() {
                                                             </div>
                                                         </div>
 
-                                                        <div className="mt-8 mb-8 grid grid-cols-2 gap-x-6 gap-y-4 sm:grid-cols-2">
+                                                        <div className="mt-8 mb-8 grid grid-cols-1 gap-x-6 gap-y-2 lg:gap-y-4 lg:grid-cols-2">
 
                                                             <div className="sm:col-span-6">
                                                                 <div className="relative">
@@ -1072,7 +1077,7 @@ export default function AllLeaves() {
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div className="mt-8 mb-8 grid grid-cols-2 gap-x-6 gap-y-4 sm:grid-cols-2">
+                                                        <div className="mt-8 mb-8 grid grid-cols-1 gap-x-6 gap-y-2 lg:gap-y-4 lg:grid-cols-2">
                                                             <div className="sm:col-span-6">
                                                                 <div className="relative">
                                                                     <div className="absolute inset-0 flex items-center" aria-hidden="true">
@@ -1198,8 +1203,7 @@ export default function AllLeaves() {
 
 
                                                         </div>
-                                                        <div className="mt-8 mb-8 grid grid-cols-2 gap-x-6 gap-y-4 sm:grid-cols-2">
-
+                                                        <div className="mt-8 mb-8 grid grid-cols-1 gap-x-6 gap-y-2 lg:gap-y-4 lg:grid-cols-2">
                                                             <div className="sm:col-span-6">
                                                                 <div className="relative">
                                                                     <div className="absolute inset-0 flex items-center" aria-hidden="true">
@@ -1212,7 +1216,7 @@ export default function AllLeaves() {
                                                             </div>
                                                         </div>
 
-                                                        <div className="mt-2 grid grid-cols-2 gap-x-6 gap-y-4 sm:grid-cols-2">
+                                                        <div className="mt-2 grid grid-cols-1 gap-x-6 gap-y-2 lg:gap-y-4 lg:grid-cols-2">
 
                                                             <div className="sm:col-span-6">
                                                                 <textarea
@@ -1264,7 +1268,7 @@ export default function AllLeaves() {
                                             </form>
                                         </div>
                                     </div>
-                                    <div className="w-1/4 ... ">
+                                    <div className="lg:w-1/4 ... ">
                                         <div className="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 text-center sm:grid-cols-1 md:grid-cols-1 lg:mx-0 lg:max-w-none lg:grid-cols-1 xl:grid-cols-1">
                                             <div>
                                                 <div className=' border-dashed border-2 border-sky-600 px-2 py-2'>
@@ -1287,7 +1291,7 @@ export default function AllLeaves() {
                                         className="h-12 isolate flex divide-x divide-gray-200 rounded-lg shadow" aria-label="Tabs"
                                         role="tablist"
                                     >
-                                        <li className=" group relative min-w-0 flex-1 overflow-hidden bg-white px-4 text-center text-sm font-medium hover:bg-gray-50 focus:z-10">
+                                        <li className=" group relative min-w-0 flex-1 overflow-hidden bg-white lg:px-4 px-1 text-center lg:text-sm text-xs font-medium hover:bg-gray-50 focus:z-10">
                                             <a
                                                 className={
                                                     "flex whitespace-nowrap py-2 px-1 text-sm font-medium " +
@@ -1306,7 +1310,7 @@ export default function AllLeaves() {
                                                 <p className="font-normal text-base">Add New</p>
                                             </a>
                                         </li>
-                                        <li className=" group relative min-w-0 flex-1 overflow-hidden bg-white px-4 text-center text-sm font-medium hover:bg-gray-50 focus:z-10">
+                                        <li className=" group relative min-w-0 flex-1 overflow-hidden bg-white lg:px-4 px-1 text-center lg:text-sm text-xs font-medium hover:bg-gray-50 focus:z-10">
                                             <a
                                                 className={
                                                     "flex whitespace-nowrap py-2 px-1 text-sm font-medium " +
@@ -1329,7 +1333,7 @@ export default function AllLeaves() {
                                     </ul>
                                 </div>
                                 <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 rounded mt-6">
-                                    <div className=" py-3 px-4 flex-auto">
+                                    <div className=" py-3 lg:px-4 px-1 flex-auto">
                                         <div className="tab-content tab-space">
                                             <div className={openTabFamily === 1 ? "block" : "hidden"} id="link2">
                                                 {listItems.map((item, index) => (
@@ -1383,17 +1387,17 @@ export default function AllLeaves() {
                                                         </span>
                                                     </Disclosure.Button>
                                                 </dt>
-                                                <Disclosure.Panel as="dd" className="mt-2 pr-12">
+                                                <Disclosure.Panel as="dd" className="mt-2 lg:pr-12">
                                                     <div className=' rounded-lg border border-gray-300 bg-white'>
-                                                        <div className=" mb-4 px-4 py-4">
-                                                            <div className="mt-2 grid lg:grid-cols-2 grid-cols-1 gap-x-2 gap-y-2 sm:grid-cols-6">
+                                                        <div className=" lg:mb-4 px-4 py-2 lg:py-4">
+                                                            <div className="mt-2 grid lg:grid-cols-2 grid-cols-1 gap-x-2 gap-y-2">
                                                                 <div className="lg:col-span-1">
                                                                     <div className="mt-1">
                                                                         <ProgramSearch />
                                                                     </div>
                                                                 </div>
                                                                 <div className="lg:col-span-1">
-                                                                    <div className="mt-9">
+                                                                    <div className="lg:mt-9">
                                                                         <button
                                                                             type="submit"
                                                                             className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
@@ -1426,17 +1430,17 @@ export default function AllLeaves() {
                                                         </span>
                                                     </Disclosure.Button>
                                                 </dt>
-                                                <Disclosure.Panel as="dd" className="mt-2 pr-12">
+                                                <Disclosure.Panel as="dd" className="mt-2 lg:pr-12">
                                                     <div className=' rounded-lg border border-gray-300 bg-white'>
-                                                        <div className=" mb-4 px-4 py-4">
-                                                            <div className="mt-2 grid lg:grid-cols-2 grid-cols-1 gap-x-2 gap-y-2 sm:grid-cols-6">
+                                                        <div className=" lg:mb-4 px-4 py-2 lg:py-4">
+                                                            <div className="mt-2 grid lg:grid-cols-2 grid-cols-1 gap-x-2 gap-y-2">
                                                                 <div className="lg:col-span-1">
                                                                     <div className="mt-1">
                                                                         <ProjectSearch />
                                                                     </div>
                                                                 </div>
                                                                 <div className="lg:col-span-1">
-                                                                    <div className="mt-9">
+                                                                    <div className="lg:mt-9">
                                                                         <button
                                                                             type="submit"
                                                                             className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
@@ -1469,14 +1473,14 @@ export default function AllLeaves() {
                                                         </span>
                                                     </Disclosure.Button>
                                                 </dt>
-                                                <Disclosure.Panel as="dd" className="mt-2 pr-12">
+                                                <Disclosure.Panel as="dd" className="mt-2 lg:pr-12">
                                                     <div className=' rounded-lg border border-gray-300 bg-white'>
                                                         <div className=" mb-4 px-4 py-4">
-                                                            <div className="mt-2 grid lg:grid-cols-2 grid-cols-1 gap-x-2 gap-y-2 sm:grid-cols-6">
+                                                            <div className="mt-2 grid lg:grid-cols-2 grid-cols-1 gap-x-2 gap-y-2">
                                                                 <div className="lg:col-span-1">
                                                                     <p className='text-sm text-red-600'>If skill not found then click Add Additional Skill button to add the skill</p>
                                                                 </div>
-                                                                <div className="lg:col-span-1 text-right">
+                                                                <div className="lg:col-span-1 lg:text-right">
                                                                     <button
                                                                         type="button"
                                                                         onClick={() => setAddSkills(true)}
@@ -1493,7 +1497,7 @@ export default function AllLeaves() {
                                                                     </div>
                                                                 </div>
                                                                 <div className="lg:col-span-1">
-                                                                    <div className="mt-9">
+                                                                    <div className="lg:mt-9">
                                                                         <button
                                                                             type="submit"
                                                                             className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
@@ -1526,7 +1530,7 @@ export default function AllLeaves() {
                                                         </span>
                                                     </Disclosure.Button>
                                                 </dt>
-                                                <Disclosure.Panel as="dd" className="mt-2 pr-12">
+                                                <Disclosure.Panel as="dd" className="mt-2 lg:pr-12">
                                                     {listEItems.map((item, index) => (
                                                         <div key={index} className='rounded-lg border border-gray-300 px-4 py-2 pb-10 mb-10'>
                                                             <div className='mt-2 text-right'>
@@ -1545,7 +1549,7 @@ export default function AllLeaves() {
                                                             Add New Education
                                                         </button>
                                                     </div>
-                                                    <div className='mt-4 text-right'>
+                                                    <div className='lg:mt-4 mt-2 text-right'>
                                                         <button className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                                                         >
                                                             Save
@@ -1571,13 +1575,13 @@ export default function AllLeaves() {
                                                         </span>
                                                     </Disclosure.Button>
                                                 </dt>
-                                                <Disclosure.Panel as="dd" className="mt-2 pr-12">
+                                                <Disclosure.Panel as="dd" className="mt-2 lg:pr-12">
                                                     {listCItems.map((item, index) => (
                                                         <div key={index} className='rounded-lg border border-gray-300 px-4 py-2 pb-10 mb-10'>
                                                             <div className='mt-2 text-right'>
                                                                 <button onClick={() => removeCItem(index)} className="rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
 
-                                                                ><MinusSmallIcon className="h-6 w-6" />
+                                                                ><MinusSmallIcon className="lg:h-6 lg:w-6 h-2 w-4" />
                                                                 </button>
                                                             </div>
                                                             <AddCertificate />
@@ -1616,7 +1620,7 @@ export default function AllLeaves() {
                                                         </span>
                                                     </Disclosure.Button>
                                                 </dt>
-                                                <Disclosure.Panel as="dd" className="mt-2 pr-12">
+                                                <Disclosure.Panel as="dd" className="mt-2 lg:pr-12">
                                                     {listLItems.map((item, index) => (
                                                         <div key={index} className='rounded-lg border border-gray-300 px-4 py-2 pb-10 mb-10'>
                                                             <div className='mt-2 text-right'>
@@ -1645,19 +1649,14 @@ export default function AllLeaves() {
                                                 </Disclosure.Panel>
                                             </>
                                         )}
-
                                     </Disclosure>
-
-
                                 </dl>
-
                             </div>
                             <div className={openTab === 4 ? "block" : "hidden"} id="link4">
                                 <form>
                                     <div className="space-y-2">
-                                        <div className="border-b border-gray-700/10 pb-4">
-
-                                            <div className="grid grid-cols-2 lg:grid-cols-2 gap-x-6 gap-y-4 sm:grid-cols-2">
+                                        <div className="pb-4">
+                                            <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-6 gap-y-2 lg:gap-y-4">
                                                 <div className="sm:col-span-1">
                                                     <div className="relative mt-2 rounded-md shadow-sm">
                                                         <label htmlFor="start-date" className="block text-sm font-medium leading-6 text-gray-700">
@@ -1734,7 +1733,6 @@ export default function AllLeaves() {
                                                         </div>
                                                     </div>
                                                 </div>
-
                                             </div>
                                             <div className="grid grid-cols-1 lg:grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-1">
                                                 <div className="sm:col-span-1">
@@ -1752,7 +1750,6 @@ export default function AllLeaves() {
                                                         />
                                                     </div>
                                                 </div>
-
                                             </div>
                                         </div>
                                     </div>

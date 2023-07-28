@@ -37,7 +37,7 @@ export default function AddDocument() {
                         <div className="sm:flex sm:items-center">
                             <div className="sm:flex-auto">
                             </div>
-                            <div className="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
+                            <div className="mt-4 lg:ml-16 ml-10 sm:mt-0 sm:flex-none">
                                 <Link href='/all_public_document_list'>
                                     <button
                                         type="button"

@@ -65,7 +65,7 @@ export default function RoleList() {
                                     </button>
                                 </div>
                             </div>
-                            <div className="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
+                            <div className="mt-4 lg:ml-16 ml-10 sm:mt-0 sm:flex-none">
 
 
                                 <a onClick={() => setQuickEdit(true)}

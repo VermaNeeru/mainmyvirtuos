@@ -59,6 +59,12 @@ const userNavigation = [
     { name: 'Sign out', href: '/login' },
 ]
 
+const userNotification = [
+    { name: '3 Leaves pending', href: '/leave' },
+    { name: 'Birthday', href: '/' },
+    { name: 'Work Anniversary', href: '/' },
+]
+
 function classNames(...classes: string[]) {
     return classes.filter(Boolean).join(' ')
 }
@@ -66,6 +72,9 @@ function classNames(...classes: string[]) {
 export default function Layout({ children }: any) {
     const [sidebarOpen, setSidebarOpen] = useState(false)
 
+    const handleChildStateChange = (dataFromChild) => {
+        setSidebarOpen(dataFromChild);
+    };
     return (
         <>
             {/*
@@ -176,7 +185,7 @@ export default function Layout({ children }: any) {
                                                     </a>
                                                 </li>
                                             </ul> */}
-                                        <LayoutPro />
+                                        <LayoutPro onStateChange={handleChildStateChange} />
                                     </nav>
                                     {/* </div> */}
                                 </Dialog.Panel>
@@ -188,7 +197,7 @@ export default function Layout({ children }: any) {
                 {/* Static sidebar for desktop */}
                 <div className="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-72 lg:flex-col">
                     {/* Sidebar component, swap this element with another sidebar if you like */}
-                    <LayoutPro />
+                    <LayoutPro onStateChange={handleChildStateChange} />
 
                 </div>
 
@@ -196,7 +205,7 @@ export default function Layout({ children }: any) {
                     <div className="sticky top-0 z-40 flex h-16 shrink-0 items-center gap-x-4 border-b border-gray-200 bg-gray-800 px-4 shadow-sm sm:gap-x-6 sm:px-6 lg:px-8">
                         <button type="button" className="-m-2.5 p-2.5 text-gray-700 lg:hidden" onClick={() => setSidebarOpen(true)}>
                             <span className="sr-only">Open sidebar</span>
-                            <Bars3Icon className="h-6 w-6" aria-hidden="true" />
+                            <Bars3Icon className="h-6 w-6 text-gray-200" aria-hidden="true" />
                         </button>
 
                         {/* Separator */}
@@ -220,10 +229,49 @@ export default function Layout({ children }: any) {
                                 /> */}
                             </form>
                             <div className="flex items-center gap-x-4 lg:gap-x-6">
-                                <button type="button" className="-m-2.5 p-2.5 text-gray-400 hover:text-gray-500">
+                                {/* <button type="button" className="-m-2.5 p-2.5 text-gray-400 hover:text-gray-500">
                                     <span className="sr-only">View notifications</span>
                                     <BellIcon className="h-6 w-6" aria-hidden="true" />
-                                </button>
+                                </button> */}
+
+                                {/* Separator */}
+
+                                {/* Profile dropdown */}
+                                <Menu as="div" className="relative">
+                                    <Menu.Button className="-m-1.5 flex items-center p-1.5">
+                                        <BellIcon className="h-6 w-6 text-white" aria-hidden="true" />
+
+                                    </Menu.Button>
+                                    <Transition
+                                        as={Fragment}
+                                        enter="transition ease-out duration-100"
+                                        enterFrom="transform opacity-0 scale-95"
+                                        enterTo="transform opacity-100 scale-100"
+                                        leave="transition ease-in duration-75"
+                                        leaveFrom="transform opacity-100 scale-100"
+                                        leaveTo="transform opacity-0 scale-95"
+                                    >
+                                        <Menu.Items className="absolute right-0 z-10 mt-2.5 w-64 origin-top-right rounded-md bg-white py-2 shadow-lg ring-1 ring-gray-900/5 focus:outline-none">
+                                            <span className='px-2 py-2 text-red-700'>You have {userNotification.length} notification</span>
+
+                                            {userNotification.map((item) => (
+                                                <Menu.Item key={item.name}>
+                                                    {({ active }) => (
+                                                        <a
+                                                            href={item.href}
+                                                            className={classNames(
+                                                                active ? 'bg-gray-50' : '',
+                                                                'block px-3 py-1 text-sm leading-6 text-gray-900'
+                                                            )}
+                                                        >
+                                                            {item.name}
+                                                        </a>
+                                                    )}
+                                                </Menu.Item>
+                                            ))}
+                                        </Menu.Items>
+                                    </Transition>
+                                </Menu>
 
                                 {/* Separator */}
                                 <div className="hidden lg:block lg:h-6 lg:w-px lg:bg-gray-900/10" aria-hidden="true" />
@@ -276,6 +324,7 @@ export default function Layout({ children }: any) {
                                     </Transition>
                                 </Menu>
                             </div>
+
                         </div>
                     </div>
 

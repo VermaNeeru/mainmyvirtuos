@@ -90,7 +90,8 @@ const ForgotPassword = () => {
                                                 {/* <Image src={virtuoslogo} alt="Virtuos-Logo" /> */}
                                             </div>
                                             <div className="text-center text-gray-600 text-sm">
-                                                © Virtuos Digital Ltd. Virtuez Assimilations. All rights reserved.
+                                                Virtuos Solution Pvt Ltd. © 2023
+                                                Version 1.0.0.
                                             </div>
                                         </div>
 

@@ -121,12 +121,10 @@ export default function Leavechart() {
                     </div>
                 </div>
             </div>
-            <div className="p-4 flex-auto">
-                {/* Chart */}
-                <div className="relative h-350-px">
-                    <canvas id="bar-chart"></canvas>
-                </div>
-            </div>
+            {/* Chart */}
+            <canvas id="bar-chart"></canvas>
+
+
         </div>
 
     )

@@ -1,5 +1,5 @@
 import ActivityPart1 from '@/Component/ActivityPart1'
-import Post from '@/Component/post'
+import ActivityPost from '@/Component/ActivityPost'
 import Image from 'next/image'
 import React from 'react'
 import { ChevronRightIcon } from '@heroicons/react/20/solid'
@@ -38,8 +38,8 @@ export default function activity() {
                     </div>
                 </div>
             </div>
-            <div>
-                <div className="w-2/3 ...">
+            <div className='lg:flex space-x-2'>
+                <div className="lg:w-2/3 ...">
                     <div >
                         <div className=' rounded-lg border border-gray-300 bg-white'> <ActivityPart1 /></div>
 
@@ -115,8 +115,9 @@ export default function activity() {
                             </div>
 
                         </div>
-                    </div></div>
-                <div className="w-1/3 ..."> <div><Post /></div></div>
+                    </div>
+                </div>
+                <div className="lg:w-1/3 ..."> <ActivityPost /></div>
 
 
 

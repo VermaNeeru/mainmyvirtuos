@@ -58,16 +58,15 @@ export default function AddIssue() {
                 </div>
             </div>
 
-            <div className="lg:flex grid grid-cols-2 gap-4 sm:grid-cols-2">
-                <div className=" lg:w-2/3 -mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-
+            <div className="lg:flex grid grid-cols-1 gap-4 lg:grid-cols-2">
+                <div className=" lg:w-2/3  lg:-my-2 overflow-x-auto lg:-mx-8">
                     <div className="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
-                        <div className=' rounded-lg border border-gray-300 bg-white'>
+                        <div className='rounded-lg border border-gray-300 bg-white'>
                             <div className=" mb-4 px-4 py-4">
                                 <form>
                                     <div className="space-y-2">
-                                        <div className="border-b border-gray-900/10 pb-4">
-                                            <div className="mt-2 grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-6">
+                                        <div className="pb-4">
+                                            <div className="mt-2 grid grid-cols-1 gap-x-6 lg:gap-y-4 gap-y-2 lg:grid-cols-6">
                                                 <div className="sm:col-span-6">
                                                     <div className="mt-1">
                                                         <Listbox value={selected} onChange={setSelected}>
@@ -144,7 +143,6 @@ export default function AddIssue() {
                                                     </div>
 
                                                 </div>
-
                                                 <div className="sm:col-span-6">
                                                     <div className="relative mt-2 rounded-md shadow-sm">
                                                         <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
@@ -164,10 +162,10 @@ export default function AddIssue() {
                                         </div>
                                     </div>
 
-                                    <div className=" items-center">
+                                    <div className=" lg:text-right">
                                         <button
                                             type="submit"
-                                            className="ml-2 rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                                            className="lg:ml-2 rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                                         >
                                             Save
                                         </button>

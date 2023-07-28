@@ -45,15 +45,13 @@ export default function AddWfh() {
                     </div>
                 </div>
             </div>
-            <div className="grid grid-cols-2 gap-4 sm:grid-cols-2">
+            <div className="grid lg:grid-cols-2 grid-cols-1 gap-4 sm:grid-cols-2">
                 <div className="relative  items-center space-x-3 rounded-lg border border-gray-300 bg-white px-6 py-5 shadow-sm focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 hover:border-gray-400">
-
                     <div className=" mb-4 px-2 py-2">
                         <form>
                             <div className="space-y-2">
-                                <div className="border-b border-gray-900/10 pb-4">
-
-                                    <div className="mt-2 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+                                <div className="pb-4">
+                                    <div className="mt-2 grid grid-cols-1 gap-x-6 lg:gap-y-4 gap-y-2 sm:grid-cols-6">
                                         <div className="sm:col-span-6">
                                             <label htmlFor="start-date" className="block text-sm font-medium leading-6 text-gray-900">
                                                 Leave Type

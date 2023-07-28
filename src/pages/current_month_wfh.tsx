@@ -124,11 +124,10 @@ export default function CurrentMonthWfh() {
                             <div className={openTab === 1 ? "block" : "hidden"} id="link1">
                                 <div className=' rounded-lg border border-gray-300 bg-white mb-4'>
                                     <div className=" mb-4 px-4 py-4">
-
                                         <form>
                                             <div className="space-y-2">
-                                                <div className="pb-4">
-                                                    <div className="mt-2 grid grid-cols-2 gap-x-6 gap-y-8 sm:grid-cols-2">
+                                                <div className="lg:pb-4">
+                                                    <div className="mt-2 grid grid-cols-1 gap-x-6 gap-y-2 lg:gap-y-8 lg:grid-cols-2">
                                                         <div className="sm:col-span-1">
                                                             <div className="lg:w-96 mt-2 flex rounded-md shadow-sm">
                                                                 <div className="relative flex flex-grow items-stretch focus-within:z-10">
@@ -153,7 +152,7 @@ export default function CurrentMonthWfh() {
                                                         </div>
 
                                                         <div className="sm:col-span-1">
-                                                            <div className='mt-2 text-right'>
+                                                            <div className='mt-2 lg:text-right'>
                                                                 <Link href="/search_wfh">
                                                                     <button
                                                                         type="button"
@@ -178,49 +177,51 @@ export default function CurrentMonthWfh() {
 
 
                                 </div>
-                                <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-                                    <div className="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
-                                        <div className="overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg">
-                                            <table className="min-w-full divide-y divide-gray-300">
-                                                <thead className="bg-gray-50">
-                                                    <tr>
-                                                        {table_header.map((val, index) => (
+                                <div className="mt-8 flow-root">
+                                    <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                                        <div className="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
+                                            <div className="border-2 lg:border-0 overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg">
+                                                <table className="min-w-full divide-y divide-gray-300">
+                                                    <thead className="bg-gray-50">
+                                                        <tr>
+                                                            {table_header.map((val, index) => (
 
-                                                            <th scope="col" key={index} className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">
-                                                                {val.name}
-                                                            </th>
-                                                        ))}
+                                                                <th scope="col" key={index} className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">
+                                                                    {val.name}
+                                                                </th>
+                                                            ))}
 
 
-                                                        <th className="py-3.5 pl-4 pr-3"></th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody className="divide-y divide-gray-200 bg-white">
-                                                    {pending_leaves.map((person) => (
-                                                        <tr key={person.id}>
-                                                            <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
-                                                                {person.type}
-                                                            </td>
-                                                            <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.by}</td>
-                                                            <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.applieddate}</td>
-                                                            <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.status}</td>
-                                                            <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.mstatus}</td>
-                                                            <td className="flex whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                                                                <a onClick={() => setLeaveDetail(true)} className="bg-gray-100 text-gray-600 block px-4 py-2 ">Detail</a>
-                                                            </td>
-                                                            <td>
-                                                                <input
-                                                                    id="comments"
-                                                                    aria-describedby="comments-description"
-                                                                    name="comments"
-                                                                    type="checkbox"
-                                                                    className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
-                                                                />
-                                                            </td>
+                                                            <th className="py-3.5 pl-4 pr-3"></th>
                                                         </tr>
-                                                    ))}
-                                                </tbody>
-                                            </table>
+                                                    </thead>
+                                                    <tbody className="divide-y divide-gray-200 bg-white">
+                                                        {pending_leaves.map((person) => (
+                                                            <tr key={person.id}>
+                                                                <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
+                                                                    {person.type}
+                                                                </td>
+                                                                <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.by}</td>
+                                                                <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.applieddate}</td>
+                                                                <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.status}</td>
+                                                                <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.mstatus}</td>
+                                                                <td className="flex whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                                                                    <a onClick={() => setLeaveDetail(true)} className="bg-gray-100 text-gray-600 block px-4 py-2 ">Detail</a>
+                                                                </td>
+                                                                <td>
+                                                                    <input
+                                                                        id="comments"
+                                                                        aria-describedby="comments-description"
+                                                                        name="comments"
+                                                                        type="checkbox"
+                                                                        className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
+                                                                    />
+                                                                </td>
+                                                            </tr>
+                                                        ))}
+                                                    </tbody>
+                                                </table>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -228,11 +229,10 @@ export default function CurrentMonthWfh() {
                             <div className={openTab === 2 ? "block" : "hidden"} id="link2">
                                 <div className=' rounded-lg border border-gray-300 bg-white mb-4'>
                                     <div className=" mb-4 px-4 py-4">
-
                                         <form>
                                             <div className="space-y-2">
-                                                <div className=" pb-4">
-                                                    <div className="mt-2 grid grid-cols-2 gap-x-6 gap-y-8 sm:grid-cols-2">
+                                                <div className="lg:pb-4">
+                                                    <div className="mt-2 grid grid-cols-1 gap-x-6 gap-y-2 lg:gap-y-8 lg:grid-cols-2">
                                                         <div className="sm:col-span-1">
                                                             <div className="lg:w-96 mt-2 flex rounded-md shadow-sm">
                                                                 <div className="relative flex flex-grow items-stretch focus-within:z-10">
@@ -255,8 +255,9 @@ export default function CurrentMonthWfh() {
                                                                 </button>
                                                             </div>
                                                         </div>
+
                                                         <div className="sm:col-span-1">
-                                                            <div className='mt-2 text-right'>
+                                                            <div className='mt-2 lg:text-right'>
                                                                 <Link href="/search_wfh">
                                                                     <button
                                                                         type="button"
@@ -268,7 +269,6 @@ export default function CurrentMonthWfh() {
                                                             </div>
 
                                                         </div>
-
 
                                                     </div>
                                                 </div>
@@ -282,49 +282,51 @@ export default function CurrentMonthWfh() {
 
 
                                 </div>
-                                <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-                                    <div className="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
-                                        <div className="overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg">
-                                            <table className="min-w-full divide-y divide-gray-300">
-                                                <thead className="bg-gray-50">
-                                                    <tr>
-                                                        {table_header.map((val, index) => (
+                                <div className="mt-8 flow-root">
+                                    <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                                        <div className="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
+                                            <div className="border-2 lg:border-0 overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg">
+                                                <table className="min-w-full divide-y divide-gray-300">
+                                                    <thead className="bg-gray-50">
+                                                        <tr>
+                                                            {table_header.map((val, index) => (
 
-                                                            <th scope="col" key={index} className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">
-                                                                {val.name}
-                                                            </th>
-                                                        ))}
+                                                                <th scope="col" key={index} className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">
+                                                                    {val.name}
+                                                                </th>
+                                                            ))}
 
 
-                                                        <th className="py-3.5 pl-4 pr-3"></th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody className="divide-y divide-gray-200 bg-white">
-                                                    {approved_leaves.map((person) => (
-                                                        <tr key={person.id}>
-                                                            <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
-                                                                {person.type}
-                                                            </td>
-                                                            <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.by}</td>
-                                                            <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.applieddate}</td>
-                                                            <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.status}</td>
-                                                            <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.mstatus}</td>
-                                                            <td className="flex whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                                                                <a onClick={() => setLeaveDetail(true)} className="bg-gray-100 text-gray-600 block px-4 py-2 ">Detail</a>
-                                                            </td>
-                                                            <td>
-                                                                <input
-                                                                    id="comments"
-                                                                    aria-describedby="comments-description"
-                                                                    name="comments"
-                                                                    type="checkbox"
-                                                                    className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
-                                                                />
-                                                            </td>
+                                                            <th className="py-3.5 pl-4 pr-3"></th>
                                                         </tr>
-                                                    ))}
-                                                </tbody>
-                                            </table>
+                                                    </thead>
+                                                    <tbody className="divide-y divide-gray-200 bg-white">
+                                                        {approved_leaves.map((person) => (
+                                                            <tr key={person.id}>
+                                                                <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
+                                                                    {person.type}
+                                                                </td>
+                                                                <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.by}</td>
+                                                                <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.applieddate}</td>
+                                                                <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.status}</td>
+                                                                <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.mstatus}</td>
+                                                                <td className="flex whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                                                                    <a onClick={() => setLeaveDetail(true)} className="bg-gray-100 text-gray-600 block px-4 py-2 ">Detail</a>
+                                                                </td>
+                                                                <td>
+                                                                    <input
+                                                                        id="comments"
+                                                                        aria-describedby="comments-description"
+                                                                        name="comments"
+                                                                        type="checkbox"
+                                                                        className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
+                                                                    />
+                                                                </td>
+                                                            </tr>
+                                                        ))}
+                                                    </tbody>
+                                                </table>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -332,11 +334,10 @@ export default function CurrentMonthWfh() {
                             <div className={openTab === 3 ? "block" : "hidden"} id="link2">
                                 <div className=' rounded-lg border border-gray-300 bg-white mb-4'>
                                     <div className=" mb-4 px-4 py-4">
-
                                         <form>
                                             <div className="space-y-2">
-                                                <div className="pb-4">
-                                                    <div className="mt-2 grid grid-cols-2 gap-x-6 gap-y-8 sm:grid-cols-2">
+                                                <div className="lg:pb-4">
+                                                    <div className="mt-2 grid grid-cols-1 gap-x-6 gap-y-2 lg:gap-y-8 lg:grid-cols-2">
                                                         <div className="sm:col-span-1">
                                                             <div className="lg:w-96 mt-2 flex rounded-md shadow-sm">
                                                                 <div className="relative flex flex-grow items-stretch focus-within:z-10">
@@ -359,8 +360,9 @@ export default function CurrentMonthWfh() {
                                                                 </button>
                                                             </div>
                                                         </div>
+
                                                         <div className="sm:col-span-1">
-                                                            <div className='mt-2 text-right'>
+                                                            <div className='mt-2 lg:text-right'>
                                                                 <Link href="/search_wfh">
                                                                     <button
                                                                         type="button"
@@ -373,10 +375,7 @@ export default function CurrentMonthWfh() {
 
                                                         </div>
 
-
-
                                                     </div>
-
                                                 </div>
 
 
@@ -388,54 +387,56 @@ export default function CurrentMonthWfh() {
 
 
                                 </div>
-                                <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-                                    <div className="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
-                                        <div className="overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg">
-                                            <table className="min-w-full divide-y divide-gray-300">
-                                                <thead className="bg-gray-50">
-                                                    <tr>
-                                                        {table_header.map((val, index) => (
+                                <div className="mt-8 flow-root">
+                                    <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                                        <div className="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
+                                            <div className="border-2 lg:border-0 overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg">
+                                                <table className="min-w-full divide-y divide-gray-300">
+                                                    <thead className="bg-gray-50">
+                                                        <tr>
+                                                            {table_header.map((val, index) => (
 
-                                                            <th scope="col" key={index} className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">
-                                                                {val.name}
-                                                            </th>
-                                                        ))}
+                                                                <th scope="col" key={index} className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">
+                                                                    {val.name}
+                                                                </th>
+                                                            ))}
 
 
-                                                        <th className="py-3.5 pl-4 pr-3"></th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody className="divide-y divide-gray-200 bg-white">
-                                                    {rejected_leaves.map((person) => (
-                                                        <tr key={person.id}>
-                                                            <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
-                                                                {person.type}
-                                                            </td>
-                                                            <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.by}</td>
-                                                            <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.applieddate}</td>
-                                                            <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.status}</td>
-                                                            <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.mstatus}</td>
-                                                            <td className="flex whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                                                                <a onClick={() => setLeaveDetail(true)} className="bg-gray-100 text-gray-600 block px-4 py-2 ">Detail</a>
-                                                            </td>
-                                                            <td>
-                                                                <input
-                                                                    id="comments"
-                                                                    aria-describedby="comments-description"
-                                                                    name="comments"
-                                                                    type="checkbox"
-                                                                    className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
-                                                                />
-                                                            </td>
+                                                            <th className="py-3.5 pl-4 pr-3"></th>
                                                         </tr>
-                                                    ))}
-                                                </tbody>
-                                            </table>
+                                                    </thead>
+                                                    <tbody className="divide-y divide-gray-200 bg-white">
+                                                        {rejected_leaves.map((person) => (
+                                                            <tr key={person.id}>
+                                                                <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
+                                                                    {person.type}
+                                                                </td>
+                                                                <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.by}</td>
+                                                                <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.applieddate}</td>
+                                                                <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.status}</td>
+                                                                <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.mstatus}</td>
+                                                                <td className="flex whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                                                                    <a onClick={() => setLeaveDetail(true)} className="bg-gray-100 text-gray-600 block px-4 py-2 ">Detail</a>
+                                                                </td>
+                                                                <td>
+                                                                    <input
+                                                                        id="comments"
+                                                                        aria-describedby="comments-description"
+                                                                        name="comments"
+                                                                        type="checkbox"
+                                                                        className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
+                                                                    />
+                                                                </td>
+                                                            </tr>
+                                                        ))}
+                                                    </tbody>
+                                                </table>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
 
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -455,7 +456,7 @@ export default function CurrentMonthWfh() {
                     </Transition.Child>
 
                     <div className="fixed inset-0 z-10 overflow-y-auto">
-                        <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+                        <div className="flex min-h-full items-end justify-center lg:p-4 -mt-36 lg:mt-0 text-center sm:items-center sm:p-0">
                             <Transition.Child
                                 as={Fragment}
                                 enter="ease-out duration-300"
@@ -465,7 +466,7 @@ export default function CurrentMonthWfh() {
                                 leaveFrom="opacity-100 translate-y-0 sm:scale-100"
                                 leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
                             >
-                                <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg sm:p-6">
+                                <Dialog.Panel className="relative w-80 transform overflow-hidden rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg sm:p-6">
                                     <div className="space-y-2">
                                         <div className="border-b border-gray-900/10 pb-4">
                                             <h2 className="text-lg font-semibold leading-7 text-gray-900">  WFH Detail</h2>

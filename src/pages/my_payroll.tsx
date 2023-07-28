@@ -42,9 +42,8 @@ export default function MyPayroll() {
                     </div>
                 </div>
             </div>
-            <div className="lg:flex grid grid-cols-2 gap-4 sm:grid-cols-2">
-                <div className=" lg:w-2/3 -mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-
+            <div className="lg:flex grid grid-cols-1 gap-4 lg:grid-cols-2">
+                <div className="lg:w-2/3 lg:-my-2 overflow-x-auto lg:-mx-8">
                     <div className="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
                         <div className="sm:flex sm:items-center">
                             <div className="sm:flex-auto">
@@ -74,40 +73,42 @@ export default function MyPayroll() {
                         </div>
 
                         <div className="mt-4 overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg">
-                            <table className="min-w-full divide-y divide-gray-300">
-                                <thead className="bg-gray-50">
-                                    <tr>
-                                        {table_header.map((val, index) => (
+                            <div className="border-2 lg:border-0 overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg">
+                                <table className="min-w-full divide-y divide-gray-300">
+                                    <thead className="bg-gray-50">
+                                        <tr>
+                                            {table_header.map((val, index) => (
 
-                                            <th scope="col" key={index} className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">
-                                                {val.name}
-                                            </th>
-                                        ))}
-                                    </tr>
-                                </thead>
-                                <tbody className="divide-y divide-gray-200 bg-white">
-                                    {user_attendance.map((person) => (
-                                        <tr key={person.id}>
-                                            <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
-                                                {person.year}
-                                            </td>
-                                            <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.month}</td>
-                                            <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">
-                                                <Link href="/my_payroll">
-                                                    <span className='text-indigo-600'>View Payslip</span>
-                                                </Link>
-                                            </td>
+                                                <th scope="col" key={index} className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">
+                                                    {val.name}
+                                                </th>
+                                            ))}
                                         </tr>
-                                    ))}
-                                </tbody>
-                            </table>
+                                    </thead>
+                                    <tbody className="divide-y divide-gray-200 bg-white">
+                                        {user_attendance.map((person) => (
+                                            <tr key={person.id}>
+                                                <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
+                                                    {person.year}
+                                                </td>
+                                                <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.month}</td>
+                                                <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">
+                                                    <Link href="/my_payroll">
+                                                        <span className='text-indigo-600'>View Payslip</span>
+                                                    </Link>
+                                                </td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
 
                 <div className=" lg:w-1/3 relative  items-center space-x-3 rounded-lg border border-gray-300 bg-white px-6 py-5 shadow-sm focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 hover:border-gray-400">
                     <h4 className='flex'>FAQ for Payroll <BanknotesIcon className="ml-2 h-6 w-6 text-gray-500" /></h4>
-                    <div className=" mb-4 px-2 py-2">
+                    <div className=" mb-4 py-2">
                         <dl className="mt-2 space-y-6 divide-y divide-gray-900/10">
                             {faqs.map((faq) => (
                                 <Disclosure as="div" key={faq.question} >

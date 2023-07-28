@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import React, { useState } from 'react'
 
 export default function Profile() {
@@ -20,7 +21,9 @@ export default function Profile() {
                     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:flex ">
                         <div className='col-span-1 lg:w-1/5'>
                             <span className="relative inline-block">
-                                <img
+                                <Image
+                                    loader={({ src }) => `${src}`}
+                                    width="100" height="100"
                                     className="h-36 w-36 rounded-full"
                                     src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
                                     alt=""

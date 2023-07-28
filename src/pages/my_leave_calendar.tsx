@@ -18,8 +18,8 @@ export default function MyLeaveCalendar() {
                     </div>
                 </div>
             </div>
-            <div className='flex'>
-                <div className="w-1/3 ...  px-2">
+            <div className='lg:flex'>
+                <div className="lg:w-1/3 ...  px-2">
                     <div className=' rounded-lg border border-gray-300 bg-white'>
                         <div className=" mb-4 px-4 py-4">
 
@@ -31,7 +31,7 @@ export default function MyLeaveCalendar() {
                                     This information will be displayed publicly so be careful what you share.
                                 </p> */}
 
-                                        <div className="mt-2 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+                                        <div className="mt-2 grid grid-cols-1 gap-x-6 lg:gap-y-4 gap-y-2 sm:grid-cols-6">
                                             <div className="sm:col-span-6">
                                                 <div className="mt-1">
                                                     <EmployeeSearch />
@@ -114,7 +114,7 @@ export default function MyLeaveCalendar() {
 
                     </div>
                 </div>
-                <div className="w-2/3 ...  px-2">
+                <div className="lg:w-2/3 ... lg:mt-0 mt-4  px-2">
                     <LeaveCalendar />
                 </div>
 

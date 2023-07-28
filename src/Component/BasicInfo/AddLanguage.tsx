@@ -2,7 +2,7 @@ import React from 'react'
 
 export default function AddLanguage() {
     return (
-        <div className="grid grid-cols-2 lg:grid-cols-4 grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-2">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-6 gap-y-2 lg:gap-y-4">
             <div className="sm:col-span-1">
                 <div className="relative mt-2 rounded-md shadow-sm">
                     <label htmlFor="start-date" className="block text-sm font-medium leading-6 text-gray-700">

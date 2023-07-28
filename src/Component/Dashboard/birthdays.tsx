@@ -29,7 +29,7 @@ export default function Birthdays() {
             <div className="rounded-t mb-4 px-4 py-3 bg-transparent">
                 <div className="flex flex-wrap items-center">
                     <div className="relative w-full max-w-full flex-grow flex-1">
-                        <h2 className="text-blueGray-700 text-xl font-semibold">
+                        <h2 className="text-blueGray-700 text-xl text-xl font-semibold">
                             Birthdays in this Month
                         </h2>
 

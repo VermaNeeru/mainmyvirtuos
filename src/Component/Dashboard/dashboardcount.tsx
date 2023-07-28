@@ -21,7 +21,7 @@ export default function Dashboardcount() {
                         <div
                             className={classNames(
                                 project.bgColor,
-                                'flex w-16 flex-shrink-0 items-center justify-center rounded-l-md text-sm font-medium text-white'
+                                'flex lg:w-16 w-16 flex-shrink-0 items-center justify-center rounded-l-md text-sm font-medium text-white'
                             )}
                         >
                             {project.initials}

@@ -65,7 +65,7 @@ export default function AllPublicDocumentList() {
                                     </button>
                                 </div>
                             </div>
-                            <div className="mt-4 sm:ml-16 sm:mt-0 sm:flex-none lg:flex lg:space-x-2">
+                            <div className="mt-4 lg:ml-16 ml-10 sm:mt-0 sm:flex-none lg:flex lg:space-x-2">
                                 <Link href="/upload_public_document" >
                                     <span
                                         className="block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"

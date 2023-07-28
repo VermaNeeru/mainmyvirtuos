@@ -67,7 +67,7 @@ export default function Users() {
                         <div className="sm:flex-auto">
                             {/* <h3 className='font-medium'>Candidate Referral form</h3> */}
                         </div>
-                        <div className="mt-4 sm:ml-16 sm:mt-0 sm:flex-none lg:flex lg:space-x-2">
+                        <div className="mt-4 lg:ml-16 ml-10 sm:mt-0 sm:flex-none lg:flex lg:space-x-2">
                             <Link href='/add_user'>
                                 <button
                                     type="button"

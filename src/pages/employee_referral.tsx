@@ -17,11 +17,11 @@ export default function EmployeeReferral() {
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-1">
                 <div className="relative  items-center space-x-3 rounded-lg border border-gray-300 bg-white px-6 py-5 shadow-sm focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 hover:border-gray-400">
                     <div className=" px-2 py-2">
-                        <div className="sm:flex sm:items-center">
+                        <div className="flex items-center">
                             <div className="sm:flex-auto">
-                                <h3 className='font-medium'>Candidate Referral form</h3>
+                                <h3 className='font-medium lg:text-base text-sm'>Candidate Referral form</h3>
                             </div>
-                            <div className="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
+                            <div className="mt-4 lg:ml-16 ml-10 sm:mt-0 sm:flex-none">
                                 <Link href='/view_terms'>
                                     <button
                                         type="button"
@@ -33,12 +33,12 @@ export default function EmployeeReferral() {
                             </div>
                         </div>
                     </div>
-                    <div className=" mb-4 px-2 py-2">
+                    <div className=" mb-4 lg:px-2 lg:py-2">
                         <form>
                             <div className="space-y-2">
-                                <div className="border-b border-gray-900/10 pb-4">
+                                <div className="pb-4">
 
-                                    <div className="mt-2 grid grid-cols-2 gap-x-6 gap-y-4 sm:grid-cols-2">
+                                    <div className="mt-2 grid grid-cols-1 gap-x-6 lg:gap-y-4 gap-y-2 lg:grid-cols-2">
                                         <div className="sm:col-span-1">
                                             <div className="relative mt-2 rounded-md shadow-sm">
                                                 <input
@@ -93,7 +93,7 @@ export default function EmployeeReferral() {
                                             </select>
                                         </div>
                                     </div>
-                                    <div className="mt-8 mb-8 grid grid-cols-2 gap-x-6 gap-y-4 sm:grid-cols-2">
+                                    <div className="mt-8 mb-8 grid grid-cols-1 gap-x-6 gap-y-4 lg:grid-cols-2">
 
                                         <div className="sm:col-span-6">
                                             <div className="relative">
@@ -106,7 +106,7 @@ export default function EmployeeReferral() {
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="mt-2 grid grid-cols-2 gap-x-6 gap-y-4 sm:grid-cols-2">
+                                    <div className="mt-2 grid grid-cols-1 gap-x-6 gap-y-4 lg:grid-cols-2">
                                         <div className="sm:col-span-6">
                                             <textarea
                                                 rows={2}
@@ -118,7 +118,7 @@ export default function EmployeeReferral() {
                                             />
                                         </div>
                                     </div>
-                                    <div className="mt-8 mb-8 grid grid-cols-2 gap-x-6 gap-y-4 sm:grid-cols-2">
+                                    <div className="mt-8 mb-8 grid grid-cols-1 gap-x-6 gap-y-4 lg:grid-cols-2">
 
                                         <div className="sm:col-span-6">
                                             <div className="relative">
@@ -131,7 +131,7 @@ export default function EmployeeReferral() {
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="mt-2 grid grid-cols-2 gap-x-6 gap-y-4 sm:grid-cols-2">
+                                    <div className="mt-2 grid grid-cols-1 gap-x-6 gap-y-4 lg:grid-cols-2">
                                         <div className="sm:col-span-1">
                                             <label htmlFor="start-date" className="block text-sm font-medium leading-6 text-gray-800">
                                                 Attachement

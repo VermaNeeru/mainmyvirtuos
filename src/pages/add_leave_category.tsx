@@ -13,7 +13,7 @@ export default function AddLeaveCategory() {
                                     Add Leave Type
                                 </h2>
                             </div>
-                            <div className="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
+                            <div className="mt-4 lg:ml-16 ml-10 sm:mt-0 sm:flex-none">
                                 <Link href='/leave_category_list'>
                                     <button
                                         type="button"
