@@ -37,7 +37,7 @@ export default function AddDocument() {
                         <div className="sm:flex sm:items-center">
                             <div className="sm:flex-auto">
                             </div>
-                            <div className="mt-4 lg:ml-16 ml-10 sm:mt-0 sm:flex-none">
+                            <div className="mt-4 lg:ml-16 ml-0 sm:mt-0 sm:flex-none">
                                 <Link href='/all_public_document_list'>
                                     <button
                                         type="button"
@@ -53,7 +53,7 @@ export default function AddDocument() {
                         <form>
                             <div className="space-y-2">
                                 <div className="border-b border-gray-900/10 pb-4">
-                                    <div className="mt-2 grid grid-cols-2 gap-x-6 gap-y-4 sm:grid-cols-2">
+                                    <div className="mt-2 grid grid-cols-1 gap-x-6 lg:gap-y-4 gap-y-2 lg:grid-cols-2">
                                         <div className="sm:col-span-1">
                                             <EmployeeSearch heading="For :" />
                                             <div className="lg:flex lg:space-x-2 mt-2">
@@ -67,7 +67,6 @@ export default function AddDocument() {
                                                 <label htmlFor="start-date" className=" block text-sm font-medium leading-6 text-gray-900">
                                                     All Employees
                                                 </label>
-
                                             </div>
                                         </div>
 
@@ -76,7 +75,6 @@ export default function AddDocument() {
                                                 <label htmlFor="start-date" className="block text-sm font-medium leading-6 text-gray-900">
                                                     Document Name
                                                 </label>
-
                                                 <input
                                                     type="email"
                                                     name="email"
@@ -101,17 +99,9 @@ export default function AddDocument() {
                                             </div>
                                         </div>
                                         <div className="sm:col-span-1">
-
                                         </div>
-
-
-
-
-
                                     </div>
                                 </div>
-
-
                             </div>
 
                             <div className=" items-center">

@@ -40,7 +40,7 @@ export default function EarlyDeparture() {
                     <form>
                         <div className="space-y-2">
                             <div className="pb-4">
-                                <div className="mt-2 grid lg:grid-cols-4 grid-cols-2 gap-x-6 gap-y-8 sm:grid-cols-2">
+                                <div className="mt-2 grid lg:grid-cols-4 grid-cols-2 gap-x-6 lg:gap-y-8 gap-y-2">
                                     <div className="sm:col-span-1">
                                         <EmployeeSearch />
                                     </div>
@@ -88,7 +88,7 @@ export default function EarlyDeparture() {
             <div className="mt-4 flow-root">
                 <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                     <div className="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
-                        <div className="overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg">
+                        <div className="border-2 lg:border-0 overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg">
                             <table className="min-w-full divide-y divide-gray-300">
                                 <thead className="bg-gray-50">
                                     <tr>

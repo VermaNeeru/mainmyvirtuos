@@ -35,7 +35,7 @@ export default function SearchOte() {
                 <div className=" mb-4 px-4 py-4">
 
                     <form>
-                        <div className="mt-2 grid grid-cols-3 gap-x-6 gap-y-8 sm:grid-cols-6">
+                        <div className="mt-2 grid grid-cols-1 gap-x-6 gap-y-1 sm:gap-y-8 sm:grid-cols-6">
                             <div className="sm:col-span-2">
                                 <label htmlFor="start-date" className="block text-sm font-medium leading-6 text-gray-900">
                                     From Date
@@ -44,8 +44,6 @@ export default function SearchOte() {
                                     <DatePickerComp />
                                 </div>
                             </div>
-
-
                             <div className="sm:col-span-2">
                                 <label htmlFor="start-date" className="block text-sm font-medium leading-6 text-gray-900">
                                     To Date
@@ -55,7 +53,7 @@ export default function SearchOte() {
                                 </div>
                             </div>
                             <div className="sm:col-span-2">
-                                <div className="mt-8">
+                                <div className="sm:mt-8 mt-2">
                                     <button
                                         type="submit"
                                         className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
@@ -68,7 +66,7 @@ export default function SearchOte() {
                     </form>
                 </div>
             </div>
-            <div className="mt-6 -mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+            <div className="lg:mt-4 lg:-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                 <div className="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
                     <div className="sm:flex sm:items-center mb-4">
                         <div className="sm:flex-auto">
@@ -96,31 +94,36 @@ export default function SearchOte() {
                         </div>
                     </div>
 
-                    <div className="overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg">
-                        <table className="min-w-full divide-y divide-gray-300">
-                            <thead className="bg-gray-50">
-                                <tr>
-                                    {table_header.map((val, index) => (
-                                        <th scope="col" key={index} className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">
-                                            {val.name}
-                                        </th>
-                                    ))}
-                                </tr>
-                            </thead>
-                            <tbody className="divide-y divide-gray-200 bg-white">
-                                {accounts_travel.map((person) => (
-                                    <tr key={person.id}>
-                                        <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
-                                            {person.emp_name}
-                                        </td>
-                                        <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.exception_avalied}</td>
-                                        <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.avalied_on}</td>
-                                        <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.leave_period}</td>
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </table>
-
+                    <div className="mt-8 flow-root">
+                        <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                            <div className="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
+                                <div className="border-2 lg:border-0 overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg">
+                                    <table className="min-w-full divide-y divide-gray-300">
+                                        <thead className="bg-gray-50">
+                                            <tr>
+                                                {table_header.map((val, index) => (
+                                                    <th scope="col" key={index} className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">
+                                                        {val.name}
+                                                    </th>
+                                                ))}
+                                            </tr>
+                                        </thead>
+                                        <tbody className="divide-y divide-gray-200 bg-white">
+                                            {accounts_travel.map((person) => (
+                                                <tr key={person.id}>
+                                                    <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
+                                                        {person.emp_name}
+                                                    </td>
+                                                    <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.exception_avalied}</td>
+                                                    <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.avalied_on}</td>
+                                                    <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.leave_period}</td>
+                                                </tr>
+                                            ))}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

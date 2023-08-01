@@ -41,7 +41,7 @@ export default function AllPublicDocumentList() {
             </div>
             <div className=' rounded-lg border border-gray-300 bg-white'>
                 <div className="px-4 sm:px-2 lg:px-1 mt-4 mb-10">
-                    <div className="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
+                    <div className="py-2 align-middle sm:px-6 lg:px-8">
                         <div className="sm:flex sm:items-center">
                             <div className="sm:flex-auto">
                                 <div className="lg:w-96 mt-1 flex rounded-md shadow-sm">
@@ -65,7 +65,7 @@ export default function AllPublicDocumentList() {
                                     </button>
                                 </div>
                             </div>
-                            <div className="mt-4 lg:ml-16 ml-10 sm:mt-0 sm:flex-none lg:flex lg:space-x-2">
+                            <div className="mt-4 lg:ml-16 ml-0 sm:mt-0 sm:flex-none lg:flex lg:space-x-2">
                                 <Link href="/upload_public_document" >
                                     <span
                                         className="block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
@@ -75,84 +75,89 @@ export default function AllPublicDocumentList() {
                                 </Link>
                             </div>
                         </div>
-                        <div className="mt-4 overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg">
-                            <table className="min-w-full divide-y divide-gray-300">
-                                <thead className="bg-gray-50">
-                                    <tr>
-                                        <th scope="col" className="flex py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">
-                                            <input
-                                                id="comments"
-                                                aria-describedby="comments-description"
-                                                name="comments"
-                                                type="checkbox"
-                                                className="mt-1 h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
-                                            />
-                                            <TrashIcon className="h-6 w-6 text-gray-500" />
-                                        </th>
+                        <div className="mt-8 flow-root">
+                            <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                                <div className="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
+                                    <div className="border-2 lg:border-0 overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg">
+                                        <table className="min-w-full divide-y divide-gray-300">
+                                            <thead className="bg-gray-50">
+                                                <tr>
+                                                    <th scope="col" className="flex py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">
+                                                        <input
+                                                            id="comments"
+                                                            aria-describedby="comments-description"
+                                                            name="comments"
+                                                            type="checkbox"
+                                                            className="mt-1 h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
+                                                        />
+                                                        <TrashIcon className="h-6 w-6 text-gray-500" />
+                                                    </th>
 
-                                        {table_header.map((val, index) => (
+                                                    {table_header.map((val, index) => (
 
-                                            <th scope="col" key={index} className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">
-                                                {val.name}
-                                            </th>
-                                        ))}
-                                    </tr>
-                                </thead>
-                                <tbody className="divide-y divide-gray-200 bg-white">
-                                    {modules.map((person) => (
-                                        <tr key={person.id}>
-                                            <td className="whitespace-nowrap py-1 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
-                                                <input
-                                                    id="comments"
-                                                    aria-describedby="comments-description"
-                                                    name="comments"
-                                                    type="checkbox"
-                                                    className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
-                                                />
-                                            </td>
-                                            <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.dname}</td>
-                                            <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.added_on}</td>
-                                            <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">
-                                                <DocumentArrowDownIcon className="h-6 w-6 text-gray-500" />
-                                            </td>
-                                            <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">
-                                                <Menu as="div" className="relative inline-block text-left">
-                                                    <div>
-                                                        <Menu.Button className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-600 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
-                                                            Actions
-                                                            <ChevronDownIcon className="-mr-1 h-5 w-5 text-gray-400" aria-hidden="true" />
-                                                        </Menu.Button>
-                                                    </div>
+                                                        <th scope="col" key={index} className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">
+                                                            {val.name}
+                                                        </th>
+                                                    ))}
+                                                </tr>
+                                            </thead>
+                                            <tbody className="divide-y divide-gray-200 bg-white">
+                                                {modules.map((person) => (
+                                                    <tr key={person.id}>
+                                                        <td className="whitespace-nowrap py-1 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
+                                                            <input
+                                                                id="comments"
+                                                                aria-describedby="comments-description"
+                                                                name="comments"
+                                                                type="checkbox"
+                                                                className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
+                                                            />
+                                                        </td>
+                                                        <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.dname}</td>
+                                                        <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.added_on}</td>
+                                                        <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">
+                                                            <DocumentArrowDownIcon className="h-6 w-6 text-gray-500" />
+                                                        </td>
+                                                        <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">
+                                                            <Menu as="div" className="relative inline-block text-left">
+                                                                <div>
+                                                                    <Menu.Button className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-600 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
+                                                                        Actions
+                                                                        <ChevronDownIcon className="-mr-1 h-5 w-5 text-gray-400" aria-hidden="true" />
+                                                                    </Menu.Button>
+                                                                </div>
 
-                                                    <Transition
-                                                        as={Fragment}
-                                                        enter="transition ease-out duration-100"
-                                                        enterFrom="transform opacity-0 scale-95"
-                                                        enterTo="transform opacity-100 scale-100"
-                                                        leave="transition ease-in duration-75"
-                                                        leaveFrom="transform opacity-100 scale-100"
-                                                        leaveTo="transform opacity-0 scale-95"
-                                                    >
-                                                        <Menu.Items className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                                                            <div className="py-1">
-                                                                <Menu.Item>
-                                                                    <Link href="/upload_public_document" >
-                                                                        <span className="bg-gray-100 text-gray-600 block px-4 py-2 text-sm">Edit</span>
-                                                                    </Link>
-                                                                </Menu.Item>
-                                                                <Menu.Item>
-                                                                    <a onClick={() => setshowDeleteMessage(true)} className="bg-gray-100 text-gray-600 block px-4 py-2 text-sm">Delete</a>
-                                                                </Menu.Item>
-                                                            </div>
-                                                        </Menu.Items>
-                                                    </Transition>
-                                                </Menu>
-                                            </td>
-                                        </tr>
-                                    ))}
-                                </tbody>
-                            </table>
-
+                                                                <Transition
+                                                                    as={Fragment}
+                                                                    enter="transition ease-out duration-100"
+                                                                    enterFrom="transform opacity-0 scale-95"
+                                                                    enterTo="transform opacity-100 scale-100"
+                                                                    leave="transition ease-in duration-75"
+                                                                    leaveFrom="transform opacity-100 scale-100"
+                                                                    leaveTo="transform opacity-0 scale-95"
+                                                                >
+                                                                    <Menu.Items className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                                                                        <div className="py-1">
+                                                                            <Menu.Item>
+                                                                                <Link href="/upload_public_document" >
+                                                                                    <span className="bg-gray-100 text-gray-600 block px-4 py-2 text-sm">Edit</span>
+                                                                                </Link>
+                                                                            </Menu.Item>
+                                                                            <Menu.Item>
+                                                                                <a onClick={() => setshowDeleteMessage(true)} className="bg-gray-100 text-gray-600 block px-4 py-2 text-sm">Delete</a>
+                                                                            </Menu.Item>
+                                                                        </div>
+                                                                    </Menu.Items>
+                                                                </Transition>
+                                                            </Menu>
+                                                        </td>
+                                                    </tr>
+                                                ))}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -24,7 +24,6 @@ export default function AddIdea() {
                         <h2 className="text-blueGray-700 text-xl font-semibold">
                             Add Idea
                         </h2>
-
                     </div>
                 </div>
             </div>

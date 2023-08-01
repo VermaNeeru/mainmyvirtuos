@@ -30,7 +30,7 @@ export default function AddUser() {
 
                         <div className="space-y-2 px-2 py-2 bg-gray-100 ">
                             <div className="pb-4">
-                                <div className="grid grid-cols-2 lg:grid-cols-2 gap-x-6 gap-y-4 sm:grid-cols-2">
+                                <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-6 lg:gap-y-4 gap-y-2">
                                     <div className="sm:col-span-1">
                                         <div className="relative mt-2 rounded-md shadow-sm">
                                             <label htmlFor="start-date" className="block text-sm font-medium leading-6 text-gray-700">
@@ -73,7 +73,7 @@ export default function AddUser() {
                         </div>
                         <div className="space-y-2 px-2 py-2 bg-gray-100 ">
                             <div className="pb-4">
-                                <div className="grid grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-4 sm:grid-cols-2">
+                                <div className="grid grid-cols-1 lg:grid-cols-3 gap-x-6 lg:gap-y-4 gap-y-2">
                                     <div className="sm:col-span-1">
                                         <div className="relative mt-2 rounded-md shadow-sm">
                                             <label htmlFor="start-date" className="block text-sm font-medium leading-6 text-gray-700">
@@ -133,7 +133,7 @@ export default function AddUser() {
                         </div>
                         <div className="space-y-2 px-2 py-2 bg-gray-100 ">
                             <div className="pb-4">
-                                <div className="grid grid-cols-2 lg:grid-cols-2 gap-x-6 gap-y-4 sm:grid-cols-2">
+                                <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-6 lg:gap-y-4 gap-y-2">
                                     <div className="sm:col-span-1">
                                         <div className="relative mt-2 rounded-md shadow-sm">
                                             <label htmlFor="start-date" className="block text-sm font-medium leading-6 text-gray-700">
@@ -226,7 +226,7 @@ export default function AddUser() {
 
 
                                 </div>
-                                <div className="grid grid-cols-2 lg:grid-cols-2 gap-x-6 gap-y-4 sm:grid-cols-2 mt-2">
+                                <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-6 lg:gap-y-4 gap-y-2 mt-2">
                                     <div className="sm:col-span-1">
                                         <TeamSearch />
                                     </div>
@@ -240,7 +240,7 @@ export default function AddUser() {
                                         <RoleSearch />
                                     </div>
                                 </div>
-                                <div className="grid grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-4 sm:grid-cols-2 mt-2">
+                                <div className="grid grid-cols-1 lg:grid-cols-3 gap-x-6 lg:gap-y-4 gap-y-2 mt-2">
                                     <div className="sm:col-span-1">
                                         <label htmlFor="start-date" className="block text-sm font-medium leading-6 text-gray-700">
                                             Date of Joining
@@ -258,7 +258,7 @@ export default function AddUser() {
                                     </div>
 
                                 </div>
-                                <div className="mt-8 mb-8 grid grid-cols-2 gap-x-6 gap-y-4 sm:grid-cols-2">
+                                <div className="mt-8 mb-8 grid grid-cols-1 gap-x-6 gap-y-2 lg:gap-y-4 lg:grid-cols-2">
                                     <div className="sm:col-span-6">
                                         <div className="relative">
                                             <div className="absolute inset-0 flex items-center" aria-hidden="true">
@@ -320,7 +320,7 @@ export default function AddUser() {
 
                                 </div>
 
-                                <div className="mt-8 mb-8 grid grid-cols-2 gap-x-6 gap-y-4 sm:grid-cols-2">
+                                <div className="mt-8 mb-8 grid grid-cols-1 gap-x-6 gap-y-2 lg:gap-y-4 lg:grid-cols-2">
                                     <div className="sm:col-span-6">
                                         <div className="relative">
                                             <div className="absolute inset-0 flex items-center" aria-hidden="true">
@@ -393,7 +393,7 @@ export default function AddUser() {
 
                                 </div>
 
-                                <div className="mt-8 mb-8 grid grid-cols-2 gap-x-6 gap-y-4 sm:grid-cols-2">
+                                <div className="mt-8 mb-8 grid grid-cols-1 gap-x-6 gap-y-2 lg:gap-y-4 lg:grid-cols-2">
                                     <div className="sm:col-span-6">
                                         <div className="relative">
                                             <div className="absolute inset-0 flex items-center" aria-hidden="true">
@@ -447,7 +447,7 @@ export default function AddUser() {
                             </div>
                         </div>
                     </div>
-                    <div className=" text-right mt-4">
+                    <div className=" lg:text-right mt-4">
                         <button
                             type="button"
                             className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
@@ -456,7 +456,7 @@ export default function AddUser() {
                         </button>
                         <button
                             type="button"
-                            className="ml-4 mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
+                            className="lg:ml-4 ml-2 mt-3 inline-flex justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
                         >
                             Cancel
                         </button>

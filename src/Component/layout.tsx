@@ -72,7 +72,7 @@ function classNames(...classes: string[]) {
 export default function Layout({ children }: any) {
     const [sidebarOpen, setSidebarOpen] = useState(false)
 
-    const handleChildStateChange = (dataFromChild) => {
+    const handleChildStateChange = (dataFromChild: boolean | ((prevState: boolean) => boolean)) => {
         setSidebarOpen(dataFromChild);
     };
     return (

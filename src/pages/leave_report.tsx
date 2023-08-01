@@ -23,7 +23,7 @@ export default function LeaveReport() {
                     <form>
                         <div className="space-y-2">
                             <div className="pb-4">
-                                <div className="mt-2 grid lg:grid-cols-4 grid-cols-2 gap-x-6 gap-y-8 sm:grid-cols-2">
+                                <div className="mt-2 grid lg:grid-cols-4 grid-cols-2 gap-x-6 lg:gap-y-8 gap-y-2">
                                     <div className="sm:col-span-1">
                                         <EmployeeSearch heading="Employee Name" />
                                     </div>

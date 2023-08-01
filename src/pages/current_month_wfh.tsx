@@ -47,7 +47,6 @@ export default function CurrentMonthWfh() {
                         <h2 className="text-blueGray-700 text-xl font-semibold">
                             Current Month - WFH/Short Leave
                         </h2>
-
                     </div>
                 </div>
             </div>
@@ -116,7 +115,6 @@ export default function CurrentMonthWfh() {
                         </li>
 
                     </ul>
-
                 </div>
                 <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 rounded mt-6">
                     <div className=" py-3 px-4 flex-auto">

@@ -167,7 +167,6 @@ export default function AllIssuesList() {
                                                                                         <td className="whitespace-nowrap py-4 pl-4 pr-3 lg:text-sm text-xs font-medium text-gray-500 sm:pl-6">
                                                                                             Permission to access the shared <br /> folder on the server
                                                                                         </td>
-
                                                                                     </tr>
                                                                                     <tr key="1">
                                                                                         <td className="whitespace-nowrap py-4 pl-4 pr-3 lg:text-sm text-xs text-gray-600 sm:pl-6">
@@ -177,7 +176,6 @@ export default function AllIssuesList() {
                                                                                             We(Click team) were having <br /> problem in sharing the Click <br /> code, for solving our<br />  problem Yash created a <br /> shared folder on the server.<br />  We were able to access<br />  that folder in the old office,<br />  but in the
                                                                                             new office<br />  there is some permission issue <br /> and we cannot access that folder.
                                                                                         </td>
-
                                                                                     </tr>
                                                                                 </table>
                                                                             </div>

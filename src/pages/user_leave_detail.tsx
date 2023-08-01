@@ -30,8 +30,8 @@ export default function UserLeaveDetail() {
                     <form>
                         <div className="space-y-2">
                             <div className="pb-4">
-                                <div className="mt-2 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-                                    <div className="sm:col-span-6">
+                                <div className="mt-2 grid grid-cols-1 gap-x-6 gap-y-8 lg:grid-cols-2">
+                                    <div className="col-span-1">
                                         <div className="mt-1">
                                             <EmployeeSearch heading="Search User" />
                                         </div>
@@ -71,9 +71,9 @@ export default function UserLeaveDetail() {
                                                 </span>
                                             </Disclosure.Button>
                                         </dt>
-                                        <Disclosure.Panel as="dd" className="mt-2 pr-12">
-                                            <div className="inline-block min-w-full py-2 align-middle sm:px-2 lg:px-2">
-                                                <div className="overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg">
+                                        <Disclosure.Panel as="dd" className="mt-2 lg:pr-12">
+                                            <div className="inline-block min-w-full py-2 align-middle lg:px-2">
+                                                <div className="border-2 lg:border-0 overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg">
                                                     <table className="min-w-full divide-y divide-gray-300">
                                                         <thead className="bg-gray-50">
                                                             <tr>

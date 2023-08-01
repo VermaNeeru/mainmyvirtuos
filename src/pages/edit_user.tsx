@@ -1804,7 +1804,7 @@ export default function AllLeaves() {
                                 <div className=' rounded-lg border border-gray-300 bg-white'>
                                     <div className=" mb-4 px-4 py-4">
                                         <p className="mt-2 mb-2 text-red-600 text-sm">*Note - Only PDF/DOC/DOCX supported</p>
-                                        <div className="mt-2 grid lg:grid-cols-3 grid-cols-2 gap-x-6 gap-y-4 sm:grid-cols-2">
+                                        <div className="mt-2 grid lg:grid-cols-3 grid-cols-1 gap-x-6 gap-y-2">
                                             <div className="sm:col-span-1">
                                                 <label htmlFor="start-date" className="block text-sm font-medium leading-6 text-gray-800">
                                                     Attach Resume

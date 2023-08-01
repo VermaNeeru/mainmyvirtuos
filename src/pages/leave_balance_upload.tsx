@@ -41,7 +41,7 @@ export default function LeaveBalanceUpload() {
             </div>
             <div className=' rounded-lg border border-gray-300 bg-white'>
                 <div className="px-4 sm:px-2 lg:px-1 mt-4 mb-10">
-                    <div className="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
+                    <div className="py-2 align-middle sm:px-6 lg:px-8">
                         <div className="sm:flex sm:items-center">
                             <div className="sm:flex-auto">
                                 <div className="lg:w-96 mt-1 flex rounded-md shadow-sm">
@@ -65,7 +65,7 @@ export default function LeaveBalanceUpload() {
                                     </button>
                                 </div>
                             </div>
-                            <div className="mt-4 lg:ml-16 ml-10 sm:mt-0 sm:flex-none lg:flex lg:space-x-2">
+                            <div className="mt-4 lg:ml-16 ml-0 sm:mt-0 sm:flex-none lg:flex lg:space-x-2">
                                 <button
                                     type="button"
                                     className="block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
@@ -74,31 +74,36 @@ export default function LeaveBalanceUpload() {
                                 </button>
                             </div>
                         </div>
-                        <div className="mt-4 overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg">
-                            <table className="min-w-full divide-y divide-gray-300">
-                                <thead className="bg-gray-50">
-                                    <tr>
-                                        {table_header.map((val, index) => (
+                        <div className="mt-8 flow-root">
+                            <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                                <div className="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
+                                    <div className="border-2 lg:border-0 overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg">
+                                        <table className="min-w-full divide-y divide-gray-300">
+                                            <thead className="bg-gray-50">
+                                                <tr>
+                                                    {table_header.map((val, index) => (
 
-                                            <th scope="col" key={index} className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">
-                                                {val.name}
-                                            </th>
-                                        ))}
-                                    </tr>
-                                </thead>
-                                <tbody className="divide-y divide-gray-200 bg-white">
-                                    {modules.map((person) => (
-                                        <tr key={person.id}>
+                                                        <th scope="col" key={index} className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">
+                                                            {val.name}
+                                                        </th>
+                                                    ))}
+                                                </tr>
+                                            </thead>
+                                            <tbody className="divide-y divide-gray-200 bg-white">
+                                                {modules.map((person) => (
+                                                    <tr key={person.id}>
 
-                                            <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.uname}</td>
-                                            <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.leave_type}</td>
-                                            <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.balance}</td>
+                                                        <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.uname}</td>
+                                                        <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.leave_type}</td>
+                                                        <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.balance}</td>
 
-                                        </tr>
-                                    ))}
-                                </tbody>
-                            </table>
-
+                                                    </tr>
+                                                ))}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

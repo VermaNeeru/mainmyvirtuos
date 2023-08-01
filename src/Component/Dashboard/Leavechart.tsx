@@ -117,14 +117,11 @@ export default function Leavechart() {
                         <h6 className="uppercase text-blueGray-400 mb-1 text-xs font-semibold">
                             Annual Leave Balance
                         </h6>
-
                     </div>
                 </div>
             </div>
             {/* Chart */}
             <canvas id="bar-chart"></canvas>
-
-
         </div>
 
     )

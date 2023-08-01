@@ -67,7 +67,7 @@ export default function Users() {
                         <div className="sm:flex-auto">
                             {/* <h3 className='font-medium'>Candidate Referral form</h3> */}
                         </div>
-                        <div className="mt-4 lg:ml-16 ml-10 sm:mt-0 sm:flex-none lg:flex lg:space-x-2">
+                        <div className="mt-4 lg:ml-16 ml-0 gap-1 sm:mt-0 flex lg:flex lg:space-x-2">
                             <Link href='/add_user'>
                                 <button
                                     type="button"
@@ -99,7 +99,7 @@ export default function Users() {
                         <li className=" group relative min-w-0 flex-1 overflow-hidden bg-white px-4 text-center text-sm font-medium hover:bg-gray-50 focus:z-10">
                             <a
                                 className={
-                                    "flex whitespace-nowrap py-2 px-1 text-sm font-medium " +
+                                    "flex whitespace-nowrap py-2 px-1 lg:text-sm text-xs font-medium " +
                                     (openTab === 1
                                         ? "border-indigo-500 text-indigo-600 "
                                         : "border-transparent text-gray-500 hover:border-gray-200 hover:text-gray-700 ")
@@ -118,7 +118,7 @@ export default function Users() {
                         <li className=" group relative min-w-0 flex-1 overflow-hidden bg-white px-4 text-center text-sm font-medium hover:bg-gray-50 focus:z-10">
                             <a
                                 className={
-                                    "flex whitespace-nowrap py-2 px-1 text-sm font-medium " +
+                                    "flex whitespace-nowrap py-2 px-1 lg:text-sm text-xs font-medium " +
                                     (openTab === 2
                                         ? "border-indigo-500 text-indigo-600 "
                                         : "border-transparent text-gray-500 hover:border-gray-200 hover:text-gray-700")
@@ -137,7 +137,7 @@ export default function Users() {
                         <li className=" group relative min-w-0 flex-1 overflow-hidden bg-white px-4 text-center text-sm font-medium hover:bg-gray-50 focus:z-10">
                             <a
                                 className={
-                                    "flex whitespace-nowrap py-2 px-1 text-sm font-medium " +
+                                    "flex whitespace-nowrap py-2 px-1 lg:text-sm text-xs font-medium " +
                                     (openTab === 3
                                         ? "border-indigo-500 text-indigo-600 "
                                         : "border-transparent text-gray-500 hover:border-gray-200 hover:text-gray-700")
@@ -160,372 +160,383 @@ export default function Users() {
                     <div className=" py-3 px-4 flex-auto">
                         <div className="tab-content tab-space">
                             <div className={openTab === 1 ? "block" : "hidden"} id="link1">
-                                <div className="px-4 sm:px-2 lg:px-1 mt-4 mb-10">
-                                    <div className="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
-                                        <div className="sm:flex sm:items-center">
-                                            <div className="sm:flex-auto">
-                                                {/* <h1 className="text-base font-semibold leading-6 text-gray-900">My Logon Hours - Current Month</h1> */}
-                                                <div className="lg:w-96 mt-1 flex rounded-md shadow-sm">
-                                                    <div className="relative flex flex-grow items-stretch focus-within:z-10">
-                                                        <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-                                                            <MagnifyingGlassIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
-                                                        </div>
-                                                        <input
-                                                            type="email"
-                                                            name="email"
-                                                            id="email"
-                                                            className="block w-full rounded-none rounded-l-md border-0 py-1.5 pl-10 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                                                            placeholder="John Smith"
-                                                        />
+                                <div className="px-0 lg:px-1 lg:mt-4 -mt-4 mb-10">
+                                    <div className="sm:flex sm:items-center">
+                                        <div className="sm:flex-auto">
+                                            {/* <h1 className="text-base font-semibold leading-6 text-gray-900">My Logon Hours - Current Month</h1> */}
+                                            <div className="lg:w-96 mt-1 flex rounded-md shadow-sm">
+                                                <div className="relative flex flex-grow items-stretch focus-within:z-10">
+                                                    <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+                                                        <MagnifyingGlassIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
                                                     </div>
-                                                    <button
-                                                        type="button"
-                                                        className="relative   bg-indigo-600  text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 -ml-px inline-flex items-center gap-x-1.5 rounded-r-md px-3 py-2 text-sm font-semibold ring-1 ring-inset ring-gray-300"
-                                                    >
-                                                        Search
-                                                    </button>
+                                                    <input
+                                                        type="email"
+                                                        name="email"
+                                                        id="email"
+                                                        className="block w-full rounded-none rounded-l-md border-0 py-1.5 pl-10 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                                        placeholder="John Smith"
+                                                    />
+                                                </div>
+                                                <button
+                                                    type="button"
+                                                    className="relative   bg-indigo-600  text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 -ml-px inline-flex items-center gap-x-1.5 rounded-r-md px-3 py-2 text-sm font-semibold ring-1 ring-inset ring-gray-300"
+                                                >
+                                                    Search
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div className="mt-8 flow-root">
+                                        <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                                            <div className="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
+                                                <div className="border-2 lg:border-0 overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg">
+                                                    <table className="min-w-full divide-y divide-gray-300">
+                                                        <thead className="bg-gray-50">
+                                                            <tr>
+                                                                {table_header.map((val, index) => (
+
+                                                                    <th scope="col" key={index} className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">
+                                                                        {val.name}
+                                                                    </th>
+                                                                ))}
+
+                                                                <th></th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody className="divide-y divide-gray-200 bg-white">
+                                                            {active_extension_list.map((person) => (
+                                                                <tr key={person.id}>
+                                                                    <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.ename}</td>
+                                                                    <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">
+                                                                        <Image loader={({ src }) => `${src}`} src={person.avtar} width={100} height={100} alt='avtar' className='lg:w-14 lg:h-14 w-10 h-10 rounded-full' />
+                                                                    </td>
+                                                                    <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.email}</td>
+                                                                    <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.mobile}</td>
+                                                                    <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.joining_date}</td>
+                                                                    <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.status}</td>
+                                                                    <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">
+                                                                        <Menu as="div" className="relative inline-block text-left">
+                                                                            <div>
+                                                                                <Menu.Button className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-600 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
+                                                                                    Actions
+                                                                                    <ChevronDownIcon className="-mr-1 h-5 w-5 text-gray-400" aria-hidden="true" />
+                                                                                </Menu.Button>
+                                                                            </div>
+
+                                                                            <Transition
+                                                                                as={Fragment}
+                                                                                enter="transition ease-out duration-100"
+                                                                                enterFrom="transform opacity-0 scale-95"
+                                                                                enterTo="transform opacity-100 scale-100"
+                                                                                leave="transition ease-in duration-75"
+                                                                                leaveFrom="transform opacity-100 scale-100"
+                                                                                leaveTo="transform opacity-0 scale-95"
+                                                                            >
+                                                                                <Menu.Items className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                                                                                    <div className="py-1">
+                                                                                        <Menu.Item>
+                                                                                            <Link href="/edit_user">
+                                                                                                <span className="bg-gray-100 text-gray-600 block px-4 py-2 text-sm">Edit</span>
+                                                                                            </Link>
+                                                                                        </Menu.Item>
+
+                                                                                        <Menu.Item>
+                                                                                            <a onClick={() => setUpdateLeaves(true)} className="bg-gray-100 text-gray-600 block px-4 py-2 text-sm">Update Leaves</a>
+                                                                                        </Menu.Item>
+
+                                                                                        <Menu.Item>
+                                                                                            <a onClick={() => setQuickEdit(true)} className="bg-gray-100 text-gray-600 block px-4 py-2 text-sm">Quick Edit</a>
+                                                                                        </Menu.Item>
+
+                                                                                        <Menu.Item>
+                                                                                            <Link href="/profile">
+                                                                                                <span className="bg-gray-100 text-gray-600 block px-4 py-2 text-sm">View Profile</span>
+                                                                                            </Link>
+                                                                                        </Menu.Item>
+
+                                                                                        <Menu.Item>
+                                                                                            <a onClick={() => setActivateEmp(true)} className="bg-gray-100 text-gray-600 block px-4 py-2 text-sm">Active</a>
+                                                                                        </Menu.Item>
+
+                                                                                        <Menu.Item>
+                                                                                            <a onClick={() => setSuspendEmp(true)} className="bg-gray-100 text-gray-600 block px-4 py-2 text-sm">Inactive</a>
+                                                                                        </Menu.Item>
+
+                                                                                        <Menu.Item>
+                                                                                            <Link href="/admin_document">
+                                                                                                {/* Are you sure want to Suspend Employee? */}
+                                                                                                <span className="bg-gray-100 text-gray-600 block px-4 py-2 text-sm">Upload Document</span>
+                                                                                            </Link>
+                                                                                        </Menu.Item>
+
+
+                                                                                    </div>
+                                                                                </Menu.Items>
+                                                                            </Transition>
+                                                                        </Menu>
+                                                                    </td>
+                                                                </tr>
+                                                            ))}
+                                                        </tbody>
+                                                    </table>
                                                 </div>
                                             </div>
-
-                                        </div>
-                                        <div className="mt-4 overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg">
-                                            <table className="min-w-full divide-y divide-gray-300">
-                                                <thead className="bg-gray-50">
-                                                    <tr>
-                                                        {table_header.map((val, index) => (
-
-                                                            <th scope="col" key={index} className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">
-                                                                {val.name}
-                                                            </th>
-                                                        ))}
-
-                                                        <th></th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody className="divide-y divide-gray-200 bg-white">
-                                                    {active_extension_list.map((person) => (
-                                                        <tr key={person.id}>
-                                                            <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.ename}</td>
-                                                            <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">
-                                                                <Image loader={({ src }) => `${src}`} src={person.avtar} width={100} height={100} alt='avtar' className='w-14 h-14 rounded-full' />
-                                                            </td>
-                                                            <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.email}</td>
-                                                            <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.mobile}</td>
-                                                            <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.joining_date}</td>
-                                                            <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.status}</td>
-                                                            <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">
-                                                                <Menu as="div" className="relative inline-block text-left">
-                                                                    <div>
-                                                                        <Menu.Button className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-600 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
-                                                                            Actions
-                                                                            <ChevronDownIcon className="-mr-1 h-5 w-5 text-gray-400" aria-hidden="true" />
-                                                                        </Menu.Button>
-                                                                    </div>
-
-                                                                    <Transition
-                                                                        as={Fragment}
-                                                                        enter="transition ease-out duration-100"
-                                                                        enterFrom="transform opacity-0 scale-95"
-                                                                        enterTo="transform opacity-100 scale-100"
-                                                                        leave="transition ease-in duration-75"
-                                                                        leaveFrom="transform opacity-100 scale-100"
-                                                                        leaveTo="transform opacity-0 scale-95"
-                                                                    >
-                                                                        <Menu.Items className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                                                                            <div className="py-1">
-                                                                                <Menu.Item>
-                                                                                    <Link href="/edit_user">
-                                                                                        <span className="bg-gray-100 text-gray-600 block px-4 py-2 text-sm">Edit</span>
-                                                                                    </Link>
-                                                                                </Menu.Item>
-
-                                                                                <Menu.Item>
-                                                                                    <a onClick={() => setUpdateLeaves(true)} className="bg-gray-100 text-gray-600 block px-4 py-2 text-sm">Update Leaves</a>
-                                                                                </Menu.Item>
-
-                                                                                <Menu.Item>
-                                                                                    <a onClick={() => setQuickEdit(true)} className="bg-gray-100 text-gray-600 block px-4 py-2 text-sm">Quick Edit</a>
-                                                                                </Menu.Item>
-
-                                                                                <Menu.Item>
-                                                                                    <Link href="/profile">
-                                                                                        <span className="bg-gray-100 text-gray-600 block px-4 py-2 text-sm">View Profile</span>
-                                                                                    </Link>
-                                                                                </Menu.Item>
-
-                                                                                <Menu.Item>
-                                                                                    <a onClick={() => setActivateEmp(true)} className="bg-gray-100 text-gray-600 block px-4 py-2 text-sm">Active</a>
-                                                                                </Menu.Item>
-
-                                                                                <Menu.Item>
-                                                                                    <a onClick={() => setSuspendEmp(true)} className="bg-gray-100 text-gray-600 block px-4 py-2 text-sm">Inactive</a>
-                                                                                </Menu.Item>
-
-                                                                                <Menu.Item>
-                                                                                    <Link href="/admin_document">
-                                                                                        {/* Are you sure want to Suspend Employee? */}
-                                                                                        <span className="bg-gray-100 text-gray-600 block px-4 py-2 text-sm">Upload Document</span>
-                                                                                    </Link>
-                                                                                </Menu.Item>
-
-
-                                                                            </div>
-                                                                        </Menu.Items>
-                                                                    </Transition>
-                                                                </Menu>
-                                                            </td>
-                                                        </tr>
-                                                    ))}
-                                                </tbody>
-                                            </table>
                                         </div>
                                     </div>
+
                                 </div>
                             </div>
                             <div className={openTab === 2 ? "block" : "hidden"} id="link2">
-                                <div className="px-4 sm:px-2 lg:px-1 mt-4 mb-10">
-                                    <div className="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
-                                        <div className="sm:flex sm:items-center">
-                                            <div className="sm:flex-auto">
-                                                {/* <h1 className="text-base font-semibold leading-6 text-gray-900">My Logon Hours - Current Month</h1> */}
-                                                <div className="lg:w-96 mt-1 flex rounded-md shadow-sm">
-                                                    <div className="relative flex flex-grow items-stretch focus-within:z-10">
-                                                        <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-                                                            <MagnifyingGlassIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
-                                                        </div>
-                                                        <input
-                                                            type="email"
-                                                            name="email"
-                                                            id="email"
-                                                            className="block w-full rounded-none rounded-l-md border-0 py-1.5 pl-10 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                                                            placeholder="John Smith"
-                                                        />
+                                <div className="px-0 lg:px-1 lg:mt-4 -mt-4 mb-10">
+                                    <div className="sm:flex sm:items-center">
+                                        <div className="sm:flex-auto">
+                                            {/* <h1 className="text-base font-semibold leading-6 text-gray-900">My Logon Hours - Current Month</h1> */}
+                                            <div className="lg:w-96 mt-1 flex rounded-md shadow-sm">
+                                                <div className="relative flex flex-grow items-stretch focus-within:z-10">
+                                                    <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+                                                        <MagnifyingGlassIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
                                                     </div>
-                                                    <button
-                                                        type="button"
-                                                        className="relative   bg-indigo-600  text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 -ml-px inline-flex items-center gap-x-1.5 rounded-r-md px-3 py-2 text-sm font-semibold ring-1 ring-inset ring-gray-300"
-                                                    >
-                                                        Search
-                                                    </button>
+                                                    <input
+                                                        type="email"
+                                                        name="email"
+                                                        id="email"
+                                                        className="block w-full rounded-none rounded-l-md border-0 py-1.5 pl-10 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                                        placeholder="John Smith"
+                                                    />
+                                                </div>
+                                                <button
+                                                    type="button"
+                                                    className="relative   bg-indigo-600  text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 -ml-px inline-flex items-center gap-x-1.5 rounded-r-md px-3 py-2 text-sm font-semibold ring-1 ring-inset ring-gray-300"
+                                                >
+                                                    Search
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div className="mt-8 flow-root">
+                                        <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                                            <div className="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
+                                                <div className="border-2 lg:border-0 overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg">
+                                                    <table className="min-w-full divide-y divide-gray-300">
+                                                        <thead className="bg-gray-50">
+                                                            <tr>
+                                                                {table_header.map((val, index) => (
+
+                                                                    <th scope="col" key={index} className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">
+                                                                        {val.name}
+                                                                    </th>
+                                                                ))}
+
+                                                                <th></th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody className="divide-y divide-gray-200 bg-white">
+                                                            {inactive_extension_list.map((person) => (
+                                                                <tr key={person.id}>
+                                                                    <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.ename}</td>
+                                                                    <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">
+                                                                        <Image loader={({ src }) => `${src}`} src={person.avtar} width={100} height={100} alt='avtar' className='lg:w-14 lg:h-14 w-10 h-10 rounded-full' />
+                                                                    </td>
+                                                                    <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.email}</td>
+                                                                    <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.mobile}</td>
+                                                                    <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.joining_date}</td>
+                                                                    <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.status}</td>
+                                                                    <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">
+                                                                        <Menu as="div" className="relative inline-block text-left">
+                                                                            <div>
+                                                                                <Menu.Button className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-600 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
+                                                                                    Actions
+                                                                                    <ChevronDownIcon className="-mr-1 h-5 w-5 text-gray-400" aria-hidden="true" />
+                                                                                </Menu.Button>
+                                                                            </div>
+
+                                                                            <Transition
+                                                                                as={Fragment}
+                                                                                enter="transition ease-out duration-100"
+                                                                                enterFrom="transform opacity-0 scale-95"
+                                                                                enterTo="transform opacity-100 scale-100"
+                                                                                leave="transition ease-in duration-75"
+                                                                                leaveFrom="transform opacity-100 scale-100"
+                                                                                leaveTo="transform opacity-0 scale-95"
+                                                                            >
+                                                                                <Menu.Items className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                                                                                    <div className="py-1">
+                                                                                        <Menu.Item>
+                                                                                            <Link href="/edit_user">
+                                                                                                <span className="bg-gray-100 text-gray-600 block px-4 py-2 text-sm">Edit</span>
+                                                                                            </Link>
+                                                                                        </Menu.Item>
+
+                                                                                        <Menu.Item>
+                                                                                            <a onClick={() => setUpdateLeaves(true)} className="bg-gray-100 text-gray-600 block px-4 py-2 text-sm">Update Leaves</a>
+                                                                                        </Menu.Item>
+
+                                                                                        <Menu.Item>
+                                                                                            <a onClick={() => setQuickEdit(true)} className="bg-gray-100 text-gray-600 block px-4 py-2 text-sm">Quick Edit</a>
+                                                                                        </Menu.Item>
+
+                                                                                        <Menu.Item>
+                                                                                            <Link href="/profile">
+                                                                                                <span className="bg-gray-100 text-gray-600 block px-4 py-2 text-sm">View Profile</span>
+                                                                                            </Link>
+                                                                                        </Menu.Item>
+
+                                                                                        <Menu.Item>
+                                                                                            <a onClick={() => setActivateEmp(true)} className="bg-gray-100 text-gray-600 block px-4 py-2 text-sm">Active</a>
+                                                                                        </Menu.Item>
+
+                                                                                        <Menu.Item>
+                                                                                            <a onClick={() => setSuspendEmp(true)} className="bg-gray-100 text-gray-600 block px-4 py-2 text-sm">Inactive</a>
+                                                                                        </Menu.Item>
+
+                                                                                        <Menu.Item>
+                                                                                            <Link href="/admin_document">
+                                                                                                {/* Are you sure want to Suspend Employee? */}
+                                                                                                <span className="bg-gray-100 text-gray-600 block px-4 py-2 text-sm">Upload Document</span>
+                                                                                            </Link>
+                                                                                        </Menu.Item>
+
+
+                                                                                    </div>
+                                                                                </Menu.Items>
+                                                                            </Transition>
+                                                                        </Menu>
+                                                                    </td>
+                                                                </tr>
+                                                            ))}
+                                                        </tbody>
+                                                    </table>
                                                 </div>
                                             </div>
-
-                                        </div>
-                                        <div className="mt-4 overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg">
-                                            <table className="min-w-full divide-y divide-gray-300">
-                                                <thead className="bg-gray-50">
-                                                    <tr>
-                                                        {table_header.map((val, index) => (
-
-                                                            <th scope="col" key={index} className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">
-                                                                {val.name}
-                                                            </th>
-                                                        ))}
-
-                                                        <th></th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody className="divide-y divide-gray-200 bg-white">
-                                                    {inactive_extension_list.map((person) => (
-                                                        <tr key={person.id}>
-                                                            <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.ename}</td>
-                                                            <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">
-                                                                <Image loader={({ src }) => `${src}`} src={person.avtar} width={100} height={100} alt='avtar' className='w-14 h-14 rounded-full' />
-                                                            </td>
-                                                            <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.email}</td>
-                                                            <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.mobile}</td>
-                                                            <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.joining_date}</td>
-                                                            <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.status}</td>
-                                                            <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">
-                                                                <Menu as="div" className="relative inline-block text-left">
-                                                                    <div>
-                                                                        <Menu.Button className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-600 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
-                                                                            Actions
-                                                                            <ChevronDownIcon className="-mr-1 h-5 w-5 text-gray-400" aria-hidden="true" />
-                                                                        </Menu.Button>
-                                                                    </div>
-
-                                                                    <Transition
-                                                                        as={Fragment}
-                                                                        enter="transition ease-out duration-100"
-                                                                        enterFrom="transform opacity-0 scale-95"
-                                                                        enterTo="transform opacity-100 scale-100"
-                                                                        leave="transition ease-in duration-75"
-                                                                        leaveFrom="transform opacity-100 scale-100"
-                                                                        leaveTo="transform opacity-0 scale-95"
-                                                                    >
-                                                                        <Menu.Items className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                                                                            <div className="py-1">
-                                                                                <Menu.Item>
-                                                                                    <Link href="/edit_user">
-                                                                                        <span className="bg-gray-100 text-gray-600 block px-4 py-2 text-sm">Edit</span>
-                                                                                    </Link>
-                                                                                </Menu.Item>
-
-                                                                                <Menu.Item>
-                                                                                    <a onClick={() => setUpdateLeaves(true)} className="bg-gray-100 text-gray-600 block px-4 py-2 text-sm">Update Leaves</a>
-                                                                                </Menu.Item>
-
-                                                                                <Menu.Item>
-                                                                                    <a onClick={() => setQuickEdit(true)} className="bg-gray-100 text-gray-600 block px-4 py-2 text-sm">Quick Edit</a>
-                                                                                </Menu.Item>
-
-                                                                                <Menu.Item>
-                                                                                    <Link href="/profile">
-                                                                                        <span className="bg-gray-100 text-gray-600 block px-4 py-2 text-sm">View Profile</span>
-                                                                                    </Link>
-                                                                                </Menu.Item>
-
-                                                                                <Menu.Item>
-                                                                                    <a onClick={() => setActivateEmp(true)} className="bg-gray-100 text-gray-600 block px-4 py-2 text-sm">Active</a>
-                                                                                </Menu.Item>
-
-                                                                                <Menu.Item>
-                                                                                    <a onClick={() => setSuspendEmp(true)} className="bg-gray-100 text-gray-600 block px-4 py-2 text-sm">Inactive</a>
-                                                                                </Menu.Item>
-
-                                                                                <Menu.Item>
-                                                                                    <Link href="/admin_document">
-                                                                                        {/* Are you sure want to Suspend Employee? */}
-                                                                                        <span className="bg-gray-100 text-gray-600 block px-4 py-2 text-sm">Upload Document</span>
-                                                                                    </Link>
-                                                                                </Menu.Item>
-
-
-                                                                            </div>
-                                                                        </Menu.Items>
-                                                                    </Transition>
-                                                                </Menu>
-                                                            </td>
-                                                        </tr>
-                                                    ))}
-                                                </tbody>
-                                            </table>
-
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div className={openTab === 3 ? "block" : "hidden"} id="link3">
-                                <div className="px-4 sm:px-2 lg:px-1 mt-4 mb-10">
-                                    <div className="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
-                                        <div className="sm:flex sm:items-center">
-                                            <div className="sm:flex-auto">
-                                                {/* <h1 className="text-base font-semibold leading-6 text-gray-900">My Logon Hours - Current Month</h1> */}
-                                                <div className="lg:w-96 mt-1 flex rounded-md shadow-sm">
-                                                    <div className="relative flex flex-grow items-stretch focus-within:z-10">
-                                                        <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-                                                            <MagnifyingGlassIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
-                                                        </div>
-                                                        <input
-                                                            type="email"
-                                                            name="email"
-                                                            id="email"
-                                                            className="block w-full rounded-none rounded-l-md border-0 py-1.5 pl-10 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                                                            placeholder="John Smith"
-                                                        />
+                                <div className="px-0 lg:px-1 lg:mt-4 -mt-4 mb-10">
+                                    <div className="sm:flex sm:items-center">
+                                        <div className="sm:flex-auto">
+                                            {/* <h1 className="text-base font-semibold leading-6 text-gray-900">My Logon Hours - Current Month</h1> */}
+                                            <div className="lg:w-96 mt-1 flex rounded-md shadow-sm">
+                                                <div className="relative flex flex-grow items-stretch focus-within:z-10">
+                                                    <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+                                                        <MagnifyingGlassIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
                                                     </div>
-                                                    <button
-                                                        type="button"
-                                                        className="relative   bg-indigo-600  text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 -ml-px inline-flex items-center gap-x-1.5 rounded-r-md px-3 py-2 text-sm font-semibold ring-1 ring-inset ring-gray-300"
-                                                    >
-                                                        Search
-                                                    </button>
+                                                    <input
+                                                        type="email"
+                                                        name="email"
+                                                        id="email"
+                                                        className="block w-full rounded-none rounded-l-md border-0 py-1.5 pl-10 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                                        placeholder="John Smith"
+                                                    />
+                                                </div>
+                                                <button
+                                                    type="button"
+                                                    className="relative   bg-indigo-600  text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 -ml-px inline-flex items-center gap-x-1.5 rounded-r-md px-3 py-2 text-sm font-semibold ring-1 ring-inset ring-gray-300"
+                                                >
+                                                    Search
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div className="mt-8 flow-root">
+                                        <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                                            <div className="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
+                                                <div className="border-2 lg:border-0 overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg">
+                                                    <table className="min-w-full divide-y divide-gray-300">
+                                                        <thead className="bg-gray-50">
+                                                            <tr>
+                                                                {table_header.map((val, index) => (
+
+                                                                    <th scope="col" key={index} className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">
+                                                                        {val.name}
+                                                                    </th>
+                                                                ))}
+
+                                                                <th></th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody className="divide-y divide-gray-200 bg-white">
+                                                            {ex_extension_list.map((person) => (
+                                                                <tr key={person.id}>
+                                                                    <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.ename}</td>
+                                                                    <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">
+                                                                        <Image loader={({ src }) => `${src}`} src={person.avtar} width={100} height={100} alt='avtar' className='lg:w-14 lg:h-14 w-10 h-10 rounded-full' />
+                                                                    </td>
+                                                                    <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.email}</td>
+                                                                    <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.mobile}</td>
+                                                                    <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.joining_date}</td>
+                                                                    <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.status}</td>
+                                                                    <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">
+                                                                        <Menu as="div" className="relative inline-block text-left">
+                                                                            <div>
+                                                                                <Menu.Button className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-600 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
+                                                                                    Actions
+                                                                                    <ChevronDownIcon className="-mr-1 h-5 w-5 text-gray-400" aria-hidden="true" />
+                                                                                </Menu.Button>
+                                                                            </div>
+
+                                                                            <Transition
+                                                                                as={Fragment}
+                                                                                enter="transition ease-out duration-100"
+                                                                                enterFrom="transform opacity-0 scale-95"
+                                                                                enterTo="transform opacity-100 scale-100"
+                                                                                leave="transition ease-in duration-75"
+                                                                                leaveFrom="transform opacity-100 scale-100"
+                                                                                leaveTo="transform opacity-0 scale-95"
+                                                                            >
+                                                                                <Menu.Items className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                                                                                    <div className="py-1">
+                                                                                        <Menu.Item>
+                                                                                            <Link href="/edit_user">
+                                                                                                <span className="bg-gray-100 text-gray-600 block px-4 py-2 text-sm">Edit</span>
+                                                                                            </Link>
+                                                                                        </Menu.Item>
+
+                                                                                        <Menu.Item>
+                                                                                            <a onClick={() => setUpdateLeaves(true)} className="bg-gray-100 text-gray-600 block px-4 py-2 text-sm">Update Leaves</a>
+                                                                                        </Menu.Item>
+
+                                                                                        <Menu.Item>
+                                                                                            <a onClick={() => setQuickEdit(true)} className="bg-gray-100 text-gray-600 block px-4 py-2 text-sm">Quick Edit</a>
+                                                                                        </Menu.Item>
+
+                                                                                        <Menu.Item>
+                                                                                            <Link href="/profile">
+                                                                                                <span className="bg-gray-100 text-gray-600 block px-4 py-2 text-sm">View Profile</span>
+                                                                                            </Link>
+                                                                                        </Menu.Item>
+
+                                                                                        <Menu.Item>
+                                                                                            <a onClick={() => setActivateEmp(true)} className="bg-gray-100 text-gray-600 block px-4 py-2 text-sm">Active</a>
+                                                                                        </Menu.Item>
+
+                                                                                        <Menu.Item>
+                                                                                            <a onClick={() => setSuspendEmp(true)} className="bg-gray-100 text-gray-600 block px-4 py-2 text-sm">Inactive</a>
+                                                                                        </Menu.Item>
+
+                                                                                        <Menu.Item>
+                                                                                            <Link href="/admin_document">
+                                                                                                {/* Are you sure want to Suspend Employee? */}
+                                                                                                <span className="bg-gray-100 text-gray-600 block px-4 py-2 text-sm">Upload Document</span>
+                                                                                            </Link>
+                                                                                        </Menu.Item>
+
+
+                                                                                    </div>
+                                                                                </Menu.Items>
+                                                                            </Transition>
+                                                                        </Menu>
+                                                                    </td>
+                                                                </tr>
+                                                            ))}
+                                                        </tbody>
+                                                    </table>
                                                 </div>
                                             </div>
-
-                                        </div>
-                                        <div className="mt-4 overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg">
-                                            <table className="min-w-full divide-y divide-gray-300">
-                                                <thead className="bg-gray-50">
-                                                    <tr>
-                                                        {table_header.map((val, index) => (
-
-                                                            <th scope="col" key={index} className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">
-                                                                {val.name}
-                                                            </th>
-                                                        ))}
-
-                                                        <th></th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody className="divide-y divide-gray-200 bg-white">
-                                                    {ex_extension_list.map((person) => (
-                                                        <tr key={person.id}>
-                                                            <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.ename}</td>
-                                                            <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">
-                                                                <Image loader={({ src }) => `${src}`} src={person.avtar} width={100} height={100} alt='avtar' className='w-14 h-14 rounded-full' />
-                                                            </td>
-                                                            <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.email}</td>
-                                                            <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.mobile}</td>
-                                                            <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.joining_date}</td>
-                                                            <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.status}</td>
-                                                            <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">
-                                                                <Menu as="div" className="relative inline-block text-left">
-                                                                    <div>
-                                                                        <Menu.Button className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-600 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
-                                                                            Actions
-                                                                            <ChevronDownIcon className="-mr-1 h-5 w-5 text-gray-400" aria-hidden="true" />
-                                                                        </Menu.Button>
-                                                                    </div>
-
-                                                                    <Transition
-                                                                        as={Fragment}
-                                                                        enter="transition ease-out duration-100"
-                                                                        enterFrom="transform opacity-0 scale-95"
-                                                                        enterTo="transform opacity-100 scale-100"
-                                                                        leave="transition ease-in duration-75"
-                                                                        leaveFrom="transform opacity-100 scale-100"
-                                                                        leaveTo="transform opacity-0 scale-95"
-                                                                    >
-                                                                        <Menu.Items className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                                                                            <div className="py-1">
-                                                                                <Menu.Item>
-                                                                                    <Link href="/edit_user">
-                                                                                        <span className="bg-gray-100 text-gray-600 block px-4 py-2 text-sm">Edit</span>
-                                                                                    </Link>
-                                                                                </Menu.Item>
-
-                                                                                <Menu.Item>
-                                                                                    <a onClick={() => setUpdateLeaves(true)} className="bg-gray-100 text-gray-600 block px-4 py-2 text-sm">Update Leaves</a>
-                                                                                </Menu.Item>
-
-                                                                                <Menu.Item>
-                                                                                    <a onClick={() => setQuickEdit(true)} className="bg-gray-100 text-gray-600 block px-4 py-2 text-sm">Quick Edit</a>
-                                                                                </Menu.Item>
-
-                                                                                <Menu.Item>
-                                                                                    <Link href="/profile">
-                                                                                        <span className="bg-gray-100 text-gray-600 block px-4 py-2 text-sm">View Profile</span>
-                                                                                    </Link>
-                                                                                </Menu.Item>
-
-                                                                                <Menu.Item>
-                                                                                    <a onClick={() => setActivateEmp(true)} className="bg-gray-100 text-gray-600 block px-4 py-2 text-sm">Active</a>
-                                                                                </Menu.Item>
-
-                                                                                <Menu.Item>
-                                                                                    <a onClick={() => setSuspendEmp(true)} className="bg-gray-100 text-gray-600 block px-4 py-2 text-sm">Inactive</a>
-                                                                                </Menu.Item>
-
-                                                                                <Menu.Item>
-                                                                                    <Link href="/admin_document">
-                                                                                        {/* Are you sure want to Suspend Employee? */}
-                                                                                        <span className="bg-gray-100 text-gray-600 block px-4 py-2 text-sm">Upload Document</span>
-                                                                                    </Link>
-                                                                                </Menu.Item>
-
-
-                                                                            </div>
-                                                                        </Menu.Items>
-                                                                    </Transition>
-                                                                </Menu>
-                                                            </td>
-                                                        </tr>
-                                                    ))}
-                                                </tbody>
-                                            </table>
-
                                         </div>
                                     </div>
                                 </div>
@@ -732,7 +743,7 @@ export default function Users() {
                                                                                 </div>
                                                                             </div>
                                                                         </div>
-                                                                        <div className="mt-8 mb-8 grid grid-cols-2 gap-x-6 gap-y-4 sm:grid-cols-2">
+                                                                        <div className="mt-8 mb-8 grid grid-cols-1 gap-x-6 sm:gap-y-4 gap-y-2 sm:grid-cols-2">
                                                                             <div className="sm:col-span-6">
                                                                                 <div className="relative">
                                                                                     <div className="absolute inset-0 flex items-center" aria-hidden="true">
@@ -777,7 +788,7 @@ export default function Users() {
 
 
                                                                         </div>
-                                                                        <div className="mt-8 mb-8 grid grid-cols-2 gap-x-6 gap-y-4 sm:grid-cols-2">
+                                                                        <div className="mt-8 mb-8 grid grid-cols-1 gap-x-6 sm:gap-y-4 gap-y-2 sm:grid-cols-2">
                                                                             <div className="sm:col-span-6">
                                                                                 <div className="relative">
                                                                                     <div className="absolute inset-0 flex items-center" aria-hidden="true">
@@ -839,7 +850,7 @@ export default function Users() {
 
                                                                         </div>
 
-                                                                        <div className="mt-8 mb-8 grid grid-cols-2 gap-x-6 gap-y-4 sm:grid-cols-2">
+                                                                        <div className="mt-8 mb-8 grid grid-cols-1 gap-x-6 sm:gap-y-4 gap-y-2 sm:grid-cols-2">
                                                                             <div className="sm:col-span-6">
                                                                                 <div className="relative">
                                                                                     <div className="absolute inset-0 flex items-center" aria-hidden="true">
@@ -910,7 +921,7 @@ export default function Users() {
                                                                             </div>
 
                                                                         </div>
-                                                                        <div className="mt-8 mb-8 grid grid-cols-2 gap-x-6 gap-y-4 sm:grid-cols-2">
+                                                                        <div className="mt-8 mb-8 grid grid-cols-1 gap-x-6 sm:gap-y-4 gap-y-2 sm:grid-cols-2">
                                                                             <div className="sm:col-span-6">
                                                                                 <div className="relative">
                                                                                     <div className="absolute inset-0 flex items-center" aria-hidden="true">
@@ -929,7 +940,7 @@ export default function Users() {
                                                                                 </div>
                                                                             </div>
                                                                         </div>
-                                                                        <div className="mt-8 mb-8 grid grid-cols-2 gap-x-6 gap-y-4 sm:grid-cols-2">
+                                                                        <div className="mt-8 mb-8 grid grid-cols-1 gap-x-6 sm:gap-y-4 gap-y-2 sm:grid-cols-2">
                                                                             <div className="sm:col-span-6">
                                                                                 <div className="relative">
                                                                                     <div className="absolute inset-0 flex items-center" aria-hidden="true">

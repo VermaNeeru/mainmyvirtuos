@@ -21,7 +21,7 @@ export default function EmployeeReferral() {
                             <div className="sm:flex-auto">
                                 <h3 className='font-medium lg:text-base text-sm'>Candidate Referral form</h3>
                             </div>
-                            <div className="mt-4 lg:ml-16 ml-10 sm:mt-0 sm:flex-none">
+                            <div className="mt-4 lg:ml-16 ml-0 sm:mt-0 sm:flex-none">
                                 <Link href='/view_terms'>
                                     <button
                                         type="button"

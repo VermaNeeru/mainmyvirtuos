@@ -13,7 +13,7 @@ export default function AddLeaveCategory() {
                                     Add Leave Type
                                 </h2>
                             </div>
-                            <div className="mt-4 lg:ml-16 ml-10 sm:mt-0 sm:flex-none">
+                            <div className="mt-4 lg:ml-16 ml-0 sm:mt-0 sm:flex-none">
                                 <Link href='/leave_category_list'>
                                     <button
                                         type="button"
@@ -30,8 +30,8 @@ export default function AddLeaveCategory() {
 
             <div className='rounded-lg border border-gray-300 bg-white '>
                 <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 rounded mt-6">
-                    <div className=" py-3 px-4 flex-auto">
-                        <div className="mt-2 grid grid-cols-1 lg:grid-cols-3 gap-x-6 gap-y-4 sm:grid-cols-2">
+                    <div className=" lg:py-3 lg:px-4 py-2 px-2 flex-auto">
+                        <div className="lg:mt-2 grid grid-cols-1 lg:grid-cols-3 gap-x-6 lg:gap-y-4 gap-y-2">
                             <div className="sm:col-span-1">
                                 <div className="relative mt-2 rounded-md shadow-sm">
                                     <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
@@ -75,7 +75,7 @@ export default function AddLeaveCategory() {
                                 </div>
                             </div>
                         </div>
-                        <div className="mt-2 grid grid-cols-1 lg:grid-cols-2 gap-x-6 gap-y-4 sm:grid-cols-2">
+                        <div className="mt-2 grid grid-cols-2 lg:grid-cols-2 gap-x-6 gap-y-4 ">
 
                             <div className="sm:col-span-1">
                                 <div className="relative mt-2 rounded-md shadow-sm">
@@ -148,7 +148,7 @@ export default function AddLeaveCategory() {
 
 
                         </div>
-                        <div className="mt-2 grid grid-cols-1 lg:grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-2">
+                        <div className="mt-2 grid grid-cols-1 lg:grid-cols-1 gap-x-6 gap-y-4">
 
                             <div className="sm:col-span-1">
                                 <div className="relative mt-2 rounded-md shadow-sm">
@@ -199,7 +199,6 @@ export default function AddLeaveCategory() {
                                                     Director
                                                 </label>
                                             </div>
-
                                         </div>
                                     </fieldset>
 
@@ -210,9 +209,9 @@ export default function AddLeaveCategory() {
                         </div>
                         <div className="mt-2 grid grid-cols-1 lg:grid-cols-1 gap-x-6 gap-y-2 sm:grid-cols-2">
                             <div className="sm:col-span-1 mt-4">
-                                <label className="text-sm text-gray-500 text-gray-600 font-medium">PE</label>
+                                <label className="text-sm text-gray-600 font-medium">PE</label>
                             </div>
-                            <div className="grid grid-cols-1 lg:grid-cols-3 gap-x-6 gap-y-4 sm:grid-cols-2">
+                            <div className="grid grid-cols-1 lg:grid-cols-3 gap-x-6 lg:gap-y-4 gap-y-1">
                                 <div className="sm:col-span-1">
                                     <div className="relative mt-2 rounded-md shadow-sm">
                                         <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
@@ -259,9 +258,9 @@ export default function AddLeaveCategory() {
                         </div>
                         <div className="mt-2 grid grid-cols-1 lg:grid-cols-1 gap-x-6 gap-y-2 sm:grid-cols-2">
                             <div className="sm:col-span-1 mt-4">
-                                <label className="text-sm text-gray-500 text-gray-600 font-medium">QE</label>
+                                <label className="text-sm text-gray-600 font-medium">QE</label>
                             </div>
-                            <div className="grid grid-cols-1 lg:grid-cols-3 gap-x-6 gap-y-4 sm:grid-cols-2">
+                            <div className="grid grid-cols-1 lg:grid-cols-3 gap-x-6 lg:gap-y-4 gap-y-1">
                                 <div className="sm:col-span-1">
                                     <div className="relative mt-2 rounded-md shadow-sm">
                                         <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
@@ -308,9 +307,9 @@ export default function AddLeaveCategory() {
                         </div>
                         <div className="mt-2 grid grid-cols-1 lg:grid-cols-1 gap-x-6 gap-y-2 sm:grid-cols-2">
                             <div className="sm:col-span-1 mt-4">
-                                <label className="text-sm text-gray-500 text-gray-600 font-medium">Intern</label>
+                                <label className="text-sm text-gray-600 font-medium">Intern</label>
                             </div>
-                            <div className="grid grid-cols-1 lg:grid-cols-3 gap-x-6 gap-y-4 sm:grid-cols-2">
+                            <div className="grid grid-cols-1 lg:grid-cols-3 gap-x-6 lg:gap-y-4 gap-y-1">
                                 <div className="sm:col-span-1">
                                     <div className="relative mt-2 rounded-md shadow-sm">
                                         <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">

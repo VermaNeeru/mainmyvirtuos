@@ -205,7 +205,7 @@ const Testing = ({ onStateChange }) => {
             current: currentNavItem === "Reports",
             children: [
                 { name: 'Other Expense Report', href: '/other_expense', current: false },
-                { name: 'Asset Report', href: '/asset_report', current: false },
+                // { name: 'Asset Report', href: '/asset_report', current: false },
                 { name: 'Attendance Report', href: '/attendance', current: false },
                 { name: 'Expense Report', href: '/expense', current: false },
                 { name: 'Issue Report', href: '/all_issues', current: false },
@@ -305,7 +305,7 @@ const Testing = ({ onStateChange }) => {
     };
     return (
         // <div className="flex grow flex-col gap-y-5 overflow-y-auto no-scrollbar bg-gray-900 px-6">
-        <div className="flex grow flex-col gap-y-5 overflow-y-auto no-scrollbar bg-theme-color px-6">
+        <div className="flex grow flex-col gap-y-5 overflow-y-scroll no-scrollbar bg-theme-color px-6">
             <div className="flex h-16 shrink-0 items-center">
                 <Image
                     className="h-10 w-20 ml-16"

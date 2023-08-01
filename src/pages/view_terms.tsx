@@ -22,7 +22,7 @@ export default function ViewTerms() {
                             <div className="sm:flex-auto">
                                 <h3 className='font-medium'>Terms & Conditions</h3>
                             </div>
-                            <div className="mt-4 lg:ml-16 ml-10 sm:mt-0 sm:flex-none">
+                            <div className="mt-4 lg:ml-16 ml-0 sm:mt-0 sm:flex-none">
                                 <Link href='/employee_referral'>
                                     <button
                                         type="button"

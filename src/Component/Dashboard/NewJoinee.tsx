@@ -11,7 +11,6 @@ export default function NewJoinee() {
                             <h2 className="text-blueGray-700 text-xl font-semibold">
                                 Add New Joinee
                             </h2>
-
                         </div>
                     </div>
                 </div>
@@ -19,8 +18,7 @@ export default function NewJoinee() {
                     <form>
                         <div className="space-y-2">
                             <div className="pb-4">
-
-                                <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-6 gap-y-4 sm:grid-cols-2">
+                                <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-6 lg:gap-y-4 gap-y-2">
                                     <div className="sm:col-span-1">
                                         <div className="relative mt-2 rounded-md shadow-sm">
                                             <label htmlFor="start-date" className="block text-sm font-medium leading-6 text-gray-700">
@@ -35,7 +33,6 @@ export default function NewJoinee() {
                                             />
                                         </div>
                                     </div>
-
                                     <div className="sm:col-span-1">
                                         <div className="relative mt-2 rounded-md shadow-sm">
                                             <label htmlFor="start-date" className="block text-sm font-medium leading-6 text-gray-700">
@@ -50,7 +47,6 @@ export default function NewJoinee() {
                                             />
                                         </div>
                                     </div>
-
                                 </div>
                                 <div className="mt-2 grid grid-cols-1 lg:grid-cols-2 gap-x-6 gap-y-4 sm:grid-cols-2">
                                     <div className="sm:col-span-1">
@@ -85,7 +81,7 @@ export default function NewJoinee() {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-6 gap-y-4 sm:grid-cols-2">
+                                <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-6 lg:gap-y-4 gap-y-2">
                                     <div className="sm:col-span-1">
                                         <div className="relative mt-2 rounded-md shadow-sm">
                                             <label htmlFor="start-date" className="block text-sm font-medium leading-6 text-gray-700">
@@ -100,7 +96,6 @@ export default function NewJoinee() {
                                             />
                                         </div>
                                     </div>
-
                                     <div className="sm:col-span-1">
                                         <div className="relative mt-2 rounded-md shadow-sm">
                                             <label htmlFor="start-date" className="block text-sm font-medium leading-6 text-gray-700">
@@ -129,7 +124,6 @@ export default function NewJoinee() {
                                             />
                                         </div>
                                     </div>
-
                                     <div className="sm:col-span-1">
                                         <div className="relative mt-2 rounded-md shadow-sm">
                                             <label htmlFor="start-date" className="block text-sm font-medium leading-6 text-gray-700">
@@ -144,15 +138,11 @@ export default function NewJoinee() {
                                             />
                                         </div>
                                     </div>
-
-
                                 </div>
 
-                                <div className="mt-2 grid grid-cols-2 gap-x-6 gap-y-4 sm:grid-cols-2">
-
-                                    <div className="lg:col-span-6 col-span-1">
+                                <div className="mt-2 grid grid-cols-1 gap-x-6 gap-y-4 lg:grid-cols-1">
+                                    <div className="col-span-1">
                                         <textarea
-                                            rows={2}
                                             name="comment"
                                             id="comment"
                                             className="px-2 block w-full rounded-md border-0 py-1.5 text-gray-700 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -161,7 +151,6 @@ export default function NewJoinee() {
                                         />
                                     </div>
                                 </div>
-
                             </div>
                         </div>
 
@@ -172,7 +161,6 @@ export default function NewJoinee() {
                             >
                                 Save
                             </button>
-
                         </div>
                     </form>
                 </div>

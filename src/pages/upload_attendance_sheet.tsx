@@ -33,7 +33,7 @@ export default function UploadAttendanceSheet() {
                     <div className="sm:flex sm:items-center">
                         <div className="sm:flex-auto">
                         </div>
-                        <div className="mt-4 lg:ml-16 ml-10 sm:mt-0 sm:flex-none">
+                        <div className="mt-4 lg:ml-16 ml-0 sm:mt-0 sm:flex-none">
                             <Link href='/upload_attendance'>
                                 <button
                                     type="button"

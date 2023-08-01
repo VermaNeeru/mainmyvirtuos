@@ -22,7 +22,7 @@ export default function Attendance() {
                     </div>
                 </div>
             </div>
-            <ul role="list" className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+            <ul role="list" className="grid grid-cols-1 gap-6 lg:grid-cols-4">
                 {reports.map((item) => (
                     <li
                         key="1"

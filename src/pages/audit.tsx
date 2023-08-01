@@ -27,12 +27,9 @@ export default function SearchOte() {
                         <h2 className="text-blueGray-700 text-xl font-semibold">
                             Audit Log
                         </h2>
-
                     </div>
                 </div>
             </div>
-            <div className="mt-6 -mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-                <div className="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
                     <div className="sm:flex sm:items-center mb-4">
                         <div className="sm:flex-auto">
                             {/* <h1 className="text-base font-semibold leading-6 text-gray-900">My Logon Hours - Current Month</h1> */}
@@ -57,41 +54,44 @@ export default function SearchOte() {
                                 </button>
                             </div>
                         </div>
-
                     </div>
-
-                    <div className="overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg">
-                        <table className="min-w-full divide-y divide-gray-300">
-                            <thead className="bg-gray-50">
-                                <tr>
-                                    {table_header.map((val, index) => (
-
-                                        <th scope="col" key={index} className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">
-                                            {val.name}
-                                        </th>
-                                    ))}
-
-                                </tr>
-                            </thead>
-                            <tbody className="divide-y divide-gray-200 bg-white">
-                                {audit.map((person) => (
-                                    <tr key={person.id}>
-                                        <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
-                                            {person.emp_name}
-                                        </td>
-                                        <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.table_name}</td>
-                                        <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.url}</td>
-                                        <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.action}</td>
-                                        <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.adate}</td>
-                                        <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.ip}</td>
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </table>
-
+                    <div className="mt-8 flow-root">
+                        <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                            <div className="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
+                                <div className="border-2 lg:border-0 overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg">
+                                    <table className="min-w-full divide-y divide-gray-300">
+                                        <thead className="bg-gray-50">
+                                            <tr>
+                                                {table_header.map((val, index) => (
+                                                    <th scope="col" key={index} className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">
+                                                        {val.name}
+                                                    </th>
+                                                ))}
+                                            </tr>
+                                        </thead>
+                                        <tbody className="divide-y divide-gray-200 bg-white">
+                                            {audit.map((person) => (
+                                                <tr key={person.id}>
+                                                    <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
+                                                        {person.emp_name}
+                                                    </td>
+                                                    <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.table_name}</td>
+                                                    <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.url}</td>
+                                                    <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.action}</td>
+                                                    <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.adate}</td>
+                                                    <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.ip}</td>
+                                                </tr>
+                                            ))}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
+              
+          
         </div>
+
+
     )
 }
