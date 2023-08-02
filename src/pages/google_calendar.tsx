@@ -1,15 +1,15 @@
-import UpcomingEvent from '@/Component/UpcomingEvent'
+import UpcomingEvent from '@/components/UpcomingEvent'
 import React, { Fragment, useState, useRef, useEffect } from 'react'
 
 import { ExclamationTriangleIcon, BarsArrowUpIcon, MagnifyingGlassIcon, ComputerDesktopIcon } from '@heroicons/react/20/solid'
 import Link from 'next/link';
 import { Dialog, Menu, Transition } from '@headlessui/react'
 import { XMarkIcon, ChevronDownIcon, TrashIcon } from '@heroicons/react/20/solid'
-import DatePickerComp from '@/Component/DatePickerComp/DatePickerComp';
-import TimePickerComp from '@/Component/DatePickerComp/TimePickerComp';
-import EmployeeSearch from '@/Component/EmployeeSearch';
+import DatePickerComp from '@/components/DatePickerComp/DatePickerComp';
+import TimePickerComp from '@/components/DatePickerComp/TimePickerComp';
+import EmployeeSearch from '@/components/EmployeeSearch';
 
-export default function google_calendar() {
+export default function GoogleCalendar() {
     const [openTab, setOpenTab] = useState<number>(1);
     const [quickEdit, setGoogleCal] = useState(false)
     const cancelButtonRef = useRef(null)

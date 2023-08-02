@@ -3,8 +3,8 @@ import { Listbox, Transition } from '@headlessui/react'
 import { Disclosure } from '@headlessui/react'
 import { Bars4Icon, CheckIcon, ChevronUpDownIcon, ChatBubbleLeftRightIcon } from '@heroicons/react/20/solid'
 import Link from 'next/link';
-import TemplateTypeSearch from '@/Component/TemplateTypeSearch';
-import TextEditor from '@/Component/TextEditor';
+import TemplateTypeSearch from '@/components/TemplateTypeSearch';
+import TextEditor from '@/components/TextEditor';
 
 function classNames(...classes: any[]) {
     return classes.filter(Boolean).join(' ')

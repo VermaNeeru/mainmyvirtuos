@@ -1,5 +1,5 @@
-import ActivityPart1 from '@/Component/ActivityPart1'
-import ActivityPost from '@/Component/ActivityPost'
+import ActivityPart1 from '@/components/ActivityPart1'
+import ActivityPost from '@/components/ActivityPost'
 import Image from 'next/image'
 import React from 'react'
 import { ChevronRightIcon } from '@heroicons/react/20/solid'

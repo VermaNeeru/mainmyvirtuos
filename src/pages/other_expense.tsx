@@ -1,6 +1,6 @@
-import ExpenseDc from '@/Component/DoughnutChart/ExpenseDC';
-import EmployeeSearch from '@/Component/EmployeeSearch';
-import ExpenseLineChart from '@/Component/ExpenseLineChart';
+import ExpenseDc from '@/components/DoughnutChart/ExpenseDC';
+import EmployeeSearch from '@/components/EmployeeSearch';
+import ExpenseLineChart from '@/components/ExpenseLineChart';
 import React, { useState } from 'react'
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";

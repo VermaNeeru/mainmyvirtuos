@@ -4,7 +4,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { Disclosure } from '@headlessui/react'
 import { EnvelopeIcon, TruckIcon, CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
-import CitySearch from '@/Component/CitySearch';
+import CitySearch from '@/components/CitySearch';
 import Link from 'next/link';
 
 const traveltype = [

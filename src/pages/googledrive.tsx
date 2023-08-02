@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function googledrive() {
+export default function GoogleDrive() {
     return (
         <div className=' w-full rounded px-2'>
             <div className="rounded-t mb-4 px-4 bg-transparent">

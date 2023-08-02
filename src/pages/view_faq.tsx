@@ -1,4 +1,4 @@
-import FaqSearch from '@/Component/FaqSearch'
+import FaqSearch from '@/components/FaqSearch'
 import React from 'react'
 import { Disclosure } from '@headlessui/react'
 import { MinusSmallIcon, PlusSmallIcon } from '@heroicons/react/24/outline'

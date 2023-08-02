@@ -3,7 +3,7 @@ import { Listbox, Transition } from '@headlessui/react'
 import { Disclosure } from '@headlessui/react'
 import { MinusSmallIcon, PlusSmallIcon, ChatBubbleLeftRightIcon, ChevronUpDownIcon, CheckIcon, UserIcon } from '@heroicons/react/24/outline'
 import Link from 'next/link';
-import EmployeeSearch from '@/Component/EmployeeSearch';
+import EmployeeSearch from '@/components/EmployeeSearch';
 
 const faqs = [
     {

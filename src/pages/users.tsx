@@ -1,13 +1,13 @@
 import React, { Fragment, useState, useRef, useEffect } from 'react'
-import DepartmentSearch from '@/Component/DepartmentSearch'
+import DepartmentSearch from '@/components/DepartmentSearch'
 import { ExclamationTriangleIcon, BarsArrowUpIcon, MagnifyingGlassIcon } from '@heroicons/react/20/solid'
 import Link from 'next/link';
 import { Dialog, Menu, Transition } from '@headlessui/react'
 import { XMarkIcon, ChevronDownIcon, TrashIcon, UserIcon } from '@heroicons/react/20/solid'
-import Alert from '@/Component/Alert';
+import Alert from '@/components/Alert';
 import Image from 'next/image';
-import RoleSearch from '@/Component/RoleSearch';
-import DatePickerComp from '@/Component/DatePickerComp/DatePickerComp';
+import RoleSearch from '@/components/RoleSearch';
+import DatePickerComp from '@/components/DatePickerComp/DatePickerComp';
 const table_header = [
     { name: 'Name' },
     { name: 'Avtar' },

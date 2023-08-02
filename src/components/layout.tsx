@@ -28,7 +28,7 @@ import {
 } from '@heroicons/react/24/outline'
 import { ChevronDownIcon, MagnifyingGlassIcon } from '@heroicons/react/20/solid'
 import LayoutPro from '@/pages/LayoutPro'
-import Footer from '@/Component/footer'
+import Footer from '@/components/footer'
 import Image from 'next/image'
 
 const navigation = [
@@ -75,6 +75,7 @@ export default function Layout({ children }: any) {
     const handleChildStateChange = (dataFromChild: boolean | ((prevState: boolean) => boolean)) => {
         setSidebarOpen(dataFromChild);
     };
+
     return (
         <>
             {/*

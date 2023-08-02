@@ -1,4 +1,4 @@
-import DropFileInput from '@/Component/drop-file-input/DropFileInput'
+import DropFileInput from '@/components/drop-file-input/DropFileInput'
 import React from 'react'
 
 export default function Testing() {

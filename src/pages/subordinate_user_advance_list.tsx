@@ -4,7 +4,7 @@ import { Dialog, Menu, Transition } from '@headlessui/react'
 import { XMarkIcon, ChevronDownIcon } from '@heroicons/react/20/solid'
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import EmployeeSearch from '@/Component/EmployeeSearch';
+import EmployeeSearch from '@/components/EmployeeSearch';
 
 const table_header = [
     { name: 'Month' },

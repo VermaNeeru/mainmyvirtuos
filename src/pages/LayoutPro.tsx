@@ -12,12 +12,10 @@ import {
 import Image from 'next/image'
 import Link from 'next/link'
 
-
-
 function classNames(...classes: any[]) {
     return classes.filter(Boolean).join(' ')
 }
-const Testing = ({ onStateChange }) => {
+const Testing = ({ onStateChange }: any) => {
     // export default function Testing() {
     const [sidebarOpen, setSidebarOpen] = useState(false);
     const [currentNavItem, setCurrentNavItem] = useState<string>("Dashboard");
@@ -63,7 +61,6 @@ const Testing = ({ onStateChange }) => {
                 { name: 'My Leave Calendar', href: '/my_leave_calendar', current: 'My Leave Calendar' },
                 { name: 'My WFH/SL Status', href: '/wfh', current: 'My WFH/SL Status' },
                 { name: 'New WFH/SL Request', href: '/add_wfh', current: 'New WFH/SL Request' },
-
             ],
         },
 
@@ -234,7 +231,6 @@ const Testing = ({ onStateChange }) => {
             ],
         },
 
-
         {
             name: 'Settings',
             icon: FolderIcon,
@@ -301,7 +297,6 @@ const Testing = ({ onStateChange }) => {
         console.log(Parent, Child)
         console.log('currentNavItem', currentNavItem)
         console.log('currentNavSubItem', currentNavSubItem)
-
     };
     return (
         // <div className="flex grow flex-col gap-y-5 overflow-y-auto no-scrollbar bg-gray-900 px-6">

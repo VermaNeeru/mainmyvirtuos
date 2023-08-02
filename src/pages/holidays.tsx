@@ -4,8 +4,8 @@ import { ExclamationTriangleIcon, BarsArrowUpIcon, MagnifyingGlassIcon, Computer
 import Link from 'next/link';
 import { Dialog, Menu, Transition } from '@headlessui/react'
 import { XMarkIcon, ChevronDownIcon, TrashIcon } from '@heroicons/react/20/solid'
-import Alert from '@/Component/Alert';
-import DatePickerComp from '@/Component/DatePickerComp/DatePickerComp';
+import Alert from '@/components/Alert';
+import DatePickerComp from '@/components/DatePickerComp/DatePickerComp';
 const table_header = [
     { name: 'Type' },
     { name: 'Name' },

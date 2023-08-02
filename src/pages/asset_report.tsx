@@ -1,5 +1,5 @@
-import AssetSearch from '@/Component/AssetSearch'
-import EmployeeSearch from '@/Component/EmployeeSearch'
+import AssetSearch from '@/components/AssetSearch'
+import EmployeeSearch from '@/components/EmployeeSearch'
 import React from 'react'
 import { TableCellsIcon } from '@heroicons/react/20/solid'
 

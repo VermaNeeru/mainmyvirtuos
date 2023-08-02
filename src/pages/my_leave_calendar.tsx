@@ -1,5 +1,5 @@
-import EmployeeSearch from '@/Component/EmployeeSearch'
-import LeaveCalendar from '@/Component/LeaveCalendar'
+import EmployeeSearch from '@/components/EmployeeSearch'
+import LeaveCalendar from '@/components/LeaveCalendar'
 import React, { useState } from 'react'
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";

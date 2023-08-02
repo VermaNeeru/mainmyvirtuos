@@ -4,19 +4,19 @@ import { ExclamationTriangleIcon, BarsArrowUpIcon, MagnifyingGlassIcon } from '@
 import Link from 'next/link';
 import { Dialog, Menu, Transition } from '@headlessui/react'
 import { XMarkIcon, ChevronDownIcon, EnvelopeIcon, MinusSmallIcon, PlusSmallIcon, UserIcon } from '@heroicons/react/20/solid'
-import Alert from '@/Component/Alert';
+import Alert from '@/components/Alert';
 import Image from 'next/image';
-import StateSearch from '@/Component/StateSearch';
-import DatePickerComp from '@/Component/DatePickerComp/DatePickerComp';
-import AddFamily from '@/Component/AddFamily';
+import StateSearch from '@/components/StateSearch';
+import DatePickerComp from '@/components/DatePickerComp/DatePickerComp';
+import AddFamily from '@/components/AddFamily';
 import { Disclosure } from '@headlessui/react'
-import ProgramSearch from '@/Component/BasicInfo/ProgranSearch';
-import ProjectSearch from '@/Component/BasicInfo/ProjectSearch';
-import SkillSearch from '@/Component/BasicInfo/SkillSearch';
-import AddLanguage from '@/Component/BasicInfo/AddLanguage';
-import AddCertificate from '@/Component/BasicInfo/AddCertificate';
-import AddEducation from '@/Component/BasicInfo/AddEducation';
-import AddWorkExp from '@/Component/BasicInfo/AddWorkExp';
+import ProgramSearch from '@/components/BasicInfo/ProgranSearch';
+import ProjectSearch from '@/components/BasicInfo/ProjectSearch';
+import SkillSearch from '@/components/BasicInfo/SkillSearch';
+import AddLanguage from '@/components/BasicInfo/AddLanguage';
+import AddCertificate from '@/components/BasicInfo/AddCertificate';
+import AddEducation from '@/components/BasicInfo/AddEducation';
+import AddWorkExp from '@/components/BasicInfo/AddWorkExp';
 
 export default function AllLeaves() {
     const [openTab, setOpenTab] = useState<number>(1);

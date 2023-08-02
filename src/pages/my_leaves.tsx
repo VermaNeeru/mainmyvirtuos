@@ -1,4 +1,4 @@
-import AnnualLeaveChart from '@/Component/AnnualLeaveChart'
+import AnnualLeaveChart from '@/components/AnnualLeaveChart'
 import React from 'react'
 
 export default function MyLeaves() {

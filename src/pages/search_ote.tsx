@@ -2,9 +2,9 @@ import React, { Fragment, useState, useRef, useEffect } from 'react'
 import Link from 'next/link';
 import { Dialog, Menu, Transition } from '@headlessui/react'
 import { XMarkIcon, ChevronDownIcon, TrashIcon, UserIcon, ExclamationTriangleIcon, BarsArrowUpIcon, MagnifyingGlassIcon } from '@heroicons/react/20/solid'
-import Alert from '@/Component/Alert';
+import Alert from '@/components/Alert';
 import { Bars2Icon } from '@heroicons/react/24/outline';
-import DatePickerComp from '@/Component/DatePickerComp/DatePickerComp';
+import DatePickerComp from '@/components/DatePickerComp/DatePickerComp';
 
 const table_header = [
     { name: 'Employee Name' },

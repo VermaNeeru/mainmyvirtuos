@@ -2,8 +2,8 @@ import React, { useState } from 'react'
 import { Disclosure } from '@headlessui/react'
 import { MagnifyingGlassIcon, MinusSmallIcon, PlusSmallIcon, ChatBubbleLeftRightIcon } from '@heroicons/react/24/outline'
 import Link from 'next/link';
-import EmployeeSearch from '@/Component/EmployeeSearch';
-import CategorySearch from '@/Component/CategorySearch';
+import EmployeeSearch from '@/components/EmployeeSearch';
+import CategorySearch from '@/components/CategorySearch';
 
 const faqs = [
     {

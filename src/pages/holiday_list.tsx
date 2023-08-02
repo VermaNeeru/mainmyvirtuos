@@ -1,11 +1,11 @@
 import React, { Fragment, useState, useRef, useEffect } from 'react'
 import { ExclamationTriangleIcon, BarsArrowUpIcon, MagnifyingGlassIcon } from '@heroicons/react/20/solid'
 import Link from 'next/link'
-import EmployeeSearch from '@/Component/EmployeeSearch'
-import LeaveCalendarCompo from '@/Component/LeaveCalendar'
+import EmployeeSearch from '@/components/EmployeeSearch'
+import LeaveCalendarCompo from '@/components/LeaveCalendar'
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import YearViewCalendar from '@/Component/Calendar/YearViewCalendar'
+import YearViewCalendar from '@/components/Calendar/YearViewCalendar'
 export default function LeaveCalendar() {
     const [openTab, setOpenTab] = useState<number>(1);
 

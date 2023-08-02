@@ -1,8 +1,8 @@
 import React from 'react'
 import { BarsArrowUpIcon, MagnifyingGlassIcon } from '@heroicons/react/20/solid'
-import EmployeeSearch from '@/Component/EmployeeSearch'
-import DatePickerComp from '@/Component/DatePickerComp/DatePickerComp'
-import MonthYear from '@/Component/DatePickerComp/MonthYear';
+import EmployeeSearch from '@/components/EmployeeSearch'
+import DatePickerComp from '@/components/DatePickerComp/DatePickerComp'
+import MonthYear from '@/components/DatePickerComp/MonthYear';
 import Link from 'next/link';
 
 const table_header = [

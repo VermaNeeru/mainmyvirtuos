@@ -4,7 +4,7 @@ import { ExclamationTriangleIcon, BarsArrowUpIcon, MagnifyingGlassIcon, Computer
 import Link from 'next/link';
 import { Dialog, Menu, Transition } from '@headlessui/react'
 import { XMarkIcon, ChevronDownIcon, TrashIcon } from '@heroicons/react/20/solid'
-import Alert from '@/Component/Alert';
+import Alert from '@/components/Alert';
 const table_header = [
     { name: 'User Type Name' },
     { name: 'Status' },

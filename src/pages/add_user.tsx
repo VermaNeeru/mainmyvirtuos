@@ -1,9 +1,9 @@
-import DatePickerComp from '@/Component/DatePickerComp/DatePickerComp'
-import DepartmentSearch from '@/Component/DepartmentSearch'
-import DivisionSearch from '@/Component/DivisionSearch'
-import ManagerSearch from '@/Component/ManagerSearch'
-import RoleSearch from '@/Component/RoleSearch'
-import TeamSearch from '@/Component/TeamSearch'
+import DatePickerComp from '@/components/DatePickerComp/DatePickerComp'
+import DepartmentSearch from '@/components/DepartmentSearch'
+import DivisionSearch from '@/components/DivisionSearch'
+import ManagerSearch from '@/components/ManagerSearch'
+import RoleSearch from '@/components/RoleSearch'
+import TeamSearch from '@/components/TeamSearch'
 import React from 'react'
 
 export default function AddUser() {

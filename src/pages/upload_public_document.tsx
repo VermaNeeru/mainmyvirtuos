@@ -5,7 +5,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import { Disclosure } from '@headlessui/react'
 import { UserIcon, CheckIcon, ChevronUpDownIcon, ChatBubbleLeftRightIcon } from '@heroicons/react/20/solid'
 import Link from 'next/link';
-import EmployeeSearch from '@/Component/EmployeeSearch';
+import EmployeeSearch from '@/components/EmployeeSearch';
 
 function classNames(...classes: any[]) {
     return classes.filter(Boolean).join(' ')

@@ -1,4 +1,4 @@
-import YearViewCalendar from '@/Component/Calendar/YearViewCalendar'
+import YearViewCalendar from '@/components/Calendar/YearViewCalendar'
 import React from 'react'
 
 export default function calendartest() {

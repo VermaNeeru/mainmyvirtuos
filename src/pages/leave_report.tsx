@@ -1,8 +1,8 @@
 import Link from 'next/link';
 import React from 'react'
 import { ExclamationTriangleIcon, BarsArrowUpIcon, MagnifyingGlassIcon } from '@heroicons/react/20/solid'
-import EmployeeSearch from '@/Component/EmployeeSearch';
-import DatePickerComp from '@/Component/DatePickerComp/DatePickerComp';
+import EmployeeSearch from '@/components/EmployeeSearch';
+import DatePickerComp from '@/components/DatePickerComp/DatePickerComp';
 
 export default function LeaveReport() {
     return (

@@ -4,9 +4,9 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { Disclosure } from '@headlessui/react'
 import { EnvelopeIcon, Bars4Icon, CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
-import CitySearch from '@/Component/CitySearch';
+import CitySearch from '@/components/CitySearch';
 import Link from 'next/link';
-import TextEditor from '@/Component/TextEditor';
+import TextEditor from '@/components/TextEditor';
 
 const trainigstatus = [
     { id: 1, name: 'Choose Training Status' },
