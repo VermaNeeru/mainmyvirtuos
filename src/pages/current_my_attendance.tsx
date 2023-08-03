@@ -16,6 +16,13 @@ const statuses = [
     { id: 5, name: 'HD', value: 'Half Day' },
     // More items...
 ]
+const shortfall = [
+    { id: 1, color: '#ff0000', greater: '1:00', less: '4:30' },
+    { id: 2, color: '#ff8300', greater: '0:30', less: '1:00' },
+    { id: 3, color: '#ffff00', greater: '0:15', less: '0:30' },
+    { id: 4, color: '#ffffb3', greater: '0:10', less: '0:15' },
+    // More items...
+]
 const table_header = [
     { name: 'Name' },
     { name: 'Date' },
@@ -23,21 +30,23 @@ const table_header = [
     { name: 'In' },
     { name: 'Out' },
     { name: 'Status' },
-    { name: 'Logon Hours' },
+    { name: 'Reason' },
+    { name: 'Shortfall' },
+    { name: 'Notes' },
 ];
 const people = [
-    { name: 'Lindsay Walton', ldate: '03-08-2023', day: 'Thursday', in: '9:00AM', out: '6:00PM', status: 'Active', logonHours: '9' },
-    { name: 'Lindsay Walton', ldate: '03-08-2023', day: 'Thursday', in: '9:00AM', out: '6:00PM', status: 'Active', logonHours: '9' },
-    { name: 'Lindsay Walton', ldate: '03-08-2023', day: 'Thursday', in: '9:00AM', out: '6:00PM', status: 'Active', logonHours: '9' },
-    { name: 'Lindsay Walton', ldate: '03-08-2023', day: 'Thursday', in: '9:00AM', out: '6:00PM', status: 'Active', logonHours: '9' },
-    { name: 'Lindsay Walton', ldate: '03-08-2023', day: 'Thursday', in: '9:00AM', out: '6:00PM', status: 'Active', logonHours: '9' },
-    { name: 'Lindsay Walton', ldate: '03-08-2023', day: 'Thursday', in: '9:00AM', out: '6:00PM', status: 'Active', logonHours: '9' },
-    { name: 'Lindsay Walton', ldate: '03-08-2023', day: 'Thursday', in: '9:00AM', out: '6:00PM', status: 'Active', logonHours: '9' },
-    { name: 'Lindsay Walton', ldate: '03-08-2023', day: 'Thursday', in: '9:00AM', out: '6:00PM', status: 'Active', logonHours: '9' },
+    { name: 'Lindsay Walton', ldate: '03-08-2023', day: 'Thursday', in: '9:00AM', out: '6:00PM', status: 'Active', logonHours: '9', reason: 'Traffic', shortfall: '30min', notes: 'Traffic' },
+    { name: 'Lindsay Walton', ldate: '03-08-2023', day: 'Thursday', in: '9:00AM', out: '6:00PM', status: 'Active', logonHours: '9', reason: 'Traffic', shortfall: '30min', notes: 'Traffic' },
+    { name: 'Lindsay Walton', ldate: '03-08-2023', day: 'Thursday', in: '9:00AM', out: '6:00PM', status: 'Active', logonHours: '9', reason: 'Traffic', shortfall: '30min', notes: 'Traffic' },
+    { name: 'Lindsay Walton', ldate: '03-08-2023', day: 'Thursday', in: '9:00AM', out: '6:00PM', status: 'Active', logonHours: '9', reason: 'Traffic', shortfall: '30min', notes: 'Traffic' },
+    { name: 'Lindsay Walton', ldate: '03-08-2023', day: 'Thursday', in: '9:00AM', out: '6:00PM', status: 'Active', logonHours: '9', reason: 'Traffic', shortfall: '30min', notes: 'Traffic' },
+    { name: 'Lindsay Walton', ldate: '03-08-2023', day: 'Thursday', in: '9:00AM', out: '6:00PM', status: 'Active', logonHours: '9', reason: 'Traffic', shortfall: '30min', notes: 'Traffic' },
+    { name: 'Lindsay Walton', ldate: '03-08-2023', day: 'Thursday', in: '9:00AM', out: '6:00PM', status: 'Active', logonHours: '9', reason: 'Traffic', shortfall: '30min', notes: 'Traffic' },
+    { name: 'Lindsay Walton', ldate: '03-08-2023', day: 'Thursday', in: '9:00AM', out: '6:00PM', status: 'Active', logonHours: '9', reason: 'Traffic', shortfall: '30min', notes: 'Traffic' },
 
     // More people...
 ]
-export default function CurrentMyLogonHours() {
+export default function CurrentMyAttendance() {
 
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 3;
@@ -60,7 +69,7 @@ export default function CurrentMyLogonHours() {
                 <div className="flex flex-wrap items-center">
                     <div className="relative w-full max-w-full flex-grow flex-1">
                         <h2 className="text-blueGray-700 text-xl font-semibold">
-                            My Logon Hours - Current Month
+                            My Attendance - Current Month
                         </h2>
                     </div>
                 </div>
@@ -70,7 +79,7 @@ export default function CurrentMyLogonHours() {
                     <form>
                         <div className="space-y-2">
                             <div className=" lg:pb-4">
-                                <h2 className="text-base font-semibold leading-7 text-gray-900">Search Logon Hours Report</h2>
+                                <h2 className="text-base font-semibold leading-7 text-gray-900">Search Attendance</h2>
                                 <div className="mt-2 grid grid-cols-1 gap-x-6 gap-y-2 sm:gap-y-4 sm:grid-cols-6">
                                     <div className="sm:col-span-2">
                                         <label htmlFor="start-date" className="block text-sm font-medium leading-6 text-gray-900">
@@ -110,15 +119,21 @@ export default function CurrentMyLogonHours() {
                     <div className=" sm:px-2 lg:px-2">
                         <div className="flex sm:items-center">
                             <div className="sm:flex-auto">
-                                <ul role="list" className="py-0">
+                                <ul role="list" className="py-0 -mt-2">
                                     {statuses.map((item) => (
                                         <li key={item.id} className="py-0 text-gray-600 text-xs">
                                             {item.name} : {item.value}
                                         </li>
                                     ))}
+                                    {shortfall.map((item) => (
+                                        <li key={item.id} className="py-0 text-gray-600 text-xs mt-2">
+                                            <span style={{ background: item.color }} className='px-2 h-1'></span>&nbsp;
+                                            Shortfall &gt; {item.greater} & Shortfall &lt; {item.less}
+                                        </li>
+                                    ))}
                                 </ul>
                             </div>
-                            <div className="flex mt-4 lg:ml-16 ml-40 sm:mt-0 ">
+                            <div className="flex -mt-2 lg:ml-16 ml-12  lg:-mt-40 ">
                                 <Link href="/view_faq">
                                     <span
                                         className="block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
@@ -155,7 +170,9 @@ export default function CurrentMyLogonHours() {
                                                         <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.in}</td>
                                                         <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.out}</td>
                                                         <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.status}</td>
-                                                        <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.logonHours}</td>
+                                                        <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.reason}</td>
+                                                        <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.shortfall}</td>
+                                                        <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.notes}</td>
                                                     </tr>
                                                 ))}
                                             </tbody>

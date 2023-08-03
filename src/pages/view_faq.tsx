@@ -119,6 +119,7 @@ export default function ViewFaq() {
             </div>
             <div className="grid grid-cols-1 gap-4 lg:grid-cols-2 mt-4">
                 <div className=' rounded-lg border border-gray-300 bg-white px-4 py-4'>
+                    <h4 className='font-semibold'>Featured Question</h4>
                     <ul role="list" className="divide-y divide-gray-200">
                         {faqs.map((item) => (
                             <li key="1" className="py-4 text-sm">
@@ -128,6 +129,7 @@ export default function ViewFaq() {
                     </ul>
                 </div>
                 <div className=' rounded-lg border border-gray-300 bg-white px-4 py-4'>
+                    <h4 className='font-semibold'>Recent Answers</h4>
                     <ul role="list" className="divide-y divide-gray-200">
                         {recentans.map((item) => (
                             <li key="1" className="py-4 text-sm">
@@ -140,7 +142,7 @@ export default function ViewFaq() {
             </div>
 
             <div className="mt-6 relative  items-center space-x-3 rounded-lg border border-gray-300 bg-white px-6 py-5 shadow-sm focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 hover:border-gray-400">
-                <h4>FAQ for Featured</h4>
+                <h4 className='font-semibold'>Featured FAQ</h4>
                 <div className=" mb-4 px-2 py-2">
                     <dl className="mt-2 space-y-6 divide-y divide-gray-900/10">
                         {faqs.map((faq) => (

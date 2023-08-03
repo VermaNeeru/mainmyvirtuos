@@ -6,6 +6,7 @@ import LeaveCalendarCompo from '@/components/LeaveCalendar'
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import YearViewCalendar from '@/components/Calendar/YearViewCalendar'
+import HolidaysList from '@/components/HolidaysList'
 export default function LeaveCalendar() {
     const [openTab, setOpenTab] = useState<number>(1);
 
@@ -142,6 +143,8 @@ export default function LeaveCalendar() {
                             </div>
                         </div>
                     </div>
+
+                    <HolidaysList />
                 </div>
             </div>
         </div >

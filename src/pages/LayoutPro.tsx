@@ -123,7 +123,7 @@ const Testing = ({ onStateChange }: any) => {
             current: currentNavItem === "Google Apps",
             children: [
                 { name: 'My Calendar', href: '/google_calendar', current: false },
-                { name: 'My Drive', href: '/googledrive', current: false },
+                { name: 'My Drive', href: '/google_drive', current: false },
 
             ],
         },
@@ -374,7 +374,7 @@ const Testing = ({ onStateChange }: any) => {
                                                                     )}> */}
 
                                                                 <span className={classNames(
-                                                                    (subItem.name == currentNavSubItem) ? 'text-gray-300 font-bold bg-gray-800' : 'hover:bg-gray-800 text-gray-500',
+                                                                    (subItem.name == currentNavSubItem) ? 'text-gray-300 font-semibold ' : 'hover:bg-gray-800 text-gray-500',
                                                                     'block rounded-md py-2 pr-2 pl-9 text-sm leading-6 '
                                                                 )}>
                                                                     {subItem.name}

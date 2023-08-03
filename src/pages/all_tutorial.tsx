@@ -209,7 +209,7 @@ export default function AllTutorial() {
                                                                                                 </div>
                                                                                             </div>
 
-                                                                                            <div className="sm:col-span-1">
+                                                                                            <div className="sm:col-span-2">
                                                                                                 <div className="relative mt-2 rounded-md shadow-sm">
                                                                                                     <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
                                                                                                         <Bars3Icon className="h-5 w-5 text-gray-400" aria-hidden="true" />

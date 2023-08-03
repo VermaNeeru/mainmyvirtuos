@@ -51,7 +51,7 @@ export default function CurrentMonthAttendance() {
                             <dt className="sr-only">Title</dt>
                             <dt className="sr-only">Role</dt>
                             <dd className="mt-3">
-                                <Link href="/current_my_logon_hours">
+                                <Link href="/current_my_attendance">
                                     <button
                                         type="button"
                                         className="rounded-md bg-indigo-600 px-2.5 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"

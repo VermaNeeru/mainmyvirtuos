@@ -8,7 +8,7 @@ import Alert from '@/components/Alert';
 import Image from 'next/image';
 const table_header = [
     { name: 'Name' },
-    { name: 'Apartment' },
+    { name: 'Department' },
     { name: 'Division' },
     { name: 'Avtar' },
     { name: 'Designation' },

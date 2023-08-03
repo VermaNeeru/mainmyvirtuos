@@ -99,15 +99,17 @@ export default function AllLeaves() {
     const [listEItems, setListEItems] = useState(['1']);
 
     const appendEItem = () => {
-        if (listEItems.length < 1) {
+        if (listEItems.length < 2) {
             const newItem = `${listEItems.length + 1}`;
             setListEItems([...listEItems, newItem]);
         }
     };
 
     const removeEItem = (index: number) => {
-        const updatedList = listEItems.filter((item, i) => i !== index);
-        setListEItems(updatedList);
+        if (listEItems.length > 1) {
+            const updatedList = listEItems.filter((item, i) => i !== index);
+            setListEItems(updatedList);
+        }
     };
     // For Education End 
 
@@ -282,7 +284,6 @@ export default function AllLeaves() {
                                             <form>
                                                 <div className="space-y-2">
                                                     <div className="pb-4">
-
                                                         <div className="grid grid-cols-1 lg:grid-cols-3 gap-x-6 lg:gap-y-4 gap-y-2">
                                                             <div className="sm:col-span-1">
                                                                 <div className="relative mt-2 rounded-md shadow-sm">
@@ -1286,15 +1287,15 @@ export default function AllLeaves() {
                                 </div>
                             </div>
                             <div className={openTab === 2 ? "block" : "hidden"} id="link2">
-                                <div className="lg:w-72 ">
+                                <div className="lg:w-72 -mt-4">
                                     <ul
-                                        className="h-12 isolate flex divide-x divide-gray-200 rounded-lg shadow" aria-label="Tabs"
+                                        className="h-10 isolate flex divide-x divide-gray-200" aria-label="Tabs"
                                         role="tablist"
                                     >
                                         <li className=" group relative min-w-0 flex-1 overflow-hidden bg-white lg:px-4 px-1 text-center lg:text-sm text-xs font-medium hover:bg-gray-50 focus:z-10">
                                             <a
                                                 className={
-                                                    "flex whitespace-nowrap py-2 px-1 text-sm font-medium " +
+                                                    "flex whitespace-nowrap py-1 px-1 text-sm font-medium " +
                                                     (openTabFamily === 1
                                                         ? "border-indigo-500 text-indigo-600 "
                                                         : "border-transparent text-gray-500 hover:border-gray-200 hover:text-gray-700 ")
@@ -1313,7 +1314,7 @@ export default function AllLeaves() {
                                         <li className=" group relative min-w-0 flex-1 overflow-hidden bg-white lg:px-4 px-1 text-center lg:text-sm text-xs font-medium hover:bg-gray-50 focus:z-10">
                                             <a
                                                 className={
-                                                    "flex whitespace-nowrap py-2 px-1 text-sm font-medium " +
+                                                    "flex whitespace-nowrap py-1 px-1 text-sm font-medium " +
                                                     (openTabFamily === 2
                                                         ? "border-indigo-500 text-indigo-600 "
                                                         : "border-transparent text-gray-500 hover:border-gray-200 hover:text-gray-700")
@@ -1371,7 +1372,6 @@ export default function AllLeaves() {
                             </div>
                             <div className={openTab === 3 ? "block" : "hidden"} id="link3">
                                 <dl className="ml-4 mt-2 space-y-6 divide-y divide-gray-900/10">
-
                                     <Disclosure as="div" key="1" className="pt-6">
                                         {({ open }) => (
                                             <>
@@ -1413,7 +1413,6 @@ export default function AllLeaves() {
                                                 </Disclosure.Panel>
                                             </>
                                         )}
-
                                     </Disclosure>
                                     <Disclosure as="div" key="2" className="pt-6">
                                         {({ open }) => (
@@ -1488,7 +1487,6 @@ export default function AllLeaves() {
                                                                     >
                                                                         Add Additional Skill
                                                                     </button></div>
-
                                                             </div>
                                                             <div className="mt-2 grid lg:grid-cols-2 grid-cols-1 gap-x-2 gap-y-2 sm:grid-cols-6">
                                                                 <div className="lg:col-span-1">
@@ -1543,7 +1541,7 @@ export default function AllLeaves() {
 
                                                         </div>
                                                     ))}
-                                                    <div className='mt-2 text-right'>
+                                                    <div className='lg:mt-0 mt-1 text-right'>
                                                         <button onClick={appendEItem} className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                                                         >
                                                             Add New Education
@@ -2012,16 +2010,14 @@ export default function AllLeaves() {
                                         >
                                             <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg sm:p-6">
                                                 <div className="space-y-2">
-                                                    <div className="border-b border-gray-700/10 pb-4">
+                                                    <div className="pb-4">
                                                         <h2 className="text-lg font-semibold leading-7 text-gray-700">Add Skill</h2>
-
-
                                                         <div className="mt-2 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-1">
                                                             <div className="sm:col-span-2">
                                                                 <div className="mt-1">
                                                                     <form>
                                                                         <div className="space-y-2">
-                                                                            <div className="border-b border-gray-700/10 pb-4">
+                                                                            <div className="pb-2">
                                                                                 <div className="mt-2 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                                                                                     <div className="sm:col-span-6">
                                                                                         <div className="relative mt-2 rounded-md shadow-sm">

@@ -53,7 +53,6 @@ export default function AddIdea() {
                                                         <label htmlFor="comments" className="font-medium text-gray-600">
                                                             All Employees
                                                         </label>{' '}
-
                                                     </div>
                                                 </div>
                                             </div>
@@ -93,46 +92,46 @@ export default function AddIdea() {
                                     >
                                         Submit
                                     </button>
-
                                 </div>
                             </form>
                         </div>
-
-
                     </div>
-
                 </div>
 
-                <div className=" lg:w-2/3 relative  items-center space-x-3 rounded-lg border border-gray-300 bg-white px-6 py-5 shadow-sm focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 hover:border-gray-400">
-                    <h4 className='flex'>FAQ for Ideas</h4>
-                    <div className=" mb-4 px-2 py-2">
-                        <dl className="mt-2 space-y-6 divide-y divide-gray-900/10">
-                            {faqs.map((faq) => (
-                                <Disclosure as="div" key={faq.question} >
-                                    {({ open }) => (
-                                        <>
-                                            <dt>
-                                                <Disclosure.Button className="flex w-full items-start justify-between text-left text-gray-900">
-                                                    <span className="text-base font-semibold leading-7 text-xs text-gray-800">{faq.question}</span>
-                                                    <span className="ml-6 flex h-7 items-center">
-                                                        {open ? (
-                                                            <MinusSmallIcon className="h-6 w-6" aria-hidden="true" />
-                                                        ) : (
-                                                            <PlusSmallIcon className="h-6 w-6" aria-hidden="true" />
-                                                        )}
-                                                    </span>
-                                                </Disclosure.Button>
-                                            </dt>
-                                            <Disclosure.Panel as="dd" className="mt-2 pr-12">
-                                                <p className="text-base leading-7 text-xs text-gray-600">{faq.answer}</p>
-                                            </Disclosure.Panel>
-                                        </>
-                                    )}
-                                </Disclosure>
-                            ))}
-                        </dl>
-                    </div>
+                <div className="lg:ml-0.5 px-6 py-2 lg:w-2/3 -mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                    <div className=' rounded-lg border border-gray-300 bg-white'>
+                        <div className=" mb-4 px-4 py-4">
+                            <h4 className='flex'>FAQ for Ideas</h4>
+                            <div className=" mb-4 px-2 py-2">
+                                <dl className="mt-2 space-y-6 divide-y divide-gray-900/10">
+                                    {faqs.map((faq) => (
+                                        <Disclosure as="div" key={faq.question} >
+                                            {({ open }) => (
+                                                <>
+                                                    <dt>
+                                                        <Disclosure.Button className="flex w-full items-start justify-between text-left text-gray-900">
+                                                            <span className="lg:text-base font-semibold leading-7 text-sm text-gray-800">{faq.question}</span>
+                                                            <span className="ml-6 flex h-7 items-center">
+                                                                {open ? (
+                                                                    <MinusSmallIcon className="h-6 w-6" aria-hidden="true" />
+                                                                ) : (
+                                                                    <PlusSmallIcon className="h-6 w-6" aria-hidden="true" />
+                                                                )}
+                                                            </span>
+                                                        </Disclosure.Button>
+                                                    </dt>
+                                                    <Disclosure.Panel as="dd" className="mt-2 pr-12">
+                                                        <p className="lg:text-sm leading-7 text-xs text-gray-600">{faq.answer}</p>
+                                                    </Disclosure.Panel>
+                                                </>
+                                            )}
+                                        </Disclosure>
+                                    ))}
+                                </dl>
+                            </div>
 
+                        </div>
+                    </div>
                 </div>
 
             </div>

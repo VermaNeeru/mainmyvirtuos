@@ -30,6 +30,7 @@ import { ChevronDownIcon, MagnifyingGlassIcon } from '@heroicons/react/20/solid'
 import LayoutPro from '@/pages/LayoutPro'
 import Footer from '@/components/footer'
 import Image from 'next/image'
+import Link from 'next/link'
 
 const navigation = [
     { name: 'Dashboard', href: '#', icon: HomeIcon, current: true },
@@ -203,7 +204,8 @@ export default function Layout({ children }: any) {
                 </div>
 
                 <div className="lg:pl-72">
-                    <div className="sticky top-0 z-40 flex h-16 shrink-0 items-center gap-x-4 border-b border-gray-200 bg-gray-800 px-4 shadow-sm sm:gap-x-6 sm:px-6 lg:px-8">
+                    {/* <div className="sticky top-0 z-40 flex h-16 shrink-0 items-center gap-x-4 border-b border-gray-200 bg-gray-800 px-4 shadow-sm sm:gap-x-6 sm:px-6 lg:px-8"> */}
+                    <div className="sticky top-0 z-40 flex h-16 shrink-0 items-center gap-x-4 bg-top-header px-4 shadow-sm sm:gap-x-6 sm:px-6 lg:px-8">
                         <button type="button" className="-m-2.5 p-2.5 text-gray-700 lg:hidden" onClick={() => setSidebarOpen(true)}>
                             <span className="sr-only">Open sidebar</span>
                             <Bars3Icon className="h-6 w-6 text-gray-200" aria-hidden="true" />
@@ -282,7 +284,7 @@ export default function Layout({ children }: any) {
                                     <Menu.Button className="-m-1.5 flex items-center p-1.5">
                                         <span className="sr-only">Open user menu</span>
                                         <Image
-                                            src="https://myvirtuos.com/assets/images/happiests-logo_white.svg"
+                                            src="https://myvirtuos.com/uploads/profile/medium_thumb/User_No-Frame_mediumthumb.png"
                                             alt=""
                                             width={100}
                                             height={100}
@@ -305,8 +307,8 @@ export default function Layout({ children }: any) {
                                         leaveFrom="transform opacity-100 scale-100"
                                         leaveTo="transform opacity-0 scale-95"
                                     >
-                                        <Menu.Items className="absolute right-0 z-10 mt-2.5 w-32 origin-top-right rounded-md bg-white py-2 shadow-lg ring-1 ring-gray-900/5 focus:outline-none">
-                                            {userNavigation.map((item) => (
+                                        <Menu.Items className="absolute right-0 z-10 mt-3.5 lg:-mr-8 -mr-4 w-72 origin-top-right rounded-md bg-white  shadow-lg ring-1 ring-gray-900/5 focus:outline-none">
+                                            {/* {userNavigation.map((item) => (
                                                 <Menu.Item key={item.name}>
                                                     {({ active }) => (
                                                         <a
@@ -320,7 +322,34 @@ export default function Layout({ children }: any) {
                                                         </a>
                                                     )}
                                                 </Menu.Item>
-                                            ))}
+                                            ))} */}
+                                            <div className="flex flex-1 flex-col p-8 text-center bg-top-header">
+                                                <img className="mx-auto h-32 w-32 flex-shrink-0 rounded-full" src="https://myvirtuos.com/uploads/profile/medium_thumb/User_No-Frame_mediumthumb.png" alt="" />
+                                                <h3 className="mt-4 text-sm font-medium text-gray-200">Tom Cook</h3>
+                                                <dl className="mt-1 flex flex-grow flex-col justify-between -pb-2">
+                                                    <dd className="text-sm text-gray-300">Member since 16 Sep 2021</dd>
+
+                                                </dl>
+                                            </div>
+                                            <div className="flex flex-1 flex-col -mt-2 mb-2 text-center">
+                                                <h3 className="mt-6 text-sm text-gray-900">Assigned Assets</h3>
+                                            </div>
+                                            <div>
+                                                <div className="-mt-px flex divide-x divide-gray-200">
+                                                    <div className="flex w-0 flex-1">
+                                                        <Link href="/profile" className="relative -mr-px inline-flex w-0 flex-1 items-center justify-center gap-x-3 rounded-bl-lg border border-transparent py-4 text-sm font-semibold text-gray-900"
+                                                        >
+                                                            <span>Profile</span>
+                                                        </Link>
+                                                    </div>
+                                                    <div className="-ml-px flex w-0 flex-1">
+                                                        <Link href="/login" className="relative inline-flex w-0 flex-1 items-center justify-center gap-x-3 rounded-br-lg border border-transparent py-4 text-sm font-semibold text-gray-900"
+                                                        >
+                                                            <span>Signout</span>
+                                                        </Link>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </Menu.Items>
                                     </Transition>
                                 </Menu>
