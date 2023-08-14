@@ -1,5 +1,6 @@
+import Image from 'next/image';
 import React from 'react';
-import Slider from 'react-slick';
+// import Slider from 'react-slick';
 
 const people = [
     {
@@ -42,14 +43,14 @@ const people = [
     // More people...
 ]
 const HolidaysList = () => {
-    const settings = {
-        dots: true,
-        infinite: true,
-        speed: 500,
-        slidesToShow: 1,
-        slidesToScroll: 1,
-        autoplay: true,
-    };
+    // const settings = {
+    //     dots: true,
+    //     infinite: true,
+    //     speed: 500,
+    //     slidesToShow: 1,
+    //     slidesToScroll: 1,
+    //     autoplay: true,
+    // };
     return (
         <div>
 
@@ -57,34 +58,34 @@ const HolidaysList = () => {
             {/* <p>Content 1</p>
                 <p>Content 2</p>
                 <p>Content 3</p> */}
-            <Slider {...settings}>
-                <div>
-                    <ul role="list" className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-                        {people.map((person) => (
-                            <li
-                                key={person.email}
-                                className="col-span-1 flex flex-col divide-y divide-gray-200 rounded-lg bg-white text-center shadow"
-                            >
-                                <div className="flex flex-1 flex-col p-8">
-                                    <img className="mx-auto  flex-shrink-0 rounded" src={person.imageUrl} alt="" />
-                                    <h3 className="mt-6 text-sm font-medium text-gray-900">{person.name}</h3>
-                                    <dl className="mt-1 flex flex-grow flex-col justify-between">
-                                        <dd className="text-sm text-gray-500">{person.title}</dd>
-                                        <dd className="mt-3">
-                                            <span className="inline-flex items-center rounded-full bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20">
-                                                {person.role}
-                                            </span>
-                                        </dd>
-                                    </dl>
-                                </div>
+            {/* <Slider {...settings}> */}
+            <div>
+                <ul role="list" className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+                    {people.map((person) => (
+                        <li
+                            key={person.email}
+                            className="col-span-1 flex flex-col divide-y divide-gray-200 rounded-lg bg-white text-center shadow"
+                        >
+                            <div className="flex flex-1 flex-col p-8">
+                                <Image loader={({ src }) => `${src}`} height={100} width={100} className="mx-auto  flex-shrink-0 rounded" src={person.imageUrl} alt="" />
+                                <h3 className="mt-6 text-sm font-medium text-gray-900">{person.name}</h3>
+                                <dl className="mt-1 flex flex-grow flex-col justify-between">
+                                    <dd className="text-sm text-gray-500">{person.title}</dd>
+                                    <dd className="mt-3">
+                                        <span className="inline-flex items-center rounded-full bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20">
+                                            {person.role}
+                                        </span>
+                                    </dd>
+                                </dl>
+                            </div>
 
-                            </li>
-                        ))}
-                    </ul>
-                </div>
+                        </li>
+                    ))}
+                </ul>
+            </div>
 
 
-            </Slider>
+            {/* </Slider> */}
 
             {/* Add as many elements as you want */}
 

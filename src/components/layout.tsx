@@ -324,7 +324,7 @@ export default function Layout({ children }: any) {
                                                 </Menu.Item>
                                             ))} */}
                                             <div className="flex flex-1 flex-col p-8 text-center bg-top-header">
-                                                <img className="mx-auto h-32 w-32 flex-shrink-0 rounded-full" src="https://myvirtuos.com/uploads/profile/medium_thumb/User_No-Frame_mediumthumb.png" alt="" />
+                                                <Image loader={({ src }) => `${src}`} height={100} width={100} className="mx-auto h-32 w-32 flex-shrink-0 rounded-full" src="https://myvirtuos.com/uploads/profile/medium_thumb/User_No-Frame_mediumthumb.png" alt="" />
                                                 <h3 className="mt-4 text-sm font-medium text-gray-200">Tom Cook</h3>
                                                 <dl className="mt-1 flex flex-grow flex-col justify-between -pb-2">
                                                     <dd className="text-sm text-gray-300">Member since 16 Sep 2021</dd>
