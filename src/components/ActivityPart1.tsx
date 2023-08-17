@@ -4,19 +4,33 @@ import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
 import { Combobox } from '@headlessui/react'
 import TextEditor from "@/components/TextEditor";
 
+import { useQuery } from "@apollo/client";
+import { GET_Employees } from '@/graphql/User/queries';
+
 
 export default function ActivityPart1() {
     const [openTab, setOpenTab] = useState<number>(1);
 
-    const people = [
-        { id: 1, name: 'Shivam Chawla' },
-        { id: 1, name: 'Neeru Verma' },
-        { id: 1, name: 'Poorva Sharma' },
-        { id: 1, name: 'Sarika Sharma' },
-        { id: 1, name: 'Bhumika' },
-        { id: 1, name: 'Gagan' },
-        // More users...
-    ]
+    const { loading, error, data } = useQuery(GET_Employees);
+    const employees = data.getalluser;
+    console.log("users", employees);
+    // return
+    let people = [];
+    people = employees.map((employee: { id: any; firstname: any; lastname: any; }) => ({
+        id: employee.id,
+        name: `${employee.firstname} ${employee.lastname}`,
+    }));
+    console.log("people", people);
+    // return
+    // const people = [
+    //     { id: 1, name: 'Shivam Chawla' },
+    //     { id: 1, name: 'Neeru Verma' },
+    //     { id: 1, name: 'Poorva Sharma' },
+    //     { id: 1, name: 'Sarika Sharma' },
+    //     { id: 1, name: 'Bhumika' },
+    //     { id: 1, name: 'Gagan' },
+    //     // More users...
+    // ]
 
     function classNames(...classes: any) {
         return classes.filter(Boolean).join(' ')
@@ -28,7 +42,7 @@ export default function ActivityPart1() {
     const filteredPeople =
         query === ''
             ? people
-            : people.filter((person) => {
+            : people.filter((person: { name: string; }) => {
                 return person.name.toLowerCase().includes(query.toLowerCase())
             })
 
@@ -105,7 +119,7 @@ export default function ActivityPart1() {
 
                                                                 {filteredPeople.length > 0 && (
                                                                     <Combobox.Options className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
-                                                                        {filteredPeople.map((person) => (
+                                                                        {filteredPeople.map((person: { id: React.Key | null | undefined; name: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | React.ReactFragment | React.ReactPortal | React.PromiseLikeOfReactNode | null | undefined; }) => (
                                                                             <Combobox.Option
                                                                                 key={person.id}
                                                                                 value={person}
@@ -188,7 +202,7 @@ export default function ActivityPart1() {
 
                                                                 {filteredPeople.length > 0 && (
                                                                     <Combobox.Options className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
-                                                                        {filteredPeople.map((person) => (
+                                                                        {filteredPeople.map((person: { id: React.Key | null | undefined; name: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | React.ReactFragment | React.ReactPortal | React.PromiseLikeOfReactNode | null | undefined; }) => (
                                                                             <Combobox.Option
                                                                                 key={person.id}
                                                                                 value={person}
