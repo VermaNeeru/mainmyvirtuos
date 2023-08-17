@@ -12,14 +12,19 @@ export default function ActivityPart1() {
     const [openTab, setOpenTab] = useState<number>(1);
 
     const { loading, error, data } = useQuery(GET_Employees);
-    const employees = data.getalluser;
-    console.log("users", employees);
-    // return
+
+    console.log("users", data);
+
     let people = [];
-    people = employees.map((employee: { id: any; firstname: any; lastname: any; }) => ({
-        id: employee.id,
-        name: `${employee.firstname} ${employee.lastname}`,
-    }));
+
+    if (data && data.getalluser) {
+        people = data.getalluser.map((employee: { id: any; firstname: any; lastname: any; }) => ({
+            id: employee.id,
+            name: `${employee.firstname} ${employee.lastname}`,
+        }));
+    }
+
+    // console.log("people", people);
     console.log("people", people);
     // return
     // const people = [
