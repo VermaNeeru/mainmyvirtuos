@@ -2,29 +2,42 @@ import { Fragment, useEffect, useState } from "react";
 import { Transition } from "@headlessui/react";
 import { CheckCircleIcon } from "@heroicons/react/24/outline";
 import { XMarkIcon } from "@heroicons/react/20/solid";
-interface Message {
+interface NotificationProps {
     message: string;
+    // alertState: boolean;
+    // onAlertStateChange: (newState: boolean) => void;
 }
-export default function Notification({ message }: Message) {
+// export default function Notification({ message, alertState, onAlertStateChange }: NotificationProps) {
+export default function Notification({ message }: NotificationProps) {
     const [show, setShow] = useState(true);
-    // useEffect(() => {
-    //     const timer = setTimeout(() => {
-    //         setShow(false);
-    //     }, 3000);
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setShow(false);
+        }, 2000);
 
-    //     return () => {
-    //         clearTimeout(timer);
-    //     };
-    // }, []);
+        return () => {
+            clearTimeout(timer);
+        };
+    }, []);
     // if (!show) {
     //     return null;
     // }
+
+    const [isAlertVisible, setIsAlertVisible] = useState(true);
+
+    const toggleAlert = () => {
+        setIsAlertVisible(!isAlertVisible);
+        setShow(false);
+        // Call the function passed from DivisionList to update alertState
+        onAlertStateChange(!isAlertVisible);
+    };
+
     return (
         <>
             {/* Global notification live region, render this permanently at the end of the document */}
             <div
                 aria-live="assertive"
-                className="pointer-events-none fixed inset-0 flex p-8 mt-20 items-start "
+                className="pointer-events-none fixed inset-0 flex p-8 mt-10 items-start "
             >
                 <div className="flex w-full flex-col items-center space-y-4 sm:items-end">
                     {/* Notification panel, dynamically insert this into the live region when it needs to be displayed */}
@@ -56,9 +69,11 @@ export default function Notification({ message }: Message) {
                                         <button
                                             type="button"
                                             className="inline-flex rounded-md bg-white text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                                            onClick={() => {
-                                                setShow(false);
-                                            }}
+                                            // onClick={() => {
+                                            //     setShow(false);
+                                            // }}
+
+                                            onClick={toggleAlert}
                                         >
                                             <span className="sr-only">Close</span>
                                             <XMarkIcon className="h-5 w-5" aria-hidden="true" />

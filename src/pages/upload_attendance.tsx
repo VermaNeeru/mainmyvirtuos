@@ -5,6 +5,10 @@ import Link from 'next/link';
 import { Dialog, Menu, Transition } from '@headlessui/react'
 import { XMarkIcon, ChevronDownIcon, TrashIcon, DocumentArrowDownIcon } from '@heroicons/react/20/solid'
 import Alert from '@/components/Alert';
+
+import { useQuery, useLazyQuery, useMutation } from "@apollo/client";
+import { GET_CURRENT_MY_ATTENDANCE } from '@/graphql/Userattendance/queries';
+
 const table_header = [
     { name: 'Uploaded For' },
     { name: 'Uploaded On' },
@@ -24,8 +28,26 @@ const modules = [
 export default function UploadAttendance() {
     const [showDeleteMessage, setshowDeleteMessage] = useState(false);
     const [quickEdit, setQuickEdit] = useState(false)
+    const [userId, setUserId] = useState(0);
     const cancelButtonRef = useRef(null)
 
+    const fromDate = new Date();
+    fromDate.setDate(1);
+    const toDate = new Date(fromDate.getFullYear(), fromDate.getMonth() + 1, 0);
+
+    const date1 = fromDate.toISOString().split('T')[0];
+    const date2 = toDate.toISOString().split('T')[0];
+
+    const { loading, error, data } = useQuery(GET_CURRENT_MY_ATTENDANCE, {
+        variables: { userId: userId, startDate: date1, endDate: date2 },
+    });
+
+    if (loading) return <p>Loading...</p>;
+    // console.log(error)
+    if (error) return <p>Error: {error.message}</p>;
+    // console.log(data);
+    const itemList = data.currentMyAttendance;
+    console.log(itemList)
     return (
         <div className=' w-full rounded px-2'>
             {showDeleteMessage && (

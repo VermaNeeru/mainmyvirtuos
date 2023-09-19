@@ -1,7 +1,9 @@
 import DatePickerComp from '@/components/DatePickerComp/DatePickerComp';
 import Link from 'next/link';
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
+import { useQuery, useLazyQuery, useMutation } from "@apollo/client";
+import { GET_USER_ATTENDANCE_BY_DATE } from '@/graphql/Userattendance/queries';
 
 
 function classNames(...classes: any[]) {
@@ -38,8 +40,24 @@ const people = [
     // More people...
 ]
 export default function CurrentMyLogonHours() {
+    // const [executeQuery, { loading, error, data }] = useLazyQuery(GET_USER_ATTENDANCE_BY_DATE);
+    const [startDate, setStartDate] = useState('');
+
+    const handleStartDateChange = (newDate: any) => {
+        setStartDate(newDate); // Update parent component's state
+        console.log(newDate)
+
+    };
+    // console.log(startDate)
+    const [endDate, setEndDate] = useState('');
+
+    const handleEndDateChange = (newDate: any) => {
+        setEndDate(newDate); // Update parent component's state
+        console.log(endDate)
+    };
 
     const [currentPage, setCurrentPage] = useState(1);
+    const [userId, setUserId] = useState(2);
     const itemsPerPage = 3;
 
     const indexOfLastItem = currentPage * itemsPerPage;
@@ -49,11 +67,69 @@ export default function CurrentMyLogonHours() {
         indexOfLastItem
     );
 
+    const fromDate = new Date();
+    fromDate.setDate(1);
+    const toDate = new Date(fromDate.getFullYear(), fromDate.getMonth() + 1, 0);
+
+    const date1 = (startDate && startDate !== "") ? startDate : fromDate.toISOString().split('T')[0];
+    const date2 = (endDate && endDate !== "") ? endDate : toDate.toISOString().split('T')[0];
+
+    // const date1 = "2023-08-01";
+    // const date2 = "2023-08-30";
+
+
+    // console.log('userId:', userId);
+    // console.log('date_1:', date1);
+    // console.log('date_2:', date2);
+    const { loading, error, data } = useQuery(GET_USER_ATTENDANCE_BY_DATE, {
+        variables: { userId: userId, startDate: date1, endDate: date2 },
+    });
+
+    if (loading) return <p>Loading...</p>;
+    // console.log(error)
+    if (error) return <p>Error: {error.message}</p>;
+    // console.log(data);
+    const itemList = data.findUserAttendance;
+    console.log(itemList)
+
+    // useEffect(() => {
+    //     if (userId) {
+    //         console.log(userId);
+    //         console.log(date1);
+    //         console.log(date2);
+
+    //         // executeQuery({ variables: { userId: userId, startDate: date1, endDate: date2 } });
+    //         // console.log(data);
+
+    //     }
+    // }, []);
+
+    // useEffect(() => {
+    //     if (userId) {
+    //         executeQuery({ variables: { userId: userId, startDate: date1, endDate: date2 } });
+    //     }
+    // }, []);
+
+
+    // useEffect(() => {
+    //     try {
+    //         if (data && data.findUserAttendance) {
+    //             const { findUserAttendance } = data; // Destructure the division object
+    //             console.log(findUserAttendance);
+    //         }
+    //     } catch (e) {
+    //         console.log(e);
+    //     }
+    // }, [data]);
+
     const handlePageChange = (pageNumber: React.SetStateAction<number>) => {
         setCurrentPage(pageNumber);
     };
 
     const totalPages = Math.ceil(people.length / itemsPerPage);
+
+    // if (loading) return <p>loading</p>; if (error) return <p>Error: {error.message}</p>;
+    // console.log(data)
     return (
         <div className=' w-full rounded px-2'>
             <div className="rounded-t mb-4 px-4 bg-transparent">
@@ -77,7 +153,7 @@ export default function CurrentMyLogonHours() {
                                             Start Date
                                         </label>
                                         <div className="mt-3">
-                                            <DatePickerComp />
+                                            <DatePickerComp onDateChange={handleStartDateChange} />
                                         </div>
                                     </div>
 
@@ -86,7 +162,7 @@ export default function CurrentMyLogonHours() {
                                             End Date
                                         </label>
                                         <div className="mt-3">
-                                            <DatePickerComp />
+                                            <DatePickerComp onDateChange={handleEndDateChange} />
                                         </div>
                                     </div>
                                     <div className="sm:col-span-2">
@@ -145,17 +221,17 @@ export default function CurrentMyLogonHours() {
                                                 </tr>
                                             </thead>
                                             <tbody className="divide-y divide-gray-200 bg-white">
-                                                {displayData.map((person) => (
+                                                {itemList.map((item: { employee_name: any; attendence_date: any; attendence_day: any; swipe_in: any; swipe_out: any; attendence_status: any; total_hours: any; }) => (
                                                     <tr key="1">
                                                         <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
-                                                            {person.name}
+                                                            {item.employee_name}
                                                         </td>
-                                                        <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.ldate}</td>
-                                                        <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.day}</td>
-                                                        <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.in}</td>
-                                                        <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.out}</td>
-                                                        <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.status}</td>
-                                                        <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.logonHours}</td>
+                                                        <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{item.attendence_date}</td>
+                                                        <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{item.attendence_day}</td>
+                                                        <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{item.swipe_in}</td>
+                                                        <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{item.swipe_out}</td>
+                                                        <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{item.attendence_status}</td>
+                                                        <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{item.total_hours}</td>
                                                     </tr>
                                                 ))}
                                             </tbody>

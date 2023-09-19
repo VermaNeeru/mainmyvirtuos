@@ -2,6 +2,8 @@ import DatePickerComp from '@/components/DatePickerComp/DatePickerComp';
 import Link from 'next/link';
 import React, { useState } from 'react'
 
+import { useQuery, useLazyQuery, useMutation } from "@apollo/client";
+import { GET_CURRENT_MY_ATTENDANCE } from '@/graphql/Userattendance/queries';
 
 
 function classNames(...classes: any[]) {
@@ -48,7 +50,23 @@ const people = [
 ]
 export default function CurrentMyAttendance() {
 
+    const [startDate, setStartDate] = useState('');
+
+    const handleStartDateChange = (newDate: any) => {
+        setStartDate(newDate); // Update parent component's state
+        console.log(newDate)
+
+    };
+    // console.log(startDate)
+    const [endDate, setEndDate] = useState('');
+
+    const handleEndDateChange = (newDate: any) => {
+        setEndDate(newDate); // Update parent component's state
+        console.log(endDate)
+    };
+
     const [currentPage, setCurrentPage] = useState(1);
+    const [userId, setUserId] = useState(2);
     const itemsPerPage = 3;
 
     const indexOfLastItem = currentPage * itemsPerPage;
@@ -58,11 +76,32 @@ export default function CurrentMyAttendance() {
         indexOfLastItem
     );
 
+
+    const fromDate = new Date();
+    fromDate.setDate(1);
+    const toDate = new Date(fromDate.getFullYear(), fromDate.getMonth() + 1, 0);
+
+    const date1 = (startDate && startDate !== "") ? startDate : fromDate.toISOString().split('T')[0];
+    const date2 = (endDate && endDate !== "") ? endDate : toDate.toISOString().split('T')[0];
+
+    const { loading, error, data } = useQuery(GET_CURRENT_MY_ATTENDANCE, {
+        variables: { userId: userId, startDate: date1, endDate: date2 },
+    });
+
+    if (loading) return <p>Loading...</p>;
+    // console.log(error)
+    if (error) return <p>Error: {error.message}</p>;
+    // console.log(data);
+    const itemList = data.currentMyAttendance;
+    console.log(itemList)
+
     const handlePageChange = (pageNumber: React.SetStateAction<number>) => {
         setCurrentPage(pageNumber);
     };
 
     const totalPages = Math.ceil(people.length / itemsPerPage);
+
+
     return (
         <div className=' w-full rounded px-2'>
             <div className="rounded-t mb-4 px-4 bg-transparent">
@@ -86,7 +125,7 @@ export default function CurrentMyAttendance() {
                                             Start Date
                                         </label>
                                         <div className="mt-3">
-                                            <DatePickerComp />
+                                            <DatePickerComp onDateChange={handleStartDateChange} />
                                         </div>
                                     </div>
 
@@ -95,7 +134,7 @@ export default function CurrentMyAttendance() {
                                             End Date
                                         </label>
                                         <div className="mt-3">
-                                            <DatePickerComp />
+                                            <DatePickerComp onDateChange={handleEndDateChange} />
                                         </div>
                                     </div>
                                     <div className="sm:col-span-2">
@@ -160,19 +199,19 @@ export default function CurrentMyAttendance() {
                                                 </tr>
                                             </thead>
                                             <tbody className="divide-y divide-gray-200 bg-white">
-                                                {displayData.map((person) => (
+                                                {itemList.map((item: { employee_name: any; attendence_date: any; attendence_day: any; swipe_in: any; swipe_out: any; attendence_status: any; total_hours: any; shortfall: any; notes: any; }) => (
                                                     <tr key="1">
                                                         <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
-                                                            {person.name}
+                                                            {item.employee_name}
                                                         </td>
-                                                        <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.ldate}</td>
-                                                        <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.day}</td>
-                                                        <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.in}</td>
-                                                        <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.out}</td>
-                                                        <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.status}</td>
-                                                        <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.reason}</td>
-                                                        <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.shortfall}</td>
-                                                        <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.notes}</td>
+                                                        <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{item.attendence_date}</td>
+                                                        <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{item.attendence_day}</td>
+                                                        <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{item.swipe_in}</td>
+                                                        <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{item.swipe_out}</td>
+                                                        <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{item.attendence_status}</td>
+                                                        <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{item.notes}</td>
+                                                        <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{item.shortfall}</td>
+                                                        <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{item.notes}</td>
                                                     </tr>
                                                 ))}
                                             </tbody>

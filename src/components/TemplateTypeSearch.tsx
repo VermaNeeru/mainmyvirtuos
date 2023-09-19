@@ -1,9 +1,23 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { PhotoIcon, UserCircleIcon } from '@heroicons/react/24/solid'
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
 import { Combobox } from '@headlessui/react'
-export default function TemplateTypeSearch({ heading }: any) {
+export default function TemplateTypeSearch({ heading, handleTemplateTypeChange, updateData }: any) {
+    console.log('type', updateData)
+    const [query, setQuery] = useState('')
+    const [selectedState, setSelectedState] = useState(null)
+    // useEffect(() => {
+    //     setSelectedState(updateData)
+    // }, [updateData])
+    const handleTypeChange = (type) => {
+        const newValue = type;
 
+        console.log(newValue)
+
+        setSelectedState(newValue);
+        handleTemplateTypeChange(newValue.name);
+        // onDateChange(newDate); // Call the callback passed from parent
+    };
     const template_type = [
         { id: 1, name: 'Choose Template Type' },
         { id: 2, name: 'New joinee(F)' },
@@ -70,12 +84,22 @@ export default function TemplateTypeSearch({ heading }: any) {
         { id: 63, name: 'Pending Issues' },
     ];
 
+    // const matchingTemplate = template_type.find(template => (
+    //     template.name === updateData
+    // ));
+
+    // if (matchingTemplate) {
+    //     const { id, name } = matchingTemplate;
+    //     console.log(`Found: id=${id}, name=${name}`);
+    //     setSelectedState(matchingTemplate);
+    // } else {
+    //     console.log('Not found');
+    // }
+
     function classNames(...classes: any) {
         return classes.filter(Boolean).join(' ')
     }
 
-    const [query, setQuery] = useState('')
-    const [selectedState, setSelectedState] = useState(null)
 
     const filteredPeople =
         query === ''
@@ -85,7 +109,7 @@ export default function TemplateTypeSearch({ heading }: any) {
             })
     return (
         <div>
-            <Combobox as="div" value={selectedState} onChange={setSelectedState}>
+            <Combobox as="div" value={selectedState} onChange={(selectedValue) => handleTypeChange(selectedValue)}>
                 {(heading && heading == 'hidden') ? <></>
                     : <Combobox.Label className="block text-sm font-medium leading-6 text-gray-900">{(heading) ? heading : "Template Type"}</Combobox.Label>
                 }
