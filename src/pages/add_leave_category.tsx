@@ -162,6 +162,7 @@ export default function AddLeaveCategory() {
                         createLeaveusertypeInput: {
                             user_type_id: utitem.id,
                             leave_type_id: leave_type_id, // This assumes 'id' is already defined
+                            leavetypeId: leave_type_id,
                             quarter_one: parseInt(utitem.quarters[0]),
                             quarter_two: parseInt(utitem.quarters[1]),
                             quarter_three: parseInt(utitem.quarters[2]),
@@ -206,6 +207,9 @@ export default function AddLeaveCategory() {
     };
 
     const handleInputChange = (sectionIndex: number, quarterIndex: number, newValue: string) => {
+        console.log(sectionIndex)
+        console.log(quarterIndex)
+        console.log(newValue)
         console.log(sections)
         const updatedSections = [...sections];
         updatedSections[sectionIndex].quarters[quarterIndex] = newValue;

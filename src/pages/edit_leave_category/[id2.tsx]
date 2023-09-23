@@ -8,74 +8,50 @@ import { GET_USER_TYPES } from '@/graphql/Usertype/queries';
 import { ADD_Leaveusertype_MUTATION, GET_Leaveusertype_BY_ID, GET_Leaveusertype_BY_LTID, UPDATE_Leaveusertype_MUTATION } from '@/graphql/LeaveUserType/queries';
 import { useRouter } from 'next/router';
 export default function EditLeaveCategory() {
-
     const router = useRouter();
     const { id } = router.query;
+    const [leavetypeId, setLeavetypeId] = useState(id ? parseInt(id, 10) : null);
 
-    const initialState = {
-        leavetypeId: useState(id ? parseInt(id, 10) : null),
-        leavetypeColor: '',
-        leavetypeName: '',
-        leavetypeCode: '',
-        leavetypeRole: '',
-        leavetypeDescription: '',
-        leavetypeEncashable: 'Yes',
-        leavetypeCarryForwarded: 'Yes',
-        mStatus: '',
-        usertypeId: [],
-        // quateraj: [],
-        // quateran: [],
-        // quaterdm: [],
-        aError: false,
-        bError: false,
-        sections: [],
-        sections1: [],
-        checkboxes: [
-            { id: 'checkbox1', value: 'HR', isChecked: false },
-            { id: 'checkbox2', value: 'Manager', isChecked: false },
-            { id: 'checkbox3', value: 'Associate', isChecked: false },
-            { id: 'checkbox4', value: 'Director', isChecked: false },
-            // Add more checkboxes as needed
-        ],
-    };
+    useEffect(() => {
+        // Parse the id when it changes
+        if (id) {
+            const parsedId = parseInt(id, 10);
+            setLeavetypeId(parsedId);
+        }
+    }, [id]);
 
-    const [formData, setFormData] = useState(initialState);
-
-
-    // const [leavetypeId, setLeavetypeId] = useState(id ? parseInt(id, 10) : null);
-
-
+    console.log(leavetypeId);
 
     const [showSuccessMessage, setshowSuccessMessage] = useState<boolean>(false);
     const [showErrorMessage, setshowErrorMessage] = useState<boolean>(false);
 
     // const [leavetypeId, setLeavetypeId] = useState<number>()
-    // const [leavetypeColor, setLeavetypeColor] = useState('')
-    // const [leavetypeName, setLeavetypeName] = useState('')
-    // const [leavetypeCode, setLeavetypeCode] = useState('')
-    // const [leavetypeRole, setLeavetypeRole] = useState('')
-    // const [leavetypeDescription, setLeavetypeDescription] = useState('')
-    // const [leavetypeEncashable, setLeavetypeEncashable] = useState('Yes')
-    // const [leavetypeCarryForwarded, setLeavetypeCarryForwarded] = useState('Yes')
-    // const [mStatus, setmStatus] = useState('')
-    // const [usertypeId, setUsertypeId] = useState<number[]>([])
-    // const [quateraj, setQuateraj] = useState([])
-    // const [quateran, setQuateran] = useState([])
-    // const [quaterdm, setQuaterdm] = useState([])
+    const [leavetypeColor, setLeavetypeColor] = useState('')
+    const [leavetypeName, setLeavetypeName] = useState('')
+    const [leavetypeCode, setLeavetypeCode] = useState('')
+    const [leavetypeRole, setLeavetypeRole] = useState('')
+    const [leavetypeDescription, setLeavetypeDescription] = useState('')
+    const [leavetypeEncashable, setLeavetypeEncashable] = useState('Yes')
+    const [leavetypeCarryForwarded, setLeavetypeCarryForwarded] = useState('Yes')
+    const [mStatus, setmStatus] = useState('')
+    const [usertypeId, setUsertypeId] = useState<number[]>([])
+    const [quateraj, setQuateraj] = useState([])
+    const [quateran, setQuateran] = useState([])
+    const [quaterdm, setQuaterdm] = useState([])
 
-    // const [aError, setAError] = useState(false);
-    // const [bError, setBError] = useState(false);
-    // const [sections, setSections] = useState<any[]>([]); // Initialize as an empty array
-    // const [sections1, setSections1] = useState<any[]>([]); // Initialize as an empty array
+    const [aError, setAError] = useState(false);
+    const [bError, setBError] = useState(false);
+    const [sections, setSections] = useState<any[]>([]); // Initialize as an empty array
+    const [sections1, setSections1] = useState<any[]>([]); // Initialize as an empty array
 
-    // const [checkboxes, setCheckboxes] = useState([
-    //     { id: 'checkbox1', value: 'HR', isChecked: false },
-    //     { id: 'checkbox2', value: 'Manager', isChecked: false },
-    //     { id: 'checkbox3', value: 'Associate', isChecked: false },
-    //     { id: 'checkbox4', value: 'Director', isChecked: false },
+    const [checkboxes, setCheckboxes] = useState([
+        { id: 'checkbox1', value: 'HR', isChecked: false },
+        { id: 'checkbox2', value: 'Manager', isChecked: false },
+        { id: 'checkbox3', value: 'Associate', isChecked: false },
+        { id: 'checkbox4', value: 'Director', isChecked: false },
 
-    //     // Add more checkboxes as needed
-    // ]);
+        // Add more checkboxes as needed
+    ]);
 
     const [executeQuery, { loading, error, data: getQueryById }] = useLazyQuery(GET_Leavetype_BY_ID);
     const [executeQueryLut, { loadingLut, errorLut, data: getQueryByIdLtu }] = useLazyQuery(GET_Leaveusertype_BY_LTID);
@@ -111,6 +87,12 @@ export default function EditLeaveCategory() {
     // useEffect(() => {
     //     const timer = setTimeout(() => {
 
+    const initialSections = [
+        { id: 1, type_name: 'QE', status: "Active", quarters: ['', '', ''] },
+        { id: 2, type_name: 'PE', status: "Active", quarters: ['', '', ''] },
+        // Add more sections as needed
+    ];
+
     // const [sections, setSections] = useState(usertypelist);
 
     // console.log(sections)
@@ -119,36 +101,20 @@ export default function EditLeaveCategory() {
 
     // useEffect(() => {
     // }, [null]);
-    useEffect(() => {
-        // Parse the id when it changes
-        if (id) {
-            const parsedId = parseInt(id, 10);
-            // setLeavetypeId(parsedId);
-            setFormData({ ...formData, leavetypeId: parsedId });
 
+
+    useEffect(() => {
+        if (leavetypeId) {
             console.log(leavetypeId);
-            executeQuery({ variables: { id: id } });
+            executeQuery({ variables: { id: leavetypeId } });
             console.log(getQueryById);
 
-            executeQueryLut({ variables: { id: id } });
+            executeQueryLut({ variables: { id: leavetypeId } });
             console.log(getQueryByIdLtu);
+
+
         }
-    }, [id]);
-
-    // console.log(leavetypeId);
-
-    // useEffect(() => {
-    //     if (leavetypeId) {
-    //         console.log(leavetypeId);
-    //         executeQuery({ variables: { id: leavetypeId } });
-    //         console.log(getQueryById);
-
-    //         executeQueryLut({ variables: { id: leavetypeId } });
-    //         console.log(getQueryByIdLtu);
-
-
-    //     }
-    // }, [leavetypeId]);
+    }, [leavetypeId]);
 
     console.log(getQueryById);
     console.log(getQueryByIdLtu);
@@ -156,21 +122,13 @@ export default function EditLeaveCategory() {
     useEffect(() => {
         if (getQueryById && getQueryById.leavetype) {
             const { leavetype } = getQueryById; // Destructure the division object
-            setFormData({ ...formData, leavetypeName: leavetype.leave_type_name });
-            setFormData({ ...formData, leavetypeColor: leavetype.leave_color });
-            setFormData({ ...formData, leavetypeCode: leavetype.leave_type_code });
-            setFormData({ ...formData, leavetypeRole: leavetype.leave_type_role });
-            setFormData({ ...formData, leavetypeDescription: leavetype.leave_type_description });
-            setFormData({ ...formData, leavetypeEncashable: leavetype.encashable });
-            setFormData({ ...formData, leavetypeCarryForwarded: leavetype.carry_forwarded });
-
-            // setLeavetypeName(leavetype.leave_type_name);
-            // setLeavetypeColor(leavetype.leave_color);
-            // setLeavetypeCode(leavetype.leave_type_code);
-            // setLeavetypeRole(leavetype.leave_type_role);
-            // setLeavetypeDescription(leavetype.leave_type_description);
-            // setLeavetypeEncashable(leavetype.encashable);
-            // setLeavetypeCarryForwarded(leavetype.carry_forwarded);
+            setLeavetypeName(leavetype.leave_type_name);
+            setLeavetypeColor(leavetype.leave_color);
+            setLeavetypeCode(leavetype.leave_type_code);
+            setLeavetypeRole(leavetype.leave_type_role);
+            setLeavetypeDescription(leavetype.leave_type_description);
+            setLeavetypeEncashable(leavetype.encashable);
+            setLeavetypeCarryForwarded(leavetype.carry_forwarded);
 
             console.log(leavetype.leave_type_role);
             // Split the comma-separated string into an array
@@ -197,12 +155,10 @@ export default function EditLeaveCategory() {
                 }
 
                 // Update the state with the modified array after processing each id
-                // setCheckboxes(updatedCheckboxes);
-                setFormData({ ...formData, checkboxes: updatedCheckboxes });
-
+                setCheckboxes(updatedCheckboxes);
             });
 
-            console.log(formData.checkboxes); // This will log the updated checkboxes after all iterations
+            console.log(checkboxes); // This will log the updated checkboxes after all iterations
 
         }
     }, [getQueryById]);
@@ -230,17 +186,14 @@ export default function EditLeaveCategory() {
             // leave_count: data.leave_count
         }));
         console.log(quarterlist)
-        setFormData({ ...formData, sections: quarterlist });
         // setSections1(quarterlist); // Update the state with the fetched data
         // setSections(quarterlist); // Update t
     }
     // }, [getQueryByIdLtu]);
-    // useEffect(() => {
-    //     // setSections1(quarterlist);
-    //     // setSections(quarterlist);
-
-    //     setFormData({ ...formData, sections: quarterlist });
-    // }, [quarterlist]);
+    useEffect(() => {
+        // setSections1(quarterlist);
+        setSections(quarterlist);
+    }, [quarterlist]);
 
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error: {error.message}</p>;
@@ -339,24 +292,18 @@ export default function EditLeaveCategory() {
         // console.log(category);
 
     };
-    console.log(formData.sections)
+    console.log(sections)
     // console.log('sections', sections)
     const handleInputChange = (sectionIndex: number, quarterIndex: number, newValue: string) => {
         console.log(sectionIndex)
         console.log(quarterIndex)
         console.log(newValue)
-        console.log('sections', formData.sections)
-        // const updatedSections = [...sections];
-        // console.log('updatedSections1', updatedSections)
-        // updatedSections[sectionIndex].quarters[quarterIndex] = parseInt(newValue);
-        // setSections(updatedSections);
-        // console.log('sections2', sections)
-
-        const updatedSections = [...formData.sections];
+        console.log('sections', sections)
+        const updatedSections = [...sections];
+        console.log('updatedSections1', updatedSections)
         updatedSections[sectionIndex].quarters[quarterIndex] = parseInt(newValue);
-        setFormData({ ...formData, sections: updatedSections });
-
-        console.log('sections2', formData.sections)
+        setSections(updatedSections);
+        console.log('sections2', sections)
     };
 
     const handleCheckboxChange = (id) => {
@@ -429,9 +376,8 @@ export default function EditLeaveCategory() {
                                         type="email"
                                         name="email"
                                         id="email"
-                                        // onChange={(e) => setLeavetypeName(e.target.value)}
-                                        onChange={(e) => setFormData({ ...formData, leavetypeName: e.target.value })}
-                                        value={formData.leavetypeName}
+                                        onChange={(e) => setLeavetypeName(e.target.value)}
+                                        value={leavetypeName}
                                         className="block w-full rounded-md border-0 py-1.5 pl-10 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                         placeholder="Leave Type Name.."
                                     />
@@ -446,9 +392,8 @@ export default function EditLeaveCategory() {
                                         type="email"
                                         name="email"
                                         id="email"
-                                        // onChange={(e) => setLeavetypeCode(e.target.value)}
-                                        onChange={(e) => setFormData({ ...formData, leavetypeCode: e.target.value })}
-                                        value={formData.leavetypeCode}
+                                        onChange={(e) => setLeavetypeCode(e.target.value)}
+                                        value={leavetypeCode}
                                         className="block w-full rounded-md border-0 py-1.5 pl-10 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                         placeholder="Leave Type Code.."
                                     />
@@ -463,9 +408,8 @@ export default function EditLeaveCategory() {
                                         type="email"
                                         name="email"
                                         id="email"
-                                        // onChange={(e) => setLeavetypeColor(e.target.value)}
-                                        onChange={(e) => setFormData({ ...formData, leavetypeColor: e.target.value })}
-                                        value={formData.leavetypeColor}
+                                        onChange={(e) => setLeavetypeColor(e.target.value)}
+                                        value={leavetypeColor}
                                         className="block w-full rounded-md border-0 py-1.5 pl-10 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                         placeholder="Color"
                                     />
@@ -485,7 +429,7 @@ export default function EditLeaveCategory() {
                                                     name="encashable"
                                                     type="radio"
                                                     value="Yes"
-                                                    checked={formData.leavetypeEncashable === 'Yes'}
+                                                    checked={leavetypeEncashable === 'Yes'}
                                                     onChange={handleEncashChange}
                                                     // defaultChecked
                                                     className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
@@ -500,7 +444,7 @@ export default function EditLeaveCategory() {
                                                     name="encashable"
                                                     type="radio"
                                                     value="No"
-                                                    checked={formData.leavetypeEncashable === 'No'}
+                                                    checked={leavetypeEncashable === 'No'}
                                                     onChange={handleEncashChange}
                                                     // defaultChecked
                                                     className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
@@ -527,7 +471,7 @@ export default function EditLeaveCategory() {
                                                     type="radio"
                                                     // defaultChecked
                                                     value="Yes"
-                                                    checked={formData.leavetypeCarryForwarded === 'Yes'}
+                                                    checked={leavetypeCarryForwarded === 'Yes'}
                                                     onChange={handleCarryForwardChange}
                                                     className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
                                                 />
@@ -542,7 +486,7 @@ export default function EditLeaveCategory() {
                                                     type="radio"
                                                     // defaultChecked
                                                     value="No"
-                                                    checked={formData.leavetypeCarryForwarded === 'No'}
+                                                    checked={leavetypeCarryForwarded === 'No'}
                                                     onChange={handleCarryForwardChange}
                                                     className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
                                                 />
@@ -566,7 +510,7 @@ export default function EditLeaveCategory() {
                                     <fieldset className="mt-4">
                                         <div className="space-y-4 sm:flex sm:items-center sm:space-x-10 sm:space-y-0">
 
-                                            {formData.checkboxes.map((checkbox) => (
+                                            {checkboxes.map((checkbox) => (
 
 
                                                 <div key="1" className="flex items-center">
@@ -647,7 +591,7 @@ export default function EditLeaveCategory() {
                         </div>
 
                         {
-                            formData.sections.map((utitem, sectionIndex) => (
+                            sections.map((utitem, sectionIndex) => (
 
 
                                 <div className="mt-2 grid grid-cols-1 lg:grid-cols-1 gap-x-6 gap-y-2 sm:grid-cols-2">
@@ -937,9 +881,8 @@ export default function EditLeaveCategory() {
                                         type="text"
                                         name="email"
                                         id="email"
-                                        // onChange={(e) => setLeavetypeDescription(e.target.value)}
-                                        onChange={(e) => setFormData({ ...formData, leavetypeDescription: e.target.value })}
-                                        value={formData.leavetypeDescription}
+                                        onChange={(e) => setLeavetypeDescription(e.target.value)}
+                                        value={leavetypeDescription}
                                         className="block w-full rounded-md border-0 py-1.5 pl-10 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                         placeholder="Leave Type Description.."
                                     />
