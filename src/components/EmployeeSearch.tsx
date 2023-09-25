@@ -1,15 +1,15 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { PhotoIcon, UserCircleIcon } from '@heroicons/react/24/solid'
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
 import { Combobox } from '@headlessui/react'
-export default function EmployeeSearch({ heading }: any) {
+export default function EmployeeSearch({ heading, onEmpValueChange }: any) {
     const people = [
         { id: 1, name: 'Shivam Chawla' },
-        { id: 1, name: 'Neeru Verma' },
-        { id: 1, name: 'Poorva Sharma' },
-        { id: 1, name: 'Sarika Sharma' },
-        { id: 1, name: 'Bhumika' },
-        { id: 1, name: 'Gagan' },
+        { id: 2, name: 'Neeru Verma' },
+        { id: 3, name: 'Poorva Sharma' },
+        { id: 4, name: 'Sarika Sharma' },
+        { id: 5, name: 'Bhumika' },
+        { id: 6, name: 'Gagan' },
         // More users...
     ]
 
@@ -27,19 +27,30 @@ export default function EmployeeSearch({ heading }: any) {
             : people.filter((person) => {
                 return person.name.toLowerCase().includes(query.toLowerCase())
             })
+
+    // const handleChange = (e) => {
+    //     const newValue = e.target.value;
+    //     setSelectedPerson(newValue);
+    //     onEmpValueChange(newValue);
+    // };
+
+    useEffect(() => {
+        onEmpValueChange(selectedPerson);
+    }, [selectedPerson])
     return (
         <div>
-            <Combobox as="div" value={selectedPerson} onChange={setSelectedPerson}>
+            <Combobox as="div" value={selectedPerson}
+                onChange={setSelectedPerson}
+            // onChange={(e) => handleChange(e.target.value)}
+            >
                 {(heading && heading == 'hidden') ? <></>
                     : <Combobox.Label className="block text-sm font-medium leading-6 text-gray-900">{(heading) ? heading : "Employees"}</Combobox.Label>
-
                 }
-
 
                 <div className="relative mt-2">
                     <Combobox.Input
                         className="w-full rounded-md border-0 bg-white py-1.5 pl-3 pr-10 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                        onChange={(event) => setQuery(event.target.value)}
+                        onChange={(evenwt) => setQuery(event.target.value)}
                         displayValue={(person: any) => person?.name}
                     />
                     <Combobox.Button className="absolute inset-y-0 right-0 flex items-center rounded-r-md px-2 focus:outline-none">

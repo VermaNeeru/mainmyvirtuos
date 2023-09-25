@@ -1,14 +1,14 @@
-import { Fragment, useState } from 'react'
+import { Fragment, useState, useEffect } from 'react'
 import { Listbox, Transition } from '@headlessui/react'
 import { PhotoIcon, UserCircleIcon } from '@heroicons/react/24/solid'
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
 import { Combobox } from '@headlessui/react'
-export default function CategorySearch() {
+export default function CategorySearch({ onCatValueChange }) {
     const category = [
         { id: 1, name: 'Choose Category' },
-        { id: 1, name: 'Ux/Design Product Development' },
-        { id: 1, name: 'Sales & Marketing' },
-        { id: 1, name: 'HR & Work Related' },
+        { id: 2, name: 'Ux/Design Product Development' },
+        { id: 3, name: 'Sales & Marketing' },
+        { id: 4, name: 'HR & Work Related' },
 
         // More users...
     ]
@@ -17,6 +17,11 @@ export default function CategorySearch() {
     function classNames(...classes: any) {
         return classes.filter(Boolean).join(' ')
     }
+
+    useEffect(() => {
+        console.log(selected)
+        onCatValueChange(selected);
+    }, [setSelected])
     return (
         <div>
             <Listbox value={selected} onChange={setSelected}>
