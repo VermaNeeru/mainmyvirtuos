@@ -1,35 +1,101 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import axios from "axios";
-// import { PageWithLayout } from "../types/PageWithLayout";
-// import bodyimg from "./images/book-my-time-img.svg";
-// import googleicon from "./images/google-color-icon.png"
-// import virtuoslogo from "./images/virtuos-virtuez-logo.svg";
-// import headerlogo from "./images/book-my-time-logo.svg";
 import Link from "next/link";
 import { NextPage } from "next";
 import { PhoneIcon } from "@heroicons/react/24/solid";
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/solid";
-// import OtpLogin from "@components/Otplogin/otplogin";
-// import headerlogo from "images/happiests-logo.svg";
+import { ApolloError, useMutation, useQuery } from '@apollo/client';
+import Cookies from 'js-cookie'; // Import js-cookie
+import { GET_Login } from "@/graphql/User/queries";
+
+
+
 const Login = () => {
     const router = useRouter();
-    const [email, setEmail] = useState<string>("");
+    const [username, setUsername] = useState<string>("");
     const [password, setPassword] = useState<any>("");
-    const [error, setError] = useState<unknown | any>(null);
+    const [errorr, setError] = useState<unknown | any>(null);
+    const [errorr1, setError1] = useState<unknown | any>(null);
     const [show, setShow] = useState<boolean>(false);
     const [otplogin, setOtplogin] = useState<boolean>(false);
+ 
+
+    const [login, { data, error }] = useMutation(GET_Login);
     const handleSubmit = async (event: { preventDefault: () => void }) => {
         event.preventDefault();
-        router.push('/');
+        setError(false);
+        setError1(false)
+        // Check if username or password is empty
+        if (!username || !password) {
+            console.log("inside empty if")
+            setError('Please fill in both fields.');
+            // return;
+        }
+        try {
+            const { data } = await login({
+                variables: { username, password },
+            });
+            console.log(username, password);
+            // Extract the token from the API response
+            const token = data.login.token;
+            console.log("all fine dont  worry")
+            console.log('API Response:', data);
+            // Store the token in a cookie (you can set an expiration time if needed)
+            if (token) {
+                Cookies.set('authToken', token);
+                router.push('/');
+
+            }
+            // Handle successful login here (e.g., redirect, store tokens, etc.)
+        } catch (error) {
+            if (error instanceof ApolloError) {
+                // Handle GraphQL errors here
+                const errorMessage = error.message; // This will contain the error message from the server
+                console.error(errorMessage); // Log the error for debugging
+                setError1(errorMessage);
+                // You can then display this error message to the user or handle it as needed
+                // For example, set it in your component's state to display in the UI
+            } else {
+                // Handle other types of errors (e.g., network errors)
+                console.error('An error occurred:', error);
+                // Display a generic error message or handle it accordingly
+            }
+        }
+        // setUsername("");
+        // setPassword("");
     };
+
+    // const { loading, error, data } = useQuery(GET_Login, {
+    //     variables: { username, password },
+    //     skip: !username || !password,
+    //     onCompleted: (data) => {
+    //         // Log the data to the console when the query is completed
+    //         console.log('API Data:', data);
+    //     },
+    // });
+
+
+    // const handleSubmit = async (event: { preventDefault: () => void }) => {
+    //     event.preventDefault();
+    //     console.log("i am clicked")
+    //     // router.push('/');
+
+    //     console.log("username1:", username);
+    //     console.log("password1:", password);
+
+    // };
     const handleOtplogin = () => {
         setOtplogin(true);
     };
+
+
+
+
     return (
         // <div className="h-screen bg-gradient-to-r from-[rgb(22,37,45)] to-[#228788] flex flex-col justify-around ">
         <div className="h-screen bg-gradient-to-r from-rose-100 to-teal-100 dark:from-gray-700 dark:via-gray-900 dark:to-black ">
+            
             <div className="flex justify-center items-center pt-6 ">
                 <Image className="h-12 sm:h-16 md:h-20" width="100" height="100" src="/images/happiests-logo.svg" alt="bookmytime-logo" />
             </div>
@@ -45,22 +111,24 @@ const Login = () => {
                                         Welcome!
                                     </h2>
                                     <form onSubmit={handleSubmit} className="space-y-4 md:space-y-6 rounded" action="#" method="POST">
+                                    {errorr1 && <p className="text-red-600">{errorr1}</p>} {/* Display error message */}
                                         <div>
                                             <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
                                                 Username
                                             </label>
                                             <div className="mt-2">
                                                 <input
-                                                    id="email"
-                                                    name="email"
-                                                    onChange={(e) => setEmail(e.target.value)}
-                                                    value={email}
+                                                    id="username"
+                                                    name="username"
+                                                    onChange={(e) => setUsername(e.target.value)}
+                                                    value={username}
                                                     type="text"
                                                     autoComplete="email"
                                                     // required
                                                     className="block px-2 w-full rounded-md border-0 py-1.5 font-semibold text-sky-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset  sm:text-sm sm:leading-6"
                                                 />
                                             </div>
+                                            {error && <p className="text-red-600">{errorr}</p>}
                                         </div>
 
                                         <div>
@@ -89,6 +157,7 @@ const Login = () => {
                                                     </span>
                                                 ) : null}
                                             </div>
+                                            {error && <p className="text-red-600">{errorr}</p>}
                                         </div>
 
                                         <div className="flex items-center justify-between">
