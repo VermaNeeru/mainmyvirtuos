@@ -5,7 +5,7 @@ export const GET_Manufacturers = gql`
     manufacturers {
         id
         manufacturer_name
-    status
+        status
     }
   }
 `;

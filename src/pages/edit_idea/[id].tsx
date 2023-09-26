@@ -6,9 +6,8 @@ import EmployeeSearch from '@/components/EmployeeSearch';
 import CategorySearch from '@/components/CategorySearch';
 import Alert from '@/components/Alert';
 import { useQuery, useLazyQuery, useMutation } from "@apollo/client";
-import { ADD_Notification_MUTATION } from '@/graphql/Notification/queries';
 import { ADD_Idea_MUTATION, GET_Idea_BY_ID, DELETE_Idea_MUTATION, GET_Ideas, REMOVE_MULTIPLE_Ideas } from '@/graphql/Idea/queries';
-import { GET_Faqs } from '@/graphql/Faq/queries';
+
 const faqs = [
     {
         question: "Who can you send Ideas ?",
@@ -21,7 +20,7 @@ const faqs = [
 
 export default function AddIdea() {
     const [selected, setSelected] = useState()
-    const [searchFaq, setSearchFaq] = useState("idea");
+
     const [showDeleteMessage, setshowDeleteMessage] = useState(false);
     const [showDeletedMessage, setshowDeletedMessage] = useState(false);
     const [showSuccessMessage, setshowSuccessMessage] = useState<boolean>(false);
@@ -34,30 +33,6 @@ export default function AddIdea() {
     const [ideaDescription, setIdeaDescription] = useState('')
     const [ideaSubmitType, setIdeaSubmitType] = useState('')
     const [userId, setUserId] = useState<number>(1)
-    const [userName, setUserNd] = useState('Neeru')
-
-    const { loading: getFAQAllDataLoading, error: getFAQAllDataError, data: getFAQAllData } = useQuery(GET_Faqs);
-    console.log("allData", getFAQAllData);
-
-    let faqlist: any[] = [];
-    if (getFAQAllData && getFAQAllData.faqs) {
-        faqlist = getFAQAllData.faqs.map((data: { id: any; cat_id: any; faq_ques: any; faq_ans: any; faq_featured: any; status: any; faqcategory: { cat_name: any; }; }) => ({
-            id: data.id,
-            cat_id: data.cat_id,
-            faq_ques: data.faq_ques,
-            faq_ans: data.faq_ans,
-            faq_featured: data.faq_featured,
-            status: data.status,
-            faq_category: data.faqcategory.cat_name // Access the cat_name property from the faqcategory object
-        }));
-    }
-
-    const faqFilteredData = searchFaq === "" ? faqlist : faqlist.filter((item: { faq_category: string, faq_ques: string }) => {
-        const lowerSearch = searchFaq.toLowerCase();
-        return (item.faq_category.toLowerCase().includes(lowerSearch) || item.faq_ques.toLowerCase().includes(lowerSearch));
-    });
-
-    console.log(faqFilteredData)
 
     // const handleideaCategoryChange = (type: React.SetStateAction<string>) => {
 
@@ -77,7 +52,6 @@ export default function AddIdea() {
     const [executeQuery, { loading, error, data: getQueryById }] = useLazyQuery(GET_Idea_BY_ID);
     // const [fExecuteQuery, { loading: fLoading, error: fError, data: fData }] = useLazyQuery(GET_FILTERED_DIVISIONS);
     const [createQuery, { loading: createQueryLoading, error: createQueryError }] = useMutation(ADD_Idea_MUTATION);
-    const [createNotificationQuery, { loading: createNQueryLoading, error: createNQueryError }] = useMutation(ADD_Notification_MUTATION);
 
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error: {error.message}</p>;
@@ -138,35 +112,19 @@ export default function AddIdea() {
                 idea_for = ideaFor;
             }
             console.log(idea_for);
-            const { data: { createIdea: { id: ideaId } } } = await createQuery({
+            const { data: { createIdea: { id } } } = await createQuery({
                 variables: {
                     createIdeaInput: {
                         idea_for: String(idea_for),
                         idea_category: ideaCategory,
+                        // idea_category: 'Ux/Design Product Development',
                         idea_description: ideaDescription,
                         submit_type: type,
                         user_id: userId
                     },
                 },
             });
-
-            console.log('response', ideaId);
-            const notificationMessage = "New Idea by " + userName;
-            const { data: { createNotification: { id: notificationId } } } = await createNotificationQuery({
-                variables: {
-                    createNotificationInput: {
-                        notification_type: "Idea",
-                        notification_message: notificationMessage,
-                        notification_audience: String(idea_for),
-                        notification_seen_audience: "",
-                        notification_type_id: ideaId, // Use the renamed variable here
-                        sender_id: userId
-                    },
-                },
-            });
-
-            console.log('notification response', notificationId);
-
+            console.log('response', id);
 
             setIdeaCategory('');
             setIdeaDescription('');
@@ -297,22 +255,13 @@ export default function AddIdea() {
                             <h4 className='flex'>FAQ for Ideas</h4>
                             <div className=" mb-4 px-2 py-2">
                                 <dl className="mt-2 space-y-6 divide-y divide-gray-900/10">
-                                    {/* id: data.id,
-            cat_id: data.cat_id,
-            faq_ques: data.faq_ques,
-            faq_ans: data.faq_ans,
-            faq_featured: data.faq_featured,
-            status: data.status,
-            faq_category: data.faqcategory.cat_name //  */}
-
-                                    {/* {faqs.map((faq) => ( */}
-                                    {faqFilteredData.map((faq) => (
-                                        <Disclosure as="div" key={faq.id} >
+                                    {faqs.map((faq) => (
+                                        <Disclosure as="div" key={faq.question} >
                                             {({ open }) => (
                                                 <>
                                                     <dt>
                                                         <Disclosure.Button className="flex w-full items-start justify-between text-left text-gray-900">
-                                                            <span className="lg:text-base font-semibold leading-7 text-sm text-gray-800">{faq.faq_ques}</span>
+                                                            <span className="lg:text-base font-semibold leading-7 text-sm text-gray-800">{faq.question}</span>
                                                             <span className="ml-6 flex h-7 items-center">
                                                                 {open ? (
                                                                     <MinusSmallIcon className="h-6 w-6" aria-hidden="true" />
@@ -323,7 +272,7 @@ export default function AddIdea() {
                                                         </Disclosure.Button>
                                                     </dt>
                                                     <Disclosure.Panel as="dd" className="mt-2 pr-12">
-                                                        <p className="lg:text-sm leading-7 text-xs text-gray-600">{faq.faq_ans}</p>
+                                                        <p className="lg:text-sm leading-7 text-xs text-gray-600">{faq.answer}</p>
                                                     </Disclosure.Panel>
                                                 </>
                                             )}

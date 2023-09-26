@@ -8,6 +8,7 @@ import Alert from '@/components/Alert';
 import { useQuery, useLazyQuery, useMutation } from "@apollo/client";
 import { DELETE_Idea_MUTATION, GET_Ideas, REMOVE_MULTIPLE_Ideas } from '@/graphql/Idea/queries';
 
+
 const table_header = [
     { name: 'Idea By' },
     { name: 'Category' },
@@ -25,12 +26,14 @@ const ideas = [
 
 export default function Idea() {
     const [search, setSearch] = useState("");
+
     const [quickEdit, setQuickEdit] = useState(false)
     const cancelButtonRef = useRef(null)
     const [showDeletedMessage, setshowDeletedMessage] = useState(false);
     const [SelectedIdeas, setSelectedIdeas] = useState([]);
     const [showErrorMessage, setshowErrorMessage] = useState<boolean>(false);
     const [searchKeyword, setSearchKeyword] = useState('');
+
 
     const [removeQuery] = useMutation(DELETE_Idea_MUTATION);
     const [removeMultipleQuery] = useMutation(REMOVE_MULTIPLE_Ideas);
@@ -49,7 +52,6 @@ export default function Idea() {
             submit_type: data.submit_type,
             firstname: data.user.firstname,
             lastname: data.user.lastname,
-
         }));
     }
 
@@ -99,7 +101,7 @@ export default function Idea() {
             setshowDeletedMessage(true)
             refetch();
         } catch (error) {
-            console.error('Error deleting divisions:', error);
+            console.error('Error deleting Ideas:', error);
             // Handle error message or any further actions
         }
     };
@@ -109,14 +111,14 @@ export default function Idea() {
         setSearchKeyword(keyword)
     };
 
-    const filteredData = search === "" ? itemlist : itemlist.filter((item: { firstname: string, lastname: string }) => {
+    const filteredData = search === "" ? itemlist : itemlist.filter((item: { firstname: string, lastname: string, idea_description: string }) => {
         const lowerSearch = search.toLowerCase();
-        return (item.firstname.toLowerCase().includes(lowerSearch) || item.lastname.toLowerCase().includes(lowerSearch));
+        return (item.firstname.toLowerCase().includes(lowerSearch) || item.lastname.toLowerCase().includes(lowerSearch) || item.idea_description.toLowerCase().includes(lowerSearch));
     });
     return (
         <div className=' w-full rounded px-2'>
             {showDeletedMessage && (
-                <Alert message="Division Deleted Successfully!" />
+                <Alert message="Idea Deleted Successfully!" />
             )}
             <div className="rounded-t mb-4 px-4 bg-transparent">
                 <div className="flex flex-wrap items-center">
@@ -232,9 +234,9 @@ export default function Idea() {
                                                             >
                                                                 <Menu.Items className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                                                                     <div className="py-1">
-                                                                        <Menu.Item>
+                                                                        {/* <Menu.Item>
                                                                             <Link href={`/edit_idea/${item.id}`} className="bg-gray-100 text-gray-600 block px-4 py-2 text-sm">Edit</Link>
-                                                                        </Menu.Item>
+                                                                        </Menu.Item> */}
                                                                         <Menu.Item>
                                                                             <a onClick={() => handleDelete('one', item.id)} className="bg-gray-100 text-gray-600 block px-4 py-2 text-sm">Delete</a>
                                                                         </Menu.Item>

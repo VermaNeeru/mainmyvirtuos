@@ -120,7 +120,7 @@ export default function EmailList() {
     return (
         <div className=' w-full rounded px-2'>
             {showDeletedMessage && (
-                <Alert message="Division Deleted Successfully!" />
+                <Alert message="Template Deleted Successfully!" />
             )}
             <div className="rounded-t mb-4 px-4 bg-transparent">
                 <div className="flex flex-wrap items-center">

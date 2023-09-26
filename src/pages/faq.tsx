@@ -315,17 +315,17 @@ export default function Faq() {
     return (
         <div className=' w-full rounded px-2'>
             {showDeleteMessage && (
-                <Alert message="Are you sure you want to delete these Category(s)?" />
+                <Alert message="Are you sure you want to delete these FAQ(s)?" />
             )}
             {showSuccessMessage && (
                 // <Alert message="Division Added Successfully!" alertState={alertState} onAlertStateChange={handleAlertStateChange} />
-                <Alert message="Division Added Successfully!" />
+                <Alert message="FAQ Added Successfully!" />
             )}
             {showErrorMessage && (
                 <Alert message="Something went wrong!" />
             )}
             {showDeletedMessage && (
-                <Alert message="Division Deleted Successfully!" />
+                <Alert message="FAQ Deleted Successfully!" />
             )}
             <div className="rounded-t mb-4 px-4 bg-transparent">
                 <div className="flex flex-wrap items-center">
