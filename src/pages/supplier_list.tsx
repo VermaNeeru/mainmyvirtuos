@@ -5,6 +5,9 @@ import Link from 'next/link';
 import { Dialog, Menu, Transition } from '@headlessui/react'
 import { XMarkIcon, ChevronDownIcon, TrashIcon } from '@heroicons/react/20/solid'
 import Alert from '@/components/Alert';
+import { useQuery, useLazyQuery, useMutation } from "@apollo/client";
+import { ADD_Supplier_MUTATION, DELETE_Supplier_MUTATION, GET_Suppliers, GET_Supplier_BY_ID, REMOVE_MULTIPLE_Suppliers, UPDATE_Supplier_MUTATION } from '@/graphql/Supplier/queries';
+
 const table_header = [
     { name: 'Name' },
     { name: 'Status' },
@@ -19,14 +22,251 @@ const ideas = [
 ]
 
 export default function SupplierList() {
-    const [showDeleteMessage, setshowDeleteMessage] = useState(false);
+    const [search, setSearch] = useState("");
+    const [selectedSupplier, setSelectedSupplier] = useState([]);
+    const [searchKeyword, setSearchKeyword] = useState('');
     const [quickEdit, setQuickEdit] = useState(false)
+    const [formType, setformType] = useState('')
+
+    const [showDeleteMessage, setshowDeleteMessage] = useState(false);
+    const [showDeletedMessage, setshowDeletedMessage] = useState(false);
+    const [showSuccessMessage, setshowSuccessMessage] = useState<boolean>(false);
+    const [showErrorMessage, setshowErrorMessage] = useState<boolean>(false);
+
     const cancelButtonRef = useRef(null)
 
+    const [supplierId, setSupplierId] = useState<number>()
+    const [supplierName, setSupplierName] = useState('')
+    const [sStatus, setSStatus] = useState('')
+
+
+    const [aError, setAError] = useState(false);
+    const [bError, setBError] = useState(false);
+
+
+
+    const [executeQuery, { loading, error, data: getQueryById }] = useLazyQuery(GET_Supplier_BY_ID);
+    // const [fExecuteQuery, { loading: fLoading, error: fError, data: fData }] = useLazyQuery(GET_FILTERED_DIVISIONS);
+    const [createQuery, { loading: createQueryLoading, error: createQueryError }] = useMutation(ADD_Supplier_MUTATION);
+    const [updateQuery, { loading: updateQueryLoading, error: updateQueryError }] = useMutation(UPDATE_Supplier_MUTATION);
+    // const [deleteDivision, { loading: deleteDivisionLoading, error: deleteDivisionError }] = useMutation(DELETE_DIVISION_MUTATION);
+    const [removeQuery] = useMutation(DELETE_Supplier_MUTATION);
+    const [removeMultipleQuery] = useMutation(REMOVE_MULTIPLE_Suppliers);
+
+
+    const { loading: getAllDataLoading, error: getAllDataError, data: getAllData, refetch } = useQuery(GET_Suppliers);
+    console.log("allData", getAllData);
+
+    let itemlist: any[] = [];
+
+    if (getAllData && getAllData.suppliers) {
+        itemlist = getAllData.suppliers.map((data: { id: any; supplier_name: any; status: any; }) => ({
+            id: data.id,
+            supplier_name: data.supplier_name,
+            status: data.status,
+
+        }));
+    }
+
+    const handleDelete = async (type: string, Id: number) => {
+        console.log(Id);
+        if (type && type === 'one') {
+            try {
+                const response = await removeQuery({
+                    variables: { id: Id },
+                });
+                console.log(response.data);
+                setshowDeletedMessage(true)
+                refetch();
+            } catch (error) {
+                console.log(error);
+                setshowErrorMessage(true);
+            }
+        }
+    }
+
+    const handleButtonClick = (type: string, id: number) => {
+        setQuickEdit(true)
+        setformType(type)
+        console.log("id", id);
+        // Add your logic here
+        console.log("type", type);
+        if (type && type === 'update') {
+            setSupplierId(id)
+            console.log("supplierId", supplierId);
+        } else {
+
+            setSupplierName('');
+            setSStatus('');
+            setSupplierId(null);
+        }
+
+    };
+
+    useEffect(() => {
+        if (supplierId) {
+            console.log(supplierId);
+            executeQuery({ variables: { id: supplierId } });
+            console.log(getQueryById);
+        }
+    }, [supplierId]);
+
+    console.log(getQueryById);
+    useEffect(() => {
+        if (getQueryById && getQueryById.supplier) {
+            const { supplier } = getQueryById; // Destructure the division object
+            setSupplierName(supplier.supplier_name);
+            setSStatus(supplier.status);
+        }
+    }, [getQueryById]);
+    console.log('supplierName', supplierName)
+    if (loading) return <p>Loading...</p>;
+    if (error) return <p>Error: {error.message}</p>;
+
+
+    const handleSubmit = async (e: { preventDefault: () => void }) => {
+        console.log('called');
+        (!supplierName) ? setAError(true) : setAError(false);
+        (!sStatus) ? setBError(true) : setBError(false);
+
+        if (aError == true || bError == true) {
+            return;
+        }
+        console.log('Submit');
+        e.preventDefault();
+        const currentDate = new Date();
+        const formattedDate = currentDate.toISOString();
+        if (supplierId != null && supplierId != undefined) { //Update division
+            try {
+                console.log('Try to submit')
+                console.log('supplierName', supplierName)
+                console.log('sStatus', sStatus)
+                const { data } = await updateQuery({
+                    variables: {
+                        updateSupplierInput: {
+                            id: supplierId,
+                            supplier_name: supplierName,
+                            status: sStatus,
+                        },
+                    },
+                });
+
+
+                setSupplierName('');
+                setSStatus('');
+
+                setshowSuccessMessage(true);
+                setshowErrorMessage(false);
+
+                console.log('showSuccessMessage', showSuccessMessage);
+                console.log('response', data);
+                // console.log('response', response.data);
+                setQuickEdit(false)
+                refetch();
+            } catch (error) {
+                setshowErrorMessage(true);
+
+                console.log('catchError', error);
+            }
+
+        } else { //Add division
+            try {
+                console.log('Try to submit')
+                console.log('supplierName', supplierName)
+                console.log('sStatus', sStatus)
+                const { data: { createSupplier: { id } } } = await createQuery({
+                    variables: {
+                        createSupplierInput: {
+                            supplier_name: supplierName,
+                            status: sStatus,
+                        },
+                    },
+                });
+                console.log('response', id);
+
+                setSupplierName('');
+                setSStatus('');
+
+
+                setshowSuccessMessage(true);
+                setshowErrorMessage(false);
+
+                console.log('showSuccessMessage', showSuccessMessage);
+                // console.log('response', data);
+                // console.log('response', response.data);
+                setQuickEdit(false)
+                refetch();
+            } catch (error) {
+                setshowErrorMessage(true);
+
+                console.log('catchError', error);
+            }
+        }
+
+        // console.log(category);
+
+
+    };
+
+    const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>, supplierId: string) => {
+        if (supplierId === 'all') {
+            if (event.target.checked) {
+                const allsupplierIds = itemlist.map(item => item.id);
+                setSelectedSupplier(allsupplierIds);
+            } else {
+                setSelectedSupplier([]);
+            }
+        } else {
+            if (event.target.checked) {
+                setSelectedSupplier(prevSelected => [...prevSelected, supplierId]);
+            } else {
+                setSelectedSupplier(prevSelected =>
+                    prevSelected.filter(id => id !== supplierId)
+                );
+            }
+        }
+    };
+    const handleDeletes = async () => {
+        console.log('selectedSupplier', selectedSupplier);
+        // selectedsupplierIds
+        try {
+            const response = await removeMultipleQuery({
+                variables: { ids: selectedSupplier },
+            });
+            console.log(response.data);
+            setshowDeletedMessage(true)
+            refetch();
+        } catch (error) {
+            console.error('Error deleting divisions:', error);
+            // Handle error message or any further actions
+        }
+    };
+
+
+
+    const handleFilter = (keyword: React.SetStateAction<string>) => {
+        console.log('keyword', keyword);
+        setSearchKeyword(keyword)
+    };
+
+    const filteredData = search === "" ? itemlist : itemlist.filter((item: { supplier_name: string }) => {
+        const lowerSearch = search.toLowerCase();
+        return (item.supplier_name.toLowerCase().includes(lowerSearch));
+    });
     return (
         <div className=' w-full rounded px-2'>
             {showDeleteMessage && (
                 <Alert message="Are you sure you want to delete these Category(s)?" />
+            )}
+            {showSuccessMessage && (
+                // <Alert message="Division Added Successfully!" alertState={alertState} onAlertStateChange={handleAlertStateChange} />
+                <Alert message="Division Added Successfully!" />
+            )}
+            {showErrorMessage && (
+                <Alert message="Something went wrong!" />
+            )}
+            {showDeletedMessage && (
+                <Alert message="Division Deleted Successfully!" />
             )}
             <div className="rounded-t mb-4 px-4 bg-transparent">
                 <div className="flex flex-wrap items-center">
@@ -53,6 +293,9 @@ export default function SupplierList() {
                                             id="email"
                                             className="block w-full rounded-none rounded-l-md border-0 py-1.5 pl-10 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                             placeholder="John Smith"
+                                            value={search}
+                                            onChange={(e) => setSearch(e.target.value)}
+                                        // onChange={(e) => handleFilter(e.target.value)}
                                         />
                                     </div>
                                     <button
@@ -63,8 +306,9 @@ export default function SupplierList() {
                                     </button>
                                 </div>
                             </div>
+
                             <div className="mt-4 lg:ml-16 ml-0 sm:mt-0 sm:flex-none">
-                                <a onClick={() => setQuickEdit(true)}
+                                <a onClick={() => handleButtonClick('add', '')}
                                     className="block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                                 >
                                     Add New Supplier
@@ -80,37 +324,40 @@ export default function SupplierList() {
                                                 <tr>
                                                     <th scope="col" className="flex py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">
                                                         <input
-                                                            id="comments"
+                                                            id="selectAll"
                                                             aria-describedby="comments-description"
                                                             name="comments"
                                                             type="checkbox"
+                                                            onChange={event => handleCheckboxChange(event, 'all')}
                                                             className="mt-1 h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
                                                         />
-                                                        <TrashIcon className="h-6 w-6 text-gray-500" />
+                                                        <TrashIcon className="h-6 w-6 text-gray-500" onClick={handleDeletes} />
                                                     </th>
-
                                                     {table_header.map((val, index) => (
-
                                                         <th scope="col" key={index} className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">
                                                             {val.name}
                                                         </th>
                                                     ))}
                                                 </tr>
                                             </thead>
+
                                             <tbody className="divide-y divide-gray-200 bg-white">
-                                                {ideas.map((person) => (
-                                                    <tr key={person.id}>
+                                                {filteredData.map((item) => (
+                                                    <tr key={item.id}>
                                                         <td className="whitespace-nowrap py-1 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
                                                             <input
                                                                 id="comments"
                                                                 aria-describedby="comments-description"
                                                                 name="comments"
                                                                 type="checkbox"
+                                                                onChange={event => handleCheckboxChange(event, item.id)}
+                                                                checked={selectedSupplier.includes(item.id)}
+
                                                                 className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
                                                             />
                                                         </td>
-                                                        <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.mname}</td>
-                                                        <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.status}</td>
+                                                        <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{item.supplier_name}</td>
+                                                        <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{item.status}</td>
                                                         <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">
                                                             <Menu as="div" className="relative inline-block text-left">
                                                                 <div>
@@ -133,11 +380,12 @@ export default function SupplierList() {
                                                                         <div className="py-1">
                                                                             <Menu.Item>
 
-                                                                                <a onClick={() => setQuickEdit(true)} className="bg-gray-100 text-gray-600 block px-4 py-2 text-sm">Edit</a>
+                                                                                <a onClick={() => handleButtonClick('update', item.id)} className="bg-gray-100 text-gray-600 block px-4 py-2 text-sm">Edit</a>
 
                                                                             </Menu.Item>
                                                                             <Menu.Item>
-                                                                                <a onClick={() => setshowDeleteMessage(true)} className="bg-gray-100 text-gray-600 block px-4 py-2 text-sm">Delete</a>
+                                                                                <a onClick={() => handleDelete('one', item.id)} className="bg-gray-100 text-gray-600 block px-4 py-2 text-sm">Delete</a>
+                                                                                {/* <a onClick={() => setshowDeleteMessage(true)} className="bg-gray-100 text-gray-600 block px-4 py-2 text-sm">Delete</a> */}
                                                                             </Menu.Item>
                                                                         </div>
                                                                     </Menu.Items>
@@ -193,9 +441,14 @@ export default function SupplierList() {
                                                                                                         type="email"
                                                                                                         name="email"
                                                                                                         id="email"
+                                                                                                        onChange={(e) => setSupplierName(e.target.value)}
+                                                                                                        value={supplierName}
+
                                                                                                         className="block w-full rounded-md border-0 py-1.5 pl-10 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                                                                                         placeholder="Supplier Name"
                                                                                                     />
+                                                                                                    {aError && <p className="text-red-500 text-xs" >*Name is required</p>}
+
                                                                                                 </div>
                                                                                             </div>
 
@@ -204,6 +457,8 @@ export default function SupplierList() {
                                                                                                     <select
                                                                                                         id="location"
                                                                                                         name="location"
+                                                                                                        onChange={(e) => setSStatus(e.target.value)}
+                                                                                                        value={sStatus}
                                                                                                         className="px-2 mt-2 block w-full rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                                                                                         defaultValue="Canada"
                                                                                                     >
@@ -211,6 +466,8 @@ export default function SupplierList() {
                                                                                                         <option>Active</option>
                                                                                                         <option>Inactive</option>
                                                                                                     </select>
+                                                                                                    {bError && <p className="text-red-500 text-xs" >*Status is required</p>}
+
                                                                                                 </div>
                                                                                             </div>
 
@@ -223,6 +480,7 @@ export default function SupplierList() {
                                                                             <div className="lg:mt-5 sm:flex sm:flex-row-reverse">
                                                                                 <button
                                                                                     type="button"
+                                                                                    onClick={handleSubmit}
                                                                                     className="ml-2 rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                                                                                 >
                                                                                     Save

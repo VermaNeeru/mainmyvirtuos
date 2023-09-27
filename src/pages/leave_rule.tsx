@@ -5,6 +5,10 @@ import Link from 'next/link';
 import { Dialog, Menu, Transition } from '@headlessui/react'
 import { XMarkIcon, ChevronDownIcon, TrashIcon } from '@heroicons/react/20/solid'
 import Alert from '@/components/Alert';
+import { useQuery, useLazyQuery, useMutation } from "@apollo/client";
+import { ADD_LEAVE_RULE_MUTATION, DELETE_LEAVE_RULE_MUTATION, GET_LEAVE_RULES, GET_LEAVE_RULE_BY_ID, REMOVE_MULTIPLE_LEAVE_RULES, UPDATE_LEAVE_RULE_MUTATION } from '@/graphql/Leave/queries';
+import { GET_USER_TYPES } from '@/graphql/Usertype/queries';
+
 const table_header = [
     { name: 'Rule Name' },
     { name: 'Status' },
@@ -18,14 +22,310 @@ const ideas = [
 ]
 
 export default function LeaveRule() {
-    const [showDeleteMessage, setshowDeleteMessage] = useState(false);
+    const [search, setSearch] = useState("");
+    const [SelectedLeaverules, setSelectedLeaverules] = useState([]);
+    const [searchKeyword, setSearchKeyword] = useState('');
     const [quickEdit, setQuickEdit] = useState(false)
+    const [formType, setformType] = useState('')
+
+    const [showDeleteMessage, setshowDeleteMessage] = useState(false);
+    const [showDeletedMessage, setshowDeletedMessage] = useState(false);
+    const [showSuccessMessage, setshowSuccessMessage] = useState<boolean>(false);
+    const [showErrorMessage, setshowErrorMessage] = useState<boolean>(false);
+
     const cancelButtonRef = useRef(null)
+
+    const [leaveruleId, setLeaveruleId] = useState<number>()
+    const [ruleName, setRuleName] = useState('')
+    const [ruleDescription, setRuleDescription] = useState('')
+    const [ruleCondition, setRuleCondition] = useState('')
+    const [ruleStatus, setRuleStatus] = useState('')
+    const [userTypeId, setUserTypeId] = useState<number>()
+    const [leaveTypeId, setLeaveTypeId] = useState<number>()
+
+    const [aError, setAError] = useState(false);
+    const [bError, setBError] = useState(false);
+    const [cError, setCError] = useState(false);
+    const [dError, setDError] = useState(false);
+
+
+    const [executeQuery, { loading, error, data: getQueryById }] = useLazyQuery(GET_LEAVE_RULE_BY_ID);
+    // const [fExecuteQuery, { loading: fLoading, error: fError, data: fData }] = useLazyQuery(GET_FILTERED_DIVISIONS);
+    const [createQuery, { loading: createQueryLoading, error: createQueryError }] = useMutation(ADD_LEAVE_RULE_MUTATION);
+    const [updateQuery, { loading: updateQueryLoading, error: updateQueryError }] = useMutation(UPDATE_LEAVE_RULE_MUTATION);
+    // const [deleteDivision, { loading: deleteDivisionLoading, error: deleteDivisionError }] = useMutation(DELETE_DIVISION_MUTATION);
+    const [removeQuery] = useMutation(DELETE_LEAVE_RULE_MUTATION);
+    const [removeMultipleQuery] = useMutation(REMOVE_MULTIPLE_LEAVE_RULES);
+
+
+    const { loading: getAllDataLoading, error: getAllDataError, data: getAllData, refetch } = useQuery(GET_LEAVE_RULES);
+    console.log("allData", getAllData);
+
+    let itemlist: any[] = [];
+
+    if (getAllData && getAllData.leaverules) {
+        itemlist = getAllData.leaverules.map((data: { id: any; rule_name: any; rule_description: any; rule_condition: any; rule_status: any; leave_type_id: any; user_type_id: any; }) => ({
+            id: data.id,
+            rule_name: data.rule_name,
+            rule_description: data.rule_description,
+            rule_condition: data.rule_condition,
+            rule_status: data.rule_status,
+            leave_type_id: data.leave_type_id,
+            user_type_id: data.user_type_id,
+
+        }));
+    }
+
+    const handleDelete = async (type: string, Id: number) => {
+        console.log(Id);
+        if (type && type === 'one') {
+            try {
+                const response = await removeQuery({
+                    variables: { id: Id },
+                });
+                console.log(response.data);
+                setshowDeletedMessage(true)
+                refetch();
+            } catch (error) {
+                console.log(error);
+                setshowErrorMessage(true);
+            }
+        }
+    }
+
+    const handleButtonClick = (type: string, id: number) => {
+        setQuickEdit(true)
+        setformType(type)
+        console.log("id", id);
+        // Add your logic here
+        console.log("type", type);
+        if (type && type === 'update') {
+            setLeaveruleId(id)
+            console.log("leaveruleId", leaveruleId);
+        } else {
+
+            setUserTypeId(null);
+            setLeaveTypeId(null);
+            setRuleName('');
+            setRuleDescription('');
+            setRuleCondition('');
+            setRuleStatus('');
+            setLeaveruleId(null);
+        }
+
+    };
+    console.log("leaveruleId", leaveruleId);
+    useEffect(() => {
+        if (leaveruleId) {
+            console.log(leaveruleId);
+            executeQuery({ variables: { id: leaveruleId } });
+            console.log(getQueryById);
+        }
+    }, [leaveruleId]);
+
+    console.log(getQueryById);
+    useEffect(() => {
+        if (getQueryById && getQueryById.division) {
+            const { leaverule } = getQueryById; // Destructure the division object
+            setUserTypeId(leaverule.user_type_id);
+            setLeaveTypeId(leaverule.leave_type_id);
+            setRuleName(leaverule.rule_name);
+            setRuleDescription(leaverule.rule_description);
+            setRuleCondition(leaverule.rule_condition);
+            setRuleStatus(leaverule.rule_status);
+            console.log('ruleName', ruleName)
+
+        }
+    }, [getQueryById]);
+
+    if (loading) return <p>Loading...</p>;
+    if (error) return <p>Error: {error.message}</p>;
+
+
+    const handleSubmit = async (e: { preventDefault: () => void }) => {
+        console.log('called');
+        (!ruleName) ? setAError(true) : setAError(false);
+        (!ruleStatus) ? setBError(true) : setBError(false);
+        (!userTypeId) ? setCError(true) : setCError(false);
+        (!leaveTypeId) ? setDError(true) : setDError(false);
+
+        if (aError == true || bError == true || cError == true || dError == true) {
+            return;
+        }
+        console.log('Submit');
+        e.preventDefault();
+        const currentDate = new Date();
+        const formattedDate = currentDate.toISOString();
+        if (leaveruleId != null && leaveruleId != undefined) { //Update division
+            try {
+                console.log('Try to submit')
+                console.log('ruleName', ruleName)
+                console.log('ruleDescription', ruleDescription)
+                console.log('ruleCondition', ruleCondition)
+                console.log('ruleStatus', ruleStatus)
+                console.log('userTypeId', userTypeId)
+                console.log('leaveTypeId', leaveTypeId)
+                const { data } = await updateQuery({
+                    variables: {
+                        updateQueryInput: {
+                            id: leaveruleId,
+                            rule_name: ruleName,
+                            rule_description: ruleDescription,
+                            rule_condition: ruleCondition,
+                            rule_status: ruleStatus,
+                            leave_type_id: leaveTypeId,
+                            user_type_id: userTypeId
+                        },
+                    },
+                });
+
+
+                setUserTypeId(null);
+                setLeaveTypeId(null);
+                setRuleName('');
+                setRuleDescription('');
+                setRuleCondition('');
+                setRuleStatus('');
+
+                setshowSuccessMessage(true);
+                setshowErrorMessage(false);
+
+                console.log('showSuccessMessage', showSuccessMessage);
+                console.log('response', data);
+                // console.log('response', response.data);
+                setQuickEdit(false)
+                refetch();
+            } catch (error) {
+                setshowErrorMessage(true);
+
+                console.log('catchError', error);
+            }
+
+        } else { //Add division
+            try {
+                console.log('Try to submit')
+                console.log('ruleName', ruleName)
+                console.log('ruleDescription', ruleDescription)
+                console.log('ruleCondition', ruleCondition)
+                console.log('ruleStatus', ruleStatus)
+                console.log('userTypeId', userTypeId)
+                console.log('leaveTypeId', leaveTypeId)
+                const { data: { createLeaverule: { id } } } = await createQuery({
+                    variables: {
+                        createLeaveruleInput: {
+                            rule_name: ruleName,
+                            rule_description: ruleDescription,
+                            rule_condition: ruleCondition,
+                            rule_status: ruleStatus,
+                            leave_type_id: leaveTypeId,
+                            user_type_id: userTypeId
+                        },
+                    },
+                });
+                console.log('response', id);
+
+                setUserTypeId(null);
+                setLeaveTypeId(null);
+                setRuleName('');
+                setRuleDescription('');
+                setRuleCondition('');
+                setRuleStatus('');
+
+
+                setshowSuccessMessage(true);
+                setshowErrorMessage(false);
+
+                console.log('showSuccessMessage', showSuccessMessage);
+                // console.log('response', data);
+                // console.log('response', response.data);
+                setQuickEdit(false)
+                refetch();
+            } catch (error) {
+                setshowErrorMessage(true);
+
+                console.log('catchError', error);
+            }
+        }
+
+        // console.log(category);
+
+
+    };
+
+    const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>, leaveruleId: string) => {
+        if (leaveruleId === 'all') {
+            if (event.target.checked) {
+                const allleaveruleIds = itemlist.map(item => item.id);
+                setSelectedLeaverules(allleaveruleIds);
+            } else {
+                setSelectedLeaverules([]);
+            }
+        } else {
+            if (event.target.checked) {
+                setSelectedLeaverules(prevSelected => [...prevSelected, leaveruleId]);
+            } else {
+                setSelectedLeaverules(prevSelected =>
+                    prevSelected.filter(id => id !== leaveruleId)
+                );
+            }
+        }
+    };
+    const handleDeletes = async () => {
+        console.log('SelectedLeaverules', SelectedLeaverules);
+        // selectedleaveruleIds
+        try {
+            const response = await removeMultipleQuery({
+                variables: { ids: SelectedLeaverules },
+            });
+            console.log(response.data);
+            setshowDeletedMessage(true)
+            refetch();
+        } catch (error) {
+            console.error('Error deleting divisions:', error);
+            // Handle error message or any further actions
+        }
+    };
+
+
+    const { loading: getUsertypeLoading, error: getUsertypeError, data: getUsertype } = useQuery(GET_USER_TYPES);
+    console.log("Usertype", getUsertype);
+
+    let usertypeList: any[] = [];
+
+    if (getUsertype && getUsertype.usertypes) {
+        usertypeList = getUsertype.usertypes.map((data: { id: any; type_name: any; status: any; }) => ({
+            id: data.id,
+            type_name: data.type_name,
+            status: data.status,
+
+        }));
+    }
+    const handleFilter = (keyword: React.SetStateAction<string>) => {
+        console.log('keyword', keyword);
+        setSearchKeyword(keyword)
+    };
+
+    const filteredData = search === "" ? itemlist : itemlist.filter((item: { dname: string; dcode: string }) => {
+        const lowerSearch = search.toLowerCase();
+        return (item.dname.toLowerCase().includes(lowerSearch) || item.dcode.toLowerCase().includes(lowerSearch));
+    });
+
+
 
     return (
         <div className=' w-full rounded px-2'>
             {showDeleteMessage && (
-                <Alert message="Are you sure you want to delete these Category(s)?" />
+                <Alert message="Are you sure you want to delete these Leave Rule(s)?" />
+            )}
+            {showSuccessMessage && (
+                // <Alert message="Division Added Successfully!" alertState={alertState} onAlertStateChange={handleAlertStateChange} />
+                <Alert message="Leave Rule Added Successfully!" />
+            )}
+            {showErrorMessage && (
+                <Alert message="Something went wrong!" />
+            )}
+            {showDeletedMessage && (
+                <Alert message="Leave Rule Deleted Successfully!" />
             )}
             <div className="rounded-t mb-4 px-4 bg-transparent">
                 <div className="flex flex-wrap items-center">
@@ -53,6 +353,9 @@ export default function LeaveRule() {
                                             id="email"
                                             className="block w-full rounded-none rounded-l-md border-0 py-1.5 pl-10 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                             placeholder="John Smith"
+                                            value={search}
+                                            onChange={(e) => setSearch(e.target.value)}
+                                        // onChange={(e) => handleFilter(e.target.value)}
                                         />
                                     </div>
                                     <button
@@ -66,34 +369,34 @@ export default function LeaveRule() {
                             <div className="mt-4 lg:ml-16 ml-0 sm:mt-0 sm:flex-none">
 
 
-                                <a onClick={() => setQuickEdit(true)}
+                                <a
+                                    // onClick={() => setQuickEdit(true)}
+                                    onClick={() => handleButtonClick('add', '')}
                                     className="block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                                 >
                                     Add New Rule
                                 </a>
-
                             </div>
                         </div>
                         <div className="mt-8 flow-root">
                             <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                                 <div className="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
                                     <div className="border-2 lg:border-0 overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg">
-                                        <table className="min-w-full divide-y divide-gray-300">
+                                        <table className="min-w-full divide-y divide-gray-300 h-auto">
                                             <thead className="bg-gray-50">
                                                 <tr>
                                                     <th scope="col" className="flex py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">
                                                         <input
-                                                            id="comments"
+                                                            id="selectAll"
                                                             aria-describedby="comments-description"
                                                             name="comments"
                                                             type="checkbox"
+                                                            onChange={event => handleCheckboxChange(event, 'all')}
                                                             className="mt-1 h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
                                                         />
-                                                        <TrashIcon className="h-6 w-6 text-gray-500" />
+                                                        <TrashIcon className="h-6 w-6 text-gray-500" onClick={handleDeletes} />
                                                     </th>
-
                                                     {table_header.map((val, index) => (
-
                                                         <th scope="col" key={index} className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">
                                                             {val.name}
                                                         </th>
@@ -101,19 +404,21 @@ export default function LeaveRule() {
                                                 </tr>
                                             </thead>
                                             <tbody className="divide-y divide-gray-200 bg-white">
-                                                {ideas.map((person) => (
-                                                    <tr key={person.id}>
+                                                {filteredData.map((item) => (
+                                                    <tr key={item.id}>
                                                         <td className="whitespace-nowrap py-1 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
                                                             <input
-                                                                id="comments"
+                                                                id={`checkbox-${item.id}`}
                                                                 aria-describedby="comments-description"
                                                                 name="comments"
                                                                 type="checkbox"
+                                                                onChange={event => handleCheckboxChange(event, item.id)}
+                                                                checked={SelectedLeaverules.includes(item.id)}
                                                                 className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
                                                             />
                                                         </td>
-                                                        <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.rname}</td>
-                                                        <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.status}</td>
+                                                        <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{item.rule_name}</td>
+                                                        <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{item.rule_status}</td>
                                                         <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">
                                                             <Menu as="div" className="relative inline-block text-left">
                                                                 <div>
@@ -136,11 +441,12 @@ export default function LeaveRule() {
                                                                         <div className="py-1">
                                                                             <Menu.Item>
 
-                                                                                <a onClick={() => setQuickEdit(true)} className="bg-gray-100 text-gray-600 block px-4 py-2 text-sm">Edit</a>
+                                                                                <a onClick={() => handleButtonClick('update', item.id)} className="bg-gray-100 text-gray-600 block px-4 py-2 text-sm">Edit</a>
 
                                                                             </Menu.Item>
                                                                             <Menu.Item>
-                                                                                <a onClick={() => setshowDeleteMessage(true)} className="bg-gray-100 text-gray-600 block px-4 py-2 text-sm">Delete</a>
+                                                                                <a onClick={() => handleDelete('one', item.id)} className="bg-gray-100 text-gray-600 block px-4 py-2 text-sm">Delete</a>
+                                                                                {/* <a onClick={() => setshowDeleteMessage(true)} className="bg-gray-100 text-gray-600 block px-4 py-2 text-sm">Delete</a> */}
                                                                             </Menu.Item>
                                                                         </div>
                                                                     </Menu.Items>
@@ -196,9 +502,13 @@ export default function LeaveRule() {
                                                                                                         type="email"
                                                                                                         name="email"
                                                                                                         id="email"
+                                                                                                        onChange={(e) => setRuleName(e.target.value)}
+                                                                                                        value={ruleName}
                                                                                                         className="block w-full rounded-md border-0 py-1.5 pl-10 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                                                                                         placeholder="Rule Name"
                                                                                                     />
+                                                                                                    {aError && <p className="text-red-500 text-xs" >*Name is required</p>}
+
                                                                                                 </div>
                                                                                             </div>
 
@@ -209,11 +519,16 @@ export default function LeaveRule() {
                                                                                                         name="location"
                                                                                                         className="px-2 mt-2 block w-full rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                                                                                         defaultValue="Canada"
+                                                                                                        onChange={(e) => setRuleStatus(e.target.value)}
+                                                                                                        value={ruleStatus}
+
                                                                                                     >
                                                                                                         <option>Choose Rule Status</option>
                                                                                                         <option>Active</option>
                                                                                                         <option>Inactive</option>
                                                                                                     </select>
+                                                                                                    {bError && <p className="text-red-500 text-xs" >*Status is required</p>}
+
                                                                                                 </div>
                                                                                             </div>
                                                                                         </div>
@@ -236,8 +551,11 @@ export default function LeaveRule() {
                                                                                                         rows={2}
                                                                                                         name="comment"
                                                                                                         id="comment"
-                                                                                                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                                                                                        className="px-2 block w-full rounded-md border-0 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                                                                                         defaultValue={''}
+                                                                                                        onChange={(e) => setRuleDescription(e.target.value)}
+                                                                                                        value={ruleDescription}
+
                                                                                                     />
                                                                                                 </div>
                                                                                             </div>
@@ -262,12 +580,20 @@ export default function LeaveRule() {
                                                                                                         name="location"
                                                                                                         className="px-2 mt-2 block w-full rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                                                                                         defaultValue="Canada"
+                                                                                                        onChange={(e) => setUserTypeId(parseInt(e.target.value))}
+                                                                                                        value={userTypeId}
+
                                                                                                     >
                                                                                                         <option>Choose User Type</option>
-                                                                                                        <option>PE</option>
+                                                                                                        {usertypeList.map((ut) => (
+                                                                                                            <option value={ut.id}>{ut.type_name}</option>
+                                                                                                        ))}
+                                                                                                        {/* <option>PE</option>
                                                                                                         <option>QE</option>
-                                                                                                        <option>Intern</option>
+                                                                                                        <option>Intern</option> */}
                                                                                                     </select>
+                                                                                                    {cError && <p className="text-red-500 text-xs" >*User Type is required</p>}
+
                                                                                                 </div>
                                                                                             </div>
                                                                                             <div className="sm:col-span-1">
@@ -277,12 +603,17 @@ export default function LeaveRule() {
                                                                                                         name="location"
                                                                                                         className="px-2 mt-2 block w-full rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                                                                                         defaultValue="Canada"
+                                                                                                        onChange={(e) => setLeaveTypeId(parseInt(e.target.value))}
+                                                                                                        value={leaveTypeId}
+
                                                                                                     >
                                                                                                         <option>Choose Leave Type</option>
-                                                                                                        <option>SL</option>
-                                                                                                        <option>CL</option>
-                                                                                                        <option>EL</option>
+                                                                                                        <option value="1">SL</option>
+                                                                                                        <option value="2">CL</option>
+                                                                                                        <option value="3">EL</option>
                                                                                                     </select>
+                                                                                                    {dError && <p className="text-red-500 text-xs" >*Leave Type is required</p>}
+
                                                                                                 </div>
                                                                                             </div>
 
@@ -298,6 +629,7 @@ export default function LeaveRule() {
                                                                             <div className="lg:mt-5 sm:flex sm:flex-row-reverse">
                                                                                 <button
                                                                                     type="button"
+                                                                                    onClick={handleSubmit}
                                                                                     className="ml-2 rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                                                                                 >
                                                                                     Save

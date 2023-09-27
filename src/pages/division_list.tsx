@@ -5,6 +5,10 @@ import Link from 'next/link';
 import { Dialog, Menu, Transition } from '@headlessui/react'
 import { XMarkIcon, ChevronDownIcon, TrashIcon } from '@heroicons/react/20/solid'
 import Alert from '@/components/Alert';
+
+import { useQuery, useLazyQuery, useMutation } from "@apollo/client";
+import { ADD_DIVISION_MUTATION, UPDATE_DIVISION_MUTATION, DELETE_DIVISION_MUTATION, REMOVE_MULTIPLE_DIVISIONS, GET_FILTERED_DIVISIONS, GET_DIVISIONS, GET_DIVISION_BY_ID } from '@/graphql/Division/queries';
+
 const table_header = [
     { name: 'Division Name' },
     { name: 'Division Code' },
@@ -19,14 +23,344 @@ const ideas = [
 ]
 
 export default function DivisionList() {
+    const [search, setSearch] = useState("");
+    const [selectedDivisions, setSelectedDivisions] = useState([]);
+    const [searchKeyword, setSearchKeyword] = useState('');
     const [showDeleteMessage, setshowDeleteMessage] = useState(false);
+    const [showDeletedMessage, setshowDeletedMessage] = useState(false);
     const [quickEdit, setQuickEdit] = useState(false)
+    const [formType, setformType] = useState('')
+    const [divisionName, setDivisionName] = useState('')
+    const [divisionCode, setDivisionCode] = useState('')
+    const [divisionColor, setDivisionColor] = useState('')
+    const [divisionStatus, setDivisionStatus] = useState('')
+    const [divisionId, setDivisionId] = useState<number>()
+
+    const [dnameError, setDnameError] = useState(false);
+    const [dcodeError, setDcodeError] = useState(false);
+    const [dstatusError, setDstatusError] = useState(false);
+
+    const [showSuccessMessage, setshowSuccessMessage] = useState<boolean>(false);
+    const [showErrorMessage, setshowErrorMessage] = useState<boolean>(false);
+
     const cancelButtonRef = useRef(null)
 
+
+    const [alertState, setAlertState] = useState(true);
+
+    // Function to update alertState when called from Alert component
+    const handleAlertStateChange = (newState: boolean | ((prevState: boolean) => boolean)) => {
+        setAlertState(newState);
+    };
+
+
+    const [executeQuery, { loading, error, data: getDivisionById }] = useLazyQuery(GET_DIVISION_BY_ID);
+    // const [fExecuteQuery, { loading: fLoading, error: fError, data: fData }] = useLazyQuery(GET_FILTERED_DIVISIONS);
+    const [createDivision, { loading: createDivisionLoading, error: createDivisionError }] = useMutation(ADD_DIVISION_MUTATION);
+    const [updateDivision, { loading: updateDivisionLoading, error: updateDivisionError }] = useMutation(UPDATE_DIVISION_MUTATION);
+    // const [deleteDivision, { loading: deleteDivisionLoading, error: deleteDivisionError }] = useMutation(DELETE_DIVISION_MUTATION);
+    const [removeDivision] = useMutation(DELETE_DIVISION_MUTATION);
+    const [removeMultipleDivisions] = useMutation(REMOVE_MULTIPLE_DIVISIONS);
+
+
+    const { loading: getDivisionLoading, error: getDivisionError, data: getDivisionData, refetch } = useQuery(GET_DIVISIONS);
+    console.log("users", getDivisionData);
+
+    let itemlist: any[] = [];
+
+    if (getDivisionData && getDivisionData.divisions) {
+        itemlist = getDivisionData.divisions.map((division: { id: any; division_name: any; division_code: any; division_color: any; status: any; }) => ({
+            id: division.id,
+            dname: division.division_name,
+            dcode: division.division_code,
+            dcolor: division.division_color,
+            dstatus: division.status,
+
+        }));
+    }
+
+
+
+
+
+
+    const handleDelete = async (type: string, Id: number) => {
+        console.log(Id);
+        if (type && type === 'one') {
+            try {
+                const response = await removeDivision({
+                    variables: { id: Id },
+                });
+                console.log(response.data);
+                setshowDeletedMessage(true)
+                refetch();
+            } catch (error) {
+                console.log(error);
+                setshowErrorMessage(true);
+            }
+        }
+    }
+    const handleButtonClick = (type: string, id: number) => {
+        setQuickEdit(true)
+        setformType(type)
+        console.log("id", id);
+        // Add your logic here
+        console.log("type", type);
+        if (type && type === 'update') {
+            setDivisionId(id)
+            console.log("divisionId", divisionId);
+        } else {
+
+            setDivisionName('');
+            setDivisionCode('');
+            setDivisionColor('');
+            setDivisionStatus('');
+            setDivisionId(null);
+        }
+
+    };
+
+    useEffect(() => {
+        if (divisionId) {
+            console.log(divisionId);
+            executeQuery({ variables: { id: divisionId } });
+            console.log(getDivisionById);
+        }
+    }, [divisionId]);
+
+    console.log(getDivisionById);
+    useEffect(() => {
+        if (getDivisionById && getDivisionById.division) {
+            const { division } = getDivisionById; // Destructure the division object
+            setDivisionName(division.division_name);
+            setDivisionCode(division.division_code);
+            setDivisionColor(division.division_color);
+            setDivisionStatus(division.status);
+        }
+    }, [getDivisionById]);
+
+    if (loading) return <p>Loading...</p>;
+    if (error) return <p>Error: {error.message}</p>;
+
+
+    const handleSubmit = async (e: { preventDefault: () => void }) => {
+        console.log('called');
+        (!divisionName) ? setDnameError(true) : setDnameError(false);
+        (!divisionCode) ? setDcodeError(true) : setDcodeError(false);
+        (!divisionStatus) ? setDstatusError(true) : setDstatusError(false);
+
+        if (dnameError == true || dcodeError == true || dstatusError == true) {
+            return;
+        }
+
+        console.log('Submit');
+        e.preventDefault();
+        const currentDate = new Date();
+        const formattedDate = currentDate.toISOString();
+        if (divisionId != null && divisionId != undefined) { //Update division
+            try {
+                console.log('Try to submit')
+                console.log('divisionName', divisionName)
+                console.log('divisionCode', divisionCode)
+                console.log('divisionStatus', divisionStatus)
+                const { data } = await updateDivision({
+                    variables: {
+                        updateDivisionInput: {
+                            id: divisionId,
+                            division_name: divisionName,
+                            division_code: divisionCode,
+                            division_color: divisionColor,
+                            status: divisionStatus
+                        },
+                    },
+                });
+
+
+                setDivisionName('');
+                setDivisionCode('');
+                setDivisionColor('');
+                setDivisionStatus('');
+
+                setshowSuccessMessage(true);
+                setshowErrorMessage(false);
+
+                console.log('showSuccessMessage', showSuccessMessage);
+                console.log('response', data);
+                // console.log('response', response.data);
+                setQuickEdit(false)
+                refetch();
+            } catch (error) {
+                setshowErrorMessage(true);
+
+                console.log('catchError', error);
+            }
+
+        } else { //Add division
+            try {
+                console.log('Try to submit')
+                console.log('divisionName', divisionName)
+                console.log('divisionCode', divisionCode)
+                console.log('divisionStatus', divisionStatus)
+                const { data: { createDivision: { id } } } = await createDivision({
+                    variables: {
+                        createDivisionInput: {
+                            division_name: divisionName,
+                            division_code: divisionCode,
+                            division_color: divisionColor,
+                            status: divisionStatus
+                        },
+                    },
+                });
+                console.log('response', id);
+
+                setDivisionName('');
+                setDivisionCode('');
+                setDivisionColor('');
+                setDivisionStatus('');
+
+                setshowSuccessMessage(true);
+                setshowErrorMessage(false);
+
+                console.log('showSuccessMessage', showSuccessMessage);
+                // console.log('response', data);
+                // console.log('response', response.data);
+                setQuickEdit(false)
+                refetch();
+            } catch (error) {
+                setshowErrorMessage(true);
+
+                console.log('catchError', error);
+            }
+        }
+
+        // console.log(category);
+
+
+    };
+
+    const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>, divisionId: string) => {
+        if (divisionId === 'all') {
+            if (event.target.checked) {
+                const allDivisionIds = itemlist.map(item => item.id);
+                setSelectedDivisions(allDivisionIds);
+            } else {
+                setSelectedDivisions([]);
+            }
+        } else {
+            if (event.target.checked) {
+                setSelectedDivisions(prevSelected => [...prevSelected, divisionId]);
+            } else {
+                setSelectedDivisions(prevSelected =>
+                    prevSelected.filter(id => id !== divisionId)
+                );
+            }
+        }
+    };
+    const handleDeletes = async () => {
+        console.log('selectedDivisions', selectedDivisions);
+        // selectedDivisionIds
+        try {
+            // const { data } = await removeMultipleDivisions({
+            //     variables: { ids: selectedDivisionIds },
+            // });
+
+            // console.log(data.removeMultipleDivisions);
+            // Handle success message or any further actions
+
+            const response = await removeMultipleDivisions({
+                variables: { ids: selectedDivisions },
+            });
+            console.log(response.data);
+            setshowDeletedMessage(true)
+            refetch();
+        } catch (error) {
+            console.error('Error deleting divisions:', error);
+            // Handle error message or any further actions
+        }
+    };
+
+
+
+    const handleFilter = (keyword: React.SetStateAction<string>) => {
+        console.log('keyword', keyword);
+        // if (keyword && (keyword !== undefined || keyword !== "")) {
+        setSearchKeyword(keyword)
+        // } else {
+        //     setSearchKeyword('')
+        // }
+
+    };
+    // if (loading) return <p>Loading...</p>;
+    // if (error) return <p>Error: {error.message}</p>;
+    // useEffect(() => {
+    //     if (searchKeyword) {
+    //         console.log(searchKeyword);
+    //         fExecuteQuery({ variables: { filter: searchKeyword } });
+
+    //     }
+    // }, [searchKeyword]);
+
+    // console.log(fData);
+    // // useEffect(() => {
+    // if (fData && fData.filterDivisions) {
+    //     // const { filterDivisions } = fData; // Destructure the division object
+    //     // console.log(fData.filterDivisions);
+    //     // itemlist = fData.filterDivisions;
+    //     itemlist = [];
+    //     if (fData && fData.filterDivisions) {
+    //         itemlist = fData.filterDivisions.map((division: { id: any; division_name: any; division_code: any; division_color: any; status: any; }) => ({
+    //             id: division.id,
+    //             dname: division.division_name,
+    //             dcode: division.division_code,
+    //             dcolor: division.division_color,
+    //             dstatus: division.status,
+
+    //         }));
+    //     }
+    //     // console.log(itemlist);
+    // }
+    // console.log(itemlist);
+    // }, [fData]);
+
+    // console.log(itemlist);
+    // // if (searchKeyword && searchKeyword != "") {
+    // //     console.log('searchKeyword', searchKeyword);
+    // //     try {
+    // //         const { loading: filterdivisionLoading, error: filterdivisionError, data: filterdivisionData } = useQuery(GET_FILTERED_DIVISIONS, {
+    // //             variables: { filter: { keyword: searchKeyword } },
+    // //         });
+    // //         console.log('filterdivisionData', filterdivisionData)
+    // //     } catch (error) {
+    // //         console.log(error)
+    // //     }
+    // //     // itemlist = filterdivisionData;
+    // // }
+
+
+    const filteredDivision = search === "" ? itemlist : itemlist.filter((item: { dname: string; dcode: string }) => {
+        const lowerSearch = search.toLowerCase();
+        return (item.dname.toLowerCase().includes(lowerSearch) || item.dcode.toLowerCase().includes(lowerSearch));
+    });
+
+    // console.log('itemlist', itemlist.
+    //     map((item:
+    //         { id: any; division_name: any; division_code: any; division_color: any; status: any; }
+    //     ) => item)
+    // );
     return (
         <div className=' w-full rounded px-2'>
             {showDeleteMessage && (
                 <Alert message="Are you sure you want to delete these Category(s)?" />
+            )}
+            {showSuccessMessage && (
+                // <Alert message="Division Added Successfully!" alertState={alertState} onAlertStateChange={handleAlertStateChange} />
+                <Alert message="Division Added Successfully!" />
+            )}
+            {showErrorMessage && (
+                <Alert message="Something went wrong!" />
+            )}
+            {showDeletedMessage && (
+                <Alert message="Division Deleted Successfully!" />
             )}
             <div className="rounded-t mb-4 px-4 bg-transparent">
                 <div className="flex flex-wrap items-center">
@@ -54,6 +388,9 @@ export default function DivisionList() {
                                             id="email"
                                             className="block w-full rounded-none rounded-l-md border-0 py-1.5 pl-10 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                             placeholder="John Smith"
+                                            value={search}
+                                            onChange={(e) => setSearch(e.target.value)}
+                                        // onChange={(e) => handleFilter(e.target.value)}
                                         />
                                     </div>
                                     <button
@@ -67,7 +404,9 @@ export default function DivisionList() {
                             <div className="mt-4 lg:ml-16 ml-0 sm:mt-0 sm:flex-none">
 
 
-                                <a onClick={() => setQuickEdit(true)}
+                                <a
+                                    // onClick={() => setQuickEdit(true)}
+                                    onClick={() => handleButtonClick('add', '')}
                                     className="block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                                 >
                                     Add New Divison
@@ -79,18 +418,19 @@ export default function DivisionList() {
                             <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                                 <div className="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
                                     <div className="border-2 lg:border-0 overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg">
-                                        <table className="min-w-full divide-y divide-gray-300">
+                                        <table className="min-w-full divide-y divide-gray-300 h-auto">
                                             <thead className="bg-gray-50">
                                                 <tr>
                                                     <th scope="col" className="flex py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">
                                                         <input
-                                                            id="comments"
+                                                            id="selectAll"
                                                             aria-describedby="comments-description"
                                                             name="comments"
                                                             type="checkbox"
+                                                            onChange={event => handleCheckboxChange(event, 'all')}
                                                             className="mt-1 h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
                                                         />
-                                                        <TrashIcon className="h-6 w-6 text-gray-500" />
+                                                        <TrashIcon className="h-6 w-6 text-gray-500" onClick={handleDeletes} />
                                                     </th>
                                                     {table_header.map((val, index) => (
                                                         <th scope="col" key={index} className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">
@@ -100,23 +440,25 @@ export default function DivisionList() {
                                                 </tr>
                                             </thead>
                                             <tbody className="divide-y divide-gray-200 bg-white">
-                                                {ideas.map((person) => (
-                                                    <tr key={person.id}>
+                                                {filteredDivision.map((item: { id: any; dname: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | React.ReactFragment | React.ReactPortal | React.PromiseLikeOfReactNode | null | undefined; dcode: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | React.ReactFragment | React.ReactPortal | React.PromiseLikeOfReactNode | null | undefined; dstatus: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | React.ReactFragment | React.ReactPortal | React.PromiseLikeOfReactNode | null | undefined; }) => (
+                                                    <tr key={item.id}>
                                                         <td className="whitespace-nowrap py-1 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
                                                             <input
-                                                                id="comments"
+                                                                id={`checkbox-${item.id}`}
                                                                 aria-describedby="comments-description"
                                                                 name="comments"
                                                                 type="checkbox"
+                                                                onChange={event => handleCheckboxChange(event, item.id)}
+                                                                checked={selectedDivisions.includes(item.id)}
                                                                 className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
                                                             />
                                                         </td>
                                                         <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
-                                                            {person.dtype}
+                                                            {item.dname}
                                                         </td>
-                                                        <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.dname}</td>
-                                                        <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.dcode}</td>
-                                                        <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">
+                                                        <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{item.dcode}</td>
+                                                        <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{item.dstatus}</td>
+                                                        <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500 h-auto">
                                                             <Menu as="div" className="relative inline-block text-left">
                                                                 <div>
                                                                     <Menu.Button className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-600 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
@@ -138,11 +480,12 @@ export default function DivisionList() {
                                                                         <div className="py-1">
                                                                             <Menu.Item>
 
-                                                                                <a onClick={() => setQuickEdit(true)} className="bg-gray-100 text-gray-600 block px-4 py-2 text-sm">Edit</a>
+                                                                                <a onClick={() => handleButtonClick('update', item.id)} className="bg-gray-100 text-gray-600 block px-4 py-2 text-sm">Edit</a>
 
                                                                             </Menu.Item>
                                                                             <Menu.Item>
-                                                                                <a onClick={() => setshowDeleteMessage(true)} className="bg-gray-100 text-gray-600 block px-4 py-2 text-sm">Delete</a>
+                                                                                <a onClick={() => handleDelete('one', item.id)} className="bg-gray-100 text-gray-600 block px-4 py-2 text-sm">Delete</a>
+                                                                                {/* <a onClick={() => setshowDeleteMessage(true)} className="bg-gray-100 text-gray-600 block px-4 py-2 text-sm">Delete</a> */}
                                                                             </Menu.Item>
                                                                         </div>
                                                                     </Menu.Items>
@@ -183,7 +526,7 @@ export default function DivisionList() {
                                                             <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 lg:w-full w-80 sm:max-w-lg sm:p-6">
                                                                 <div className="space-y-2">
                                                                     <div className="border-b border-gray-900/10 pb-4">
-                                                                        <h2 className="text-lg font-semibold leading-7 text-gray-900">Add Division</h2>
+                                                                        <h2 className="text-lg font-semibold leading-7 text-gray-900">{formType} Division</h2>
                                                                         <div className="mt-2 grid grid-cols-1 gap-x-6 gap-y-8 lg:grid-cols-1">
                                                                             <div className="sm:col-span-2">
                                                                                 <div className="space-y-2 px-2 py-2">
@@ -198,9 +541,13 @@ export default function DivisionList() {
                                                                                                         type="email"
                                                                                                         name="email"
                                                                                                         id="email"
+                                                                                                        onChange={(e) => setDivisionName(e.target.value)}
+                                                                                                        // value={(formType == "update") ? divisionName : ""}
+                                                                                                        value={divisionName}
                                                                                                         className="block w-full rounded-md border-0 py-1.5 pl-10 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                                                                                         placeholder="Division Name"
                                                                                                     />
+                                                                                                    {dnameError && <p className="text-red-500 text-xs" >*Name is required</p>}
                                                                                                 </div>
                                                                                             </div>
 
@@ -213,9 +560,13 @@ export default function DivisionList() {
                                                                                                         type="email"
                                                                                                         name="email"
                                                                                                         id="email"
+                                                                                                        onChange={(e) => setDivisionCode(e.target.value)}
+                                                                                                        // value={(formType == "update") ? divisionCode : ""}
+                                                                                                        value={divisionCode}
                                                                                                         className="block w-full rounded-md border-0 py-1.5 pl-10 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                                                                                         placeholder="Division Code"
                                                                                                     />
+                                                                                                    {dcodeError && <p className="text-red-500 text-xs" >*Code is required</p>}
                                                                                                 </div>
                                                                                             </div>
 
@@ -224,13 +575,18 @@ export default function DivisionList() {
                                                                                                     <select
                                                                                                         id="location"
                                                                                                         name="location"
-                                                                                                        className="px-2 mt-2 block w-full rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                                                                                        className="px-2 mt-2 block w-full rounded-md border-0 py-2 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                                                                                         defaultValue="Canada"
+                                                                                                        onChange={(e) => setDivisionStatus(e.target.value)}
+                                                                                                        // value={formType === "update" ? divisionStatus : ""}
+                                                                                                        value={divisionStatus}
                                                                                                     >
-                                                                                                        <option>Choose Type</option>
-                                                                                                        <option>Active</option>
-                                                                                                        <option>Inactive</option>
+                                                                                                        <option value="">Choose Type</option>
+                                                                                                        <option value="Active">Active</option>
+                                                                                                        <option value="Inactive">Inactive</option>
                                                                                                     </select>
+                                                                                                    {dstatusError && <p className="text-red-500 text-xs" >*Status is required</p>}
+
                                                                                                 </div>
                                                                                             </div>
                                                                                             <div className="sm:col-span-1">
@@ -241,6 +597,9 @@ export default function DivisionList() {
                                                                                                     <input
                                                                                                         type="email"
                                                                                                         name="email"
+                                                                                                        onChange={(e) => setDivisionColor(e.target.value)}
+                                                                                                        // value={(formType == "update") ? divisionColor : ""}
+                                                                                                        value={divisionColor}
                                                                                                         id="email"
                                                                                                         className="block w-full rounded-md border-0 py-1.5 pl-10 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                                                                                         placeholder="Color"
@@ -259,6 +618,7 @@ export default function DivisionList() {
                                                                             <div className="lg:mt-5 sm:flex sm:flex-row-reverse">
                                                                                 <button
                                                                                     type="button"
+                                                                                    onClick={handleSubmit}
                                                                                     className="ml-2 rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                                                                                 >
                                                                                     Save

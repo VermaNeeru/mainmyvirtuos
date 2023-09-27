@@ -5,6 +5,9 @@ import Link from 'next/link';
 import { Dialog, Menu, Transition } from '@headlessui/react'
 import { XMarkIcon, ChevronDownIcon, TrashIcon } from '@heroicons/react/20/solid'
 import Alert from '@/components/Alert';
+import { useQuery, useLazyQuery, useMutation } from "@apollo/client";
+import { ADD_Expensetype_MUTATION, DELETE_Expensetype_MUTATION, GET_Expensetypes, GET_Expensetype_BY_ID, REMOVE_MULTIPLE_Expensetypes, UPDATE_Expensetype_MUTATION } from '@/graphql/expensetype/queries';
+
 const table_header = [
     { name: 'Expense Type' },
     { name: 'Status' },
@@ -18,14 +21,257 @@ const ideas = [
 ]
 
 export default function ExpenseTypeList() {
-    const [showDeleteMessage, setshowDeleteMessage] = useState(false);
+    const [search, setSearch] = useState("");
+    const [Selectedexpensetypes, setSelectedexpensetypes] = useState([]);
+    const [searchKeyword, setSearchKeyword] = useState('');
     const [quickEdit, setQuickEdit] = useState(false)
+    const [formType, setformType] = useState('')
+
+    const [showDeleteMessage, setshowDeleteMessage] = useState(false);
+    const [showDeletedMessage, setshowDeletedMessage] = useState(false);
+    const [showSuccessMessage, setshowSuccessMessage] = useState<boolean>(false);
+    const [showErrorMessage, setshowErrorMessage] = useState<boolean>(false);
+
     const cancelButtonRef = useRef(null)
 
+    const [expensetypeId, setExpensetypeId] = useState<number>()
+    const [expensetypeName, setExpensetypeName] = useState('')
+    const [expenseColor, setExpenseColor] = useState('')
+    const [mStatus, setmStatus] = useState('')
+
+
+    const [aError, setAError] = useState(false);
+    const [bError, setBError] = useState(false);
+
+
+
+    const [executeQuery, { loading, error, data: getQueryById }] = useLazyQuery(GET_Expensetype_BY_ID);
+    // const [fExecuteQuery, { loading: fLoading, error: fError, data: fData }] = useLazyQuery(GET_FILTERED_DIVISIONS);
+    const [createQuery, { loading: createQueryLoading, error: createQueryError }] = useMutation(ADD_Expensetype_MUTATION);
+    const [updateQuery, { loading: updateQueryLoading, error: updateQueryError }] = useMutation(UPDATE_Expensetype_MUTATION);
+    // const [deleteDivision, { loading: deleteDivisionLoading, error: deleteDivisionError }] = useMutation(DELETE_DIVISION_MUTATION);
+    const [removeQuery] = useMutation(DELETE_Expensetype_MUTATION);
+    const [removeMultipleQuery] = useMutation(REMOVE_MULTIPLE_Expensetypes);
+
+
+    const { loading: getAllDataLoading, error: getAllDataError, data: getAllData, refetch } = useQuery(GET_Expensetypes);
+    console.log("allData", getAllData);
+
+    let itemlist: any[] = [];
+
+    if (getAllData && getAllData.expensetypes) {
+        itemlist = getAllData.expensetypes.map((data: { id: any; type_name: any; color: any; status: any; }) => ({
+            id: data.id,
+            type_name: data.type_name,
+            color: data.color,
+            status: data.status,
+
+        }));
+    }
+
+    const handleDelete = async (type: string, Id: number) => {
+        console.log(Id);
+        if (type && type === 'one') {
+            try {
+                const response = await removeQuery({
+                    variables: { id: Id },
+                });
+                console.log(response.data);
+                setshowDeletedMessage(true)
+                refetch();
+            } catch (error) {
+                console.log(error);
+                setshowErrorMessage(true);
+            }
+        }
+    }
+
+    const handleButtonClick = (type: string, id: number) => {
+        setQuickEdit(true)
+        setformType(type)
+        console.log("id", id);
+        // Add your logic here
+        console.log("type", type);
+        if (type && type === 'update') {
+            setExpensetypeId(id)
+            console.log("expensetypeId", expensetypeId);
+        } else {
+
+            setExpensetypeName('');
+            setExpenseColor('');
+            setmStatus('');
+            setExpensetypeId(null);
+        }
+
+    };
+
+    useEffect(() => {
+        if (expensetypeId) {
+            console.log(expensetypeId);
+            executeQuery({ variables: { id: expensetypeId } });
+            console.log(getQueryById);
+        }
+    }, [expensetypeId]);
+
+    console.log(getQueryById);
+    useEffect(() => {
+        if (getQueryById && getQueryById.expensetype) {
+            const { expensetype } = getQueryById; // Destructure the division object
+            setExpensetypeName(expensetype.type_name);
+            setExpenseColor(expensetype.color);
+            setmStatus(expensetype.status);
+        }
+    }, [getQueryById]);
+
+    if (loading) return <p>Loading...</p>;
+    if (error) return <p>Error: {error.message}</p>;
+
+
+    const handleSubmit = async (e: { preventDefault: () => void }) => {
+        console.log('called');
+        (!expensetypeName) ? setAError(true) : setAError(false);
+        (!mStatus) ? setBError(true) : setBError(false);
+
+        if (aError == true || bError == true) {
+            return;
+        }
+        console.log('Submit');
+        e.preventDefault();
+        const currentDate = new Date();
+        const formattedDate = currentDate.toISOString();
+        if (expensetypeId != null && expensetypeId != undefined) { //Update division
+            try {
+                console.log('Try to submit')
+                console.log('expensetypeName', expensetypeName)
+                console.log('mStatus', mStatus)
+                const { data } = await updateQuery({
+                    variables: {
+                        updateExpensetypeInput: {
+                            id: expensetypeId,
+                            type_name: expensetypeName,
+                            status: mStatus,
+                        },
+                    },
+                });
+
+
+                setExpensetypeName('');
+                setExpenseColor('');
+                setmStatus('');
+
+                setshowSuccessMessage(true);
+                setshowErrorMessage(false);
+
+                console.log('showSuccessMessage', showSuccessMessage);
+                console.log('response', data);
+                // console.log('response', response.data);
+                setQuickEdit(false)
+                refetch();
+            } catch (error) {
+                setshowErrorMessage(true);
+
+                console.log('catchError', error);
+            }
+
+        } else { //Add division
+            try {
+                console.log('Try to submit')
+                console.log('expensetypeName', expensetypeName)
+                console.log('expenseColor', expenseColor)
+                console.log('mStatus', mStatus)
+                const { data: { createExpensetype: { id } } } = await createQuery({
+                    variables: {
+                        createExpensetypeInput: {
+                            type_name: expensetypeName,
+                            color: expenseColor,
+                            status: mStatus,
+                        },
+                    },
+                });
+                console.log('response', id);
+
+                setExpensetypeName('');
+                setExpenseColor('');
+                setmStatus('');
+
+
+                setshowSuccessMessage(true);
+                setshowErrorMessage(false);
+
+                console.log('showSuccessMessage', showSuccessMessage);
+                // console.log('response', data);
+                // console.log('response', response.data);
+                setQuickEdit(false)
+                refetch();
+            } catch (error) {
+                setshowErrorMessage(true);
+
+                console.log('catchError', error);
+            }
+        }
+
+        // console.log(category);
+
+
+    };
+
+    const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>, expensetypeId: string) => {
+        if (expensetypeId === 'all') {
+            if (event.target.checked) {
+                const allexpensetypeIds = itemlist.map(item => item.id);
+                setSelectedexpensetypes(allexpensetypeIds);
+            } else {
+                setSelectedexpensetypes([]);
+            }
+        } else {
+            if (event.target.checked) {
+                setSelectedexpensetypes(prevSelected => [...prevSelected, expensetypeId]);
+            } else {
+                setSelectedexpensetypes(prevSelected =>
+                    prevSelected.filter(id => id !== expensetypeId)
+                );
+            }
+        }
+    };
+    const handleDeletes = async () => {
+        console.log('Selectedexpensetypes', Selectedexpensetypes);
+        // selectedexpensetypeIds
+        try {
+            const response = await removeMultipleQuery({
+                variables: { ids: Selectedexpensetypes },
+            });
+            console.log(response.data);
+            setshowDeletedMessage(true)
+            refetch();
+        } catch (error) {
+            console.error('Error deleting divisions:', error);
+            // Handle error message or any further actions
+        }
+    };
+
+    const handleFilter = (keyword: React.SetStateAction<string>) => {
+        console.log('keyword', keyword);
+        setSearchKeyword(keyword)
+    };
+
+    const filteredData = search === "" ? itemlist : itemlist.filter((item: { type_name: string }) => {
+        const lowerSearch = search.toLowerCase();
+        return (item.type_name.toLowerCase().includes(lowerSearch));
+    });
     return (
         <div className=' w-full rounded px-2'>
             {showDeleteMessage && (
                 <Alert message="Are you sure you want to delete these Category(s)?" />
+            )}
+            {showSuccessMessage && (
+                // <Alert message="Division Added Successfully!" alertState={alertState} onAlertStateChange={handleAlertStateChange} />
+                <Alert message="Division Added Successfully!" />
+            )}
+            {showErrorMessage && (
+                <Alert message="Something went wrong!" />
+            )}
+            {showDeletedMessage && (
+                <Alert message="Division Deleted Successfully!" />
             )}
             <div className="rounded-t mb-4 px-4 bg-transparent">
                 <div className="flex flex-wrap items-center">
@@ -41,7 +287,6 @@ export default function ExpenseTypeList() {
                     <div className="py-2 align-middle sm:px-6 lg:px-8">
                         <div className="sm:flex sm:items-center">
                             <div className="sm:flex-auto">
-                                {/* <h1 className="text-base font-semibold leading-6 text-gray-900">My Logon Hours - Current Month</h1> */}
                                 <div className="lg:w-96 mt-1 flex rounded-md shadow-sm">
                                     <div className="relative flex flex-grow items-stretch focus-within:z-10">
                                         <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
@@ -53,6 +298,9 @@ export default function ExpenseTypeList() {
                                             id="email"
                                             className="block w-full rounded-none rounded-l-md border-0 py-1.5 pl-10 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                             placeholder="John Smith"
+                                            value={search}
+                                            onChange={(e) => setSearch(e.target.value)}
+                                        // onChange={(e) => handleFilter(e.target.value)}
                                         />
                                     </div>
                                     <button
@@ -64,14 +312,10 @@ export default function ExpenseTypeList() {
                                 </div>
                             </div>
                             <div className="mt-4 lg:ml-16 ml-0 sm:mt-0 sm:flex-none">
-
-
-                                <a onClick={() => setQuickEdit(true)}
+                                <a onClick={() => handleButtonClick('add', '')}
                                     className="block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                                >
-                                    Add Expense Type
+                                >Add Expense Type
                                 </a>
-
                             </div>
                         </div>
                         <div className="mt-8 flow-root">
@@ -83,17 +327,16 @@ export default function ExpenseTypeList() {
                                                 <tr>
                                                     <th scope="col" className="flex py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">
                                                         <input
-                                                            id="comments"
+                                                            id="selectAll"
                                                             aria-describedby="comments-description"
                                                             name="comments"
                                                             type="checkbox"
+                                                            onChange={event => handleCheckboxChange(event, 'all')}
                                                             className="mt-1 h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
                                                         />
-                                                        <TrashIcon className="h-6 w-6 text-gray-500" />
+                                                        <TrashIcon className="h-6 w-6 text-gray-500" onClick={handleDeletes} />
                                                     </th>
-
                                                     {table_header.map((val, index) => (
-
                                                         <th scope="col" key={index} className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">
                                                             {val.name}
                                                         </th>
@@ -101,21 +344,24 @@ export default function ExpenseTypeList() {
                                                 </tr>
                                             </thead>
                                             <tbody className="divide-y divide-gray-200 bg-white">
-                                                {ideas.map((person) => (
-                                                    <tr key={person.id}>
+                                                {filteredData.map((item) => (
+                                                    <tr key={item.id}>
                                                         <td className="whitespace-nowrap py-1 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
                                                             <input
                                                                 id="comments"
                                                                 aria-describedby="comments-description"
                                                                 name="comments"
                                                                 type="checkbox"
+                                                                onChange={event => handleCheckboxChange(event, item.id)}
+                                                                checked={Selectedexpensetypes.includes(item.id)}
+
                                                                 className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
                                                             />
                                                         </td>
                                                         <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
-                                                            {person.etype}
+                                                            {item.type_name}
                                                         </td>
-                                                        <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.estatus}</td>
+                                                        <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{item.status}</td>
                                                         <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">
                                                             <Menu as="div" className="relative inline-block text-left">
                                                                 <div>
@@ -137,10 +383,13 @@ export default function ExpenseTypeList() {
                                                                     <Menu.Items className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                                                                         <div className="py-1">
                                                                             <Menu.Item>
-                                                                                <a onClick={() => setQuickEdit(true)} className="bg-gray-100 text-gray-600 block px-4 py-2 text-sm">Edit</a>
+
+                                                                                <a onClick={() => handleButtonClick('update', item.id)} className="bg-gray-100 text-gray-600 block px-4 py-2 text-sm">Edit</a>
+
                                                                             </Menu.Item>
                                                                             <Menu.Item>
-                                                                                <a onClick={() => setshowDeleteMessage(true)} className="bg-gray-100 text-gray-600 block px-4 py-2 text-sm">Delete</a>
+                                                                                <a onClick={() => handleDelete('one', item.id)} className="bg-gray-100 text-gray-600 block px-4 py-2 text-sm">Delete</a>
+                                                                                {/* <a onClick={() => setshowDeleteMessage(true)} className="bg-gray-100 text-gray-600 block px-4 py-2 text-sm">Delete</a> */}
                                                                             </Menu.Item>
                                                                         </div>
                                                                     </Menu.Items>
@@ -195,9 +444,14 @@ export default function ExpenseTypeList() {
                                                                                                         type="email"
                                                                                                         name="email"
                                                                                                         id="email"
+                                                                                                        onChange={(e) => setExpensetypeName(e.target.value)}
+                                                                                                        value={expensetypeName}
+
                                                                                                         className="block w-full rounded-md border-0 py-1.5 pl-10 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                                                                                         placeholder="Expense Type Name"
                                                                                                     />
+                                                                                                    {aError && <p className="text-red-500 text-xs" >*Name is required</p>}
+
                                                                                                 </div>
                                                                                             </div>
 
@@ -206,6 +460,9 @@ export default function ExpenseTypeList() {
                                                                                                     <select
                                                                                                         id="location"
                                                                                                         name="location"
+                                                                                                        onChange={(e) => setmStatus(e.target.value)}
+                                                                                                        value={mStatus}
+
                                                                                                         className="px-2 mt-2 block w-full rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                                                                                         defaultValue="Canada"
                                                                                                     >
@@ -213,6 +470,8 @@ export default function ExpenseTypeList() {
                                                                                                         <option>Active</option>
                                                                                                         <option>Inactive</option>
                                                                                                     </select>
+                                                                                                    {bError && <p className="text-red-500 text-xs" >*Status is required</p>}
+
                                                                                                 </div>
                                                                                             </div>
 
@@ -222,8 +481,10 @@ export default function ExpenseTypeList() {
                                                                                                         <Bars3Icon className="h-5 w-5 text-gray-400" aria-hidden="true" />
                                                                                                     </div>
                                                                                                     <input
-                                                                                                        type="email"
+                                                                                                        type="text"
                                                                                                         name="email"
+                                                                                                        onChange={(e) => setExpenseColor(e.target.value)}
+                                                                                                        value={expenseColor}
                                                                                                         id="email"
                                                                                                         className="block w-full rounded-md border-0 py-1.5 pl-10 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                                                                                         placeholder="Color"
@@ -242,6 +503,7 @@ export default function ExpenseTypeList() {
                                                                             <div className="lg:mt-5 sm:flex sm:flex-row-reverse">
                                                                                 <button
                                                                                     type="button"
+                                                                                    onClick={handleSubmit}
                                                                                     className="ml-2 rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                                                                                 >
                                                                                     Save

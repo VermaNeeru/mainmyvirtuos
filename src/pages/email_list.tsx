@@ -5,6 +5,9 @@ import Link from 'next/link';
 import { Dialog, Menu, Transition } from '@headlessui/react'
 import { XMarkIcon, ChevronDownIcon, TrashIcon, DocumentArrowDownIcon } from '@heroicons/react/20/solid'
 import Alert from '@/components/Alert';
+import { useQuery, useLazyQuery, useMutation } from "@apollo/client";
+import { DELETE_Template_MUTATION, GET_Templates, REMOVE_MULTIPLE_Templates } from '@/graphql/EmailTemplate/queries';
+
 const table_header = [
     { name: 'Template Name' },
     { name: 'Template Subject' },
@@ -23,14 +26,101 @@ const modules = [
 ]
 
 export default function EmailList() {
-    const [showDeleteMessage, setshowDeleteMessage] = useState(false);
+    const [search, setSearch] = useState("");
     const [quickEdit, setQuickEdit] = useState(false)
     const cancelButtonRef = useRef(null)
+    const [showDeletedMessage, setshowDeletedMessage] = useState(false);
+    const [SelectedTemplates, setSelectedTemplates] = useState([]);
+    const [showErrorMessage, setshowErrorMessage] = useState<boolean>(false);
+    const [searchKeyword, setSearchKeyword] = useState('');
 
+    const [removeQuery] = useMutation(DELETE_Template_MUTATION);
+    const [removeMultipleQuery] = useMutation(REMOVE_MULTIPLE_Templates);
+
+    const { loading: getAllDataLoading, error: getAllDataError, data: getAllData, refetch } = useQuery(GET_Templates);
+    console.log("allData", getAllData);
+
+    let itemlist: any[] = [];
+
+    if (getAllData && getAllData.templates) {
+        itemlist = getAllData.templates.map((data: { id: any; template_name: any; status: any; }) => ({
+            id: data.id,
+            template_name: data.template_name,
+            template_type: data.template_type,
+            template_status: data.template_status,
+            template_subject: data.template_subject,
+            template_constant: data.template_constant,
+            template_description: data.template_description,
+
+        }));
+    }
+
+    const handleDelete = async (type: string, Id: number) => {
+        console.log(Id);
+        if (type && type === 'one') {
+            try {
+                const response = await removeQuery({
+                    variables: { id: Id },
+                });
+                console.log(response.data);
+                setshowDeletedMessage(true)
+                refetch();
+            } catch (error) {
+                console.log(error);
+                setshowErrorMessage(true);
+            }
+        }
+    }
+
+    const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>, templateId: string) => {
+        if (templateId === 'all') {
+            if (event.target.checked) {
+                const alltemplateIds = itemlist.map(item => item.id);
+                setSelectedTemplates(alltemplateIds);
+            } else {
+                setSelectedTemplates([]);
+            }
+        } else {
+            if (event.target.checked) {
+                setSelectedTemplates(prevSelected => [...prevSelected, templateId]);
+            } else {
+                setSelectedTemplates(prevSelected =>
+                    prevSelected.filter(id => id !== templateId)
+                );
+            }
+        }
+    };
+    const handleDeletes = async () => {
+        console.log('SelectedTemplates', SelectedTemplates);
+        // selectedTemplateIds
+        try {
+            const response = await removeMultipleQuery({
+                variables: { ids: SelectedTemplates },
+            });
+            console.log(response.data);
+            setshowDeletedMessage(true)
+            refetch();
+        } catch (error) {
+            console.error('Error deleting divisions:', error);
+            // Handle error message or any further actions
+        }
+    };
+
+
+
+    const handleFilter = (keyword: React.SetStateAction<string>) => {
+        console.log('keyword', keyword);
+        setSearchKeyword(keyword)
+    };
+
+    const filteredData = search === "" ? itemlist : itemlist.filter((item: { template_name: string }) => {
+        const lowerSearch = search.toLowerCase();
+        return (item.template_name.toLowerCase().includes(lowerSearch));
+    });
     return (
         <div className=' w-full rounded px-2'>
-            {showDeleteMessage && (
-                <Alert message="Are you sure you want to delete these Category(s)?" />
+            {showDeletedMessage && (
+                <Alert message="Template Deleted Successfully!" />
             )}
             <div className="rounded-t mb-4 px-4 bg-transparent">
                 <div className="flex flex-wrap items-center">
@@ -57,6 +147,9 @@ export default function EmailList() {
                                             id="email"
                                             className="block w-full rounded-none rounded-l-md border-0 py-1.5 pl-10 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                             placeholder="John Smith"
+                                            value={search}
+                                            onChange={(e) => setSearch(e.target.value)}
+                                        // onChange={(e) => handleFilter(e.target.value)}
                                         />
                                     </div>
                                     <button
@@ -86,17 +179,16 @@ export default function EmailList() {
                                                 <tr>
                                                     <th scope="col" className="flex py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">
                                                         <input
-                                                            id="comments"
+                                                            id="selectAll"
                                                             aria-describedby="comments-description"
                                                             name="comments"
                                                             type="checkbox"
+                                                            onChange={event => handleCheckboxChange(event, 'all')}
                                                             className="mt-1 h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
                                                         />
-                                                        <TrashIcon className="h-6 w-6 text-gray-500" />
+                                                        <TrashIcon className="h-6 w-6 text-gray-500" onClick={handleDeletes} />
                                                     </th>
-
                                                     {table_header.map((val, index) => (
-
                                                         <th scope="col" key={index} className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">
                                                             {val.name}
                                                         </th>
@@ -104,21 +196,24 @@ export default function EmailList() {
                                                 </tr>
                                             </thead>
                                             <tbody className="divide-y divide-gray-200 bg-white">
-                                                {modules.map((person) => (
-                                                    <tr key={person.id}>
+                                                {filteredData.map((item) => (
+                                                    <tr key={item.id}>
                                                         <td className="whitespace-nowrap py-1 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
                                                             <input
                                                                 id="comments"
                                                                 aria-describedby="comments-description"
                                                                 name="comments"
                                                                 type="checkbox"
+                                                                onChange={event => handleCheckboxChange(event, item.id)}
+                                                                checked={SelectedTemplates.includes(item.id)}
+
                                                                 className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
                                                             />
                                                         </td>
-                                                        <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.tname}</td>
-                                                        <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.tsubject}</td>
-                                                        <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.ttype}</td>
-                                                        <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.status}</td>
+                                                        <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{item.template_name}</td>
+                                                        <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{item.template_subject}</td>
+                                                        <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{item.template_type}</td>
+                                                        <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{item.template_status}</td>
                                                         <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">
                                                             <Menu as="div" className="relative inline-block text-left">
                                                                 <div>
@@ -140,12 +235,13 @@ export default function EmailList() {
                                                                     <Menu.Items className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                                                                         <div className="py-1">
                                                                             <Menu.Item>
-                                                                                <Link href="/email" >
-                                                                                    <span className="bg-gray-100 text-gray-600 block px-4 py-2 text-sm">Edit</span>
-                                                                                </Link>
+
+                                                                                <Link href={`/edit_email/${item.id}`} className="bg-gray-100 text-gray-600 block px-4 py-2 text-sm">Edit</Link>
+
                                                                             </Menu.Item>
                                                                             <Menu.Item>
-                                                                                <a onClick={() => setshowDeleteMessage(true)} className="bg-gray-100 text-gray-600 block px-4 py-2 text-sm">Delete</a>
+                                                                                <a onClick={() => handleDelete('one', item.id)} className="bg-gray-100 text-gray-600 block px-4 py-2 text-sm">Delete</a>
+                                                                                {/* <a onClick={() => setshowDeleteMessage(true)} className="bg-gray-100 text-gray-600 block px-4 py-2 text-sm">Delete</a> */}
                                                                             </Menu.Item>
                                                                         </div>
                                                                     </Menu.Items>

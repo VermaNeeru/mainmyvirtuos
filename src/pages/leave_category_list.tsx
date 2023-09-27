@@ -5,12 +5,16 @@ import Link from 'next/link';
 import { Dialog, Menu, Transition } from '@headlessui/react'
 import { XMarkIcon, ChevronDownIcon, TrashIcon } from '@heroicons/react/20/solid'
 import Alert from '@/components/Alert';
+import { useQuery, useLazyQuery, useMutation } from "@apollo/client";
+import { ADD_Leavetype_MUTATION, DELETE_Leavetype_MUTATION, GET_Leavetypes, GET_Leavetype_BY_ID, REMOVE_MULTIPLE_Leavetypes, UPDATE_Leavetype_MUTATION } from '@/graphql/LeaveType/queries';
+
 const table_header = [
     { name: 'Leave Name' },
     { name: 'Leave Code' },
     { name: 'Description' },
     { name: 'Role' },
-    { name: 'Status' },
+    { name: 'Encashable' },
+    { name: 'Carry Forwarded' },
     { name: 'Action' },
 ];
 const ideas = [
@@ -21,14 +25,129 @@ const ideas = [
 ]
 
 export default function LeaveCategoryList() {
-    const [showDeleteMessage, setshowDeleteMessage] = useState(false);
+    const [search, setSearch] = useState("");
+    const [SelectedLeavetypes, setSelectedLeavetypes] = useState([]);
+    const [searchKeyword, setSearchKeyword] = useState('');
     const [quickEdit, setQuickEdit] = useState(false)
+    const [formType, setformType] = useState('')
+
+    const [showDeleteMessage, setshowDeleteMessage] = useState(false);
+    const [showDeletedMessage, setshowDeletedMessage] = useState(false);
+    const [showSuccessMessage, setshowSuccessMessage] = useState<boolean>(false);
+    const [showErrorMessage, setshowErrorMessage] = useState<boolean>(false);
+
     const cancelButtonRef = useRef(null)
 
+    const [leavetypeId, setLeavetypeId] = useState<number>()
+    const [leavetypeName, setLeavetypeName] = useState('')
+    const [mStatus, setmStatus] = useState('')
+
+    const [aError, setAError] = useState(false);
+    const [bError, setBError] = useState(false);
+
+    const [executeQuery, { loading, error, data: getQueryById }] = useLazyQuery(GET_Leavetype_BY_ID);
+    // const [fExecuteQuery, { loading: fLoading, error: fError, data: fData }] = useLazyQuery(GET_FILTERED_DIVISIONS);
+    const [createQuery, { loading: createQueryLoading, error: createQueryError }] = useMutation(ADD_Leavetype_MUTATION);
+    const [updateQuery, { loading: updateQueryLoading, error: updateQueryError }] = useMutation(UPDATE_Leavetype_MUTATION);
+    // const [deleteDivision, { loading: deleteDivisionLoading, error: deleteDivisionError }] = useMutation(DELETE_DIVISION_MUTATION);
+    const [removeQuery] = useMutation(DELETE_Leavetype_MUTATION);
+    const [removeMultipleQuery] = useMutation(REMOVE_MULTIPLE_Leavetypes);
+
+    const { loading: getAllDataLoading, error: getAllDataError, data: getAllData, refetch } = useQuery(GET_Leavetypes);
+    console.log("allData", getAllData);
+
+    let itemlist: any[] = [];
+
+    if (getAllData && getAllData.leavetypes) {
+        itemlist = getAllData.leavetypes.map((data) => ({
+            id: data.id,
+            leave_color: data.leave_color,
+            leave_type_name: data.leave_type_name,
+            leave_type_code: data.leave_type_code,
+            leave_type_role: data.leave_type_role,
+            leave_type_description: data.leave_type_description,
+            encashable: data.encashable,
+            carry_forwarded: data.carry_forwarded,
+
+        }));
+    }
+
+    const handleDelete = async (type: string, Id: number) => {
+        console.log(Id);
+        if (type && type === 'one') {
+            try {
+                const response = await removeQuery({
+                    variables: { id: Id },
+                });
+                console.log(response.data);
+                setshowDeletedMessage(true)
+                refetch();
+            } catch (error) {
+                console.log(error);
+                setshowErrorMessage(true);
+            }
+        }
+    }
+
+    const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>, leavetypeId: string) => {
+        if (leavetypeId === 'all') {
+            if (event.target.checked) {
+                const allleavetypeIds = itemlist.map(item => item.id);
+                setSelectedLeavetypes(allleavetypeIds);
+            } else {
+                setSelectedLeavetypes([]);
+            }
+        } else {
+            if (event.target.checked) {
+                setSelectedLeavetypes(prevSelected => [...prevSelected, leavetypeId]);
+            } else {
+                setSelectedLeavetypes(prevSelected =>
+                    prevSelected.filter(id => id !== leavetypeId)
+                );
+            }
+        }
+    };
+    const handleDeletes = async () => {
+        console.log('SelectedLeavetypes', SelectedLeavetypes);
+        // selectedLeavetypeIds
+        try {
+            const response = await removeMultipleQuery({
+                variables: { ids: SelectedLeavetypes },
+            });
+            console.log(response.data);
+            setshowDeletedMessage(true)
+            refetch();
+        } catch (error) {
+            console.error('Error deleting divisions:', error);
+            // Handle error message or any further actions
+        }
+    };
+
+
+
+    const handleFilter = (keyword: React.SetStateAction<string>) => {
+        console.log('keyword', keyword);
+        setSearchKeyword(keyword)
+    };
+
+    const filteredData = search === "" ? itemlist : itemlist.filter((item: { leave_type_name: string }) => {
+        const lowerSearch = search.toLowerCase();
+        return (item.leave_type_name.toLowerCase().includes(lowerSearch));
+    });
     return (
         <div className=' w-full rounded px-2'>
             {showDeleteMessage && (
                 <Alert message="Are you sure you want to delete these Category(s)?" />
+            )}
+            {showSuccessMessage && (
+                // <Alert message="Division Added Successfully!" alertState={alertState} onAlertStateChange={handleAlertStateChange} />
+                <Alert message="Leavetype Added Successfully!" />
+            )}
+            {showErrorMessage && (
+                <Alert message="Something went wrong!" />
+            )}
+            {showDeletedMessage && (
+                <Alert message="Leavetype Deleted Successfully!" />
             )}
             <div className="rounded-t mb-4 px-4 bg-transparent">
                 <div className="flex flex-wrap items-center">
@@ -44,7 +163,6 @@ export default function LeaveCategoryList() {
                     <div className="py-2 align-middle sm:px-6 lg:px-8">
                         <div className="sm:flex sm:items-center">
                             <div className="sm:flex-auto">
-                                {/* <h1 className="text-base font-semibold leading-6 text-gray-900">My Logon Hours - Current Month</h1> */}
                                 <div className="lg:w-96 mt-1 flex rounded-md shadow-sm">
                                     <div className="relative flex flex-grow items-stretch focus-within:z-10">
                                         <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
@@ -56,6 +174,9 @@ export default function LeaveCategoryList() {
                                             id="email"
                                             className="block w-full rounded-none rounded-l-md border-0 py-1.5 pl-10 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                             placeholder="John Smith"
+                                            value={search}
+                                            onChange={(e) => setSearch(e.target.value)}
+                                        // onChange={(e) => handleFilter(e.target.value)}
                                         />
                                     </div>
                                     <button
@@ -86,17 +207,16 @@ export default function LeaveCategoryList() {
                                                 <tr>
                                                     <th scope="col" className="flex py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">
                                                         <input
-                                                            id="comments"
-
+                                                            id="selectAll"
+                                                            aria-describedby="comments-description"
                                                             name="comments"
                                                             type="checkbox"
+                                                            onChange={event => handleCheckboxChange(event, 'all')}
                                                             className="mt-1 h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
                                                         />
-                                                        <TrashIcon className="h-6 w-6 text-gray-500" />
+                                                        <TrashIcon className="h-6 w-6 text-gray-500" onClick={handleDeletes} />
                                                     </th>
-
                                                     {table_header.map((val, index) => (
-
                                                         <th scope="col" key={index} className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">
                                                             {val.name}
                                                         </th>
@@ -104,24 +224,28 @@ export default function LeaveCategoryList() {
                                                 </tr>
                                             </thead>
                                             <tbody className="divide-y divide-gray-200 bg-white">
-                                                {ideas.map((person) => (
-                                                    <tr key={person.id}>
+                                                {filteredData.map((item) => (
+                                                    <tr key={item.id}>
                                                         <td className="whitespace-nowrap py-1 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
                                                             <input
                                                                 id="comments"
-
+                                                                aria-describedby="comments-description"
                                                                 name="comments"
                                                                 type="checkbox"
+                                                                onChange={event => handleCheckboxChange(event, item.id)}
+                                                                checked={SelectedLeavetypes.includes(item.id)}
+
                                                                 className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
                                                             />
                                                         </td>
                                                         <td className="whitespace-nowrap py-2 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
-                                                            {person.lname}
+                                                            {item.leave_type_name}
                                                         </td>
-                                                        <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.lcode}</td>
-                                                        <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.desc}</td>
-                                                        <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.role}</td>
-                                                        <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.lstatus}</td>
+                                                        <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{item.leave_type_code}</td>
+                                                        <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{item.leave_type_description}</td>
+                                                        <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{item.leave_type_role}</td>
+                                                        <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{item.encashable}</td>
+                                                        <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{item.carry_forwarded}</td>
                                                         <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">
                                                             <Menu as="div" className="relative inline-block text-left">
                                                                 <div>
@@ -143,12 +267,12 @@ export default function LeaveCategoryList() {
                                                                     <Menu.Items className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                                                                         <div className="py-1">
                                                                             <Menu.Item>
-                                                                                <Link href="/add_leave_category">
+                                                                                <Link href={`/edit_leave_category/${item.id}`}>
                                                                                     <span className="bg-gray-100 text-gray-600 block px-4 py-2 text-sm">Edit</span>
                                                                                 </Link>
                                                                             </Menu.Item>
                                                                             <Menu.Item>
-                                                                                <a onClick={() => setshowDeleteMessage(true)} className="bg-gray-100 text-gray-600 block px-4 py-2 text-sm">Delete</a>
+                                                                                <a onClick={() => handleDelete('one', item.id)} className="bg-gray-100 text-gray-600 block px-4 py-2 text-sm">Delete</a>
                                                                             </Menu.Item>
                                                                         </div>
                                                                     </Menu.Items>
