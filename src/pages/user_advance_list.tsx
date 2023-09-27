@@ -1,10 +1,15 @@
 import React, { Fragment, useState, useRef, useEffect } from 'react'
-import { PhotoIcon, UserCircleIcon } from '@heroicons/react/24/solid'
+import { ExclamationTriangleIcon, BarsArrowUpIcon, MagnifyingGlassIcon, ComputerDesktopIcon } from '@heroicons/react/20/solid'
+import Link from 'next/link';
 import { Dialog, Menu, Transition } from '@headlessui/react'
-import { XMarkIcon, ChevronDownIcon } from '@heroicons/react/20/solid'
+import { XMarkIcon, ChevronDownIcon, TrashIcon } from '@heroicons/react/20/solid'
+
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import Link from 'next/link';
+
+import { useQuery, useLazyQuery, useMutation } from "@apollo/client";
+import { DELETE_Otherexpense_MUTATION, GET_Otherexpenses, REMOVE_MULTIPLE_Otherexpenses, UPDATE_Otherexpense_MUTATION } from '@/graphql/Otherexpense/queries';
+import Alert from '@/components/Alert';
 
 const table_header = [
     { name: 'Month' },
@@ -23,14 +28,116 @@ const accounts_travel = [
 export default function UserAdvanceList() {
     const [selectedYear, setSelectedYear] = useState<Date | null>(null);
 
+    const [trDetail, setTrDetail] = useState(false)
+    // const cancelButtonRef = useRef(null)
+    const [search, setSearch] = useState("");
+    const [quickEdit, setQuickEdit] = useState(false)
+    const cancelButtonRef = useRef(null)
+    const [showDeletedMessage, setshowDeletedMessage] = useState(false);
+    const [showUpdatedMessage, setshowUpdatedMessage] = useState(false);
+    const [SelectedOtherexpenses, setSelectedOtherexpenses] = useState([]);
+    const [showErrorMessage, setshowErrorMessage] = useState<boolean>(false);
+    const [searchKeyword, setSearchKeyword] = useState('');
+    const [userId, setUserId] = useState(2);
+
     const handleYearChange = (date: Date) => {
         setSelectedYear(date);
     };
-    const [trDetail, setTrDetail] = useState(false)
-    const cancelButtonRef = useRef(null)
+
+    const [removeQuery] = useMutation(DELETE_Otherexpense_MUTATION);
+    const [removeMultipleQuery] = useMutation(REMOVE_MULTIPLE_Otherexpenses);
+
+    const { loading: getAllDataLoading, error: getAllDataError, data: getAllData, refetch } = useQuery(GET_Otherexpenses);
+    console.log("allData", getAllData);
+
+    let itemlist: any[] = [];
+
+    if (getAllData && getAllData.otherexpenses) {
+        itemlist = getAllData.otherexpenses.map((data: { id: any; expense_type: any; expense_date: any; expense_amount: any; notes: any; details: any; drive_link: any; account_approval: any; amount_approved: any; amount_requested: any; user: { firstname: any; lastname: any; }; status: any; }) => ({
+            id: data.id,
+            expense_type: data.expense_type,
+            expense_date: data.expense_date,
+            expense_amount: data.expense_amount,
+            notes: data.notes,
+            details: data.details,
+            drive_link: data.drive_link,
+            account_approval: data.account_approval,
+            amount_approved: data.amount_approved,
+            amount_requested: data.amount_requested,
+            firstname: data.user.firstname,
+            lastname: data.user.lastname,
+            status: data.status,
+
+        }));
+    }
+
+    const handleDelete = async (type: string, Id: number) => {
+        console.log(Id);
+        if (type && type === 'one') {
+            try {
+                const response = await removeQuery({
+                    variables: { id: Id },
+                });
+                console.log(response.data);
+                setshowDeletedMessage(true)
+                refetch();
+            } catch (error) {
+                console.log(error);
+                setshowErrorMessage(true);
+            }
+        }
+    }
+
+    const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>, otherexpenseId: string) => {
+        if (otherexpenseId === 'all') {
+            if (event.target.checked) {
+                const allotherexpenseIds = itemlist.map(item => item.id);
+                setSelectedOtherexpenses(allotherexpenseIds);
+            } else {
+                setSelectedOtherexpenses([]);
+            }
+        } else {
+            if (event.target.checked) {
+                setSelectedOtherexpenses(prevSelected => [...prevSelected, otherexpenseId]);
+            } else {
+                setSelectedOtherexpenses(prevSelected =>
+                    prevSelected.filter(id => id !== otherexpenseId)
+                );
+            }
+        }
+    };
+    const handleDeletes = async () => {
+        console.log('SelectedOtherexpenses', SelectedOtherexpenses);
+        // selectedOtherexpenseIds
+        try {
+            const response = await removeMultipleQuery({
+                variables: { ids: SelectedOtherexpenses },
+            });
+            console.log(response.data);
+            setshowDeletedMessage(true)
+            refetch();
+        } catch (error) {
+            console.error('Error deleting divisions:', error);
+            // Handle error message or any further actions
+        }
+    };
+
+    const filteredData = search === "" ? itemlist : itemlist.filter((item: { expense_date: string }) => {
+        const lowerSearch = search.toLowerCase();
+        return (item.expense_date.toLowerCase().includes(lowerSearch));
+    });
 
     return (
         <div className=' w-full rounded px-2'>
+            {showDeletedMessage && (
+                <Alert message="Travel Request Deleted Successfully!" />
+            )}
+            {showUpdatedMessage && (
+                <Alert message="Travel Request Updated Successfully!" />
+            )}
+            {showErrorMessage && (
+                <Alert message="Something went wrong!" />
+            )}
             <div className="rounded-t mb-4 px-4 bg-transparent">
                 <div className="flex flex-wrap items-center">
                     <div className="relative w-full max-w-full flex-grow flex-1">
@@ -80,46 +187,17 @@ export default function UserAdvanceList() {
                         <table className="min-w-full divide-y divide-gray-300">
                             <thead className="bg-gray-50">
                                 <tr>
-                                    {/* <th>  <h4> Advances of Year 2023</h4></th> */}
-                                    <th colSpan={5}>
-
-                                        <div className='flex flex-col lg:flex-row lg:items-center w-full lg:justify-around'>
-                                            <h4 className='text-left ml-4 lg:ml-10 lg:w-2/3'> Advances of Year 2023</h4>
-                                            {/* <div className="col-span-1"></div>
-                                            <div className="col-span-1"></div> */}
-                                            <div className='flex justify-left lg:w-1/3  mt-2 ml-2'>
-                                                <div >
-                                                    <Link href="/view_faq" >
-                                                        <span
-                                                            className="xs:w-16 block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                                                        >
-                                                            FAQ
-                                                        </span>
-                                                    </Link>
-                                                </div>
-                                                <div className="col-span-1">
-                                                    <a onClick={() => setTrDetail(true)}  >
-                                                        <span
-                                                            className="ml-2 w-30 block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                                                        >
-                                                            Request Advance
-                                                        </span>
-                                                    </a>
-                                                </div>
-                                                <div className="col-span-1">
-                                                    <Link href="/add_other_expense" >
-                                                        <span
-                                                            className="ml-2 w-30 block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                                                        >
-                                                            New Expense
-                                                        </span>
-                                                    </Link>
-                                                </div>
-                                            </div>
-                                        </div>
+                                    <th scope="col" className="flex py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">
+                                        <input
+                                            id="selectAll"
+                                            aria-describedby="comments-description"
+                                            name="comments"
+                                            type="checkbox"
+                                            onChange={event => handleCheckboxChange(event, 'all')}
+                                            className="mt-1 h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
+                                        />
+                                        <TrashIcon className="h-6 w-6 text-gray-500" onClick={handleDeletes} />
                                     </th>
-                                </tr>
-                                <tr>
                                     {table_header.map((val, index) => (
                                         <th scope="col" key={index} className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">
                                             {val.name}
@@ -128,15 +206,26 @@ export default function UserAdvanceList() {
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-gray-200 bg-white">
-                                {accounts_travel.map((person) => (
-                                    <tr key={person.id}>
-                                        <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
-                                            {person.month}
+                                {filteredData.map((item) => (
+                                    <tr key={item.id}>
+                                        <td className="whitespace-nowrap py-1 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
+                                            <input
+                                                id="comments"
+                                                aria-describedby="comments-description"
+                                                name="comments"
+                                                type="checkbox"
+                                                onChange={event => handleCheckboxChange(event, item.id)}
+                                                checked={SelectedOtherexpenses.includes(item.id)}
+                                                className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
+                                            />
                                         </td>
-                                        <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.total_advance_req}</td>
-                                        <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.total_advance_approved}</td>
-                                        <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.total_expenses}</td>
-                                        <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.status}</td>
+                                        <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">
+                                            {new Date(item.expense_date).toLocaleString('default', { month: 'long' })}
+                                        </td>
+                                        <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{item.amount_requested}</td>
+                                        <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{item.amount_approved}</td>
+                                        <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{item.expense_amount}</td>
+                                        <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{item.status}</td>
                                     </tr>
                                 ))}
                             </tbody>

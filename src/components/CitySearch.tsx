@@ -1,15 +1,15 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { PhotoIcon, UserCircleIcon } from '@heroicons/react/24/solid'
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
 import { Combobox } from '@headlessui/react'
-export default function CitySearch() {
+export default function CitySearch({ onCityValueChange }: any) {
     const city = [
         { id: 1, name: 'Delhi' },
-        { id: 1, name: 'Gurgaon' },
-        { id: 1, name: 'Kanpur' },
-        { id: 1, name: 'Mumbai' },
-        { id: 1, name: 'Pune' },
-        { id: 1, name: 'Bangalore' },
+        { id: 2, name: 'Gurgaon' },
+        { id: 3, name: 'Kanpur' },
+        { id: 4, name: 'Mumbai' },
+        { id: 5, name: 'Pune' },
+        { id: 6, name: 'Bangalore' },
 
         // More users...
     ]
@@ -28,6 +28,12 @@ export default function CitySearch() {
             : city.filter((ct) => {
                 return ct.name.toLowerCase().includes(query.toLowerCase())
             })
+
+    useEffect(() => {
+        console.log(selectedCity)
+        onCityValueChange(selectedCity);
+    }, [selectedCity])
+
     return (
         <div>
             <Combobox as="div" value={selectedCity} onChange={setSelectedCity}>
