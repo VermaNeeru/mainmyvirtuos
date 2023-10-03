@@ -162,7 +162,6 @@ export default function AddTravelReq() {
             setShowAssistanceType(false);
             setShowTravelModeDetail1(false);
             setShowTravelModeDetail2(true);
-            setShowTripType(false);
         } else if (selected.name === 'OutStation') {
             setShowAssistanceType(true);
             setShowTravelModeBox1(true);
@@ -241,7 +240,6 @@ export default function AddTravelReq() {
             console.log('TravelAdvanceAmount', TravelAdvanceAmount)
             console.log('TravelAmountApproved', TravelAmountApproved)
             console.log('TravelAssistanceType', travelAssistanceType)
-            console.log('tripType', tripType)
             console.log('userId', userId)
             const { data: { createTravelrequest: { id: travelId } } } = await createQuery({
                 variables: {
@@ -260,12 +258,23 @@ export default function AddTravelReq() {
                 },
             });
 
+            // travel_name: TravelName,
+            // travel_type: selected.name,
+            // travel_status: TravelStatus,
+            // travel_mode: TravelMode,
+            // travel_notes: TravelNotes,
+            // travel_purpose: selectedTP.name,
+            // travel_assistance: TravelAssistance,
+            // travel_approved_by: userId,
+            // distance: TravelDistance,
+            // advance_amount: TravelAdvanceAmount,
+            // amount_approved: TravelAmountApproved,
+            // assistance_type: TravelAssistanceType
             console.log('response', travelId);
             console.log('startDate', startDate);
             console.log('listItems count', listItems.length);
 
             if (selected.name == 'Local/Delhi/NCR') {
-                console.log('Local/Delhi/NCR');
                 for (const index in listItems) {
                     const fromAddress = listItems[index].fromAddress;
                     const toAddress = listItems[index].toAddress;
@@ -295,7 +304,6 @@ export default function AddTravelReq() {
 
             }
             if (listItems.length > 1) {
-                console.log('listItems.length', listItems.length);
                 for (const index in listItems) {
                     console.log('List Item ID:', index);
                     const fromAddress = listItems[index].fromAddress;
@@ -306,7 +314,6 @@ export default function AddTravelReq() {
                     console.log('flightPreferenceTo', selectedFA2);
                     // Use the createTravelDate mutation to add addresses to the database
                     if (travelAssistanceType1 == 'Flight' && tripType == 'Multicity') {
-                        console.log('Flight && Multicity');
                         const preferencefrom = (selectedFA.name == 'Choose Flight Preference') ? '' : selectedFA.name;
                         const preferenceto = (selectedFA2.name == 'Choose Flight Preference') ? '' : selectedFA2.name;
                         const { data: { createTraveldate: { id: travelDateId } } } = await createQueryTD({
@@ -325,7 +332,6 @@ export default function AddTravelReq() {
                         console.log('Travel Date ID:', travelDateId);
                     }
                     if (travelAssistanceType1 == 'Flight + Hotel' && tripType == 'Multicity') {
-                        console.log('Flight + Hotel && Multicity');
                         const preferencefrom = (selectedFA.name == 'Choose Flight Preference') ? '' : selectedFA.name;
                         const preferenceto = (selectedFA2.name == 'Choose Flight Preference') ? '' : selectedFA2.name;
                         const { data: { createTraveldate: { id: travelDateId } } } = await createQueryTD({
@@ -360,7 +366,6 @@ export default function AddTravelReq() {
 
                 }
             } else {
-                console.log('else');
                 for (const index in listItems) {
                     const fromAddress = listItems[index].fromAddress;
                     const toAddress = listItems[index].toAddress;
@@ -369,7 +374,7 @@ export default function AddTravelReq() {
                     console.log('flightPreferenceFrom', selectedFA);
                     console.log('flightPreferenceTo', selectedFA2);
                     if (travelAssistanceType1 == 'Flight' && tripType == 'Round Trip') {
-                        console.log('Flight  && Round Trip');
+
                         const preferencefrom = (selectedFA.name == 'Choose Flight Preference') ? '' : selectedFA.name;
                         const preferenceto = (selectedFA2.name == 'Choose Flight Preference') ? '' : selectedFA2.name;
                         const { data: { createTraveldate: { id: travelDateId } } } = await createQueryTD({
@@ -404,7 +409,6 @@ export default function AddTravelReq() {
                     }
 
                     if (travelAssistanceType1 == 'Flight' && tripType == 'One Way') {
-                        console.log('Flight  && One Way');
                         const preferencefrom = (selectedFA.name == 'Choose Flight Preference') ? '' : selectedFA.name;
                         const preferenceto = (selectedFA2.name == 'Choose Flight Preference') ? '' : selectedFA2.name;
                         const { data: { createTraveldate: { id: travelDateId } } } = await createQueryTD({
@@ -426,7 +430,6 @@ export default function AddTravelReq() {
                 }
 
                 if (travelAssistanceType1 == 'Hotel') {
-                    console.log('Hotel');
                     const preferencefrom = (selectedFA.name == 'Choose Flight Preference') ? '' : selectedFA.name;
                     const preferenceto = (selectedFA2.name == 'Choose Flight Preference') ? '' : selectedFA2.name;
                     const { data: { createTraveldate: { id: travelDateId } } } = await createQueryTD({
@@ -457,9 +460,7 @@ export default function AddTravelReq() {
                 }
 
                 if (travelAssistanceType1 == 'Flight + Hotel') {
-                    console.log('Flight + Hotel');
                     if (tripType == 'One Way') {
-                        console.log('One Way');
                         const preferencefrom = (selectedFA.name == 'Choose Flight Preference') ? '' : selectedFA.name;
                         const preferenceto = (selectedFA2.name == 'Choose Flight Preference') ? '' : selectedFA2.name;
                         const { data: { createTraveldate: { id: travelDateId } } } = await createQueryTD({
@@ -489,7 +490,6 @@ export default function AddTravelReq() {
                         console.log('Travel Hotel ID:', travelHotelId);
                     }
                     if (tripType == 'Round Trip') {
-                        console.log('Round Trip');
                         const preferencefrom = (selectedFA.name == 'Choose Flight Preference') ? '' : selectedFA.name;
                         const preferenceto = (selectedFA2.name == 'Choose Flight Preference') ? '' : selectedFA2.name;
                         const { data: { createTraveldate: { id: travelDateId } } } = await createQueryTD({
@@ -540,7 +540,6 @@ export default function AddTravelReq() {
 
                 }
                 if (travelAssistanceType == 'Self Booking') {
-                    console.log('Self Booking');
                     for (const index in listItems) {
                         const fromAddress = listItems[index].fromAddress;
                         const toAddress = listItems[index].toAddress;
@@ -831,7 +830,7 @@ export default function AddTravelReq() {
                                             />
                                         </div>
                                     </div>
-                                    <div className="sm:col-span-1" style={{ display: showTravelMode ? 'grid' : 'none' }}>
+                                    <div className="sm:col-span-1" style={{ display: showTravelMode ? 'block' : 'none' }}>
                                         <div className="relative mt-2 rounded-md shadow-sm">
                                             <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
                                                 <TruckIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
@@ -870,7 +869,7 @@ export default function AddTravelReq() {
                                             </select>
                                         </div>
                                     </div>
-                                    <div className="sm:col-span-1" style={{ display: showAssistanceType ? 'grid' : 'none' }}>
+                                    <div className="sm:col-span-1" style={{ display: showAssistanceType ? 'block' : 'none' }}>
                                         <div className="relative mt-2 rounded-md shadow-sm">
                                             <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
                                                 <TruckIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
@@ -889,7 +888,7 @@ export default function AddTravelReq() {
                                             </select>
                                         </div>
                                     </div>
-                                    <div className="sm:col-span-1" style={{ display: showAssistanceType1 ? 'grid' : 'none' }}>
+                                    <div className="sm:col-span-1" style={{ display: showAssistanceType1 ? 'block' : 'none' }}>
                                         <div className="relative mt-2 rounded-md shadow-sm">
                                             <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
                                                 <TruckIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
@@ -910,7 +909,7 @@ export default function AddTravelReq() {
                                             </select>
                                         </div>
                                     </div>
-                                    <div className="sm:col-span-1" style={{ display: showTripType ? 'grid' : 'none' }}>
+                                    <div className="sm:col-span-1" style={{ display: showTripType ? 'block' : 'none' }}>
                                         <div className="relative mt-2 rounded-md shadow-sm">
                                             <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
                                                 <TruckIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
@@ -943,7 +942,7 @@ export default function AddTravelReq() {
                                         />
                                     </div>
                                 </div>
-                                <div style={{ display: showTravelModeDetail1 ? 'grid' : 'none' }} className="mt-2 grid lg:grid-cols-2 grid-cols-1 gap-x-6 lg:gap-y-4 gap-y-2 sm:grid-cols-2">
+                                <div style={{ display: showTravelModeDetail1 ? 'block' : 'none' }} className="mt-2 grid lg:grid-cols-2 grid-cols-1 gap-x-6 lg:gap-y-4 gap-y-2 sm:grid-cols-2">
 
                                     <div className="sm:col-span-1">
                                         <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
