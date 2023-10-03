@@ -42,6 +42,11 @@ export default function UserAdvanceList() {
 
     const handleYearChange = (date: Date) => {
         setSelectedYear(date);
+
+        const year = date.getFullYear();
+
+        // Update the search state with the year
+        setSearch(String(year));
     };
 
     const [removeQuery] = useMutation(DELETE_Otherexpense_MUTATION);
@@ -123,6 +128,7 @@ export default function UserAdvanceList() {
     };
 
     const filteredData = search === "" ? itemlist : itemlist.filter((item: { expense_date: string }) => {
+        console.log('search', search)
         const lowerSearch = search.toLowerCase();
         return (item.expense_date.toLowerCase().includes(lowerSearch));
     });
