@@ -28,6 +28,24 @@ mutation SendEmailToUser($email: String!, $template: String!) {
   sendEmailToUser(email: $email,  templateName: $template) 
 }
 `;
+export const CREATE_DOCUMENT_UPLOAD_MUTATION = gql`
+mutation CreateDocumentUpload($createDocumentUploadInput: CreateDocumentuploadInput!) {
+  createDocumentupload(createDocumentuploadInput: $createDocumentUploadInput) {
+    id
+    user_id
+    role_id
+    viewer_id
+    document_name
+    document_description
+    document_attachment
+    document_access
+  }
+}
+
+`;
+
+
+
 export const GET_ChangePassword= gql`
 mutation changePassword($resetKey: String!, $newPassword: String!) {
   changePassword(resetKey: $resetKey, newPassword: $newPassword)
