@@ -81,6 +81,7 @@ export default function AddTravelReq() {
     const [showTripType, setShowTripType] = useState(false);
     const [assistanceType1, setAssistanceType1] = useState(false);
     const [tripType, setTripType] = useState('');
+    const [showArrivalDate, setShowArrivalDate] = useState(true);
 
     const [showDeleteMessage, setshowDeleteMessage] = useState(false);
     const [showDeletedMessage, setshowDeletedMessage] = useState(false);
@@ -193,6 +194,7 @@ export default function AddTravelReq() {
         } else {
             setShowAssistanceType1(false);
             setShowTripType(false);
+            setShowArrivalDate(true);
         }
     }, [travelAssistanceType])
 
@@ -202,10 +204,28 @@ export default function AddTravelReq() {
         setShowTravelMode(true);
         if (travelAssistanceType1 !== 'Hotel') {
             setShowTripType(true);
+            if (tripType == 'Round Trip') {
+                setShowArrivalDate(true);
+            } else {
+                setShowArrivalDate(false);
+            }
         } else {
             setShowTripType(false);
+            setShowArrivalDate(false);
+
         }
     }, [travelAssistanceType1])
+
+    useEffect(() => {
+        console.log(tripType)
+        console.log(setShowArrivalDate)
+        // setShowArrivalDate(true);
+        if (tripType == 'Round Trip') {
+            setShowArrivalDate(true);
+        } else {
+            setShowArrivalDate(false);
+        }
+    }, [tripType])
 
     console.log(showTripType);
 
@@ -294,55 +314,144 @@ export default function AddTravelReq() {
                 }
 
             }
-            if (listItems.length > 1) {
-                console.log('listItems.length', listItems.length);
-                for (const index in listItems) {
-                    console.log('List Item ID:', index);
-                    const fromAddress = listItems[index].fromAddress;
-                    const toAddress = listItems[index].toAddress;
-                    console.log('fromAddress', fromAddress);
-                    console.log('toAddress', toAddress);
-                    console.log('flightPreferenceFrom', selectedFA);
-                    console.log('flightPreferenceTo', selectedFA2);
-                    // Use the createTravelDate mutation to add addresses to the database
-                    if (travelAssistanceType1 == 'Flight' && tripType == 'Multicity') {
-                        console.log('Flight && Multicity');
-                        const preferencefrom = (selectedFA.name == 'Choose Flight Preference') ? '' : selectedFA.name;
-                        const preferenceto = (selectedFA2.name == 'Choose Flight Preference') ? '' : selectedFA2.name;
+            // if (listItems.length > 1) {
+            //     console.log('listItems.length', listItems.length);
+            //     for (const index in listItems) {
+            //         console.log('List Item ID:', index);
+            //         const fromAddress = listItems[index].fromAddress;
+            //         const toAddress = listItems[index].toAddress;
+            //         console.log('fromAddress', fromAddress);
+            //         console.log('toAddress', toAddress);
+            //         console.log('flightPreferenceFrom', selectedFA);
+            //         console.log('flightPreferenceTo', selectedFA2);
+            //         // Use the createTravelDate mutation to add addresses to the database
+            //         if (travelAssistanceType1 == 'Flight' && tripType == 'Multicity') {
+            //             console.log('Flight && Multicity');
+            //             const preferencefrom = (selectedFA.name == 'Choose Flight Preference') ? '' : selectedFA.name;
+            //             const preferenceto = (selectedFA2.name == 'Choose Flight Preference') ? '' : selectedFA2.name;
+            //             const { data: { createTraveldate: { id: travelDateId } } } = await createQueryTD({
+            //                 variables: {
+            //                     createTraveldateInput: {
+            //                         travel_id: travelId, // Update with the correct travel_id
+            //                         from_date: startDate, // Update with the correct date
+            //                         to_date: endDate, // Update with the correct date
+            //                         from_address: fromAddress,
+            //                         to_address: toAddress,
+            //                         flight_preference: preferencefrom,
+
+            //                     },
+            //                 },
+            //             });
+            //             console.log('Travel Date ID:', travelDateId);
+            //         }
+            //         if (travelAssistanceType1 == 'Flight + Hotel' && tripType == 'Multicity') {
+            //             console.log('Flight + Hotel && Multicity');
+            //             const preferencefrom = (selectedFA.name == 'Choose Flight Preference') ? '' : selectedFA.name;
+            //             const preferenceto = (selectedFA2.name == 'Choose Flight Preference') ? '' : selectedFA2.name;
+            //             const { data: { createTraveldate: { id: travelDateId } } } = await createQueryTD({
+            //                 variables: {
+            //                     createTraveldateInput: {
+            //                         travel_id: travelId, // Update with the correct travel_id
+            //                         from_date: startDate, // Update with the correct date
+            //                         to_date: endDate, // Update with the correct date
+            //                         from_address: fromAddress,
+            //                         to_address: toAddress,
+            //                         flight_preference: preferencefrom,
+
+            //                     },
+            //                 },
+            //             });
+            //             console.log('Travel Date ID:', travelDateId);
+            //             // Check the response data if needed
+
+            //             const { data: { createTravelhotel: { id: travelHotelId } } } = await createQueryTH({
+            //                 variables: {
+            //                     createTravelhotelInput: {
+            //                         travel_date_id: travelDateId,
+            //                         checkin_date: checkin,
+            //                         checkout_date: checkout,
+            //                         city: city
+            //                     },
+            //                 },
+            //             });
+
+            //             console.log('Travel Hotel ID:', travelHotelId);
+            //         }
+
+            //     }
+            // } else {
+            if (selected.name == 'OutStation') {
+                console.log('else');
+
+                console.log('flightPreferenceFrom', selectedFA);
+                console.log('flightPreferenceTo', selectedFA2);
+                if (travelAssistanceType1 == 'Flight') {
+                    console.log('Flight  && Round Trip');
+                    const preferencefrom = (selectedFA.name == 'Choose Flight Preference') ? '' : selectedFA.name;
+                    const preferenceto = (selectedFA2.name == 'Choose Flight Preference') ? '' : selectedFA2.name;
+                    if (tripType == 'Round Trip') {
                         const { data: { createTraveldate: { id: travelDateId } } } = await createQueryTD({
                             variables: {
                                 createTraveldateInput: {
                                     travel_id: travelId, // Update with the correct travel_id
                                     from_date: startDate, // Update with the correct date
                                     to_date: endDate, // Update with the correct date
-                                    from_address: fromAddress,
-                                    to_address: toAddress,
                                     flight_preference: preferencefrom,
+                                    from_address: fromLocation,
+                                    to_address: toLocation,
 
                                 },
                             },
                         });
                         console.log('Travel Date ID:', travelDateId);
+
+                        const { data: { createTraveldate: { id: travelDateId1 } } } = await createQueryTD({
+                            variables: {
+                                createTraveldateInput: {
+                                    travel_id: travelId, // Update with the correct travel_id
+                                    from_date: startDate, // Update with the correct date
+                                    to_date: endDate, // Update with the correct date
+                                    from_address: fromLocation,
+                                    to_address: toLocation,
+                                    flight_preference: preferenceto,
+
+                                },
+                            },
+                        });
+                        console.log('Travel Date ID:', travelDateId1);
+
+                        const { data: { createTravelhotel: { id: travelHotelId } } } = await createQueryTH({
+                            variables: {
+                                createTravelhotelInput: {
+                                    travel_date_id: travelDateId1,
+                                    checkin_date: checkin,
+                                    checkout_date: checkout,
+                                    city: city
+                                },
+                            },
+                        });
+
+                        console.log('Travel Hotel ID:', travelHotelId);
+
+
                     }
-                    if (travelAssistanceType1 == 'Flight + Hotel' && tripType == 'Multicity') {
-                        console.log('Flight + Hotel && Multicity');
-                        const preferencefrom = (selectedFA.name == 'Choose Flight Preference') ? '' : selectedFA.name;
-                        const preferenceto = (selectedFA2.name == 'Choose Flight Preference') ? '' : selectedFA2.name;
+
+                    if (tripType == 'One Way' || tripType == 'Multicity') {
                         const { data: { createTraveldate: { id: travelDateId } } } = await createQueryTD({
                             variables: {
                                 createTraveldateInput: {
                                     travel_id: travelId, // Update with the correct travel_id
                                     from_date: startDate, // Update with the correct date
-                                    to_date: endDate, // Update with the correct date
-                                    from_address: fromAddress,
-                                    to_address: toAddress,
+                                    trip_type: tripType,
                                     flight_preference: preferencefrom,
+                                    from_address: fromLocation,
+                                    to_address: toLocation,
 
                                 },
                             },
                         });
                         console.log('Travel Date ID:', travelDateId);
-                        // Check the response data if needed
+
 
                         const { data: { createTravelhotel: { id: travelHotelId } } } = await createQueryTH({
                             variables: {
@@ -356,74 +465,13 @@ export default function AddTravelReq() {
                         });
 
                         console.log('Travel Hotel ID:', travelHotelId);
+
+
                     }
 
                 }
-            } else {
-                console.log('else');
-                for (const index in listItems) {
-                    const fromAddress = listItems[index].fromAddress;
-                    const toAddress = listItems[index].toAddress;
-                    console.log('fromAddress', fromAddress);
-                    console.log('toAddress', toAddress);
-                    console.log('flightPreferenceFrom', selectedFA);
-                    console.log('flightPreferenceTo', selectedFA2);
-                    if (travelAssistanceType1 == 'Flight' && tripType == 'Round Trip') {
-                        console.log('Flight  && Round Trip');
-                        const preferencefrom = (selectedFA.name == 'Choose Flight Preference') ? '' : selectedFA.name;
-                        const preferenceto = (selectedFA2.name == 'Choose Flight Preference') ? '' : selectedFA2.name;
-                        const { data: { createTraveldate: { id: travelDateId } } } = await createQueryTD({
-                            variables: {
-                                createTraveldateInput: {
-                                    travel_id: travelId, // Update with the correct travel_id
-                                    from_date: startDate, // Update with the correct date
-                                    to_date: endDate, // Update with the correct date
-                                    from_address: fromAddress,
-                                    to_address: toAddress,
-                                    flight_preference: preferencefrom,
 
-                                },
-                            },
-                        });
-                        console.log('Travel Date ID:', travelDateId);
 
-                        const { data: { createTraveldate: { id: travelDateId1 } } } = await createQueryTD({
-                            variables: {
-                                createTraveldateInput: {
-                                    travel_id: travelId, // Update with the correct travel_id
-                                    from_date: startDate, // Update with the correct date
-                                    to_date: endDate, // Update with the correct date
-                                    from_address: fromAddress,
-                                    to_address: toAddress,
-                                    flight_preference: preferenceto,
-
-                                },
-                            },
-                        });
-                        console.log('Travel Date ID:', travelDateId1);
-                    }
-
-                    if (travelAssistanceType1 == 'Flight' && tripType == 'One Way') {
-                        console.log('Flight  && One Way');
-                        const preferencefrom = (selectedFA.name == 'Choose Flight Preference') ? '' : selectedFA.name;
-                        const preferenceto = (selectedFA2.name == 'Choose Flight Preference') ? '' : selectedFA2.name;
-                        const { data: { createTraveldate: { id: travelDateId } } } = await createQueryTD({
-                            variables: {
-                                createTraveldateInput: {
-                                    travel_id: travelId, // Update with the correct travel_id
-                                    from_date: startDate, // Update with the correct date
-                                    to_date: endDate, // Update with the correct date
-                                    from_address: fromAddress,
-                                    to_address: toAddress,
-                                    trip_type: tripType,
-                                    flight_preference: preferenceto,
-
-                                },
-                            },
-                        });
-                        console.log('Travel Date ID:', travelDateId);
-                    }
-                }
 
                 if (travelAssistanceType1 == 'Hotel') {
                     console.log('Hotel');
@@ -596,27 +644,26 @@ export default function AddTravelReq() {
 
                     }
                 }
-
-                // Clear the input fields or take any other necessary actions
-                setFromAddress('');
-                setToAddress('');
-
-
-                setTravelName('');
-                setTravelType('');
-                setTravelStatus('');
-                setTravelMode('');
-                setTravelNotes('');
-                setTravelPurpose('');
-
-                setshowSuccessMessage(true);
-                setshowErrorMessage(false);
-
-                console.log('showSuccessMessage', showSuccessMessage);
-                // console.log('response', data);
-                // console.log('response', response.data);
-
             }
+            // Clear the input fields or take any other necessary actions
+            setFromAddress('');
+            setToAddress('');
+
+            setTravelName('');
+            setTravelType('');
+            setTravelStatus('');
+            setTravelMode('');
+            setTravelNotes('');
+            setTravelPurpose('');
+
+            setshowSuccessMessage(true);
+            setshowErrorMessage(false);
+
+            console.log('showSuccessMessage', showSuccessMessage);
+            // console.log('response', data);
+            // console.log('response', response.data);
+
+            // }
         } catch (error) {
             setshowErrorMessage(true);
 
@@ -1011,7 +1058,7 @@ export default function AddTravelReq() {
                                             )}
                                         </Listbox>
                                     </div>
-                                    <div className="sm:col-span-1">
+                                    <div className="sm:col-span-1" style={{ display: showArrivalDate ? 'grid' : 'none' }}>
                                         <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
                                             Arrival Date
                                         </label>
@@ -1019,7 +1066,7 @@ export default function AddTravelReq() {
                                             {(date: React.SetStateAction<Date>) => setEndDate(date)} className="mt-4 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 px-2"
                                         />
                                     </div>
-                                    <div className="sm:col-span-1">
+                                    <div className="sm:col-span-1" style={{ display: showArrivalDate ? 'grid' : 'none' }}>
                                         <Listbox value={selectedFA2} onChange={setSelectedFA2}>
                                             {({ open }) => (
                                                 <>
@@ -1118,7 +1165,6 @@ export default function AddTravelReq() {
                                                     type="email"
                                                     name="fromAddress"
                                                     id={`fromAddress-${index}`}
-                                                    value={item.fromAddress}
                                                     onChange={(e) => handleAddressChange(index, 'fromAddress', e.target.value)}
                                                     value={listItems[index].fromAddress}
                                                     className="px-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
