@@ -1,13 +1,13 @@
 import Image from 'next/image'
 import Dashboardcount from '@/components/Dashboard/dashboardcount'
-import Monthlyexpensechart from '@/components/Dashboard/monthlyexpensechart'
+// import Monthlyexpensechart from '@/components/Dashboard/monthlyexpensechart'
 import Calendar from '@/components/Dashboard/Calendar'
 import Birthdays from '@/components/Dashboard/birthdays'
 import Leavechart from '@/components/Dashboard/Leavechart'
 import Facebook from '@/components/Dashboard/Facebook'
 import PublicDocument from '@/components/Dashboard/PublicDocument'
 import GoogleDrive from '@/components/Dashboard/GoogleDrive'
-import EmployeeDistribution from '@/components/Dashboard/EmployeeDistribution'
+// import EmployeeDistribution from '@/components/Dashboard/EmployeeDistribution'
 import LeaveApproval from '@/components/Dashboard/LeaveApproval'
 import WorkAnniversary from '@/components/Dashboard/WorkAnniversary'
 import NewJoinee from '@/components/Dashboard/NewJoinee'
@@ -21,10 +21,10 @@ export default function Home() {
 
     <div className="grid grid-cols-1 lg:grid-cols-1 lg:space-y-4 space-y-2">
       <Dashboardcount />
-      <EmployeeDistribution />
+      {/* <EmployeeDistribution /> */}
       <LeaveApproval />
 
-      <Monthlyexpensechart />
+      {/* <Monthlyexpensechart /> */}
       <div className="grid lg:grid-cols-2 grid-cols-1 gap-4 sm:grid-cols-2 xs:grid-cols-1">
         <Birthdays />
         <WorkAnniversary />

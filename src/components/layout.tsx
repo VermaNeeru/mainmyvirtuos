@@ -31,7 +31,12 @@ import LayoutPro from '@/pages/LayoutPro'
 import Footer from '@/components/footer'
 import Image from 'next/image'
 import Link from 'next/link'
-
+import { useRouter } from 'next/router';
+import Cookies from 'js-cookie';
+function handleSignout() {
+    // Remove the authToken cookie
+    Cookies.remove('authToken'); // Replace 'authToken' with your actual cookie name
+  }
 const navigation = [
     { name: 'Dashboard', href: '#', icon: HomeIcon, current: true },
     {
