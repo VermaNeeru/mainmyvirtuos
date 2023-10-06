@@ -1,9 +1,12 @@
+
 import React, { useCallback, useState } from 'react';
 import Head from 'next/head';
 import { useDropzone } from 'react-dropzone';
 import { XCircleIcon } from '@heroicons/react/20/solid'
 import Image from 'next/image';
 import AWS from 'aws-sdk';
+
+import awsConfig from '../../awsConfig'; // Import the AWS configuration
 // Define the type for the onFileDrop prop
 type OnFileDropFunction = (acceptedFiles: File[]) => void;
 interface DragDropFileProps {
@@ -20,8 +23,12 @@ AWS.config.update({
     region: 'ap-south-1', // Set this to the correct region
 });
 
+AWS.config.update(awsConfig); // Use the imported AWS configuration
+
 const s3 = new AWS.S3();
 const DragDropFile: React.FC<DragDropFileProps> = ({ onFileDrop, handleFileUrl }) => {
+    const [fileUrl1, setFileUrl1] = useState<string | null>(null);
+    const [droppedFile, setDroppedFile] = useState<File | null>(null);
     const handleFileDrop = async (acceptedFiles: File[]) => {
         const file = acceptedFiles[0]; // Assuming you want to use the first accepted file
         console.log(file);
@@ -46,10 +53,11 @@ const DragDropFile: React.FC<DragDropFileProps> = ({ onFileDrop, handleFileUrl }
             // Get the URL of the uploaded file
             const fileUrl = `https://${s3BucketName}.s3.amazonaws.com/${fileName}`;
             console.log("fileurl is", fileUrl);
-
+            // Set the fileUrl in the state
+            setFileUrl1(fileUrl);
             // You can use the fileUrl or perform additional actions with it as needed
             handleFileUrl(fileUrl);
-            onFileDrop(acceptedFiles);
+            // onFileDrop(acceptedFiles);
         } catch (error) {
             console.error('Error uploading to S3:', error);
         }
@@ -80,7 +88,8 @@ const DragDropFile: React.FC<DragDropFileProps> = ({ onFileDrop, handleFileUrl }
                     {droppedFile ? (
                         <div>
                             <div className='border border-gray-300 px-4 py-4 w-full'>
-                                {droppedFile.type.includes('image') ? (
+                                {/* {droppedFile.type.includes('image') ? ( */}
+                                {droppedFile.type.includes('image')  ? (
                                     <Image
                                         loader={({ src }) => `${src}`}
                                         src={URL.createObjectURL(droppedFile)}
