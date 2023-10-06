@@ -29,27 +29,32 @@ export default function AddDocument() {
   const [selected, setSelected] = useState(viewer[1]);
   const [documentName, setDocumentName] = useState('');
   const [documentDescription, setDocumentDescription] = useState('');
-//   const [createDocumentUpload] = useMutation(CREATE_DOCUMENT_UPLOAD_MUTATION);
-
-const [createDocumentUpload, { data, error }] = useMutation(
+  //   const [createDocumentUpload] = useMutation(CREATE_DOCUMENT_UPLOAD_MUTATION);
+  const [createDocumentUpload, { data, error }] = useMutation(
     CREATE_DOCUMENT_UPLOAD_MUTATION
   );
-  
-  console.log("GraphQL Query:", CREATE_DOCUMENT_UPLOAD_MUTATION?.loc?.source?.body);
+  const [fileUrl, setFileUrl] = useState<string | null>(null);
+
+  // Callback function to set the file URL from the child component
+  const handleFileUrlFromChild = (url: string | null) => {
+    setFileUrl(url);
+  };
+
+  // console.log("GraphQL Query:", CREATE_DOCUMENT_UPLOAD_MUTATION?.loc?.source?.body);
   const handleSubmit = async (event: { preventDefault: () => void }) => {
     event.preventDefault();
-    console.log('I am clicked');
-    console.log('Document Name:', documentName);
-    console.log('Document Description:', documentDescription);
-    console.log('Selected Viewer:', selected.name);
-
+    // console.log('I am clicked');
+    // console.log('Document Name:', documentName);
+    // console.log('Document Description:', documentDescription);
+    // console.log('Selected Viewer:', selected.name);
+    console.log('Received fileUrl in parent component:', fileUrl);
     const createDocumentUploadInput = {
       user_id: 1, // Replace with the actual user ID
       role_id: 2, // Replace with the actual role ID
       viewer_id: selected.id, // Use the ID of the selected viewer
       document_name: documentName,
       document_description: documentDescription,
-      document_attachment: 'base64-encoded-attachment', // Replace with the actual attachment data
+      document_attachment: fileUrl, // Replace with the actual attachment data
       document_access: 'PUBLIC', // Replace with the desired access level
     };
 
@@ -65,8 +70,12 @@ const [createDocumentUpload, { data, error }] = useMutation(
       console.error('An error occurred:', error);
     }
   };
-  
 
+
+
+  function handleFileDrop(acceptedFiles: File[]): void {
+    throw new Error('Function not implemented.');
+  }
 
   return (
     <div className="w-full rounded px-2">
@@ -192,7 +201,7 @@ const [createDocumentUpload, { data, error }] = useMutation(
                               name="comment"
                               id="comment"
                               className="lg:h-20 block w-full rounded-md border-0 py-1.5 pl-10 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                            
+
                               placeholder="User Document Description"
                               value={documentDescription}
                               onChange={(e) => setDocumentDescription(e.target.value)}
@@ -204,7 +213,7 @@ const [createDocumentUpload, { data, error }] = useMutation(
                   </div>
                   <div className="mt-2 grid grid-cols-1 lg:gap-x-6 gap-x-2 lg:gap-y-4 gap-y-2 lg:grid-cols-1">
                     <div className="sm:col-span-1">
-                      <DragDropFile />
+                      <DragDropFile onFileDrop={handleFileDrop} handleFileUrl={handleFileUrlFromChild} />
                     </div>
                   </div>
                 </div>

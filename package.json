@@ -20,6 +20,7 @@
     "@types/react": "18.2.8",
     "@types/react-dom": "18.2.4",
     "autoprefixer": "10.4.14",
+    "aws-sdk": "^2.1470.0",
     "chart.js": "^4.4.0",
     "draft-js": "^0.11.7",
     "eslint": "8.41.0",
