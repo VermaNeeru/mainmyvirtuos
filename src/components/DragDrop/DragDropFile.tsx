@@ -29,6 +29,8 @@ const s3 = new AWS.S3();
 const DragDropFile: React.FC<DragDropFileProps> = ({ onFileDrop, handleFileUrl }) => {
     const [fileUrl1, setFileUrl1] = useState<string | null>(null);
     const [droppedFile, setDroppedFile] = useState<File | null>(null);
+    const [uploadedFiles, setUploadedFiles] = useState<File[]>([]);
+
     const handleFileDrop = async (acceptedFiles: File[]) => {
         const file = acceptedFiles[0]; // Assuming you want to use the first accepted file
         console.log(file);
@@ -57,11 +59,39 @@ const DragDropFile: React.FC<DragDropFileProps> = ({ onFileDrop, handleFileUrl }
             setFileUrl1(fileUrl);
             // You can use the fileUrl or perform additional actions with it as needed
             handleFileUrl(fileUrl);
+
+            // Add the uploaded file to the list of uploadedFiles
+            setUploadedFiles([...uploadedFiles, file]);
+            console.log("uploadedFiles is", uploadedFiles);
             // onFileDrop(acceptedFiles);
         } catch (error) {
             console.error('Error uploading to S3:', error);
         }
     };
+    const UploadedFile: React.FC<{ file: File }> = ({ file }) => (
+        <div className="flex items-center mt-2">
+            {file.type.includes("image") ? (
+                <div className="mr-2">
+                    <Image
+                        loader={({ src }) => src}
+                        src={URL.createObjectURL(file)}
+                        height={100}
+                        width={100}
+                        alt="Uploaded File Preview"
+                        className="max-h-52"
+                    />
+                </div>
+            ) : (
+                <div className="mr-2">
+                    <p>File Type: {file.type}</p>
+                </div>
+            )}
+            <p className="lg:text-sm text-xs font-semibold lg:font-semibold">
+                File Name: {file.name}
+            </p>
+        </div>
+    );
+
 
     const FileDropzone: React.FC<FileDropzoneProps> = ({ onFileDrop }) => {
         const [droppedFile, setDroppedFile] = useState<File | null>(null);
@@ -89,7 +119,7 @@ const DragDropFile: React.FC<DragDropFileProps> = ({ onFileDrop, handleFileUrl }
                         <div>
                             <div className='border border-gray-300 px-4 py-4 w-full'>
                                 {/* {droppedFile.type.includes('image') ? ( */}
-                                {droppedFile.type.includes('image')  ? (
+                                {droppedFile.type.includes('image') ? (
                                     <Image
                                         loader={({ src }) => `${src}`}
                                         src={URL.createObjectURL(droppedFile)}
@@ -121,6 +151,18 @@ const DragDropFile: React.FC<DragDropFileProps> = ({ onFileDrop, handleFileUrl }
                 <FileDropzone onFileDrop={handleFileDrop} />
                 <div className='mt-2'>
                     <p className='text-gray-500 text-sm font-semibold'>Max. 10MB</p>
+                </div>
+                <div>
+                    {uploadedFiles.length > 0 && (
+                        <div className="mt-4">
+                            <h2>Uploaded Files</h2>
+                            <div>
+                                {uploadedFiles.map((file, index) => (
+                                    <UploadedFile key={index} file={file} />
+                                ))}
+                            </div>
+                        </div>
+                    )}
                 </div>
             </main>
         </div>
