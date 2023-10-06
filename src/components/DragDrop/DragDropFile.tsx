@@ -6,7 +6,7 @@ import { XCircleIcon } from '@heroicons/react/20/solid'
 import Image from 'next/image';
 import AWS from 'aws-sdk';
 
-import awsConfig from '../../awsConfig'; // Import the AWS configuration
+// import awsConfig from '../../awsConfig'; // Import the AWS configuration
 // Define the type for the onFileDrop prop
 type OnFileDropFunction = (acceptedFiles: File[]) => void;
 interface DragDropFileProps {
@@ -23,7 +23,7 @@ AWS.config.update({
     region: 'ap-south-1', // Set this to the correct region
 });
 
-AWS.config.update(awsConfig); // Use the imported AWS configuration
+// AWS.config.update(awsConfig); // Use the imported AWS configuration
 
 const s3 = new AWS.S3();
 const DragDropFile: React.FC<DragDropFileProps> = ({ onFileDrop, handleFileUrl }) => {
