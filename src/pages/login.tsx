@@ -9,7 +9,7 @@ import { ApolloError, useMutation, useQuery } from '@apollo/client';
 import Cookies from 'js-cookie'; // Import js-cookie
 import { GET_Login } from "@/graphql/User/queries";
 
-
+import jwt_decode from "jwt-decode";
 
 const Login = () => {
     const router = useRouter();
@@ -19,7 +19,7 @@ const Login = () => {
     const [errorr1, setError1] = useState<unknown | any>(null);
     const [show, setShow] = useState<boolean>(false);
     const [otplogin, setOtplogin] = useState<boolean>(false);
- 
+
 
     const [login, { data, error }] = useMutation(GET_Login);
     const handleSubmit = async (event: { preventDefault: () => void }) => {
@@ -45,6 +45,12 @@ const Login = () => {
             if (token) {
                 Cookies.set('authToken', token);
                 router.push('/');
+
+                const decoded = jwt_decode(token);
+
+                console.log(JSON.stringify(decoded));
+
+                // localStorage.setItem('authToken', token);
 
             }
             // Handle successful login here (e.g., redirect, store tokens, etc.)
@@ -95,7 +101,7 @@ const Login = () => {
     return (
         // <div className="h-screen bg-gradient-to-r from-[rgb(22,37,45)] to-[#228788] flex flex-col justify-around ">
         <div className="h-screen bg-gradient-to-r from-rose-100 to-teal-100 dark:from-gray-700 dark:via-gray-900 dark:to-black ">
-            
+
             <div className="flex justify-center items-center pt-6 ">
                 <Image className="h-12 sm:h-16 md:h-20" width="100" height="100" src="/images/happiests-logo.svg" alt="bookmytime-logo" />
             </div>
@@ -111,7 +117,7 @@ const Login = () => {
                                         Welcome!
                                     </h2>
                                     <form onSubmit={handleSubmit} className="space-y-4 md:space-y-6 rounded" action="#" method="POST">
-                                    {errorr1 && <p className="text-red-600">{errorr1}</p>} {/* Display error message */}
+                                        {errorr1 && <p className="text-red-600">{errorr1}</p>} {/* Display error message */}
                                         <div>
                                             <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
                                                 Username

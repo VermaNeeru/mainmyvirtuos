@@ -7,6 +7,7 @@ import { XMarkIcon, ChevronDownIcon, TrashIcon } from '@heroicons/react/20/solid
 import { useQuery, useLazyQuery, useMutation } from "@apollo/client";
 import { DELETE_Travelrequest_MUTATION, GET_Travelrequest_BY_UID, GET_Travelrequests, REMOVE_MULTIPLE_Travelrequests, UPDATE_Travelrequest_MUTATION } from '@/graphql/Travel/queries';
 import Alert from '@/components/Alert';
+import UserData from '@/components/UserData';
 
 const table_header = [
     { name: 'Name' },
@@ -30,7 +31,8 @@ export default function Travel() {
     const [SelectedTravelrequests, setSelectedTravelrequests] = useState([]);
     const [showErrorMessage, setshowErrorMessage] = useState<boolean>(false);
     const [searchKeyword, setSearchKeyword] = useState('');
-    const [userId, setUserId] = useState(2);
+    const userData = UserData();
+    const [userId, setUserId] = useState<number>(userData.id)
 
     const [removeQuery] = useMutation(DELETE_Travelrequest_MUTATION);
     const [removeMultipleQuery] = useMutation(REMOVE_MULTIPLE_Travelrequests);

@@ -12,7 +12,7 @@
   }
   ```
 */
-import { Fragment, useState } from 'react'
+import { Fragment, useEffect, useState } from 'react'
 import { Dialog, Menu, Transition } from '@headlessui/react'
 import {
     Bars3Icon,
@@ -33,10 +33,15 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router';
 import Cookies from 'js-cookie';
+import UnsetAllCookiesAndRedirect from './UnsetAllCookiesAndRedirect'
+import { UseCookies } from './UseCookies'
+import UserData from './UserData'
+// import jwt_decode from "jwt-decode";
+
 function handleSignout() {
     // Remove the authToken cookie
     Cookies.remove('authToken'); // Replace 'authToken' with your actual cookie name
-  }
+}
 const navigation = [
     { name: 'Dashboard', href: '#', icon: HomeIcon, current: true },
     {
@@ -77,11 +82,32 @@ function classNames(...classes: string[]) {
 
 export default function Layout({ children }: any) {
     const [sidebarOpen, setSidebarOpen] = useState(false)
+    const [user, setUser] = useState()
 
+    // const [authToken, setAuthToken, removeAuthToken] = UseCookies('authToken');
+    // console.log('AuthToken:', authToken);
+    // const decoded = jwt_decode(authToken);
+    // console.log('decoded', JSON.stringify(decoded));
+
+    const userData = UserData();
+    // console.log('userData', userData);
+
+    // useEffect(() => {
+    //     setUser(userData)
+    // }, [userData])
     const handleChildStateChange = (dataFromChild: boolean | ((prevState: boolean) => boolean)) => {
         setSidebarOpen(dataFromChild);
     };
 
+    const handleLogout = () => {
+        // Perform your logout logic here
+
+        // Unset all cookies
+        UnsetAllCookiesAndRedirect();
+
+        // Redirect or perform other actions after logout
+        // ...
+    };
     return (
         <>
             {/*
@@ -298,7 +324,8 @@ export default function Layout({ children }: any) {
                                         />
                                         <span className="hidden lg:flex lg:items-center">
                                             <span className="ml-4 text-sm font-semibold leading-6 text-white" aria-hidden="true">
-                                                Tom Cook
+                                                {/* Tom Cook */}
+                                                {userData.firstname}
                                             </span>
                                             <ChevronDownIcon className="ml-2 h-5 w-5 text-gray-400" aria-hidden="true" />
                                         </span>
@@ -330,14 +357,14 @@ export default function Layout({ children }: any) {
                                             ))} */}
                                             <div className="flex flex-1 flex-col p-8 text-center bg-top-header">
                                                 <Image loader={({ src }) => `${src}`} height={100} width={100} className="mx-auto h-32 w-32 flex-shrink-0 rounded-full" src="https://myvirtuos.com/uploads/profile/medium_thumb/User_No-Frame_mediumthumb.png" alt="" />
-                                                <h3 className="mt-4 text-sm font-medium text-gray-200">Tom Cook</h3>
+                                                <h3 className="mt-4 text-sm font-medium text-gray-200">{userData.firstname} {userData.lastname}</h3>
                                                 <dl className="mt-1 flex flex-grow flex-col justify-between -pb-2">
                                                     <dd className="text-sm text-gray-300">Member since 16 Sep 2021</dd>
 
                                                 </dl>
                                             </div>
                                             <div className="flex flex-1 flex-col -mt-2 mb-2 text-center">
-                                                <h3 className="mt-6 text-sm text-gray-900">Assigned Assets</h3>
+                                                <h3 className="mt-6 text-sm text-gray-900">{userData.role}</h3>
                                             </div>
                                             <div>
                                                 <div className="-mt-px flex divide-x divide-gray-200">
@@ -348,7 +375,7 @@ export default function Layout({ children }: any) {
                                                         </Link>
                                                     </div>
                                                     <div className="-ml-px flex w-0 flex-1">
-                                                        <Link href="/login" className="relative inline-flex w-0 flex-1 items-center justify-center gap-x-3 rounded-br-lg border border-transparent py-4 text-sm font-semibold text-gray-900"
+                                                        <Link href="/login" onClick={handleLogout} className="relative inline-flex w-0 flex-1 items-center justify-center gap-x-3 rounded-br-lg border border-transparent py-4 text-sm font-semibold text-gray-900"
                                                         >
                                                             <span>Signout</span>
                                                         </Link>
@@ -379,3 +406,7 @@ export default function Layout({ children }: any) {
         </>
     )
 }
+function jwt_decode(token: any) {
+    throw new Error('Function not implemented.')
+}
+

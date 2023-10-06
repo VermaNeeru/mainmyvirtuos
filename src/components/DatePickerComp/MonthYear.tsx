@@ -1,12 +1,13 @@
 import React, { useState } from 'react'
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-export default function MonthYear() {
+export default function MonthYear({ onMonthChange }) {
     const [selectedYear, setSelectedYear] = useState<Date | null>(null);
 
     const handleYearChange = (date: Date) => {
 
         setSelectedYear(date);
+        onMonthChange(date);
     };
     return (
         <div>

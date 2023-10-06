@@ -2,7 +2,7 @@ import { gql } from "@apollo/client";
 
 export const GET_USER_ATTENDANCE = gql`
   query Userattendences {
-    userattendences {
+    Userattendences {
         id
         attendence_date
         attendence_day
@@ -25,7 +25,7 @@ export const GET_USER_ATTENDANCE = gql`
 
 export const GET_USER_ATTENDANCE_BY_ID = gql`
   query Userattendence($id: Int!) {
-    userattendence(id: $id) {
+    Userattendence(id: $id) {
         id
         attendence_date
         attendence_day
@@ -95,27 +95,27 @@ query CurrentMyAttendance($userId: Int!, $startDate: Date!, $endDate: Date!) {
 `;
 
 export const ADD_USER_ATTENDANCE_MUTATION = gql`
-  mutation Createuserattendence($createuserattendenceInput: CreateuserattendenceInput!) {
-    createuserattendence(createuserattendenceInput: $createuserattendenceInput){
+  mutation CreateUserattendence($createUserattendenceInput: CreateUserattendenceInput!) {
+    createUserattendence(createUserattendenceInput: $createUserattendenceInput){
       id
     }
   }
 `;
 
 export const UPDATE_USER_ATTENDANCE_MUTATION = gql`
-  mutation Updateuserattendence($updateuserattendenceInput: UpdateuserattendenceInput!) {
-    updateuserattendence(updateuserattendenceInput: $updateuserattendenceInput)
+  mutation UpdateUserattendence($updateUserattendenceInput: UpdateUserattendenceInput!) {
+    updateUserattendence(updateUserattendenceInput: $updateUserattendenceInput)
   }
 `;
 
 export const DELETE_USER_ATTENDANCE_MUTATION = gql`
-mutation Removeuserattendence($id: Int!) {
-  removeuserattendence(id: $id)
+mutation RemoveUserattendence($id: Int!) {
+  removeUserattendence(id: $id)
 }
 `;
 
-export const REMOVE_MULTIPLE_userattendenceS = gql`
-  mutation RemoveMultipleuserattendences($ids: [Int!]!) {
-    removeMultipleuserattendences(ids: $ids)
+export const REMOVE_MULTIPLE_UserattendenceS = gql`
+  mutation RemoveMultipleUserattendences($ids: [Int!]!) {
+    removeMultipleUserattendences(ids: $ids)
   }
 `;

@@ -7,6 +7,7 @@ import { XMarkIcon, ChevronDownIcon, TrashIcon } from '@heroicons/react/20/solid
 import Alert from '@/components/Alert';
 import { useQuery, useLazyQuery, useMutation } from "@apollo/client";
 import { ADD_Tutorial_MUTATION, DELETE_Tutorial_MUTATION, GET_Tutorials, GET_Tutorial_BY_ID, REMOVE_MULTIPLE_Tutorials, UPDATE_Tutorial_MUTATION } from '@/graphql/Tutorial/queries';
+import UserData from '@/components/UserData';
 
 const table_header = [
     { name: 'Name' },
@@ -36,7 +37,8 @@ export default function AllTutorial() {
     const cancelButtonRef = useRef(null)
 
     const [tutorialId, setTutorialId] = useState<number>()
-    const [userId, setUserId] = useState<number>(1)
+    const userData = UserData();
+    const [userId, setUserId] = useState<number>(userData.id)
     const [tutorialName, setTutorialName] = useState('')
     const [tutorialAttachment, setTutorialAttachment] = useState('')
     const [mStatus, setmStatus] = useState('')

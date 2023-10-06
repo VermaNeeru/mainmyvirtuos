@@ -4,6 +4,7 @@ import React, { useState } from 'react'
 
 import { useQuery, useLazyQuery, useMutation } from "@apollo/client";
 import { GET_CURRENT_MY_ATTENDANCE } from '@/graphql/Userattendance/queries';
+import UserData from '@/components/UserData';
 
 
 function classNames(...classes: any[]) {
@@ -66,7 +67,8 @@ export default function CurrentMyAttendance() {
     };
 
     const [currentPage, setCurrentPage] = useState(1);
-    const [userId, setUserId] = useState(2);
+    const userData = UserData();
+    const [userId, setUserId] = useState<number>(userData.id)
     const itemsPerPage = 3;
 
     const indexOfLastItem = currentPage * itemsPerPage;

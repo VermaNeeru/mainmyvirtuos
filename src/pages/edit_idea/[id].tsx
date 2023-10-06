@@ -7,6 +7,7 @@ import CategorySearch from '@/components/CategorySearch';
 import Alert from '@/components/Alert';
 import { useQuery, useLazyQuery, useMutation } from "@apollo/client";
 import { ADD_Idea_MUTATION, GET_Idea_BY_ID, DELETE_Idea_MUTATION, GET_Ideas, REMOVE_MULTIPLE_Ideas } from '@/graphql/Idea/queries';
+import UserData from '@/components/UserData';
 
 const faqs = [
     {
@@ -32,7 +33,8 @@ export default function AddIdea() {
     const [ideaCategory, setIdeaCategory] = useState('')
     const [ideaDescription, setIdeaDescription] = useState('')
     const [ideaSubmitType, setIdeaSubmitType] = useState('')
-    const [userId, setUserId] = useState<number>(1)
+    const userData = UserData();
+    const [userId, setUserId] = useState<number>(userData.id)
 
     // const handleideaCategoryChange = (type: React.SetStateAction<string>) => {
 

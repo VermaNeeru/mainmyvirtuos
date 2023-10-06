@@ -9,6 +9,7 @@ import { useQuery, useLazyQuery, useMutation } from "@apollo/client";
 import { ADD_Notification_MUTATION } from '@/graphql/Notification/queries';
 import { ADD_Idea_MUTATION, GET_Idea_BY_ID, DELETE_Idea_MUTATION, GET_Ideas, REMOVE_MULTIPLE_Ideas } from '@/graphql/Idea/queries';
 import { GET_Faqs } from '@/graphql/Faq/queries';
+import UserData from '@/components/UserData';
 const faqs = [
     {
         question: "Who can you send Ideas ?",
@@ -33,7 +34,9 @@ export default function AddIdea() {
     const [ideaCategory, setIdeaCategory] = useState('')
     const [ideaDescription, setIdeaDescription] = useState('')
     const [ideaSubmitType, setIdeaSubmitType] = useState('')
-    const [userId, setUserId] = useState<number>(1)
+    const userData = UserData();
+    // const [userId, setUserId] = useState<number>(1)
+    const [userId, setUserId] = useState<number>(userData.id)
     const [userName, setUserNd] = useState('Neeru')
 
     const { loading: getFAQAllDataLoading, error: getFAQAllDataError, data: getFAQAllData } = useQuery(GET_Faqs);

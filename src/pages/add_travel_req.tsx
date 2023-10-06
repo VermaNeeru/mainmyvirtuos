@@ -11,6 +11,7 @@ import { ADD_Travelrequest_MUTATION } from '@/graphql/Travel/queries';
 import Alert from '@/components/Alert';
 import { ADD_Traveldate_MUTATION } from '@/graphql/Traveldate/queries';
 import { ADD_Travelhotel_MUTATION } from '@/graphql/Travelhotel/queries';
+import UserData from '@/components/UserData';
 
 const traveltype = [
     { id: 1, name: 'Choose Travel Type' },
@@ -89,7 +90,8 @@ export default function AddTravelReq() {
     const [showErrorMessage, setshowErrorMessage] = useState<boolean>(false);
 
     const [TravelRequestId, setTravelRequestId] = useState<number>()
-    const [userId, setUserId] = useState<number>(2)
+    const userData = UserData();
+    const [userId, setUserId] = useState<number>(userData.id)
     const [TravelName, setTravelName] = useState('')
     const [TravelType, setTravelType] = useState('')
     const [TravelMode, setTravelMode] = useState('')

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { PhotoIcon, UserCircleIcon } from '@heroicons/react/24/solid'
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
 import { Combobox } from '@headlessui/react'
-export default function EmployeeSearch({ heading, onEmpValueChange }: any) {
+export default function EmployeeSearch({ heading = () => { }, onEmpValueChange = () => { } }: any) {
     const people = [
         { id: 1, name: 'Shivam Chawla' },
         { id: 2, name: 'Neeru Verma' },
