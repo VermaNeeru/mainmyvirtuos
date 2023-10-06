@@ -29,8 +29,8 @@ mutation SendEmailToUser($email: String!, $template: String!) {
 }
 `;
 export const CREATE_DOCUMENT_UPLOAD_MUTATION = gql`
-mutation CreateDocumentUpload($createDocumentUploadInput: CreateDocumentuploadInput!) {
-  createDocumentupload(createDocumentuploadInput: $createDocumentUploadInput) {
+mutation CreateDocumentUpload($input: CreateDocumentuploadInput!) {
+  createDocumentupload(createDocumentuploadInput: $input) {
     id
     user_id
     role_id

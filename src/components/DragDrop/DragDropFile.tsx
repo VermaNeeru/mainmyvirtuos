@@ -1,4 +1,3 @@
-
 import React, { useCallback, useState } from 'react';
 import Head from 'next/head';
 import { useDropzone } from 'react-dropzone';
@@ -9,9 +8,14 @@ import AWS from 'aws-sdk';
 // import awsConfig from '../../awsConfig'; // Import the AWS configuration
 // Define the type for the onFileDrop prop
 type OnFileDropFunction = (acceptedFiles: File[]) => void;
+// interface DragDropFileProps {
+//     onFileDrop: (acceptedFiles: File[]) => void;
+//     handleFileUrl: (url: string) => void; // Define this prop for passing the fileUrl
+// }
 interface DragDropFileProps {
     onFileDrop: (acceptedFiles: File[]) => void;
-    handleFileUrl: (url: string) => void; // Define this prop for passing the fileUrl
+    handleFileUrl: (url: string) => void;
+    handleUploadedFiles: (urls: string[]) => void; // Change this to accept an array of strings
 }
 
 interface FileDropzoneProps {
@@ -26,71 +30,148 @@ AWS.config.update({
 // AWS.config.update(awsConfig); // Use the imported AWS configuration
 
 const s3 = new AWS.S3();
-const DragDropFile: React.FC<DragDropFileProps> = ({ onFileDrop, handleFileUrl }) => {
+// const DragDropFile: React.FC<DragDropFileProps> = ({ onFileDrop, handleFileUrl }) => {
+const DragDropFile: React.FC<DragDropFileProps> = ({ onFileDrop, handleFileUrl, handleUploadedFiles }) => {
     const [fileUrl1, setFileUrl1] = useState<string | null>(null);
     const [droppedFile, setDroppedFile] = useState<File | null>(null);
-    const [uploadedFiles, setUploadedFiles] = useState<File[]>([]);
+    const [uploadedFiles, setUploadedFiles] = useState<string[]>([]);
+
+
+
+    // const handleFileDrop = async (acceptedFiles: File[]) => {
+    //     try {
+    //         const s3BucketName = 'myvirtuos';
+    //         const folder = 'uploads';
+
+    //         const uploadedFilesArray = []; // To store the uploaded file objects
+
+    //         for (const file of acceptedFiles) {
+    //             // Generate a unique filename by appending Date.now()
+    //             const timestamp = Date.now();
+    //             const uniqueFileName = `${timestamp}_${file.name}`;
+
+    //             // Upload the file to S3
+    //             const fileName = `${folder}/${uniqueFileName}`;
+    //             const params = {
+    //                 Bucket: s3BucketName,
+    //                 Key: fileName,
+    //                 Body: file,
+    //             };
+
+    //             await s3.upload(params).promise();
+
+    //             // Get the URL of the uploaded file
+    //             const fileUrl = `https://${s3BucketName}.s3.amazonaws.com/${fileName}`;
+
+    //             // Log the file URL to the console
+    //             // console.log('Uploaded File URL:', fileUrl);
+
+    //             // Set the fileUrl in the state or perform other actions as needed
+    //             setFileUrl1(fileUrl);
+
+    //             // Add the uploaded file to the list of uploadedFilesArray
+    //             uploadedFilesArray.push(file);
+    //             // Add the uploaded file to the list of uploadedFiles in the parent
+    //             handleUploadedFiles(uploadedFilesArray);
+    //         }
+
+    //         // Log the array of uploaded files to the console
+    //         console.log('All files uploaded:', uploadedFilesArray);
+
+    //         // Update the state with all uploaded files
+    //         setUploadedFiles([...uploadedFiles, ...uploadedFilesArray]);
+
+    //         console.log('All files uploaded successfully.');
+    //     } catch (error) {
+    //         console.error('Error uploading files to S3:', error);
+    //     }
+    // };
 
     const handleFileDrop = async (acceptedFiles: File[]) => {
-        const file = acceptedFiles[0]; // Assuming you want to use the first accepted file
-        console.log(file);
-
         try {
-            // Generate a unique filename by appending Date.now()
-            const timestamp = Date.now();
-            const uniqueFileName = `${timestamp}_${file.name}`;
-
-            // Upload the file to S3
             const s3BucketName = 'myvirtuos';
-            const folder = 'uploads'; // Your desired folder in the S3 bucket
-            const fileName = `${folder}/${uniqueFileName}`;
-            const params = {
-                Bucket: s3BucketName,
-                Key: fileName,
-                Body: file,
-            };
+            const folder = 'uploads';
 
-            await s3.upload(params).promise();
+            const uploadedFileUrls: string[] = [];
 
-            // Get the URL of the uploaded file
-            const fileUrl = `https://${s3BucketName}.s3.amazonaws.com/${fileName}`;
-            console.log("fileurl is", fileUrl);
-            // Set the fileUrl in the state
-            setFileUrl1(fileUrl);
-            // You can use the fileUrl or perform additional actions with it as needed
-            handleFileUrl(fileUrl);
+            for (const file of acceptedFiles) {
+                // Generate a unique filename by appending Date.now()
+                const timestamp = Date.now();
+                const uniqueFileName = `${timestamp}_${file.name}`;
 
-            // Add the uploaded file to the list of uploadedFiles
-            setUploadedFiles([...uploadedFiles, file]);
-            console.log("uploadedFiles is", uploadedFiles);
-            // onFileDrop(acceptedFiles);
+                // Upload the file to S3
+                const fileName = `${folder}/${uniqueFileName}`;
+                const params = {
+                    Bucket: s3BucketName,
+                    Key: fileName,
+                    Body: file,
+                };
+
+                await s3.upload(params).promise();
+
+                // Get the URL of the uploaded file
+                const fileUrl = `https://${s3BucketName}.s3.amazonaws.com/${fileName}`;
+
+                // Log the file URL to the console
+                console.log('Uploaded File URL:', fileUrl);
+
+                // Add the file URL to the list of uploadedFileUrls
+                uploadedFileUrls.push(fileUrl);
+                handleUploadedFiles(uploadedFileUrls);
+
+
+            }
+
+            // Log the array of uploaded file URLs to the console
+            console.log('All file URLs uploaded:', uploadedFileUrls);
+
+            // Update the state with all uploaded file URLs
+            setUploadedFiles([...uploadedFiles, ...uploadedFileUrls]);
+
+            console.log('All files uploaded successfully.');
         } catch (error) {
-            console.error('Error uploading to S3:', error);
+            console.error('Error uploading files to S3:', error);
         }
     };
-    const UploadedFile: React.FC<{ file: File }> = ({ file }) => (
-        <div className="flex items-center mt-2">
-            {file.type.includes("image") ? (
+
+    const UploadedFile: React.FC<{ fileUrl: string }> = ({ fileUrl }) => {
+        // Log the value of fileUrl to the console
+        // console.log("File URL:", fileUrl);
+
+        return (
+            <div className="flex items-center  mt-2">
+                {/* {fileUrl.includes("image") ? (
+              <div className="mr-2">
+                <Image
+                  loader={({ src }) => src}
+                  src={fileUrl}
+                  height={100}
+                  width={100}
+                  alt="Uploaded File Preview"
+                  className="max-h-52"
+                />
+              </div>
+            ) : (
+              <div className="mr-2">
+                <p>File Type: {fileUrl}</p>
+              </div>
+            )} */}
                 <div className="mr-2">
                     <Image
                         loader={({ src }) => src}
-                        src={URL.createObjectURL(file)}
-                        height={100}
-                        width={100}
+                        src={fileUrl}
+                        height={200}
+                        width={200}
                         alt="Uploaded File Preview"
                         className="max-h-52"
                     />
                 </div>
-            ) : (
-                <div className="mr-2">
-                    <p>File Type: {file.type}</p>
-                </div>
-            )}
-            <p className="lg:text-sm text-xs font-semibold lg:font-semibold">
-                File Name: {file.name}
-            </p>
-        </div>
-    );
+                <p className="lg:text-sm text-xs font-semibold lg:font-semibold">
+                    File Name: {fileUrl.split('/').pop()}
+                </p>
+            </div>
+        );
+    };
 
 
     const FileDropzone: React.FC<FileDropzoneProps> = ({ onFileDrop }) => {
@@ -157,13 +238,14 @@ const DragDropFile: React.FC<DragDropFileProps> = ({ onFileDrop, handleFileUrl }
                         <div className="mt-4">
                             <h2>Uploaded Files</h2>
                             <div>
-                                {uploadedFiles.map((file, index) => (
-                                    <UploadedFile key={index} file={file} />
+                                {uploadedFiles.map((fileUrl, index) => (
+                                    <UploadedFile key={index} fileUrl={fileUrl} />
                                 ))}
                             </div>
                         </div>
                     )}
                 </div>
+
             </main>
         </div>
     );
