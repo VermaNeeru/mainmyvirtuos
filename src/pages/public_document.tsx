@@ -1,7 +1,10 @@
 import React, { Fragment, useState, useRef, useEffect } from 'react'
 import { Dialog, Menu, Transition } from '@headlessui/react'
-import { XMarkIcon, ChevronDownIcon, PlusCircleIcon, EyeIcon, DocumentArrowDownIcon, MagnifyingGlassIcon } from '@heroicons/react/20/solid'
-
+import { XMarkIcon, ChevronDownIcon, PlusCircleIcon, EyeIcon, DocumentArrowDownIcon, MagnifyingGlassIcon } from '@heroicons/react/20/solid';
+import Cookies from 'js-cookie';
+import jwt from 'jsonwebtoken';
+import { useLazyQuery, useMutation, useQuery } from '@apollo/client';
+import { GET_PUBLIC_DOCUMENTS_BY_ID, GET__DOCUMENTS_BY_ID } from '@/graphql/User/queries'; // Import your GraphQL query
 const table_header = [
     { name: 'Document Name' },
 ];
@@ -12,11 +15,104 @@ const documents = [
     { id: 1, by: 'Aakash Sharma', dname: 'Virtuos Policies' },
     // More people...
 ]
+interface Document {
+    id: number;
+    dname: string;
+    // Add other properties as needed
+}
 
 export default function PublicDocument() {
     const [trDetail, setTrDetail] = useState(false)
     const [doc, setDoc] = useState(false)
+    const [button, setButton] = useState(false)
+    const [docname, setDocumentName] = useState("");
+    const [docdesc, setDocumentDesc] = useState("")
+    const [doccdate, setDocumentCdate] = useState("")
+    const [docattachment, setDocumentAttachment] = useState("")
     const cancelButtonRef = useRef(null)
+    const [getPublicDocuments, { data, loading, error }] = useMutation(GET_PUBLIC_DOCUMENTS_BY_ID);
+    const [documents, setDocuments] = useState<Document[]>([]);
+    const [selectedDocumentId, setSelectedDocumentId] = useState(null);
+
+    interface Document {
+        document_name: ReactNode;
+        id: number;
+        dname: string;
+        // Add other properties as needed
+    }// State to store fetched documents
+    const [executeQuery, { loading: getdocloading, error: getdocerror, data: getDocumentById }] = useLazyQuery(GET__DOCUMENTS_BY_ID);
+    console.log("GraphQL Query:", GET__DOCUMENTS_BY_ID?.loc?.source?.body);
+
+
+    const fetchPublicDocuments = async (userId: any) => {
+        // console.log(userId);
+        try {
+            const result = await getPublicDocuments({
+                variables: {
+                    userId,
+                },
+            });
+
+            // Extract the documents from the result and update the state
+            setDocuments(result.data.getPublicDocumentsByUserId);
+            setDocuments(result.data.getPublicDocumentsByUserId);
+            // console.log('Data:', result);
+            // console.log('Data:', documents);
+        } catch (e: any) {
+            // Handle any errors
+            console.error('Error:', e.message);
+        }
+    };
+
+    const handleDocumentClick = (documentId: number | React.SetStateAction<null>) => {
+        setSelectedDocumentId(documentId); // Set the selected document data
+        setDoc(true); // Show the dialog
+    };
+    useEffect(() => {
+        if (selectedDocumentId !== null) {
+            console.log(selectedDocumentId)
+            executeQuery({ variables: { id: selectedDocumentId } });
+            console.log("data of that particular doc", getDocumentById);
+        }
+    }, [selectedDocumentId]);
+    
+    console.log("data of that particular doc", getDocumentById);
+    useEffect(() => {
+        if (getDocumentById && getDocumentById.documentupload) {
+             
+    console.log("data of that particular doc", getDocumentById.documentupload.document_name);
+            // const { division } = getDivisionById; // Destructure the division object
+            setDocumentName(getDocumentById.documentupload.document_name);
+            setDocumentDesc(getDocumentById.documentupload.document_description);
+            setDocumentCdate(getDocumentById.documentupload.cdate);
+            setDocumentAttachment(getDocumentById.documentupload.document_attachment[0]);
+            // setDivisionStatus(division.status);
+        }
+    }, [getDocumentById]);
+
+    const handleIconClick = () => {
+        // Define the URL you want to open in a new tab or window
+        const newLink = 'https://example.com';
+    
+        // Open the link in a new tab
+        if(docattachment){
+
+            window.open(docattachment, '_blank');
+        }
+      };
+    useEffect(() => {
+        // console.log('Data:', documents); // Log the documents state here
+        const authToken = Cookies.get('authToken'); // Replace with your actual cookie name
+
+
+        // If the cookie exists, you can use it or decode it
+        // console.log('Auth Token:', authToken);
+        const decodedToken = jwt.decode(authToken);
+        // console.log(decodedToken?.id);
+        //   setTokenPayload(decodedToken.id);
+
+        fetchPublicDocuments(decodedToken?.id);
+    }, []); // This effect will trigger whenever 'documents' changes
 
     return (
         <div className=' w-full rounded px-2'>
@@ -70,14 +166,27 @@ export default function PublicDocument() {
                                     </tr>
                                 </thead>
                                 <tbody className="divide-y divide-gray-200 bg-white">
-                                    {documents.map((person) => (
+                                    {/* {documents.map((person) => (
                                         <tr key={person.id}>
                                             <td className="flex whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
                                                 <PlusCircleIcon onClick={() => setDoc(true)} className="h-6 w-6 text-gray-500" />
                                                 <span>{person.dname}</span>
                                             </td>
                                         </tr>
-                                    ))}
+                                    ))} */}
+                                    {documents.map((document) => {
+                                        // console.log(document); // Log the document object
+
+                                        return (
+                                            <tr key={document.id}>
+                                                <td className="flex whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
+                                                    <PlusCircleIcon onClick={() => handleDocumentClick(document.id)} className="h-6 w-6 text-gray-500" />
+                                                    <span>{document.document_name}</span>
+                                                </td>
+                                            </tr>
+                                        );
+                                    })}
+
                                 </tbody>
                             </table>
                         </div>
@@ -121,7 +230,8 @@ export default function PublicDocument() {
                                                                                 Document Name
                                                                             </td>
                                                                             <td className="whitespace-nowrap py-4 pl-4 pr-3 lg:text-sm text-xs font-medium text-gray-500 sm:pl-6">
-                                                                                Virtuos Spectacular <br />Handbook
+                                                                                {/* Virtuos Spectacular <br />Handbook */}
+                                                                                {docname}
                                                                             </td>
 
                                                                         </tr>
@@ -129,8 +239,8 @@ export default function PublicDocument() {
                                                                             <td className="whitespace-nowrap py-4 pl-4 pr-3 lg:text-sm text-xs text-gray-600 sm:pl-6">
                                                                                 Detail
                                                                             </td>
-                                                                            <td className="whitespace-nowrap py-4 pl-4 pr-3 lg:text-sm text-xs font-medium text-gray-500 sm:pl-6">
-                                                                                Spectacular Handbook
+                                                                            <td className="whitespace-wrap py-4 pl-4 pr-3 lg:text-sm text-xs font-medium text-gray-500 sm:pl-6">
+                                                                               {docdesc}
                                                                             </td>
 
                                                                         </tr>
@@ -139,7 +249,7 @@ export default function PublicDocument() {
                                                                                 Added on
                                                                             </td>
                                                                             <td className="whitespace-nowrap py-4 pl-4 pr-3 lg:text-sm text-xs font-medium text-gray-500 sm:pl-6">
-                                                                                2022-04-08 12:55:11
+                                                                               {doccdate}
                                                                             </td>
 
                                                                         </tr>
@@ -148,8 +258,8 @@ export default function PublicDocument() {
 
                                                                             </td>
                                                                             <td className="flex whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-500 sm:pl-6">
-                                                                                <EyeIcon className="h-6 w-6 text-gray-500" /> |
-                                                                                <DocumentArrowDownIcon className="h-6 w-6 text-gray-500" />
+                                                                                {/* <EyeIcon className="h-6 w-6 text-gray-500"     onClick={handleIconClick}/> | */}
+                                                                                <DocumentArrowDownIcon className="h-6 w-6 text-gray-500"   onClick={handleIconClick}/>
 
                                                                             </td>
                                                                         </tr>

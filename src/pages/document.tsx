@@ -1,6 +1,10 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, useEffect, useState } from 'react'
 import Link from 'next/link';
 import { MagnifyingGlassIcon, ChevronDownIcon } from '@heroicons/react/20/solid'
+import { useMutation, useQuery } from '@apollo/client';
+import { GET_PUBLIC_DOCUMENTS_BY_ID } from '@/graphql/User/queries'; // Import your GraphQL query
+import Cookies from 'js-cookie';
+import jwt from 'jsonwebtoken';
 const table_header = [
     { name: 'Document Name' },
     { name: 'Detail' },
@@ -15,6 +19,46 @@ const user_attendance = [
 
 
 export default function Document() {
+    const [tokenPayload, setTokenPayload] = useState(null);
+    const [getPublicDocuments, { data, loading, error }] = useMutation(GET_PUBLIC_DOCUMENTS_BY_ID);
+    const [documents, setDocuments] = useState([]); // State to store fetched documents
+    console.log("GraphQL Query:", GET_PUBLIC_DOCUMENTS_BY_ID?.loc?.source?.body);
+  
+    const fetchPublicDocuments = async (userId: any) => {
+        console.log(userId);
+        try {
+            const result = await getPublicDocuments({
+                variables: {
+                  userId, // Pass the userId variable here
+                },
+              });
+
+            // Extract the documents from the result and update the state
+            setDocuments(result.data.getPublicDocumentsByUserId);
+            console.log('Data:', result);
+        } catch (e: any) {
+            // Handle any errors
+            console.error('Error:', e.message);
+        }
+    };
+
+    // Call fetchPublicDocuments with the desired userId
+    useEffect(() => {
+        const authToken = Cookies.get('authToken'); // Replace with your actual cookie name
+
+        if (authToken) {
+          // If the cookie exists, you can use it or decode it
+          console.log('Auth Token:', authToken);
+          const decodedToken = jwt.decode(authToken);
+          setTokenPayload(decodedToken)
+          console.log(decodedToken?.id);
+        //   setTokenPayload(decodedToken.id);
+        } else {
+          // Handle the case where the cookie doesn't exist
+          console.log('Cookie not found');
+        }
+        fetchPublicDocuments(tokenPayload); // Replace 1 with the actual userId
+    }, []);
     return (
         <div className=' w-full rounded px-2'>
             <div className="rounded-t mb-4 px-4 bg-transparent">
@@ -67,29 +111,40 @@ export default function Document() {
                         <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                             <div className="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
                                 <div className="border-2 lg:border-0 overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg">
-                                    <table className="min-w-full divide-y divide-gray-300">
-                                        <thead className="bg-gray-50">
-                                            <tr>
-                                                {table_header.map((val, index) => (
 
-                                                    <th scope="col" key={index} className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">
-                                                        {val.name}
-                                                    </th>
-                                                ))}
-                                            </tr>
-                                        </thead>
-                                        <tbody className="divide-y divide-gray-200 bg-white">
-                                            {user_attendance.map((person) => (
-                                                <tr key={person.id}>
-                                                    <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
-                                                        {person.doc_name}
-                                                    </td>
-                                                    <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.detail}</td>
-                                                    <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.addedon}</td>
+                                    {loading ? (
+                                        <p>Loading...</p>
+                                    ) : error ? (
+                                        <p>Error: {error.message}</p>
+                                    ) : (
+                                        <table className="min-w-full divide-y divide-gray-300">
+                                            <thead className="bg-gray-50">
+                                                <tr>
+                                                    {table_header.map((val, index) => (
+
+                                                        <th scope="col" key={index} className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">
+                                                            {val.name}
+                                                        </th>
+                                                    ))}
                                                 </tr>
-                                            ))}
-                                        </tbody>
-                                    </table>
+                                            </thead>
+                                            <tbody className="divide-y divide-gray-200 bg-white">
+                                                {documents.map((document: { id: React.Key | null | undefined; document_name: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | React.ReactFragment | React.ReactPortal | React.PromiseLikeOfReactNode | null | undefined; document_description: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | React.ReactFragment | React.ReactPortal | React.PromiseLikeOfReactNode | null | undefined; cdate: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | React.ReactFragment | React.ReactPortal | React.PromiseLikeOfReactNode | null | undefined; }) => (
+                                                    <tr key={document.id}>
+                                                        <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
+                                                            {document.document_name}
+                                                        </td>
+                                                        <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">
+                                                            {document.document_description}
+                                                        </td>
+                                                        <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">
+                                                            {document.cdate}
+                                                        </td>
+                                                        {/* Remove the cdate column rendering */}
+                                                    </tr>
+                                                ))}
+                                            </tbody>
+                                        </table>)}
                                 </div>
                             </div>
                         </div>

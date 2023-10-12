@@ -1,6 +1,8 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, useEffect, useState } from 'react'
 import Link from 'next/link';
 import { MagnifyingGlassIcon, ChevronDownIcon, DocumentArrowDownIcon } from '@heroicons/react/20/solid'
+import Cookies from 'js-cookie';
+import jwt from 'jsonwebtoken';
 const table_header = [
     { name: 'Uploaded By' },
     { name: 'Document Name' },
@@ -14,8 +16,36 @@ const user_attendance = [
     // More people...
 ]
 
-
+// Define a type for your decoded token
+interface DecodedToken {
+    role: string; // Replace with the actual properties of your decoded token
+    // Add other properties as needed
+  }
 export default function AdminDocumentList() {
+
+    const [userRole, setUserRole] = useState<string | null>(null);
+
+    useEffect(() => {
+      const authToken = Cookies.get('authToken');
+  
+      if (authToken) {
+        const decodedToken = jwt.decode(authToken) as DecodedToken | null;
+        
+        if (decodedToken) {
+          setUserRole(decodedToken.role);
+          console.log(decodedToken.role);
+        }
+      } else {
+        console.log('Cookie not found');
+      }
+    }, []);
+    useEffect(() => {
+     if(userRole){
+        if(userRole==="CEO"){
+            
+        }
+     }
+    }, [userRole]);
     return (
         <div className=' w-full rounded px-2'>
             <div className="rounded-t mb-4 px-4 bg-transparent">

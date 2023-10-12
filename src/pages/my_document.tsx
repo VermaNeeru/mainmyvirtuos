@@ -1,5 +1,8 @@
 import React, { Fragment } from 'react'
 import Link from 'next/link';
+import { GET_PUBLIC_DOCUMENTS } from '@/graphql/User/queries';
+import { ApolloError, useMutation, useQuery } from '@apollo/client';
+
 import { MagnifyingGlassIcon, ChevronDownIcon } from '@heroicons/react/20/solid'
 const table_header = [
     { name: 'Document Name' },
@@ -12,9 +15,15 @@ const user_attendance = [
     { id: 3, doc_name: 'Short Leave', detail: '04-07-2023', addedon: '04-07-2023' },
     // More people...
 ]
-
-
+// $q = $this->db->query("SELECT * FROM user_document  where user_document_access='Public'");
 export default function MyDocument() {
+    const { loading, error, data } = useQuery(GET_PUBLIC_DOCUMENTS);
+    // console.log("GraphQL Query:", GET_PUBLIC_DOCUMENTS?.loc?.source?.body);
+      if (loading) return <p>Loading...</p>;
+      if (error) return <p>Error: {error.message}</p>;
+    // Assuming data.publicDocuments is an array of documents
+    const publicDocuments = data.publicDocuments;
+    console.log(publicDocuments); // Log the data to the console
     return (
         <div className=' w-full rounded px-2'>
             <div className="rounded-t mb-4 px-4 bg-transparent">
@@ -71,13 +80,26 @@ export default function MyDocument() {
                                             </tr>
                                         </thead>
                                         <tbody className="divide-y divide-gray-200 bg-white">
-                                            {user_attendance.map((person) => (
+                                            {/* {user_attendance.map((person) => (
                                                 <tr key={person.id}>
                                                     <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
                                                         {person.doc_name}
                                                     </td>
                                                     <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.detail}</td>
                                                     <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.addedon}</td>
+                                                </tr>
+                                            ))} */}
+                                            {publicDocuments.map((document: { id: React.Key | null | undefined; document_name: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | React.ReactFragment | React.ReactPortal | React.PromiseLikeOfReactNode | null | undefined; document_description: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | React.ReactFragment | React.ReactPortal | React.PromiseLikeOfReactNode | null | undefined; cdate: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | React.ReactFragment | React.ReactPortal | React.PromiseLikeOfReactNode | null | undefined; }) => (
+                                                <tr key={document.id}>
+                                                    <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
+                                                        {document.document_name}
+                                                    </td>
+                                                    <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">
+                                                        {document.document_description}
+                                                    </td>
+                                                    <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">
+                                                        {document.cdate}
+                                                    </td>
                                                 </tr>
                                             ))}
                                         </tbody>
