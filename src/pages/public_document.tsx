@@ -35,7 +35,7 @@ export default function PublicDocument() {
     const [selectedDocumentId, setSelectedDocumentId] = useState(null);
 
     interface Document {
-        document_name: ReactNode;
+        document_name: string;
         id: number;
         dname: string;
         // Add other properties as needed

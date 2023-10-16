@@ -54,6 +54,18 @@ query {
 }
 `;
 
+export const GET_ALL_DOCUMENTS = gql`
+query{
+  documentuploads{
+    id
+    document_name
+    cdate
+    document_attachment
+  }
+}
+
+`;
+
 
 export const GET_ForgotPassword = gql`
 mutation SendEmailToUser($email: String!, $template: String!) {  
