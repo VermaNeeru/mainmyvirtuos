@@ -1,8 +1,11 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { PhotoIcon, UserCircleIcon } from '@heroicons/react/24/solid'
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
 import { Combobox } from '@headlessui/react'
-export default function RoleSearch({ heading }: any) {
+import { useQuery, useLazyQuery, useMutation } from "@apollo/client";
+import { GET_Roles } from '@/graphql/Role/queries';
+
+export default function RoleSearch({ heading, onRoleChange }: any) {
     const people = [
         { id: 1, name: 'Role 1' },
         { id: 1, name: 'Role 2' },
@@ -15,15 +18,37 @@ export default function RoleSearch({ heading }: any) {
         return classes.filter(Boolean).join(' ')
     }
 
+    const { loading: getAllDataLoading, error: getAllDataError, data: getAllData, refetch } = useQuery(GET_Roles);
+    console.log("allData", getAllData);
+
+    let itemlist: any[] = [];
+
+    if (getAllData && getAllData.roles) {
+        itemlist = getAllData.roles.map((data: { id: any; role_name: any; priority: any; status: any; }) => ({
+            id: data.id,
+            role_name: data.role_name,
+            priority: data.priority,
+            status: data.status,
+
+        }));
+    }
+
     const [query, setQuery] = useState('')
     const [selectedPerson, setSelectedPerson] = useState(null)
 
     const filteredPeople =
         query === ''
-            ? people
-            : people.filter((person) => {
-                return person.name.toLowerCase().includes(query.toLowerCase())
+            ? itemlist
+            : itemlist.filter((item) => {
+                return item.role_name.toLowerCase().includes(query.toLowerCase())
             })
+
+    console.log(filteredPeople);
+    useEffect(() => {
+        console.log(selectedPerson);
+        onRoleChange(selectedPerson)
+    }, [selectedPerson])
+
     return (
         <div>
             <Combobox as="div" value={selectedPerson} onChange={setSelectedPerson}>
@@ -35,7 +60,7 @@ export default function RoleSearch({ heading }: any) {
                     <Combobox.Input
                         className="w-full rounded-md border-0 bg-white py-1.5 pl-3 pr-10 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                         onChange={(event) => setQuery(event.target.value)}
-                        displayValue={(person: any) => person?.name}
+                        displayValue={(person: any) => person?.role_name}
                     />
                     <Combobox.Button className="absolute inset-y-0 right-0 flex items-center rounded-r-md px-2 focus:outline-none">
                         <ChevronUpDownIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
@@ -56,7 +81,7 @@ export default function RoleSearch({ heading }: any) {
                                 >
                                     {({ active, selected }) => (
                                         <>
-                                            <span className={classNames('block truncate', selected && 'font-semibold')}>{person.name}</span>
+                                            <span className={classNames('block truncate', selected && 'font-semibold')}>{person.role_name}</span>
 
                                             {selected && (
                                                 <span

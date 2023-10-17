@@ -9,12 +9,18 @@ import EmployeeSearch from '@/components/EmployeeSearch';
 import MonthYear from '@/components/DatePickerComp/MonthYear';
 import XLSX from 'xlsx';
 import ExcelJS from 'exceljs';
-import { useMutation } from '@apollo/client';
+import { useMutation, useLazyQuery } from '@apollo/client';
 import { ADD_USER_ATTENDANCE_MUTATION } from '@/graphql/Userattendance/queries';
 import Alert from '@/components/Alert';
 
 import UserData from '@/components/UserData';
 import { ADD_Attendancesheet_MUTATION } from '@/graphql/Attendancesheet/queries';
+import FileUpload from '@/components/FileUpload';
+import { GET_Officialinfo_BY_ECODE } from '@/graphql/Officialinfo/queries';
+import { useGetUserByECode } from '@/hooks/GetUserByECode';
+import { GetUserByECode } from '@/components/GetUserByECode';
+
+
 function classNames(...classes: any[]) {
     return classes.filter(Boolean).join(' ')
 }
@@ -43,6 +49,7 @@ function calculateTimeDifference(date1: string | number | Date, date2: string | 
     return roundedNumber;
 }
 
+
 export default function UploadAttendanceSheet() {
     const [showSuccessMessage, setshowSuccessMessage] = useState<boolean>(false);
     const [showErrorMessage, setshowErrorMessage] = useState<boolean>(false);
@@ -58,6 +65,7 @@ export default function UploadAttendanceSheet() {
     ]
     const user_id = UserData();
     const [userId, setUserId] = useState<number>(user_id)
+    const [empUserId, setEmpUserId] = useState<number>(null)
     const [comment, setComment] = useState('')
     const [selected, setSelected] = useState(viewer[0])
 
@@ -67,7 +75,38 @@ export default function UploadAttendanceSheet() {
     const [i, setI] = useState(0);
     const [csvData, setCSVData] = useState([]);
     const [createQuery, { loading: createQueryLoading, error: createQueryError }] = useMutation(ADD_USER_ATTENDANCE_MUTATION);
+    // console.log(ADD_USER_ATTENDANCE_MUTATION.loc.source.body);
     const [createQueryAS, { loading: createQueryLoadingAS, error: createQueryErrorAS }] = useMutation(ADD_Attendancesheet_MUTATION);
+    // const [executeQuery, { loading, error, data }] = useLazyQuery(GET_Officialinfo_BY_ECODE);
+    // console.log(GET_Officialinfo_BY_ECODE.loc.source.body);
+    // const employeeCode1 = 'VINABS2201';
+
+    // // useEffect(() => {
+    // //     // console.log(employeeCode);
+    // //     executeQuery({ variables: { ecode: employeeCode } });
+    // //     console.log(data);
+    // // }, [employeeCode]);
+
+    // // console.log(data);
+    // // useEffect(() => {
+    // //     if (data && data.userDetailByCode) {
+    // //         const { userDetailByCode } = data; // Destructure the division object
+    // //         setEmpUserId(userDetailByCode.user_id)
+    // //         console.log('user_id', userDetailByCode.user_id);
+
+
+    // //     }
+    // // }, [data]);
+
+    // // if (loading) return <p>Loading...</p>;
+    // // if (error) return <p>Error: {error.message}</p>;
+
+    // console.log(data.user_id);
+
+
+
+    // console.log(GET_Officialinfo_BY_ECODE.loc.source.body);
+
     const alphabetArray = {
         C: 'employee_code',
         I: 'worked_hours',
@@ -118,7 +157,75 @@ export default function UploadAttendanceSheet() {
         // setFile(csvData)
     }, [csvData]);
 
+    const uploadAttendanceSheet = async () => {
+
+        const fileUrl = FileUpload(file, 'attendancesheet');
+
+        console.log('fileUrl', fileUrl);
+        try {
+            const { data: { createAttendancesheet: { id: attendanceSheetId } } } = await createQueryAS({
+                variables: {
+                    createAttendancesheetInput: {
+                        month: month,
+                        sheet_type: selected.name,
+                        attachment: fileUrl,
+                        comments: comment,
+                    },
+                },
+            });
+            console.log('attendanceSheetId', attendanceSheetId);
+
+            return attendanceSheetId;
+        } catch (error) {
+            console.error('Error loading XLSX file:', error);
+        }
+    }
+    const handleAttendance = async (attendanceData: any) => {
+        console.log("attendanceData: ", attendanceData);
+        try {
+            const { data: { createUserattendence: { id: attendanceId } } } = await createQuery({
+                variables: {
+                    createUserattendenceInput: attendanceData,
+                },
+            });
+
+            console.log('attendanceId', attendanceId);
+
+            return attendanceId;
+        } catch (error) {
+            console.error('Error uploadAttendanceSheet:', error);
+        }
+    }
+    const getUserId = async (employeeCode: any) => {
+        console.log("employeeCode: ", employeeCode);
+        // const employeeCode = 'VINABS2201';
+        try {
+            useEffect(() => {
+                // console.log(employeeCode);
+                executeQuery({ variables: { ecode: employeeCode } });
+                console.log(data);
+            }, [employeeCode]);
+
+            console.log(data);
+            useEffect(() => {
+                if (data && data.userDetailByCode) {
+                    const { userDetailByCode } = data; // Destructure the division object
+                    console.log('user_id', userDetailByCode.user_id);
+
+                    const userId = userDetailByCode.user_id;
+                } else {
+                    const userId = null;
+                }
+            }, [data]);
+
+
+            return userId;
+        } catch (error) {
+            console.error('Error user_id:', error);
+        }
+    }
     const handleSubmit = async (e) => {
+        e.preventDefault();
         console.log('called');
 
         // const file = e.target.files[0];
@@ -127,23 +234,20 @@ export default function UploadAttendanceSheet() {
         const attachment = "";
         // return;
         if (file) {
+
+
+
+            const attendanceSheetId = await uploadAttendanceSheet();
+            // return;
             // const attendanceSheetId = 1;
-            const { data: { createAttendancesheet: { id: attendanceSheetId } } } = await createQueryAS({
-                variables: {
-                    createAttendancesheetInput: {
-                        month: month,
-                        sheet_type: selected.name,
-                        attachment: attachment,
-                        comments: comment,
-                    },
-                },
-            });
+
 
 
             console.log('attendanceSheetId', attendanceSheetId);
 
             const workbook = new ExcelJS.Workbook();
             const reader = new FileReader();
+            let empUID = null;
 
             reader.onload = async (e) => {
                 const data = new Uint8Array(e.target.result);
@@ -153,7 +257,7 @@ export default function UploadAttendanceSheet() {
                     await workbook.xlsx.load(buffer);
 
                     const sheet = workbook.getWorksheet(1); // Change 1 to the index of the desired sheet
-
+                    console.log('sheet', sheet);
                     const cellCollection = [];
 
                     sheet.eachRow((row) => {
@@ -167,9 +271,21 @@ export default function UploadAttendanceSheet() {
                     let j = i + 1;
                     let k = j + 3;
                     let employeeAttendanceArray = [];
-                    let employeeCode, employeeName;
-                    cellCollection.map((row, index) => {
-                        if (index === i) {
+                    let employeeCodeNew = null;
+                    let employeeName = '';
+                    cellCollection.map(async (row, index) => {
+                        console.log('index', index)
+                        console.log(typeof (i), i)
+
+                        // console.log('row', row)
+                        console.log(index == i)
+                        console.log(typeof (index), index)
+                        console.log(typeof (i), i)
+                        if (index == i) {
+                            console.log(index)
+                            console.log(i)
+
+                            console.log(index === i)
                             j = i + 1;
                             k = j + 3;
 
@@ -179,16 +295,52 @@ export default function UploadAttendanceSheet() {
 
                             if (i > 4) {
                                 const employeeDetailArray2 = employeeDetailArray1[0].split("  ");
-                                employeeCode = employeeDetailArray2[0];
+                                employeeCodeNew = employeeDetailArray2[0];
                                 employeeName = employeeDetailArray2[1];
-                            } else {
-                                employeeCode = employeeDetailArray1[0];
-                                employeeName = '';
-                            }
+                                console.log("employeeCode1", employeeCodeNew)
 
+                                if (employeeCodeNew) {
+                                    console.log("employeeCode2", employeeCodeNew)
+                                    // // useEffect(() => {
+                                    // //     // console.log(employeeCode);
+                                    // //     executeQuery({ variables: { ecode: employeeCodeNew } });
+                                    // //     console.log(data);
+                                    // // }, [employeeCodeNew]);
+
+                                    // // console.log(data);
+                                    // // useEffect(() => {
+                                    // //     if (data && data.userDetailByCode) {
+                                    // //         const { userDetailByCode } = data; // Destructure the division object
+                                    // //         // setEmpUserId(userDetailByCode.user_id)
+                                    // //         console.log('user_id', userDetailByCode.user_id);
+                                    // //         const user_id = userDetailByCode.user_id;
+
+                                    // //     }
+                                    // // }, [data]);
+
+                                    // // if (loading) return <p>Loading...</p>;
+                                    // // if (error) return <p>Error: {error.message}</p>;
+
+                                    // const user_id = await getUserId(employeeCode);
+                                    empUID = GetUserByECode(employeeCodeNew);
+                                    // setEmployeeCode(employeeCode)
+                                    console.log('user_id', empUID);
+                                    setEmpUserId(parseInt(empUID));
+                                    // setEmpUserId(user_id)
+                                    // }, [getQueryById]);
+                                }
+                            } else {
+                                employeeCodeNew = employeeDetailArray1[0];
+                                employeeName = '';
+                                empUID = null;
+                                setEmpUserId(null);
+                                // setEmpUserId(null)
+                            }
+                            console.log('empUID = ' + empUID + ' & empUserId = ' + empUserId + ' & i = ' + i + ' & j =' + j + ' & k =' + k);
                             i = i + 6;
 
                         }
+                        console.log('empUID = ' + empUID + ' & empUserId = ' + empUserId + ' & i = ' + i + ' & j =' + j + ' & k =' + k);
 
                         if (index > j && index <= k) {
                             console.log('row', row);
@@ -197,17 +349,6 @@ export default function UploadAttendanceSheet() {
                             // if (employeeCode !== '') {
                             // const attendanceDate = row[2];
                             console.log(row[2]);
-                            // const newEmployee = {
-                            //     employeeCode: employeeCode,
-                            //     name: employeeName,
-                            //     attendence_date: row[2]// Initialize the array with the first date
-                            // };
-                            // employeeAttendanceArray.push(newEmployee);
-
-                            // const date1 = "2023-10-04T08:00:00Z"; // Replace with your date1
-                            // const date2 = "2023-10-04T10:30:00Z"; // Replace with your date2
-                            // const timeDifference = calculateTimeDifference(date1, date2);
-                            // const time_spent1 = date('H:i', row[9]);
 
                             const totalWorkingHours = "09.00";
                             // const row9 = new Date(); // Replace with your actual date value
@@ -218,32 +359,59 @@ export default function UploadAttendanceSheet() {
                                 const shortfall = calculateTimeDifference(totalWorkingHours, timeSpent);
 
                                 console.log('shortfall', shortfall);
+                                console.log('empUserId', empUserId);
                                 // return;
-                                const { data: { createUserattendence: { id: attendanceId } } } = createQuery({
-                                    variables: {
-                                        createUserattendenceInput: {
-                                            user_id: 6,
-                                            attendence_date: row[2],
-                                            attendence_day: row[3],
-                                            attendence_status: row[11],
-                                            employee_code: employeeCode,
-                                            employee_name: employeeName,
-                                            swipe_in: row[5],
-                                            swipe_out: row[6],
-                                            shortfall: String(shortfall),
-                                            employee_department: "",
-                                            notes: "",
-                                            source_id: attendanceSheetId,
-                                            late_hours: row[7],
-                                            early_hours: row[8],
-                                            total_hours: row[9],
-                                            excess_hours: row[9]
-                                        },
-                                    },
-                                });
+                                console.log('empUID = ' + empUID + ' & empUserId = ' + empUserId + ' & i = ' + i + ' & j =' + j + ' & k =' + k);
 
-                                console.log('response', data);
-                                console.log('attendanceId', attendanceId);
+                                if (empUID) {
+                                    const attendanceData = {
+                                        user_id: empUID,
+                                        attendence_date: row[2],
+                                        attendence_day: row[3],
+                                        attendence_status: row[11],
+                                        employee_code: employeeCodeNew,
+                                        employee_name: employeeName,
+                                        swipe_in: row[5],
+                                        swipe_out: row[6],
+                                        shortfall: String(shortfall),
+                                        employee_department: "",
+                                        notes: "",
+                                        source_id: attendanceSheetId,
+                                        late_hours: row[7],
+                                        early_hours: row[8],
+                                        total_hours: row[9],
+                                        excess_hours: row[9]
+                                    };
+
+                                    const attendanceId = await handleAttendance(attendanceData);
+                                    console.log('attendanceId', attendanceId);
+
+                                }
+
+                                // const { data: { createUserattendence: { id: attendanceId } } } = createQuery({
+                                //     variables: {
+                                //         createUserattendenceInput: {
+                                //             user_id: user_id,
+                                //             attendence_date: row[2],
+                                //             attendence_day: row[3],
+                                //             attendence_status: row[11],
+                                //             employee_code: employeeCode,
+                                //             employee_name: employeeName,
+                                //             swipe_in: row[5],
+                                //             swipe_out: row[6],
+                                //             shortfall: String(shortfall),
+                                //             employee_department: "",
+                                //             notes: "",
+                                //             source_id: attendanceSheetId,
+                                //             late_hours: row[7],
+                                //             early_hours: row[8],
+                                //             total_hours: row[9],
+                                //             excess_hours: row[9]
+                                //         },
+                                //     },
+                                // });
+
+                                // console.log('response', data);
                             } catch (error) {
                                 console.error('Error loading XLSX file:', error);
                             }
@@ -253,21 +421,20 @@ export default function UploadAttendanceSheet() {
                         }
                     });
 
-                    console.log('employeeAttendanceArray', employeeAttendanceArray);
+                    // console.log('employeeAttendanceArray', employeeAttendanceArray);
 
                     setFile('');
+                    setMonth('');
+                    setComment('');
                     setshowSuccessMessage(true);
                     setshowErrorMessage(false);
-
-
                 } catch (error) {
                     console.error('Error loading XLSX file:', error);
                 }
-
-
             };
 
             reader.readAsArrayBuffer(file);
+
         }
     }
 

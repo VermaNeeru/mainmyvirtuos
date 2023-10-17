@@ -1,8 +1,11 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { PhotoIcon, UserCircleIcon } from '@heroicons/react/24/solid'
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
 import { Combobox } from '@headlessui/react'
-export default function DivisionSearch({ heading }: any) {
+import { useQuery, useLazyQuery, useMutation } from "@apollo/client";
+import { GET_DIVISIONS } from '@/graphql/Division/queries';
+
+export default function DivisionSearch({ heading, onDivisionChange }: any) {
     const people = [
         { id: 1, name: 'Division 1' },
         { id: 1, name: 'Division 2' },
@@ -18,12 +21,34 @@ export default function DivisionSearch({ heading }: any) {
     const [query, setQuery] = useState('')
     const [selectedPerson, setSelectedPerson] = useState(null)
 
+    const { loading: getDivisionLoading, error: getDivisionError, data: getDivisionData, refetch } = useQuery(GET_DIVISIONS);
+    console.log("users", getDivisionData);
+
+    let itemlist: any[] = [];
+
+    if (getDivisionData && getDivisionData.divisions) {
+        itemlist = getDivisionData.divisions.map((division: { id: any; division_name: any; division_code: any; division_color: any; status: any; }) => ({
+            id: division.id,
+            dname: division.division_name,
+            dcode: division.division_code,
+            dcolor: division.division_color,
+            dstatus: division.status,
+
+        }));
+    }
+
     const filteredPeople =
         query === ''
-            ? people
-            : people.filter((person) => {
-                return person.name.toLowerCase().includes(query.toLowerCase())
+            ? itemlist
+            : itemlist.filter((item) => {
+                return item.dname.toLowerCase().includes(query.toLowerCase()) || item.dcode.toLowerCase().includes(query.toLowerCase())
             })
+
+    console.log(filteredPeople);
+    useEffect(() => {
+        console.log(selectedPerson);
+        onDivisionChange(selectedPerson)
+    }, [selectedPerson])
     return (
         <div>
             <Combobox as="div" value={selectedPerson} onChange={setSelectedPerson}>
@@ -32,7 +57,7 @@ export default function DivisionSearch({ heading }: any) {
                     <Combobox.Input
                         className="w-full rounded-md border-0 bg-white py-1.5 pl-3 pr-10 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                         onChange={(event) => setQuery(event.target.value)}
-                        displayValue={(person: any) => person?.name}
+                        displayValue={(person: any) => person?.dname}
                     />
                     <Combobox.Button className="absolute inset-y-0 right-0 flex items-center rounded-r-md px-2 focus:outline-none">
                         <ChevronUpDownIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
@@ -53,7 +78,7 @@ export default function DivisionSearch({ heading }: any) {
                                 >
                                     {({ active, selected }) => (
                                         <>
-                                            <span className={classNames('block truncate', selected && 'font-semibold')}>{person.name}</span>
+                                            <span className={classNames('block truncate', selected && 'font-semibold')}>{person.dname}</span>
 
                                             {selected && (
                                                 <span

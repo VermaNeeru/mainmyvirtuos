@@ -46,7 +46,7 @@ const Testing = ({ onStateChange }: any) => {
             children: [
                 { name: 'My Attendance', href: '/current_month_attendance', current: "My Attendance", },
                 { name: 'All Attendance', href: '/all_attendance', current: 'All Attendance' },
-                { name: 'Upload Attendance Sheet', href: '/upload_attendance', current: 'Upload Attendance Sheet' },
+                { name: 'Upload Attendance Sheet', href: '/upload_attendance_sheet', current: 'Upload Attendance Sheet' },
             ],
         },
         {

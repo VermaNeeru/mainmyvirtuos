@@ -1,15 +1,23 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { PhotoIcon, UserCircleIcon } from '@heroicons/react/24/solid'
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
 import { Combobox } from '@headlessui/react'
-export default function TeamSearch({ heading }: any) {
+
+import { useQuery, useLazyQuery, useMutation } from "@apollo/client";
+import { GET_Teams } from '@/graphql/Team/graphql';
+
+
+
+export default function TeamSearch({ heading, onTeamChange }: any) {
     const people = [
-        { id: 1, name: 'Shivam Chawla' },
-        { id: 1, name: 'Neeru Verma' },
-        { id: 1, name: 'Poorva Sharma' },
-        { id: 1, name: 'Sarika Sharma' },
-        { id: 1, name: 'Bhumika' },
-        { id: 1, name: 'Gagan' },
+        { id: 1, name: 'Alpha Team RN CX' },
+        { id: 2, name: 'Alpha Team SFDC' },
+        { id: 3, name: 'Alpha Team Dev' },
+        { id: 4, name: 'Commerce Team' },
+        { id: 5, name: 'V-Team' },
+        { id: 6, name: 'Bindass Team' },
+        { id: 7, name: 'Delta Digital Team' },
+        { id: 8, name: 'Delta UX Team' },
         // More users...
     ]
 
@@ -21,12 +29,33 @@ export default function TeamSearch({ heading }: any) {
     const [query, setQuery] = useState('')
     const [selectedPerson, setSelectedPerson] = useState(null)
 
+    const { loading: getTeamLoading, error: getTeamError, data: getTeamData, refetch } = useQuery(GET_Teams);
+    console.log("users", getTeamData);
+
+    let itemlist: any[] = [];
+
+    if (getTeamData && getTeamData.teams) {
+        itemlist = getTeamData.teams.map((team: { id: any; name: any; code: any; status: any; }) => ({
+            id: team.id,
+            name: team.name,
+            code: team.code,
+            status: team.status,
+
+        }));
+    }
+
     const filteredPeople =
         query === ''
-            ? people
-            : people.filter((person) => {
-                return person.name.toLowerCase().includes(query.toLowerCase())
+            ? itemlist
+            : itemlist.filter((item) => {
+                return item.name.toLowerCase().includes(query.toLowerCase()) || item.dcode.toLowerCase().includes(query.toLowerCase())
             })
+
+    console.log(filteredPeople);
+    useEffect(() => {
+        console.log(selectedPerson);
+        onTeamChange(selectedPerson)
+    }, [selectedPerson])
     return (
         <div>
             <Combobox as="div" value={selectedPerson} onChange={setSelectedPerson}>

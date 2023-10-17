@@ -1,12 +1,61 @@
+import React, { useState } from 'react'
+
 import DatePickerComp from '@/components/DatePickerComp/DatePickerComp'
 import DepartmentSearch from '@/components/DepartmentSearch'
 import DivisionSearch from '@/components/DivisionSearch'
 import ManagerSearch from '@/components/ManagerSearch'
 import RoleSearch from '@/components/RoleSearch'
 import TeamSearch from '@/components/TeamSearch'
-import React from 'react'
+import UserData from '@/components/UserData'
 
 export default function AddUser() {
+    const userData = UserData();
+    // const [userId, setUserId] = useState<number>(1)
+    const [userId, setUserId] = useState<number>(userData.id)
+
+    const [firstname, setFirstname] = useState<string>('');
+    const [lastname, setLastname] = useState<string>('');
+    const [middlename, setMiddlename] = useState<string>('');
+    const [employeeCode, setEmployeecode] = useState<string>('');
+    const [mobileNo, setMobileNo] = useState<string>('');
+    const [landLine, setLandLine] = useState<string>('');
+    const [extn, setExtn] = useState<string>('');
+    const [email, setEmail] = useState<string>('');
+    const [designation, setDesignation] = useState<string>('');
+    const [departmentId, setDepartmentId] = useState<string>('');
+    const [divisionId, setDivisionId] = useState<number>();
+    const [roleId, setRoleId] = useState<number>();
+    const [doj, setDoj] = useState<string>('');
+    const [managerId1, setManagerId1] = useState<number>();
+    const [managerId2, setManagerId2] = useState<number>();
+    const [userTypeId, setUserTypeId] = useState<number>();
+    const [EmployeeAccess, setEmployeeAccess] = useState<number>();
+    const [UserStatus, setUserStatus] = useState<number>();
+    const [team, setTeam] = useState<string>();
+
+    const handleTeamChange = (teams: any) => {
+        console.log(teams)
+        setTeam(teams?.name); // Update parent component's state
+
+    };
+
+    const handleDepartmentChange = (departments: any) => {
+        console.log(departments)
+        setDepartmentId(departments?.id); // Update parent component's state
+    };
+    console.log(departmentId)
+
+    const handleDivisionChange = (divisions: any) => {
+        console.log(divisions)
+        setDivisionId(divisions?.id); // Update parent component's state
+    };
+    console.log(divisionId)
+    const handleRoleChange = (roles: any) => {
+        console.log(roles)
+        setDivisionId(roles?.id); // Update parent component's state
+    };
+    console.log(roleId)
+    // console.log(team)
     return (
         <div className=' w-full rounded px-2'>
             <div className="rounded-t mb-4 px-4 bg-transparent">
@@ -37,8 +86,10 @@ export default function AddUser() {
                                                 User Name
                                             </label>
                                             <input
-                                                type="email"
+                                                type="text"
                                                 name="email"
+                                                value={`${userData.firstname} ${userData.lastname}`}
+
                                                 id="email"
                                                 className="px-2 block w-full rounded-md border-0 py-1.5 text-gray-700 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                                 placeholder="User Name"
@@ -80,7 +131,8 @@ export default function AddUser() {
                                                 First Name
                                             </label>
                                             <input
-                                                type="email"
+                                                type="text"
+                                                value={firstname}
                                                 name="email"
                                                 id="email"
                                                 className="px-2 block w-full rounded-md border-0 py-1.5 text-gray-700 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -95,7 +147,8 @@ export default function AddUser() {
                                                 Middle Name
                                             </label>
                                             <input
-                                                type="email"
+                                                type="text"
+                                                value={middlename}
                                                 name="email"
                                                 id="email"
                                                 className="px-2 block w-full rounded-md border-0 py-1.5 text-gray-700 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -110,7 +163,8 @@ export default function AddUser() {
                                                 Last Name
                                             </label>
                                             <input
-                                                type="email"
+                                                type="text"
+                                                value={lastname}
                                                 name="email"
                                                 id="email"
                                                 className="px-2 block w-full rounded-md border-0 py-1.5 text-gray-700 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -140,7 +194,8 @@ export default function AddUser() {
                                                 Employee Code
                                             </label>
                                             <input
-                                                type="email"
+                                                type="text"
+                                                value={employeeCode}
                                                 name="email"
                                                 id="email"
                                                 className="px-2 block w-full rounded-md border-0 py-1.5 text-gray-700 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -155,7 +210,8 @@ export default function AddUser() {
                                                 Official Mobile Number
                                             </label>
                                             <input
-                                                type="email"
+                                                type="number"
+                                                value={mobileNo}
                                                 name="email"
                                                 id="email"
                                                 className="px-2 block w-full rounded-md border-0 py-1.5 text-gray-700 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -170,7 +226,8 @@ export default function AddUser() {
                                                 Official Landline Number
                                             </label>
                                             <input
-                                                type="email"
+                                                type="text"
+                                                value={landLine}
                                                 name="email"
                                                 id="email"
                                                 className="px-2 block w-full rounded-md border-0 py-1.5 text-gray-700 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -185,7 +242,8 @@ export default function AddUser() {
                                                 Official Extension
                                             </label>
                                             <input
-                                                type="email"
+                                                type="text"
+                                                value={extn}
                                                 name="email"
                                                 id="email"
                                                 className="px-2 block w-full rounded-md border-0 py-1.5 text-gray-700 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -201,6 +259,7 @@ export default function AddUser() {
                                             </label>
                                             <input
                                                 type="email"
+                                                value={email}
                                                 name="email"
                                                 id="email"
                                                 className="px-2 block w-full rounded-md border-0 py-1.5 text-gray-700 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -215,7 +274,8 @@ export default function AddUser() {
                                                 Designation
                                             </label>
                                             <input
-                                                type="email"
+                                                type="text"
+                                                value={designation}
                                                 name="email"
                                                 id="email"
                                                 className="px-2 block w-full rounded-md border-0 py-1.5 text-gray-700 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -223,21 +283,19 @@ export default function AddUser() {
                                             />
                                         </div>
                                     </div>
-
-
                                 </div>
                                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-6 lg:gap-y-4 gap-y-2 mt-2">
                                     <div className="sm:col-span-1">
-                                        <TeamSearch />
+                                        <TeamSearch onTeamChange={handleTeamChange} />
                                     </div>
                                     <div className="sm:col-span-1">
-                                        <DepartmentSearch />
+                                        <DepartmentSearch onDepartmentChange={handleDepartmentChange} />
                                     </div>
                                     <div className="sm:col-span-1">
-                                        <DivisionSearch />
+                                        <DivisionSearch onDivisionChange={handleDivisionChange} />
                                     </div>
                                     <div className="sm:col-span-1">
-                                        <RoleSearch />
+                                        <RoleSearch onRoleChange={handleRoleChange} />
                                     </div>
                                 </div>
                                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-x-6 lg:gap-y-4 gap-y-2 mt-2">
