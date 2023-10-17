@@ -17,21 +17,29 @@ const user_attendance = [
     // More people...
 ]
 
+interface Document {
 
+    id: number;
+    document_name: string;
+    document_description: string;
+    cdate: string;
+    document_attachment: string;
+}
 export default function Document() {
-    const [tokenPayload, setTokenPayload] = useState(null);
+    const [tokenPayload, setTokenPayload] = useState<number | null>(null);
     const [getPublicDocuments, { data, loading, error }] = useMutation(GET_PUBLIC_DOCUMENTS_BY_ID);
-    const [documents, setDocuments] = useState([]); // State to store fetched documents
+    const [documents, setDocuments] = useState<Document[]>([]); // State to store fetched documents
+    const [searchQuery, setSearchQuery] = useState<string>('');
     console.log("GraphQL Query:", GET_PUBLIC_DOCUMENTS_BY_ID?.loc?.source?.body);
-  
+
     const fetchPublicDocuments = async (userId: any) => {
         console.log(userId);
         try {
             const result = await getPublicDocuments({
                 variables: {
-                  userId, // Pass the userId variable here
+                    userId, // Pass the userId variable here
                 },
-              });
+            });
 
             // Extract the documents from the result and update the state
             setDocuments(result.data.getPublicDocumentsByUserId);
@@ -47,18 +55,30 @@ export default function Document() {
         const authToken = Cookies.get('authToken'); // Replace with your actual cookie name
 
         if (authToken) {
-          // If the cookie exists, you can use it or decode it
-          console.log('Auth Token:', authToken);
-          const decodedToken = jwt.decode(authToken);
-          setTokenPayload(decodedToken)
-          console.log(decodedToken?.id);
-        //   setTokenPayload(decodedToken.id);
+            // If the cookie exists, you can use it or decode it
+            console.log('Auth Token:', authToken);
+            const decodedToken = jwt.decode(authToken);
+            if (typeof decodedToken === 'string') {
+                // Handle the case where decodedToken is a string (e.g., an invalid token)
+                console.error('Invalid token:', decodedToken);
+            } else if (decodedToken) {
+                // Handle the case where decodedToken is a JWT payload
+                setTokenPayload(decodedToken.id);
+                console.log(decodedToken?.id);
+                fetchPublicDocuments(decodedToken.id);
+            }
+            //   setTokenPayload(decodedToken.id);
         } else {
-          // Handle the case where the cookie doesn't exist
-          console.log('Cookie not found');
+            // Handle the case where the cookie doesn't exist
+            console.log('Cookie not found');
         }
-        fetchPublicDocuments(tokenPayload); // Replace 1 with the actual userId
-    }, []);
+        // Replace 1 with the actual userId
+        // fetchPublicDocuments(tokenPayload); // Replace 1 with the actual userId
+    }, [tokenPayload]);
+    // Create a filteredDocuments array based on the search query
+    const filteredDocuments = documents.filter((document) =>
+        document.document_name.toLowerCase().includes(searchQuery.toLowerCase())
+    );
     return (
         <div className=' w-full rounded px-2'>
             <div className="rounded-t mb-4 px-4 bg-transparent">
@@ -82,11 +102,13 @@ export default function Document() {
                                         <MagnifyingGlassIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
                                     </div>
                                     <input
-                                        type="email"
+                                        type="text"
                                         name="email"
                                         id="email"
                                         className="block w-full rounded-none rounded-l-md border-0 py-1.5 pl-10 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                         placeholder="John Smith"
+                                        value={searchQuery}
+                                        onChange={(e) => setSearchQuery(e.target.value)}
                                     />
                                 </div>
                                 <button
@@ -129,18 +151,17 @@ export default function Document() {
                                                 </tr>
                                             </thead>
                                             <tbody className="divide-y divide-gray-200 bg-white">
-                                                {documents.map((document: { id: React.Key | null | undefined; document_name: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | React.ReactFragment | React.ReactPortal | React.PromiseLikeOfReactNode | null | undefined; document_description: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | React.ReactFragment | React.ReactPortal | React.PromiseLikeOfReactNode | null | undefined; cdate: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | React.ReactFragment | React.ReactPortal | React.PromiseLikeOfReactNode | null | undefined; }) => (
+                                                {filteredDocuments.map((document) => (
                                                     <tr key={document.id}>
                                                         <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
                                                             {document.document_name}
                                                         </td>
-                                                        <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">
+                                                        <td className="whitespace-wrap px-3 py-2 text-sm text-gray-500">
                                                             {document.document_description}
                                                         </td>
                                                         <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">
                                                             {document.cdate}
                                                         </td>
-                                                        {/* Remove the cdate column rendering */}
                                                     </tr>
                                                 ))}
                                             </tbody>

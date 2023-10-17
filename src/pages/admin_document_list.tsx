@@ -34,7 +34,7 @@ export default function AdminDocumentList() {
 
     const [userRole, setUserRole] = useState<string | null>(null);
     const [getAllData, setgetAllData] = useState<Document[]>([]);
-
+    const [searchQuery, setSearchQuery] = useState<string>('');
     const [fullName, setFullName] = useState<string | null>(null); // State variable for the full name
 
 
@@ -72,6 +72,9 @@ export default function AdminDocumentList() {
             }
         }
     }, [userRole, data]);
+      const filteredDocuments = getAllData.filter((document) =>
+        document.document_name.toLowerCase().includes(searchQuery.toLowerCase())
+    );
     return (
         <div className=' w-full rounded px-2'>
             <div className="rounded-t mb-4 px-4 bg-transparent">
@@ -100,6 +103,8 @@ export default function AdminDocumentList() {
                                         id="email"
                                         className="block w-full rounded-none rounded-l-md border-0 py-1.5 pl-10 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                         placeholder="John Smith"
+                                        value={searchQuery}
+                                        onChange={(e) => setSearchQuery(e.target.value)}
                                     />
                                 </div>
                                 <button
@@ -131,7 +136,7 @@ export default function AdminDocumentList() {
                                                 </tr>
                                             </thead>
                                             <tbody className="divide-y divide-gray-200 bg-white">
-                                                {getAllData?.map((person) => (
+                                                {filteredDocuments?.map((person) => (
                                                     <tr key={person.id}>
                                                         <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">
                                                             {fullName}
@@ -139,8 +144,12 @@ export default function AdminDocumentList() {
                                                         <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.document_name}</td>
                                                         <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.cdate}</td>
                                                         <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">
+                                                            {/* <Link href={person.document_attachment[0]}>
                                                             <DocumentArrowDownIcon className="h-6 w-6 text-gray-500" />
-
+                                                            </Link> */}
+                                                            <a href={person.document_attachment[0]} target="_blank" rel="noreferrer">
+                                                                <DocumentArrowDownIcon className="h-6 w-6 text-gray-500" />
+                                                            </a>
                                                         </td>
                                                     </tr>
                                                 ))}

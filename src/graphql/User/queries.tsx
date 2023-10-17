@@ -22,14 +22,15 @@ mutation Login($username: String!, $password: String!) {
 `;
 export const GET_PUBLIC_DOCUMENTS_BY_ID  = gql`
 mutation GetPublicDocumentsByUserId($userId: Float!) {
-    getPublicDocumentsByUserId(userId: $userId) {
-      id
-      document_name
-      document_description
-      cdate
-      document_attachment
-    }
+  getPublicDocumentsByUserId(userId: $userId) {
+    id
+    document_name
+    document_description
+    cdate
+    document_attachment
   }
+}
+
 `;
 export const GET__DOCUMENTS_BY_ID  = gql`
 query Document($id:Int!){
