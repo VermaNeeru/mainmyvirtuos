@@ -19,9 +19,54 @@ mutation Login($username: String!, $password: String!) {
     }
   }
 }
-
+`;
+export const GET_PUBLIC_DOCUMENTS_BY_ID  = gql`
+mutation GetPublicDocumentsByUserId($userId: Float!) {
+  getPublicDocumentsByUserId(userId: $userId) {
+    id
+    document_name
+    document_description
+    cdate
+    document_attachment
+  }
+}
 
 `;
+export const GET__DOCUMENTS_BY_ID  = gql`
+query Document($id:Int!){
+  documentupload(id: $id) {
+    document_name
+    document_description
+    document_attachment
+    cdate
+  }
+}
+
+`;
+export const GET_PUBLIC_DOCUMENTS  = gql`
+query {
+  publicDocuments {
+    id
+    document_name
+    document_access
+    cdate
+    document_description
+  }
+}
+`;
+
+export const GET_ALL_DOCUMENTS = gql`
+query{
+  documentuploads{
+    id
+    document_name
+    cdate
+    document_attachment
+  }
+}
+
+`;
+
 
 export const GET_ForgotPassword = gql`
 mutation SendEmailToUser($email: String!, $template: String!) {  
@@ -29,8 +74,8 @@ mutation SendEmailToUser($email: String!, $template: String!) {
 }
 `;
 export const CREATE_DOCUMENT_UPLOAD_MUTATION = gql`
-mutation CreateDocumentUpload($createDocumentUploadInput: CreateDocumentuploadInput!) {
-  createDocumentupload(createDocumentuploadInput: $createDocumentUploadInput) {
+mutation CreateDocumentUpload($input: CreateDocumentuploadInput!) {
+  createDocumentupload(createDocumentuploadInput: $input) {
     id
     user_id
     role_id

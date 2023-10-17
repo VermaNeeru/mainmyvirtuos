@@ -29,17 +29,27 @@ export default function AddDocument() {
   const [selected, setSelected] = useState(viewer[1]);
   const [documentName, setDocumentName] = useState('');
   const [documentDescription, setDocumentDescription] = useState('');
-  //   const [createDocumentUpload] = useMutation(CREATE_DOCUMENT_UPLOAD_MUTATION);
+  const [isFormSubmitted, setIsFormSubmitted] = useState(false);
+  const [uploadedFiles, setUploadedFiles] = useState<string[]>([]);
+
   const [createDocumentUpload, { data, error }] = useMutation(
     CREATE_DOCUMENT_UPLOAD_MUTATION
   );
+
   const [fileUrl, setFileUrl] = useState<string | null>(null);
+  
 
   // Callback function to set the file URL from the child component
-  const handleFileUrlFromChild = (url: string | null) => {
-    setFileUrl(url);
-  };
+ // Callback function to set the file URL from the child component
+const handleFileUrlFromChild = (url: string | null) => {
+  setFileUrl(url);
+};
 
+  // Callback function to update the uploaded files array
+  const handleUploadedFiles = (urls: string[]) => {
+    setUploadedFiles([...uploadedFiles, ...urls]);
+  };
+  
   // console.log("GraphQL Query:", CREATE_DOCUMENT_UPLOAD_MUTATION?.loc?.source?.body);
   const handleSubmit = async (event: { preventDefault: () => void }) => {
     event.preventDefault();
@@ -48,24 +58,41 @@ export default function AddDocument() {
     // console.log('Document Description:', documentDescription);
     // console.log('Selected Viewer:', selected.name);
     console.log('Received fileUrl in parent component:', fileUrl);
-    const createDocumentUploadInput = {
+    console.log('Uploaded files in parent component:', uploadedFiles);
+    const input = {
       user_id: 1, // Replace with the actual user ID
       role_id: 2, // Replace with the actual role ID
       viewer_id: selected.id, // Use the ID of the selected viewer
       document_name: documentName,
       document_description: documentDescription,
-      document_attachment: fileUrl, // Replace with the actual attachment data
+      document_attachment: uploadedFiles, // Replace with the actual attachment data
+      // document_attachment: fileUrl, // Replace with the actual attachment data
       document_access: 'PUBLIC', // Replace with the desired access level
     };
 
     try {
       const { data } = await createDocumentUpload({
         variables: {
-          createDocumentUploadInput,
+          input,
         },
       });
 
       console.log('Mutation Response:', data);
+       // Check if the response data contains the expected data structure
+       if (data && data.createDocumentupload) {
+        // Form submitted successfully, update the state and reset the form
+        setIsFormSubmitted(true);
+        setDocumentName('');
+        setDocumentDescription('');
+        setUploadedFiles([]);
+        setFileUrl(null);
+
+        // Display an alert for successful submission
+        alert('Form submitted successfully!');
+      } else {
+        // Handle any other response or error conditions as needed
+        console.error('Unexpected response:', data);
+      }
     } catch (error) {
       console.error('An error occurred:', error);
     }
@@ -213,7 +240,9 @@ export default function AddDocument() {
                   </div>
                   <div className="mt-2 grid grid-cols-1 lg:gap-x-6 gap-x-2 lg:gap-y-4 gap-y-2 lg:grid-cols-1">
                     <div className="sm:col-span-1">
-                      <DragDropFile onFileDrop={handleFileDrop} handleFileUrl={handleFileUrlFromChild} />
+                      {/* <DragDropFile onFileDrop={handleFileDrop} handleFileUrl={handleFileUrlFromChild} /> */}
+                      <DragDropFile onFileDrop={handleFileDrop} handleFileUrl={handleFileUrlFromChild} handleUploadedFiles={handleUploadedFiles} />
+                      
                     </div>
                   </div>
                 </div>

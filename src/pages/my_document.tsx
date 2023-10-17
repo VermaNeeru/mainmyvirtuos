@@ -1,5 +1,8 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, useState } from 'react'
 import Link from 'next/link';
+import { GET_PUBLIC_DOCUMENTS } from '@/graphql/User/queries';
+import { ApolloError, useMutation, useQuery } from '@apollo/client';
+
 import { MagnifyingGlassIcon, ChevronDownIcon } from '@heroicons/react/20/solid'
 const table_header = [
     { name: 'Document Name' },
@@ -12,9 +15,19 @@ const user_attendance = [
     { id: 3, doc_name: 'Short Leave', detail: '04-07-2023', addedon: '04-07-2023' },
     // More people...
 ]
-
-
+// $q = $this->db->query("SELECT * FROM user_document  where user_document_access='Public'");
 export default function MyDocument() {
+        const [searchQuery, setSearchQuery] = useState<string>('');
+    const { loading, error, data } = useQuery(GET_PUBLIC_DOCUMENTS);
+    // console.log("GraphQL Query:", GET_PUBLIC_DOCUMENTS?.loc?.source?.body);
+      if (loading) return <p>Loading...</p>;
+      if (error) return <p>Error: {error.message}</p>;
+    // Assuming data.publicDocuments is an array of documents
+    const publicDocuments = data.publicDocuments;
+    console.log(publicDocuments); 
+    const filteredDocuments = publicDocuments.filter((publicDocuments: { document_name: string; }) =>
+    publicDocuments.document_name.toLowerCase().includes(searchQuery.toLowerCase())
+);// Log the data to the console
     return (
         <div className=' w-full rounded px-2'>
             <div className="rounded-t mb-4 px-4 bg-transparent">
@@ -41,6 +54,8 @@ export default function MyDocument() {
                                         type="email"
                                         name="email"
                                         id="email"
+                                        value={searchQuery}
+                                        onChange={(e) => setSearchQuery(e.target.value)}
                                         className="block w-full rounded-none rounded-l-md border-0 py-1.5 pl-10 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                         placeholder="John Smith"
                                     />
@@ -71,13 +86,26 @@ export default function MyDocument() {
                                             </tr>
                                         </thead>
                                         <tbody className="divide-y divide-gray-200 bg-white">
-                                            {user_attendance.map((person) => (
+                                            {/* {user_attendance.map((person) => (
                                                 <tr key={person.id}>
                                                     <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
                                                         {person.doc_name}
                                                     </td>
                                                     <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.detail}</td>
                                                     <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.addedon}</td>
+                                                </tr>
+                                            ))} */}
+                                            {filteredDocuments.map((document: { id: React.Key | null | undefined; document_name: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | React.ReactFragment | React.ReactPortal | React.PromiseLikeOfReactNode | null | undefined; document_description: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | React.ReactFragment | React.ReactPortal | React.PromiseLikeOfReactNode | null | undefined; cdate: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | React.ReactFragment | React.ReactPortal | React.PromiseLikeOfReactNode | null | undefined; }) => (
+                                                <tr key={document.id}>
+                                                    <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
+                                                        {document.document_name}
+                                                    </td>
+                                                    <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">
+                                                        {document.document_description}
+                                                    </td>
+                                                    <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">
+                                                        {document.cdate}
+                                                    </td>
                                                 </tr>
                                             ))}
                                         </tbody>
