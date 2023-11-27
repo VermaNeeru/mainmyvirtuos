@@ -48,7 +48,7 @@ export default function TeamSearch({ heading, onTeamChange }: any) {
         query === ''
             ? itemlist
             : itemlist.filter((item) => {
-                return item.name.toLowerCase().includes(query.toLowerCase()) || item.dcode.toLowerCase().includes(query.toLowerCase())
+                return item.name.toLowerCase().includes(query.toLowerCase()) || item.code.toLowerCase().includes(query.toLowerCase())
             })
 
     console.log(filteredPeople);

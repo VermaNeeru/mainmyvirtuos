@@ -10,7 +10,7 @@ mutation Login($username: String!, $password: String!) {
       lastname
       username
       password
-      role
+      role_id
       officialemail
       extn
       gender
@@ -20,7 +20,7 @@ mutation Login($username: String!, $password: String!) {
   }
 }
 `;
-export const GET_PUBLIC_DOCUMENTS_BY_ID  = gql`
+export const GET_PUBLIC_DOCUMENTS_BY_ID = gql`
 mutation GetPublicDocumentsByUserId($userId: Float!) {
   getPublicDocumentsByUserId(userId: $userId) {
     id
@@ -32,7 +32,7 @@ mutation GetPublicDocumentsByUserId($userId: Float!) {
 }
 
 `;
-export const GET__DOCUMENTS_BY_ID  = gql`
+export const GET__DOCUMENTS_BY_ID = gql`
 query Document($id:Int!){
   documentupload(id: $id) {
     document_name
@@ -43,7 +43,7 @@ query Document($id:Int!){
 }
 
 `;
-export const GET_PUBLIC_DOCUMENTS  = gql`
+export const GET_PUBLIC_DOCUMENTS = gql`
 query {
   publicDocuments {
     id
@@ -51,6 +51,16 @@ query {
     document_access
     cdate
     document_description
+  }
+}
+`;
+
+export const GET_Managers = gql`
+query {
+  getmanagers {
+    id
+   firstname
+   lastname
   }
 }
 `;
@@ -91,7 +101,7 @@ mutation CreateDocumentUpload($input: CreateDocumentuploadInput!) {
 
 
 
-export const GET_ChangePassword= gql`
+export const GET_ChangePassword = gql`
 mutation changePassword($resetKey: String!, $newPassword: String!) {
   changePassword(resetKey: $resetKey, newPassword: $newPassword)
 }
@@ -126,9 +136,12 @@ export const GET_Employees = gql`
 
 export const ADD_USER_MUTATION = gql`
   mutation CreateUser($createUserInput: CreateUserInput!) {
-    createUser(createUserInput: $createUserInput)
+    createUser(createUserInput: $createUserInput){
+      id
+    }
   }
 `;
+
 
 
 // export const ADD_USER_MUTATION = gql`

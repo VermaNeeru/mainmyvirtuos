@@ -5,11 +5,12 @@ export default function DatePickerComp({ onDateChange }) {
     const [startDate, setStartDate] = useState(new Date());
     const [selectedDate, setSelectedDate] = useState(new Date());
 
-    const handleDateChange = (newDate) => {
+    const handleDateChange = (newDate: React.SetStateAction<Date>) => {
 
         console.log(newDate)
-        const isoDateString = newDate.toISOString();
-        const dateOnly = isoDateString.split('T')[0];
+        // const isoDateString = newDate.toString();
+        // const dateOnly = isoDateString.split('T')[0];
+        const dateOnly = newDate.toLocaleDateString();
 
         console.log(dateOnly)
         setSelectedDate(newDate);
