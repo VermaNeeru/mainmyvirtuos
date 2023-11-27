@@ -8,8 +8,7 @@ import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/solid";
 import { ApolloError, useMutation, useQuery } from '@apollo/client';
 import Cookies from 'js-cookie'; // Import js-cookie
 import { GET_Login } from "@/graphql/User/queries";
-
-import jwt_decode from "jwt-decode";
+import { jwtDecode } from "jwt-decode";
 
 const Login = () => {
     const router = useRouter();
@@ -46,7 +45,7 @@ const Login = () => {
                 Cookies.set('authToken', token);
                 router.push('/');
 
-                const decoded = jwt_decode(token);
+                const decoded = jwtDecode(token);
 
                 console.log(JSON.stringify(decoded));
 
