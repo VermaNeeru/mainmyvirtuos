@@ -76,6 +76,18 @@ query{
 }
 
 `;
+export const GET_ALL_FAq = gql`
+query{
+  faqs{
+    id
+    faq_ques
+    faq_ans
+    }
+   
+  }
+
+
+`;
 
 
 export const GET_ForgotPassword = gql`
@@ -96,6 +108,44 @@ mutation CreateDocumentUpload($input: CreateDocumentuploadInput!) {
     document_access
   }
 }
+
+`;
+export const CREATE_WFH = gql`
+mutation($input: CreateUserWfhInput!) {
+  createUserWfh(createUserWfhInput: $input) {
+    user_id
+    manager_id
+    m_manager_id
+    date
+    day_type
+    time_slot
+    hours_slot
+    reason
+    manager_approval
+    m_manager_approval
+  }
+}
+
+
+`;
+export const CREATE_Leave= gql`
+mutation CreateLeave($input: LeaveInput!) {
+  createLeave(createLeaveInput: $input) {
+    id
+    user_id
+    holiday_id
+    leave_start_date
+    leave_end_date
+    manager_id
+    leave_reason
+    leave_total_days
+    leave_manager_approval
+    leave_hr_approval
+    leave_type
+    leave_cancel_reason
+  }
+}
+
 
 `;
 
@@ -133,7 +183,41 @@ export const GET_Employees = gql`
     }
   }
 `;
+export const GET_OfficalInfoByUser = gql`
+query OfficalInfo($id:Int!){
+  officialinfoforuser(id:$id){
+    id,
+    manager_id1
+    manager_id2
+  }
+  }
+`;
+export const GET_FaqById = gql`
+query GetFaqsByCategoryId($id: Int!) {
+  faqsByCategoryId(categoryId: $id) {
+  id
+    faq_ques
+    faq_ans
+  }
+}
+`;
 
+
+/*
+
+export const GET_DIVISION_BY_ID = gql`
+  query Division($id: Int!) {
+    division(id: $id) {
+        id
+        division_name
+        division_code
+        division_color
+        status
+    }
+  }
+`;
+
+*/
 export const ADD_USER_MUTATION = gql`
   mutation CreateUser($createUserInput: CreateUserInput!) {
     createUser(createUserInput: $createUserInput){

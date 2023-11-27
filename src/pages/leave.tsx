@@ -1,8 +1,12 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { Disclosure } from '@headlessui/react'
 import { MinusSmallIcon, PlusSmallIcon } from '@heroicons/react/24/outline'
+import Cookies from 'js-cookie';
+import jwt from 'jsonwebtoken';
+import { useLazyQuery, useMutation, useQuery } from '@apollo/client';
+import { CREATE_Leave, CREATE_WFH, GET_ALL_FAq, GET_FaqById, GET_OfficalInfoByUser } from '@/graphql/User/queries';
 
 const faqs = [
     {
@@ -55,8 +59,138 @@ const faqs = [
 
 
 export default function Leave() {
+    type FaqType = {
+        __typename: string;
+        id: number;
+        faq_ques: string;
+        faq_ans: string;
+    };
+
     const [startDate, setStartDate] = useState(new Date());
+    const [userid, setUserid] = useState();
+    const [managerid1, setManagerId1] = useState();
+
+    const [leave, setLeave] = useState<FaqType[]>([]);
+    const [casualeave, setCasualLeave] = useState<FaqType[]>([]);
+    const [earnedleave, setEarnedLeave] = useState<FaqType[]>([]);
+    const [managerid2, setManagerId2] = useState();
     const [endDate, setEndDate] = useState(new Date());
+    const [executeQuery, { loading, error, data: getofficialinfobyuser }] = useLazyQuery(GET_OfficalInfoByUser);
+    const [executeQueryforfaq, { loading: laodingforfaq, error: errorforfaq, data: getfaqbyid }] = useLazyQuery(GET_FaqById);
+    const [createleave, { loading: loading1, error: error1 }] = useMutation(CREATE_Leave);
+    const [randomFAQs, setRandomFAQs] = useState<FaqType[]>([]);
+    const { loading:loading2, error:eror2, data } = useQuery(GET_ALL_FAq);
+    const faqData = data?.faqs;
+    console.log("the data from api", faqData);
+
+    const getRandomFAQs = () => {
+        // Shuffle the faqs array
+        const shuffledFAQs = [...faqData].sort(() => Math.random() - 0.5);
+        // Take the first 4 elements to display
+        const selectedFAQs = shuffledFAQs.slice(0, 4);
+        setRandomFAQs(selectedFAQs);
+    };
+    useEffect(() => {
+        // Fetch FAQ data or use the existing data
+        if (faqData) {
+            getRandomFAQs();
+        }
+    }, [faqData]);
+    const [formValues, setFormValues] = useState({
+        leaveType: '',
+        startDate: new Date(),
+        endDate: new Date(),
+        leaveReason: '',
+    });
+
+    const authToken = Cookies.get('authToken');
+
+    useEffect(() => {
+        if (authToken) {
+            const decodedToken = jwt.decode(authToken);
+            if (typeof decodedToken === 'string') {
+                console.error('Invalid token:', decodedToken);
+            } else if (decodedToken) {
+                console.log(decodedToken?.id);
+                setUserid(decodedToken?.id)
+                executeQuery({ variables: { id: decodedToken?.id } });
+                console.log(getofficialinfobyuser);
+                if (getofficialinfobyuser) {
+
+                    setManagerId1(getofficialinfobyuser.manager_id1);
+                    setManagerId2(getofficialinfobyuser.manager_id2);
+                }
+            }
+        }
+
+        if(data){
+            const faqData = data?.faqs;
+            console.log("the data from api", faqData);
+        }
+
+        
+    }, []);
+    const handleSubmit = async (event: { preventDefault: () => void }) => {
+        event.preventDefault();
+        // Log the form values
+        console.log('Form Values:', formValues);
+        const input = {
+            user_id: userid,
+            holiday_id: 1,
+            leave_start_date: formValues.startDate,
+            leave_end_date: formValues.endDate,
+            manager_id: managerid1,
+            leave_reason: formValues.leaveReason,
+            leave_total_days: 1,
+            leave_manager_approval: "",
+            leave_hr_approval: "",
+            leave_type: formValues.leaveType,
+            leave_cancel_reason: "",
+        }
+
+        try {
+            const { data } = await createleave({
+                variables: {
+                    input,
+                },
+            });
+            console.log('Mutation Response:', data);
+            if (data && data.createLeave) {
+                console.log("inside if")
+                // Reset the form after submission if needed
+                setFormValues({
+                    leaveType: '',
+                    startDate: new Date(),
+                    endDate: new Date(),
+                    leaveReason: ''
+                });
+
+                // Display an alert for successful submission
+                alert('Form submitted successfully!');
+            } else {
+                // Handle any other response or error conditions as needed
+                console.error('Unexpected response:', data);
+            }
+        }
+        catch (error) {
+            console.error('An error occurred:', error);
+        }
+
+
+    };
+
+    const handleInputChange = async (e: { target: { name: any; value: any; }; }) => {
+        // Update the formValues state as the user types
+        setFormValues({
+            ...formValues,
+            [e.target.name]: e.target.value,
+        });
+
+ // Get random FAQs again when the leave type changes
+ getRandomFAQs();
+    };
+    // You can add further logic here to send the data to your backend or perform other actions
+
     return (
         <div className=' w-full rounded px-2'>
             <div className="rounded-t mb-4 px-4 bg-transparent">
@@ -71,7 +205,7 @@ export default function Leave() {
             <div className="grid lg:grid-cols-2 grid-cols-1 gap-4 sm:grid-cols-2">
                 <div className="relative  items-center space-x-3 rounded-lg border border-gray-300 bg-white px-6 py-5 shadow-sm focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 hover:border-gray-400">
                     <div className=" mb-4 px-2 py-2">
-                        <form>
+                        <form onSubmit={handleSubmit}>
                             <div className="space-y-2">
                                 <div className="border-b border-gray-900/10 pb-4">
                                     <div className="mt-2 grid grid-cols-1 gap-x-6 lg:gap-y-4 gap-y-2 sm:grid-cols-6">
@@ -81,8 +215,10 @@ export default function Leave() {
                                             </label>
                                             <div className="mt-3">
                                                 <select
-                                                    id="location"
-                                                    name="location"
+                                                    id="leaveType"
+                                                    name="leaveType"
+                                                    value={formValues.leaveType}
+                                                    onChange={handleInputChange}
                                                     className="mt-2 block w-full rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                                     defaultValue="Canada"
                                                 >
@@ -106,8 +242,11 @@ export default function Leave() {
                                                         autoComplete="given-name"
                                                         className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                                     /> */}
-                                                <DatePicker selected={startDate} onChange=
-                                                    {(date: React.SetStateAction<Date>) => setStartDate(date)} className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 px-2"
+                                                <DatePicker
+                                                    name="startDate"
+                                                    selected={formValues.startDate}
+                                                    onChange={(date: any) => handleInputChange({ target: { name: 'startDate', value: date } })}
+                                                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 px-2"
                                                 />
 
 
@@ -120,8 +259,11 @@ export default function Leave() {
                                             </label>
 
                                             <div className="mt-3">
-                                                <DatePicker selected={endDate} onChange=
-                                                    {(date: React.SetStateAction<Date>) => setEndDate(date)} className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 px-2"
+                                                <DatePicker
+                                                    name="endDate"
+                                                    selected={formValues.endDate}
+                                                    onChange={(date: any) => handleInputChange({ target: { name: 'endDate', value: date } })}
+                                                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 px-2"
                                                 />
 
                                             </div>
@@ -131,8 +273,10 @@ export default function Leave() {
                                         <div className="sm:col-span-6">
                                             <div className="mt-3">
                                                 <textarea
-                                                    id="about"
-                                                    name="about"
+                                                    id="leaveReason"
+                                                    name="leaveReason"
+                                                    value={formValues.leaveReason}
+                                                    onChange={handleInputChange}
                                                     rows={3}
                                                     className="px-2 h-16 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                                     defaultValue={''}
@@ -167,13 +311,14 @@ export default function Leave() {
                     <h4>FAQ for leaves</h4>
                     <div className=" mb-4 px-2 py-2">
                         <dl className="mt-2 space-y-6 divide-y divide-gray-900/10">
-                            {faqs.map((faq) => (
-                                <Disclosure as="div" key={faq.question} >
+                          
+                            {randomFAQs?.map((faq:any) => (
+                                <Disclosure as="div" key={faq.faq_ques} >
                                     {({ open }) => (
                                         <>
                                             <dt>
                                                 <Disclosure.Button className="flex w-full items-start justify-between text-left text-gray-900">
-                                                    <span className="text-base font-semibold leading-7 text-xs text-gray-800">{faq.question}</span>
+                                                    <span className="text-base font-semibold leading-7 text-xs text-gray-800">{faq.faq_ques}</span>
                                                     <span className="ml-6 flex h-7 items-center">
                                                         {open ? (
                                                             <MinusSmallIcon className="h-6 w-6" aria-hidden="true" />
@@ -184,12 +329,14 @@ export default function Leave() {
                                                 </Disclosure.Button>
                                             </dt>
                                             <Disclosure.Panel as="dd" className="mt-2 pr-12">
-                                                <p className="text-base leading-7 text-xs text-gray-600">{faq.answer}</p>
+                                                <p className="text-base leading-7 text-xs text-gray-600">{faq.faq_ans   }</p>
                                             </Disclosure.Panel>
                                         </>
                                     )}
                                 </Disclosure>
                             ))}
+
+
                         </dl>
                     </div>
 

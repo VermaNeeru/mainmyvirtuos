@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { UseCookies } from './UseCookies';
-import jwt_decode from "jwt-decode";
+// import jwt_decode from "jwt-decode";
+import { jwtDecode } from "jwt-decode";
 import Cookies from 'js-cookie';
 export default function UserData() {
     const [cookie, setCookie] = useState('');
@@ -16,7 +17,7 @@ export default function UserData() {
 
     // const [authToken, setAuthToken, removeAuthToken] = UseCookies('authToken');
     console.log('AuthToken:', cookieValue);
-    const decoded = jwt_decode(cookieValue);
+    const decoded = jwtDecode(cookieValue);
     console.log('decoded', JSON.stringify(decoded));
 
     return decoded;
