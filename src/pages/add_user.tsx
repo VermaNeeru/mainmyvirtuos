@@ -181,6 +181,7 @@ export default function AddUser() {
         console.log('userAccessTypeId', userAccessTypeId)
         console.log('extn', extn)//createUser
         const dateObject = parse(doj, 'dd/MM/yyyy', new Date());
+        let error;
 
         (!username) ? setUnameError(true) : setUnameError(false);
         (!password) ? setPasswordError(true) : setPasswordError(false);
@@ -192,10 +193,16 @@ export default function AddUser() {
         (!doj) ? setDojError(true) : setDojError(false);
         (!managerId1) ? setManager1Error(true) : setManager1Error(false);
 
+        if (!username || !password || !firstname || !lastname || !employeeCode || !email || !roleId || !doj || !managerId1) {
+            error = true;
+        }
 
-        if (unameError == true || passwordError == true || fnameError == true || lnameError == true || ecodeError == true || emailError == true || roleError == true || dojError == true || manager1Error == true) {
+        // if (unameError == true || passwordError == true || fnameError == true || lnameError == true || ecodeError == true || emailError == true || roleError == true || dojError == true || manager1Error == true) {
+        if (error == true) {
+            console.log('true');
             return;
         } else {
+            console.log('false');
             (!username) ? setUnameError(true) : setUnameError(false);
             (!password) ? setPasswordError(true) : setPasswordError(false);
             (!firstname) ? setFnameError(true) : setFnameError(false);
