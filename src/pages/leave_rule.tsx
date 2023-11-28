@@ -22,6 +22,7 @@ const ideas = [
 ]
 
 export default function LeaveRule() {
+    const { loading: getUsertypeLoading, error: getUsertypeError, data: getUsertype } = useQuery(GET_USER_TYPES);
     const [search, setSearch] = useState("");
     const [SelectedLeaverules, setSelectedLeaverules] = useState([]);
     const [searchKeyword, setSearchKeyword] = useState('');
@@ -287,7 +288,7 @@ export default function LeaveRule() {
     };
 
 
-    const { loading: getUsertypeLoading, error: getUsertypeError, data: getUsertype } = useQuery(GET_USER_TYPES);
+
     console.log("Usertype", getUsertype);
 
     let usertypeList: any[] = [];
@@ -586,7 +587,7 @@ export default function LeaveRule() {
                                                                                                     >
                                                                                                         <option>Choose User Type</option>
                                                                                                         {usertypeList.map((ut) => (
-                                                                                                            <option value={ut.id}>{ut.type_name}</option>
+                                                                                                            <option  key={ut.id} value={ut.id}>{ut.type_name}</option>
                                                                                                         ))}
                                                                                                         {/* <option>PE</option>
                                                                                                         <option>QE</option>

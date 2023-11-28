@@ -476,7 +476,7 @@ export default function AdminIssueList() {
                                                                                                         <option>Choose Type</option>
                                                                                                         {rolelist.map((roleitem) => (
 
-                                                                                                            <option value={roleitem.id}>{roleitem.role_name}</option>
+                                                                                                            <option key={roleitem.id} value={roleitem.id}>{roleitem.role_name}</option>
                                                                                                         ))}
                                                                                                         {/* <option>HR </option>
                                                                                                         <option>Network Admin</option>
