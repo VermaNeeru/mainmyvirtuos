@@ -7,7 +7,7 @@ import Cookies from 'js-cookie';
 import jwt from 'jsonwebtoken';
 import { useLazyQuery, useMutation, useQuery } from '@apollo/client';
 import { CREATE_Leave, CREATE_WFH, GET_ALL_FAq, GET_FaqById, GET_OfficalInfoByUser } from '@/graphql/User/queries';
-
+import { useRouter } from "next/router";
 const faqs = [
     {
         question: "What is Casual Leave (CL) ? How can i avail CL? Am I Eligible for CL?",
@@ -59,6 +59,7 @@ const faqs = [
 
 
 export default function Leave() {
+    const router = useRouter();
     type FaqType = {
         __typename: string;
         id: number;
@@ -132,23 +133,32 @@ export default function Leave() {
     }, []);
     const handleSubmit = async (event: { preventDefault: () => void }) => {
         event.preventDefault();
+
+        /*
+        
+        
+        
+           "user_id": 33,
+    "holiday_id": 1,
+    "leave_start_date": "2023-11-27 14:02:55.7",
+    "leave_end_date":"2023-11-27 14:02:55.7",
+    "leave_reason":""
+    
+        */
         // Log the form values
         console.log('Form Values:', formValues);
         const input = {
             user_id: userid,
-            holiday_id: 1,
             leave_start_date: formValues.startDate,
             leave_end_date: formValues.endDate,
             manager_id: managerid1,
             leave_reason: formValues.leaveReason,
             leave_total_days: 1,
-            leave_manager_approval: "",
-            leave_hr_approval: "",
-            leave_type: formValues.leaveType,
-            leave_cancel_reason: "",
+            leave_type: formValues.leaveType
         }
 
         try {
+            console.log("inside try")
             const { data } = await createleave({
                 variables: {
                     input,
@@ -166,7 +176,8 @@ export default function Leave() {
                 });
 
                 // Display an alert for successful submission
-                alert('Form submitted successfully!');
+                // alert('Form submitted successfully!');
+                router.push('/submit_leave');
             } else {
                 // Handle any other response or error conditions as needed
                 console.error('Unexpected response:', data);
