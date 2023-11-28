@@ -2,7 +2,16 @@ import React, { useState, useEffect } from 'react'
 import { PhotoIcon, UserCircleIcon } from '@heroicons/react/24/solid'
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
 import { Combobox } from '@headlessui/react'
-export default function CitySearch({ onCityValueChange }: any) {
+
+
+interface CitySearchProps {
+    onCityValueChange: (selected: any) => void; // Replace 'any' with the actual type of 'selected'
+}
+
+const CitySearch: React.FC<CitySearchProps> = ({ onCityValueChange }) => {
+
+
+    // export default function CitySearch({ onCityValueChange }: any) {
     const city = [
         { id: 1, name: 'Delhi' },
         { id: 2, name: 'Gurgaon' },
@@ -32,7 +41,7 @@ export default function CitySearch({ onCityValueChange }: any) {
     useEffect(() => {
         console.log(selectedCity)
         onCityValueChange(selectedCity);
-    }, [selectedCity])
+    }, [selectedCity, onCityValueChange])
 
     return (
         <div>
@@ -87,3 +96,4 @@ export default function CitySearch({ onCityValueChange }: any) {
         </div>
     )
 }
+export default CitySearch;

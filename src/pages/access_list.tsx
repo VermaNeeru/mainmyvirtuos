@@ -118,6 +118,23 @@ export default function AccessList() {
         }
     }, [getQueryById]);
 
+    useEffect(() => {
+        if (useraccesstypeId) {
+            console.log(useraccesstypeId);
+            executeQuery({ variables: { id: useraccesstypeId } });
+            console.log(getQueryById);
+        }
+    }, [useraccesstypeId, executeQuery]);
+
+    console.log(getQueryById);
+    useEffect(() => {
+        if (getQueryById && getQueryById.useraccesstype) {
+            const { useraccesstype } = getQueryById; // Destructure the division object
+            setUseraccesstypeName(useraccesstype.access_type_name);
+            setmStatus(useraccesstype.status);
+        }
+    }, [getQueryById]);
+
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error: {error.message}</p>;
 

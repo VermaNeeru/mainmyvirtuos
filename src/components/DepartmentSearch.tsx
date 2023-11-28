@@ -6,7 +6,15 @@ import { Combobox } from '@headlessui/react'
 import { useQuery, useLazyQuery, useMutation } from "@apollo/client";
 import { GET_Departments } from '@/graphql/Department/queries';
 
-export default function DepartmentSearch({ heading, onDepartmentChange }: any) {
+interface DepartmentSearchProps {
+    heading: string; // Add the heading property
+    onDepartmentChange: (selected: any) => void; // Replace 'any' with the actual type of 'selected'
+}
+
+const DepartmentSearch: React.FC<DepartmentSearchProps> = ({ heading, onDepartmentChange }) => {
+
+
+    //export default function DepartmentSearch({ heading, onDepartmentChange }: any) {
     const people = [
         { id: 1, name: 'Department 1' },
         { id: 1, name: 'Department 2' },
@@ -53,7 +61,7 @@ export default function DepartmentSearch({ heading, onDepartmentChange }: any) {
     useEffect(() => {
         console.log(selectedPerson);
         onDepartmentChange(selectedPerson)
-    }, [selectedPerson])
+    }, [selectedPerson, onDepartmentChange])
     return (
         <div>
             <Combobox as="div" value={selectedPerson} onChange={setSelectedPerson}>
@@ -110,3 +118,4 @@ export default function DepartmentSearch({ heading, onDepartmentChange }: any) {
         </div>
     )
 }
+export default DepartmentSearch;

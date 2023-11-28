@@ -5,8 +5,14 @@ import { Combobox } from '@headlessui/react'
 import { useQuery, useLazyQuery, useMutation } from "@apollo/client";
 import { GET_Managers } from '@/graphql/User/queries';
 // import console from 'console';
+interface ManagerSearchProps {
+    heading: string; // Add the heading property
+    onManagerChange: (selected: any) => void; // Replace 'any' with the actual type of 'selected'
+}
 
-export default function ManagerSearch({ heading, onManagerChange }: any) {
+const ManagerSearch: React.FC<ManagerSearchProps> = ({ heading, onManagerChange }) => {
+
+    // export default function ManagerSearch({ heading, onManagerChange }: any) {
     const people = [
         { id: 1, name: 'Manager 1' },
         { id: 1, name: 'Manager 2' },
@@ -46,7 +52,7 @@ export default function ManagerSearch({ heading, onManagerChange }: any) {
     useEffect(() => {
         console.log(selectedPerson);
         onManagerChange(selectedPerson)
-    }, [selectedPerson])
+    }, [selectedPerson, onManagerChange])
 
     return (
         <div>
@@ -101,3 +107,4 @@ export default function ManagerSearch({ heading, onManagerChange }: any) {
         </div>
     )
 }
+export default ManagerSearch;
