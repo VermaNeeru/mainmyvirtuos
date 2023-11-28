@@ -650,13 +650,13 @@ export default function EditLeaveCategory() {
                             formData.sections.map((utitem, sectionIndex) => (
 
 
-                                <div className="mt-2 grid grid-cols-1 lg:grid-cols-1 gap-x-6 gap-y-2 sm:grid-cols-2">
+                                <div className="mt-2 grid grid-cols-1 lg:grid-cols-1 gap-x-6 gap-y-2 sm:grid-cols-2" key={utitem.id}>
                                     <div className="sm:col-span-1 mt-4">
                                         <label className="text-sm text-gray-600 font-medium">{utitem.user_type}</label>
                                     </div>
                                     <div className="grid grid-cols-1 lg:grid-cols-3 gap-x-6 lg:gap-y-4 gap-y-1">
                                         {utitem.quarters.map((value, quarterIndex) => (
-                                            <div className="sm:col-span-1">
+                                            <div className="sm:col-span-1" key={value.id}>
                                                 <div className="relative mt-2 rounded-md shadow-sm">
                                                     <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
                                                         <Bars3Icon className="h-5 w-5 text-gray-400" aria-hidden="true" />

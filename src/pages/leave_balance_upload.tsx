@@ -24,6 +24,9 @@ import { useQuery, useLazyQuery, useMutation } from "@apollo/client";
 import { ADD_Useryearlyleavebalance_MUTATION, UPDATE_Useryearlyleavebalance_MUTATION, DELETE_Useryearlyleavebalance_MUTATION, REMOVE_MULTIPLE_Useryearlyleavebalances, GET_FILTERED_UseryearlyleavebalanceS, GET_Useryearlyleavebalances, GET_Useryearlyleavebalance_BY_ID } from '@/graphql/LeaveBalance/queries';
 
 export default function LeaveBalanceUpload() {
+    useEffect(() => {
+        console.log(csvData)
+    }, [csvData]);
     const [csvData, setCSVData] = useState([]);
     const [errorMessage, setErrorMessage] = useState('');
 
@@ -247,7 +250,7 @@ export default function LeaveBalanceUpload() {
         }
     };
 
-
+  
     const filteredUseryearlyleavebalance = search === "" ? itemlist : itemlist.filter((item: { firstname: string; lastname: string }) => {
         const lowerSearch = search.toLowerCase();
         return (item.firstname.toLowerCase().includes(lowerSearch) || item.lastname.toLowerCase().includes(lowerSearch));
@@ -277,9 +280,7 @@ export default function LeaveBalanceUpload() {
         console.log(csvData)
     };
 
-    useEffect(() => {
-        console.log(csvData)
-    }, [csvData]);
+  
     return (
         <div className=' w-full rounded px-2'>
             {showDeleteMessage && (

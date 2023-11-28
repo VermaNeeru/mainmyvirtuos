@@ -6,6 +6,16 @@ import { GET_ChangePassword } from "@/graphql/User/queries";
 import { ApolloError, useMutation, useQuery } from '@apollo/client'
 
 const ForgotPassword = () => {
+    const [changePassword, { data, error }] = useMutation(GET_ChangePassword);
+    const [password1, setPassword1] = useState<any>("");
+    const [password2, setPassword2] = useState<any>("");
+    const [errorr, setError] = useState<unknown | any>(null);
+    const [errorr1, setError1] = useState<unknown | any>(null);
+    const [show, setShow] = useState<boolean>(false);
+    const [otplogin, setOtplogin] = useState<boolean>(false);
+    const [emailSent, setEmailSent] = useState(false);
+    const [emailSentMessage, setEmailSentMessage] = useState("");
+    const [loading, setLoading] = useState(false); // Add loading state
     const router = useRouter();
     const { id } = router.query;
     // Check if params.id exists
@@ -19,17 +29,9 @@ const ForgotPassword = () => {
     
     console.log(id); // Use 'id' directly
     const resetKey = id.toString();
-    const [password1, setPassword1] = useState<any>("");
-    const [password2, setPassword2] = useState<any>("");
-    const [errorr, setError] = useState<unknown | any>(null);
-    const [errorr1, setError1] = useState<unknown | any>(null);
-    const [show, setShow] = useState<boolean>(false);
-    const [otplogin, setOtplogin] = useState<boolean>(false);
-    const [emailSent, setEmailSent] = useState(false);
-    const [emailSentMessage, setEmailSentMessage] = useState("");
-    const [loading, setLoading] = useState(false); // Add loading state
 
-    const [changePassword, { data, error }] = useMutation(GET_ChangePassword);
+
+
     // console.log("GraphQL Query:", GET_ForgotPassword?.loc?.source?.body);
     const handleSubmit = async (event: { preventDefault: () => void }) => {
         console.log("i am clicked")
