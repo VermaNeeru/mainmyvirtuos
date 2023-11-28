@@ -10,7 +10,7 @@ mutation Login($username: String!, $password: String!) {
       lastname
       username
       password
-      role_id
+    role
       officialemail
       extn
       gender
@@ -112,7 +112,7 @@ mutation CreateDocumentUpload($input: CreateDocumentuploadInput!) {
 `;
 export const CREATE_WFH = gql`
 mutation($input: CreateUserWfhInput!) {
-  createUserWfh(createUserWfhInput: $input) {
+  createUserWfh(CreateUserWfhInput: $input) {
     user_id
     manager_id
     m_manager_id
@@ -129,20 +129,14 @@ mutation($input: CreateUserWfhInput!) {
 
 `;
 export const CREATE_Leave= gql`
-mutation CreateLeave($input: LeaveInput!) {
+mutation CreateLeave($input: CreateLeaveInput!) {
   createLeave(createLeaveInput: $input) {
     id
     user_id
-    holiday_id
     leave_start_date
     leave_end_date
-    manager_id
     leave_reason
-    leave_total_days
-    leave_manager_approval
-    leave_hr_approval
-    leave_type
-    leave_cancel_reason
+   
   }
 }
 
