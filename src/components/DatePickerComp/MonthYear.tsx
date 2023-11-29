@@ -1,14 +1,20 @@
 import React, { useState } from 'react'
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-export default function MonthYear({ onMonthChange }) {
+interface MonthYearProps {
+    onMonthChange: (date: Date) => void;
+}
+
+export default function MonthYear({ onMonthChange }: MonthYearProps) {
     const [selectedYear, setSelectedYear] = useState<Date | null>(null);
 
-    const handleYearChange = (date: Date) => {
-
-        setSelectedYear(date);
-        onMonthChange(date);
+    const handleYearChange = (date: Date | null) => {
+        if (date) {
+            setSelectedYear(date);
+            onMonthChange(date);
+        }
     };
+
     return (
         <div>
             <DatePicker

@@ -56,6 +56,7 @@ export default function LeaveRule() {
     // const [deleteDivision, { loading: deleteDivisionLoading, error: deleteDivisionError }] = useMutation(DELETE_DIVISION_MUTATION);
     const [removeQuery] = useMutation(DELETE_LEAVE_RULE_MUTATION);
     const [removeMultipleQuery] = useMutation(REMOVE_MULTIPLE_LEAVE_RULES);
+    const { loading: getUsertypeLoading, error: getUsertypeError, data: getUsertype } = useQuery(GET_USER_TYPES);
 
 
     const { loading: getAllDataLoading, error: getAllDataError, data: getAllData, refetch } = useQuery(GET_LEAVE_RULES);
@@ -287,7 +288,6 @@ export default function LeaveRule() {
     };
 
 
-    const { loading: getUsertypeLoading, error: getUsertypeError, data: getUsertype } = useQuery(GET_USER_TYPES);
     console.log("Usertype", getUsertype);
 
     let usertypeList: any[] = [];
@@ -586,7 +586,7 @@ export default function LeaveRule() {
                                                                                                     >
                                                                                                         <option>Choose User Type</option>
                                                                                                         {usertypeList.map((ut) => (
-                                                                                                            <option value={ut.id}>{ut.type_name}</option>
+                                                                                                            <option value={ut.id} key={ut.id}>{ut.type_name}</option>
                                                                                                         ))}
                                                                                                         {/* <option>PE</option>
                                                                                                         <option>QE</option>

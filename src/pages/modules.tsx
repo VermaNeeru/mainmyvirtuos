@@ -520,7 +520,7 @@ export default function Modules() {
                                                                                                         <option>Choose Type</option>
                                                                                                         {itemlist.map((mitem) => (
 
-                                                                                                            <option value={mitem.id}>{mitem.module_name}</option>
+                                                                                                            <option value={mitem.id} key={mitem.id}>{mitem.module_name}</option>
                                                                                                         ))}
                                                                                                     </select>
 

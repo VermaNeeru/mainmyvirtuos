@@ -196,34 +196,31 @@ export default function UploadAttendanceSheet() {
             console.error('Error uploadAttendanceSheet:', error);
         }
     }
-    const getUserId = async (employeeCode: any) => {
-        console.log("employeeCode: ", employeeCode);
-        // const employeeCode = 'VINABS2201';
-        try {
-            useEffect(() => {
-                // console.log(employeeCode);
-                executeQuery({ variables: { ecode: employeeCode } });
-                console.log(data);
-            }, [employeeCode]);
+    // const getUserId = async (employeeCode: any) => {
+    //     console.log("employeeCode: ", employeeCode);
+    //     // const employeeCode = 'VINABS2201';
+    //     if (employeeCode != "") {
+    //         // console.log(employeeCode);
+    //         executeQuery({ variables: { ecode: employeeCode } });
+    //         console.log(data);
+    //     }
 
-            console.log(data);
-            useEffect(() => {
-                if (data && data.userDetailByCode) {
-                    const { userDetailByCode } = data; // Destructure the division object
-                    console.log('user_id', userDetailByCode.user_id);
+    //     console.log(data);
+    //     useEffect(() => {
+    //         if (data && data.userDetailByCode) {
+    //             const { userDetailByCode } = data; // Destructure the division object
+    //             console.log('user_id', userDetailByCode.user_id);
 
-                    const userId = userDetailByCode.user_id;
-                } else {
-                    const userId = null;
-                }
-            }, [data]);
+    //             const userId = userDetailByCode.user_id;
+    //         } else {
+    //             const userId = null;
+    //         }
+    //     }, [data]);
 
 
-            return userId;
-        } catch (error) {
-            console.error('Error user_id:', error);
-        }
-    }
+    //     return userId;
+
+    // }
     const handleSubmit = async (e) => {
         e.preventDefault();
         console.log('called');
@@ -273,7 +270,7 @@ export default function UploadAttendanceSheet() {
                     let employeeAttendanceArray = [];
                     let employeeCodeNew = null;
                     let employeeName = '';
-                    cellCollection.map(async (row, index) => {
+                    cellCollection?.map(async (row, index) => {
                         console.log('index', index)
                         console.log(typeof (i), i)
 

@@ -277,9 +277,9 @@ export default function LeaveBalanceUpload() {
         console.log(csvData)
     };
 
-    useEffect(() => {
-        console.log(csvData)
-    }, [csvData]);
+    // useEffect(() => {
+    //     console.log(csvData)
+    // }, [csvData]);
     return (
         <div className=' w-full rounded px-2'>
             {showDeleteMessage && (

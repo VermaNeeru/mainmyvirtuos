@@ -560,16 +560,16 @@ export default function AddUser() {
                                 </div>
                                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-6 lg:gap-y-4 gap-y-2 mt-2">
                                     <div className="sm:col-span-1">
-                                        <TeamSearch onTeamChange={handleTeamChange} />
+                                        <TeamSearch onTeamChange={handleTeamChange} heading={''} />
                                     </div>
                                     <div className="sm:col-span-1">
-                                        <DepartmentSearch onDepartmentChange={handleDepartmentChange} />
+                                        <DepartmentSearch onDepartmentChange={handleDepartmentChange} heading={''} />
                                     </div>
                                     <div className="sm:col-span-1">
-                                        <DivisionSearch onDivisionChange={handleDivisionChange} />
+                                        <DivisionSearch onDivisionChange={handleDivisionChange} heading={''} />
                                     </div>
                                     <div className="sm:col-span-1">
-                                        <RoleSearch onRoleChange={handleRoleChange} />
+                                        <RoleSearch onRoleChange={handleRoleChange} heading={''} />
                                         {roleError && <p className="text-red-500 text-xs" >*Role is required</p>}
                                     </div>
                                 </div>

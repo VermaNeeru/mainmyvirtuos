@@ -505,7 +505,7 @@ export default function Faq() {
                                                                                                         <option>Choose Type</option>
                                                                                                         {faqcategorylist.map((catitem) => (
 
-                                                                                                            <option value={catitem.id}>{catitem.cat_name}</option>
+                                                                                                            <option value={catitem.id} key={catitem.id}>{catitem.cat_name}</option>
                                                                                                         ))}
                                                                                                         {/* <option>Issues</option>
                                                                                                         <option>Leaves</option>

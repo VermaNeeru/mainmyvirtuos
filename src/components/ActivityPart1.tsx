@@ -81,7 +81,7 @@ export default function ActivityPart1() {
                 return person.name.toLowerCase().includes(query.toLowerCase())
             })
 
-    const handleEditorContentChange = (content: boolean | ((prevState: boolean) => boolean)) => {
+    const handleEditorContentChange = (content: any | ((prevState: any) => any)) => {
         setMessage(content)
         // This function will be called when the editor's content changes
         // console.log('Editor content in parent:', content);

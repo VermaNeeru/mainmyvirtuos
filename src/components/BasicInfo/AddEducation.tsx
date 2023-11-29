@@ -1,8 +1,20 @@
-import React from 'react'
+import React, { useState } from 'react'
 import CertificateSearch from './CertificateSearch'
 import DatePickerComp from '../DatePickerComp/DatePickerComp'
 
 export default function AddEducation() {
+    const [stateDate, setStateDate] = useState('');
+    const [endDate, setEndDate] = useState('');
+    const handleStartDateChange = (newDate: any) => {
+        setStateDate(newDate); // Update parent component's state
+        console.log(newDate)
+
+    };
+    const handleEndDateChange = (newDate: any) => {
+        setEndDate(newDate); // Update parent component's state
+        console.log(newDate)
+
+    };
     return (
         <div>
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-x-6 gap-y-2 lg:gap-y-2">
@@ -81,7 +93,7 @@ export default function AddEducation() {
                         <label htmlFor="start-date" className="block text-sm font-medium leading-6 text-gray-700">
                             Start Date
                         </label>
-                        <DatePickerComp />
+                        <DatePickerComp onDateChange={handleStartDateChange} />
                     </div>
                 </div>
                 <div className="sm:col-span-1">
@@ -89,7 +101,7 @@ export default function AddEducation() {
                         <label htmlFor="start-date" className="block text-sm font-medium leading-6 text-gray-700">
                             End Date
                         </label>
-                        <DatePickerComp />
+                        <DatePickerComp onDateChange={handleEndDateChange} />
                     </div>
                 </div>
                 <div className="sm:col-span-1">

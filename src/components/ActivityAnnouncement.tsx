@@ -70,12 +70,12 @@ export default function ActivityAnnouncement() {
                 return person.name.toLowerCase().includes(query.toLowerCase())
             })
 
-    const handleEditorContentChange = (content: boolean | ((prevState: boolean) => boolean)) => {
-        setMessage(content)
-        // This function will be called when the editor's content changes
-        // console.log('Editor content in parent:', content);
-        // You can also store the content in the parent's state or perform other actions
-    };
+    // const handleEditorContentChange = (content: boolean | ((prevState: boolean) => boolean)) => {
+    //     setMessage(content)
+    //     // This function will be called when the editor's content changes
+    //     // console.log('Editor content in parent:', content);
+    //     // You can also store the content in the parent's state or perform other actions
+    // };
 
 
     const [showSuccessMessage, setshowSuccessMessage] = useState<boolean>(false);
