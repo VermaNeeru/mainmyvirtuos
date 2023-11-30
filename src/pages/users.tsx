@@ -47,6 +47,17 @@ export default function Users() {
     const [suspendEmp, setSuspendEmp] = useState(false)
 
     const cancelButtonRef = useRef(null)
+    const [dob, setDob] = useState('');
+    const [doj, setDoj] = useState('');
+    const handleDobChange = (newDate: any) => {
+        setDob(newDate); // Update parent component's state
+        console.log(newDate)
+    };
+
+    const handleDojChange = (newDate: any) => {
+        setDoj(newDate); // Update parent component's state
+        console.log(newDate)
+    };
 
 
     return (
@@ -959,7 +970,7 @@ export default function Users() {
                                                                                 </label>
 
                                                                                 <div className='mt-2'>
-                                                                                    <DatePickerComp />
+                                                                                    <DatePickerComp onDateChange={handleDobChange} />
                                                                                 </div>
                                                                             </div>
                                                                             <div className="sm:col-span-1">
@@ -968,7 +979,7 @@ export default function Users() {
                                                                                 </label>
 
                                                                                 <div className='mt-2'>
-                                                                                    <DatePickerComp />
+                                                                                    <DatePickerComp onDateChange={handleDojChange} />
                                                                                 </div>
                                                                             </div>
                                                                             <div className="sm:col-span-1">

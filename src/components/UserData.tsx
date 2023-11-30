@@ -1,24 +1,26 @@
-import React, { useState } from 'react'
-import { UseCookies } from './UseCookies';
-// import jwt_decode from "jwt-decode";
-import { jwtDecode } from "jwt-decode";
+import { useState, useEffect } from 'react';
 import Cookies from 'js-cookie';
-export default function UserData() {
-    const [cookie, setCookie] = useState('');
-    // console.log(key);
-    // useEffect(() => {
-    // Read the cookie when the component mounts
-    // console.log(key);
+import { jwtDecode } from 'jwt-decode';
+// Custom hook to read and write cookies
+
+interface UserData {
+    id: number;
+    firstname: string;
+    lastname: string;
+    officialemail: string;
+    username: string;
+    role: number;
+    iat: number;
+    exp: number;
+}
+
+export function getUserData(): UserData | null {
     const cookieValue = Cookies.get('authToken');
-    console.log('cookie', cookieValue);
-    // setCookie(cookieValue);
-    // }, [key]);
 
+    if (!cookieValue) {
+        return null;
+    }
 
-    // const [authToken, setAuthToken, removeAuthToken] = UseCookies('authToken');
-    console.log('AuthToken:', cookieValue);
-    const decoded = jwtDecode(cookieValue);
-    console.log('decoded', JSON.stringify(decoded));
-
+    const decoded = jwtDecode(cookieValue) as UserData;
     return decoded;
 }

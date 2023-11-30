@@ -22,6 +22,26 @@ const user_attendance = [
 ]
 
 export default function EarlyDeparture() {
+    const [empFor, setEmpFor] = useState('')
+    const [stateDate, setStateDate] = useState('');
+    const [endDate, setEndDate] = useState('');
+    const handleStartDateChange = (newDate: any) => {
+        setStateDate(newDate); // Update parent component's state
+        console.log(newDate)
+
+    };
+    const handleEndDateChange = (newDate: any) => {
+        setEndDate(newDate); // Update parent component's state
+        console.log(newDate)
+
+    };
+    const handleEmpValueChange = (newValue: { id: React.SetStateAction<string>; }) => {
+        console.log(newValue);
+        if (newValue) {
+            setEmpFor(newValue.id);
+        }
+
+    };
     return (
         <div className=' w-full rounded px-2'>
             <div className="rounded-t mb-4 px-4 bg-transparent">
@@ -42,14 +62,14 @@ export default function EarlyDeparture() {
                             <div className="pb-4">
                                 <div className="mt-2 grid lg:grid-cols-4 grid-cols-2 gap-x-6 lg:gap-y-8 gap-y-2">
                                     <div className="sm:col-span-1">
-                                        <EmployeeSearch />
+                                        <EmployeeSearch onEmpValueChange={handleEmpValueChange} heading={''} />
                                     </div>
                                     <div className="sm:col-span-1">
                                         <label htmlFor="start-date" className="block text-sm font-medium leading-6 text-gray-900">
                                             From Date
                                         </label>
                                         <div className="mt-2">
-                                            <DatePickerComp />
+                                            <DatePickerComp onDateChange={handleStartDateChange} />
                                         </div>
                                     </div>
                                     <div className="sm:col-span-1">
@@ -57,7 +77,7 @@ export default function EarlyDeparture() {
                                             To Date
                                         </label>
                                         <div className="mt-2">
-                                            <DatePickerComp />
+                                            <DatePickerComp onDateChange={handleEndDateChange} />
                                         </div>
                                     </div>
                                     <div className="sm:col-span-1">

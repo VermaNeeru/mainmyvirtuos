@@ -23,7 +23,7 @@ const ideas = [
 
 export default function AccessList() {
     const [search, setSearch] = useState("");
-    const [SelectedUseraccesstypes, setSelectedUseraccesstypes] = useState([]);
+    const [SelectedUseraccesstypes, setSelectedUseraccesstypes] = useState<any>([]);
     const [searchKeyword, setSearchKeyword] = useState('');
     const [quickEdit, setQuickEdit] = useState(false)
     const [formType, setformType] = useState('')
@@ -35,7 +35,7 @@ export default function AccessList() {
 
     const cancelButtonRef = useRef(null)
 
-    const [useraccesstypeId, setUseraccesstypeId] = useState<number>()
+    const [useraccesstypeId, setUseraccesstypeId] = useState<number | null>()
     const [useraccesstypeName, setUseraccesstypeName] = useState('')
     const [mStatus, setmStatus] = useState('')
 
@@ -81,7 +81,7 @@ export default function AccessList() {
         }
     }
 
-    const handleButtonClick = (type: string, id: number) => {
+    const handleButtonClick = (type: string, id: any) => {
         setQuickEdit(true)
         setformType(type)
         console.log("id", id);
@@ -227,16 +227,18 @@ export default function AccessList() {
         if (useraccesstypeId === 'all') {
             if (event.target.checked) {
                 const alluseraccesstypeIds = itemlist.map(item => item.id);
+                console.log(alluseraccesstypeIds);
                 setSelectedUseraccesstypes(alluseraccesstypeIds);
+
             } else {
                 setSelectedUseraccesstypes([]);
             }
         } else {
             if (event.target.checked) {
-                setSelectedUseraccesstypes(prevSelected => [...prevSelected, useraccesstypeId]);
+                setSelectedUseraccesstypes((prevSelected: any) => [...prevSelected, useraccesstypeId]);
             } else {
-                setSelectedUseraccesstypes(prevSelected =>
-                    prevSelected.filter(id => id !== useraccesstypeId)
+                setSelectedUseraccesstypes((prevSelected: any[]) =>
+                    prevSelected.filter((id: string) => id !== useraccesstypeId)
                 );
             }
         }

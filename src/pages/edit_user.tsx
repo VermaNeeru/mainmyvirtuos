@@ -29,7 +29,12 @@ export default function AllLeaves() {
 
     const [showUpdateMessage, setshowUpdateMessage] = useState(false);
     const [showDeleteMessage, setshowDeleteMessage] = useState(false);
+    const [dob, setDob] = useState('');
+    const handleDobDateChange = (newDate: any) => {
+        setDob(newDate); // Update parent component's state
+        console.log(newDate)
 
+    };
     useEffect(() => {
         const timer = setTimeout(() => {
             console.log('update', showUpdateMessage)
@@ -480,7 +485,7 @@ export default function AllLeaves() {
                                                                     <label htmlFor="start-date" className="block text-sm font-medium leading-6 text-gray-700">
                                                                         DOB (YYYY-MM-DD)*
                                                                     </label>
-                                                                    <DatePickerComp />
+                                                                    <DatePickerComp onDateChange={handleDobDateChange} />
                                                                 </div>
                                                             </div>
                                                             <div className="sm:col-span-1">

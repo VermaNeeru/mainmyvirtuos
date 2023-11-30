@@ -13,7 +13,12 @@ export default function GoogleCalendar() {
     const [openTab, setOpenTab] = useState<number>(1);
     const [quickEdit, setGoogleCal] = useState(false)
     const cancelButtonRef = useRef(null)
+    const [stateDate, setStateDate] = useState('');
+    const handleStartDateChange = (newDate: any) => {
+        setStateDate(newDate); // Update parent component's state
+        console.log(newDate)
 
+    };
     return (
         <div className=' w-full rounded px-2'>
             <div className="rounded-t mb-4 px-4 bg-transparent">
@@ -180,7 +185,7 @@ export default function GoogleCalendar() {
                                                                                                 <label htmlFor="start-date" className="block text-sm font-medium leading-6 text-gray-700">
                                                                                                     Start Date :
                                                                                                 </label>
-                                                                                                <DatePickerComp />
+                                                                                                <DatePickerComp onDateChange={handleStartDateChange} />
                                                                                             </div>
                                                                                         </div>
                                                                                         <div className="sm:col-span-1">
