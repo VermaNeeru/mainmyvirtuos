@@ -69,11 +69,11 @@ export default function UploadAttendanceSheet() {
     const [comment, setComment] = useState('')
     const [selected, setSelected] = useState(viewer[0])
 
-    const [employeeAttendanceArray, setEmployeeAttendanceArray] = useState([]);
-    const [file, setFile] = useState([]);
+    const [employeeAttendanceArray, setEmployeeAttendanceArray] = useState<number[]>([]);
+    const [file, setFile] = useState<number[]>([]);
     const [employeeCode, setEmployeeCode] = useState('');
     const [i, setI] = useState(0);
-    const [csvData, setCSVData] = useState([]);
+    const [csvData, setCSVData] = useState<number[]>([]);
     const [createQuery, { loading: createQueryLoading, error: createQueryError }] = useMutation(ADD_USER_ATTENDANCE_MUTATION);
     // console.log(ADD_USER_ATTENDANCE_MUTATION.loc.source.body);
     const [createQueryAS, { loading: createQueryLoadingAS, error: createQueryErrorAS }] = useMutation(ADD_Attendancesheet_MUTATION);

@@ -30,7 +30,7 @@ export default function Idea() {
     const [quickEdit, setQuickEdit] = useState(false)
     const cancelButtonRef = useRef(null)
     const [showDeletedMessage, setshowDeletedMessage] = useState(false);
-    const [SelectedIdeas, setSelectedIdeas] = useState([]);
+    const [SelectedIdeas, setSelectedIdeas] = useState<number[]>([]);
     const [showErrorMessage, setshowErrorMessage] = useState<boolean>(false);
     const [searchKeyword, setSearchKeyword] = useState('');
 
@@ -75,18 +75,16 @@ export default function Idea() {
     const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>, ideaId: string) => {
         if (ideaId === 'all') {
             if (event.target.checked) {
-                const allideaIds = itemlist.map(item => item.id);
+                const allideaIds = itemlist?.map(item => item.id) || [];
                 setSelectedIdeas(allideaIds);
             } else {
                 setSelectedIdeas([]);
             }
         } else {
             if (event.target.checked) {
-                setSelectedIdeas(prevSelected => [...prevSelected, ideaId]);
+                setSelectedIdeas(prevSelected => [...prevSelected, parseInt(ideaId, 10)]);
             } else {
-                setSelectedIdeas(prevSelected =>
-                    prevSelected.filter(id => id !== ideaId)
-                );
+                setSelectedIdeas(prevSelected => prevSelected.filter(id => id !== parseInt(ideaId, 10)));
             }
         }
     };

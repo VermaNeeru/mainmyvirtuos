@@ -13,7 +13,7 @@ export default function EditLeaveCategory() {
     const { id } = router.query;
 
     const initialState = {
-        leavetypeId: useState(id ? parseInt(id, 10) : null),
+        leavetypeId: id ? parseInt(id as string, 10) : null,
         leavetypeColor: '',
         leavetypeName: '',
         leavetypeCode: '',
@@ -78,7 +78,7 @@ export default function EditLeaveCategory() {
     // ]);
 
     const [executeQuery, { loading, error, data: getQueryById }] = useLazyQuery(GET_Leavetype_BY_ID);
-    const [executeQueryLut, { loadingLut, errorLut, data: getQueryByIdLtu }] = useLazyQuery(GET_Leaveusertype_BY_LTID);
+    const [executeQueryLut, { loading: loadingLut, error: errorLut, data: getQueryByIdLtu }] = useLazyQuery(GET_Leaveusertype_BY_LTID);
     // const [fExecuteQuery, { loading: fLoading, error: fError, data: fData }] = useLazyQuery(GET_FILTERED_DIVISIONS);
     const [updateLeavetype, { loading: updateQueryLoading, error: updateQueryError }] = useMutation(UPDATE_Leavetype_MUTATION);
     const [updateLeaveusertype, { loading: updateQueryLoading2, error: updateQueryError2 }] = useMutation(UPDATE_Leaveusertype_MUTATION);
@@ -95,7 +95,7 @@ export default function EditLeaveCategory() {
     //             id: data.id,
     //             type_name: data.type_name,
     //             status: data.status,
-    //             quarters: ['', '', '']
+    //             quarters: ['', null, null]
     //         }));
 
     //         setSections1(usertypelist); // Update the state with the fetched data

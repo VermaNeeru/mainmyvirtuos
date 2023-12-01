@@ -22,7 +22,7 @@ const ideas = [
 
 export default function IssueCategoryList() {
     const [search, setSearch] = useState("");
-    const [SelectedIssuecategory, setSelectedIssuecategory] = useState([]);
+    const [SelectedIssuecategory, setSelectedIssuecategory] = useState<number[]>([]);
     const [searchKeyword, setSearchKeyword] = useState('');
     const [quickEdit, setQuickEdit] = useState(false)
     const [formType, setformType] = useState('')
@@ -84,7 +84,7 @@ export default function IssueCategoryList() {
         }
     }
 
-    const handleButtonClick = (type: string, id: number) => {
+    const handleButtonClick = (type: string, id: number | null) => {
         setQuickEdit(true)
         setformType(type)
         console.log("id", id);
@@ -212,18 +212,16 @@ export default function IssueCategoryList() {
     const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>, issuecategoryId: string) => {
         if (issuecategoryId === 'all') {
             if (event.target.checked) {
-                const allissuecategoryIds = itemlist.map(item => item.id);
+                const allissuecategoryIds = itemlist?.map(item => item.id) || [];
                 setSelectedIssuecategory(allissuecategoryIds);
             } else {
                 setSelectedIssuecategory([]);
             }
         } else {
             if (event.target.checked) {
-                setSelectedIssuecategory(prevSelected => [...prevSelected, issuecategoryId]);
+                setSelectedIssuecategory(prevSelected => [...prevSelected, parseInt(issuecategoryId, 10)]);
             } else {
-                setSelectedIssuecategory(prevSelected =>
-                    prevSelected.filter(id => id !== issuecategoryId)
-                );
+                setSelectedIssuecategory(prevSelected => prevSelected.filter(id => id !== parseInt(issuecategoryId, 10)));
             }
         }
     };
@@ -308,7 +306,7 @@ export default function IssueCategoryList() {
                                 </div>
                             </div>
                             <div className="mt-4 lg:ml-16 ml-0 sm:mt-0 sm:flex-none">
-                                <a onClick={() => handleButtonClick('add', '')}
+                                <a onClick={() => handleButtonClick('add', null)}
                                     className="block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                                 >
                                     Add New Issuecategory

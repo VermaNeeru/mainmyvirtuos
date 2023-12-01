@@ -11,7 +11,8 @@ import { ADD_Travelrequest_MUTATION } from '@/graphql/Travel/queries';
 import Alert from '@/components/Alert';
 import { ADD_Traveldate_MUTATION } from '@/graphql/Traveldate/queries';
 import { ADD_Travelhotel_MUTATION } from '@/graphql/Travelhotel/queries';
-import UserData from '@/components/UserData';
+import { getUserData } from '@/components/UserData';
+
 
 const traveltype = [
     { id: 1, name: 'Choose Travel Type' },
@@ -54,7 +55,11 @@ const flightpreferance = [
 function classNames(...classes: any[]) {
     return classes.filter(Boolean).join(' ')
 }
-
+interface ListItem {
+    fromAddress: string;
+    toAddress: string;
+    // Add other properties if needed
+}
 export default function AddTravelReq() {
     const [startDate, setStartDate] = useState(new Date());
     const [endDate, setEndDate] = useState(new Date());
@@ -90,8 +95,8 @@ export default function AddTravelReq() {
     const [showErrorMessage, setshowErrorMessage] = useState<boolean>(false);
 
     const [TravelRequestId, setTravelRequestId] = useState<number>()
-    const userData = UserData();
-    const [userId, setUserId] = useState<number>(userData.id)
+    const userData = getUserData();
+    const [userId, setUserId] = useState<number | undefined>(userData?.id)
     const [TravelName, setTravelName] = useState('')
     const [TravelType, setTravelType] = useState('')
     const [TravelMode, setTravelMode] = useState('')
@@ -119,15 +124,20 @@ export default function AddTravelReq() {
     const [fromLocation, setFromLocation] = useState('')
     const [toLocation, setToLocation] = useState('')
 
-    const [fromAddress, setFromAddress] = useState([])
-    const [toAddress, setToAddress] = useState([])
+    // const [fromAddress, setFromAddress] = useState<string>([])
+    // const [toAddress, setToAddress] = useState<string>([])
+    const [fromAddress, setFromAddress] = useState<string>('');
+    const [toAddress, setToAddress] = useState<string>('');  // Assuming toAddress is also a string
 
     const [city, setCity] = useState('')
 
     const [aError, setAError] = useState(false);
     const [bError, setBError] = useState(false);
 
-    const [listItems, setListItems] = useState([{ fromAddress: '', toAddress: '' }]);
+
+    // Assuming listItems is an array of ListItem
+    const [listItems, setListItems] = useState<ListItem[]>([]);
+    // const [listItems, setListItems] = useState([{ fromAddress: '', toAddress: '' }]);
 
     const appendItem = () => {
         setListItems([...listItems, { fromAddress: '', toAddress: '' }]);
@@ -141,9 +151,16 @@ export default function AddTravelReq() {
         }
     };
 
-    const handleAddressChange = (index, field, value) => {
+    // const handleAddressChange = (index: number, field: string, value: any) => {
+    //     const updatedListItems = [...listItems];
+    //     updatedListItems[index][field] = value;
+    //     setListItems(updatedListItems);
+    // };
+
+    const handleAddressChange = (index: number, field: string, value: any) => {
         const updatedListItems = [...listItems];
-        updatedListItems[index][field] = value;
+        // Use type assertion to inform TypeScript about the type of 'field'
+        (updatedListItems[index] as any)[field] = value;
         setListItems(updatedListItems);
     };
 
@@ -676,13 +693,11 @@ export default function AddTravelReq() {
 
     };
 
-    const handleCityValueChange = (newValue: { id: React.SetStateAction<string>; }) => {
+    const handleCityValueChange = (newValue: { id: number; name: string }) => {
         console.log(newValue);
-        if (newValue) {
-            setCity(newValue.name);
-        }
-
+        setCity(newValue.name);
     };
+
     return (
         <div className=' w-full rounded px-2'>
             {showSuccessMessage && (
@@ -1160,7 +1175,7 @@ export default function AddTravelReq() {
                                             />
                                         </div>
                                     </div>
-                                    {listItems.map((item, index) => (
+                                    {listItems?.map((item, index) => (
                                         <div key={index} className="mt-2 grid lg:grid-cols-3 grid-cols-1 gap-x-6 lg:gap-y-4 gap-y-2 sm:grid-cols-2">
                                             <div className="sm:col-span-1">
                                                 <input

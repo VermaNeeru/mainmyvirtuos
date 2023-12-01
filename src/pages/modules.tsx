@@ -26,7 +26,7 @@ const modules = [
 
 export default function Modules() {
     const [search, setSearch] = useState("");
-    const [SelectedModules, setSelectedModules] = useState([]);
+    const [SelectedModules, setSelectedModules] = useState<number[]>([]);
     const [searchKeyword, setSearchKeyword] = useState('');
     const [quickEdit, setQuickEdit] = useState(false)
     const [formType, setformType] = useState('')
@@ -98,7 +98,7 @@ export default function Modules() {
         }
     }
 
-    const handleButtonClick = (type: string, id: number) => {
+    const handleButtonClick = (type: string, id: number | null) => {
         setQuickEdit(true)
         setformType(type)
         console.log("id", id);
@@ -269,21 +269,20 @@ export default function Modules() {
     const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>, moduleId: string) => {
         if (moduleId === 'all') {
             if (event.target.checked) {
-                const allmoduleIds = itemlist.map(item => item.id);
+                const allmoduleIds = itemlist?.map(item => item.id) || [];
                 setSelectedModules(allmoduleIds);
             } else {
                 setSelectedModules([]);
             }
         } else {
             if (event.target.checked) {
-                setSelectedModules(prevSelected => [...prevSelected, moduleId]);
+                setSelectedModules(prevSelected => [...prevSelected, parseInt(moduleId, 10)]);
             } else {
-                setSelectedModules(prevSelected =>
-                    prevSelected.filter(id => id !== moduleId)
-                );
+                setSelectedModules(prevSelected => prevSelected.filter(id => id !== parseInt(moduleId, 10)));
             }
         }
     };
+
     const handleDeletes = async () => {
         console.log('SelectedModules', SelectedModules);
         // selectedmoduleIds
@@ -365,7 +364,7 @@ export default function Modules() {
                                 </div>
                             </div>
                             <div className="mt-4 lg:ml-16 ml-0 gap-1  sm:mt-0 sm:flex-none flex lg:space-x-2">
-                                <a onClick={() => handleButtonClick('add', '')}
+                                <a onClick={() => handleButtonClick('add', null)}
                                     className="block rounded-md bg-indigo-600 px-3 py-2 text-center lg:text-sm text-xs font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                                 >
                                     Add New Module

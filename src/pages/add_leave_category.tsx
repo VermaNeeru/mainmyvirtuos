@@ -56,7 +56,7 @@ export default function AddLeaveCategory() {
                 id: data.id,
                 type_name: data.type_name,
                 status: data.status,
-                quarters: ['', '', '']
+                quarters: ['', null, null]
             }));
 
             setSections1(usertypelist); // Update the state with the fetched data
@@ -73,8 +73,8 @@ export default function AddLeaveCategory() {
     //     const timer = setTimeout(() => {
 
     const initialSections = [
-        { id: 1, type_name: 'QE', status: "Active", quarters: ['', '', ''] },
-        { id: 2, type_name: 'PE', status: "Active", quarters: ['', '', ''] },
+        { id: 1, type_name: 'QE', status: "Active", quarters: ['', null, null] },
+        { id: 2, type_name: 'PE', status: "Active", quarters: ['', null, null] },
         // Add more sections as needed
     ];
     // const [sections, setSections] = useState(usertypelist);
@@ -216,7 +216,7 @@ export default function AddLeaveCategory() {
         setSections(updatedSections);
     };
 
-    const handleCheckboxChange = (id) => {
+    const handleCheckboxChange = (id: any) => {
         // Create a copy of the checkboxes array
         const updatedCheckboxes = [...checkboxes];
 
@@ -237,10 +237,10 @@ export default function AddLeaveCategory() {
             .map((checkbox) => checkbox.value);
         return checkedValues.join(',');
     };
-    const handleEncashChange = (event) => {
+    const handleEncashChange = (event: { target: { value: React.SetStateAction<string>; }; }) => {
         setLeavetypeEncashable(event.target.value);
     };
-    const handleCarryForwardChange = (event) => {
+    const handleCarryForwardChange = (event: { target: { value: React.SetStateAction<string>; }; }) => {
         setLeavetypeCarryForwarded(event.target.value);
     };
     return (
@@ -509,7 +509,7 @@ export default function AddLeaveCategory() {
                                         <label className="text-sm text-gray-600 font-medium">{utitem.type_name}</label>
                                     </div>
                                     <div className="grid grid-cols-1 lg:grid-cols-3 gap-x-6 lg:gap-y-4 gap-y-1">
-                                        {utitem.quarters.map((value, quarterIndex) => (
+                                        {utitem.quarters?.map((value: string | number | readonly string[] | undefined, quarterIndex: number) => (
                                             <div className="sm:col-span-1" key={quarterIndex}>
                                                 <div className="relative mt-2 rounded-md shadow-sm">
                                                     <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
@@ -725,7 +725,6 @@ export default function AddLeaveCategory() {
                                         <Bars3Icon className="h-5 w-5 -mt-6 text-gray-400" aria-hidden="true" />
                                     </div>
                                     <textarea
-                                        type="text"
                                         name="email"
                                         id="email"
                                         onChange={(e) => setLeavetypeDescription(e.target.value)}

@@ -10,6 +10,7 @@ import TimePickerComp from '@/components/DatePickerComp/TimePickerComp';
 import EmployeeSearch from '@/components/EmployeeSearch';
 
 export default function GoogleCalendar() {
+    const [empFor, setEmpFor] = useState('')
     const [openTab, setOpenTab] = useState<number>(1);
     const [quickEdit, setGoogleCal] = useState(false)
     const cancelButtonRef = useRef(null)
@@ -19,6 +20,14 @@ export default function GoogleCalendar() {
         console.log(newDate)
 
     };
+    const handleEmpValueChange = (newValue: { id: React.SetStateAction<string>; }) => {
+        console.log(newValue);
+        if (newValue) {
+            setEmpFor(newValue.id);
+        }
+
+    };
+
     return (
         <div className=' w-full rounded px-2'>
             <div className="rounded-t mb-4 px-4 bg-transparent">
@@ -241,7 +250,7 @@ export default function GoogleCalendar() {
                                                                             <div className="pb-4">
                                                                                 <div className="grid grid-cols-1 gap-x-6 gap-y-2 lg:gap-y-4 lg:grid-cols-2">
                                                                                     <div className="sm:col-span-6">
-                                                                                        <EmployeeSearch heading="Guest" />
+                                                                                        <EmployeeSearch onEmpValueChange={handleEmpValueChange} heading="Guest" />
                                                                                     </div>
                                                                                 </div>
                                                                             </div>

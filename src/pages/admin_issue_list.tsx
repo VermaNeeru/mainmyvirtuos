@@ -7,7 +7,8 @@ import { XMarkIcon, ChevronDownIcon, TrashIcon } from '@heroicons/react/20/solid
 import Alert from '@/components/Alert';
 import { useQuery, useLazyQuery, useMutation } from "@apollo/client";
 import { ADD_Issue_MUTATION, DELETE_Issue_MUTATION, GET_Issues, GET_Issue_BY_ID, REMOVE_MULTIPLE_Issues, UPDATE_Issue_MUTATION } from '@/graphql/IssueList/queries';
-import { GET_Roles } from '@/graphql/role/queries';
+import { GET_Roles } from '@/graphql/Role/queries';
+
 
 const table_header = [
     { name: 'Type' },
@@ -25,7 +26,7 @@ const ideas = [
 
 export default function AdminIssueList() {
     const [search, setSearch] = useState("");
-    const [SelectedIssues, setSelectedIssues] = useState([]);
+    const [SelectedIssues, setSelectedIssues] = useState<number[]>([]);
     const [searchKeyword, setSearchKeyword] = useState('');
     const [quickEdit, setQuickEdit] = useState(false)
     const [formType, setformType] = useState('')
@@ -37,8 +38,8 @@ export default function AdminIssueList() {
 
     const cancelButtonRef = useRef(null)
 
-    const [issueId, setIssueId] = useState<number>()
-    const [issueRoleId, setIssueRoleId] = useState('')
+    const [issueId, setIssueId] = useState<number | null>()
+    const [issueRoleId, setIssueRoleId] = useState<number | null>(null)
     const [issueColor, setIssueColor] = useState('')
     const [issueDescription, setIssueDescription] = useState('')
     const [mStatus, setmStatus] = useState('')
@@ -105,7 +106,7 @@ export default function AdminIssueList() {
         }
     }
 
-    const handleButtonClick = (type: string, id: number) => {
+    const handleButtonClick = (type: string, id: number | null) => {
         setQuickEdit(true)
         setformType(type)
         console.log("id", id);
@@ -241,21 +242,20 @@ export default function AdminIssueList() {
     const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>, issueId: string) => {
         if (issueId === 'all') {
             if (event.target.checked) {
-                const allissueIds = itemlist.map(item => item.id);
-                setSelectedIssues(allissueIds);
+                const allIssueIds = itemlist?.map(item => item.id) || [];
+                setSelectedIssues(allIssueIds);
             } else {
                 setSelectedIssues([]);
             }
         } else {
             if (event.target.checked) {
-                setSelectedIssues(prevSelected => [...prevSelected, issueId]);
+                setSelectedIssues(prevSelected => [...prevSelected, parseInt(issueId, 10)]);
             } else {
-                setSelectedIssues(prevSelected =>
-                    prevSelected.filter(id => id !== issueId)
-                );
+                setSelectedIssues(prevSelected => prevSelected.filter(id => id !== parseInt(issueId, 10)));
             }
         }
     };
+
     const handleDeletes = async () => {
         console.log('SelectedIssues', SelectedIssues);
         // selectedIssueIds
@@ -337,7 +337,7 @@ export default function AdminIssueList() {
                                 </div>
                             </div>
                             <div className="mt-4 lg:ml-16 ml-0 sm:mt-0 sm:flex-none">
-                                <a onClick={() => handleButtonClick('add', '')}
+                                <a onClick={() => handleButtonClick('add', null)}
                                     className="block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                                 >
                                     Add New Issues Type
@@ -468,8 +468,6 @@ export default function AdminIssueList() {
                                                                                                         id="location"
                                                                                                         name="location"
                                                                                                         onChange={(e) => setIssueRoleId(parseInt(e.target.value))}
-                                                                                                        value={issueRoleId}
-
                                                                                                         className="px-2 mt-2 block w-full rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                                                                                         defaultValue="Canada"
                                                                                                     >

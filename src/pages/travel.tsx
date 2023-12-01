@@ -28,7 +28,7 @@ export default function Travel() {
     const cancelButtonRef = useRef(null)
     const [showDeletedMessage, setshowDeletedMessage] = useState(false);
     const [showUpdatedMessage, setshowUpdatedMessage] = useState(false);
-    const [SelectedTravelrequests, setSelectedTravelrequests] = useState([]);
+    const [SelectedTravelrequests, setSelectedTravelrequests] = useState<number[]>([]);
     const [showErrorMessage, setshowErrorMessage] = useState<boolean>(false);
     const [searchKeyword, setSearchKeyword] = useState('');
     const userData = UserData();
@@ -93,18 +93,16 @@ export default function Travel() {
     const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>, travelrequestId: string) => {
         if (travelrequestId === 'all') {
             if (event.target.checked) {
-                const alltravelrequestIds = itemlist.map(item => item.id);
+                const alltravelrequestIds = itemlist?.map(item => item.id) || [];
                 setSelectedTravelrequests(alltravelrequestIds);
             } else {
                 setSelectedTravelrequests([]);
             }
         } else {
             if (event.target.checked) {
-                setSelectedTravelrequests(prevSelected => [...prevSelected, travelrequestId]);
+                setSelectedTravelrequests(prevSelected => [...prevSelected, parseInt(travelrequestId, 10)]);
             } else {
-                setSelectedTravelrequests(prevSelected =>
-                    prevSelected.filter(id => id !== travelrequestId)
-                );
+                setSelectedTravelrequests(prevSelected => prevSelected.filter(id => id !== parseInt(travelrequestId, 10)));
             }
         }
     };

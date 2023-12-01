@@ -1,4 +1,4 @@
-import { Fragment, useState, useEffect } from 'react'
+import { Fragment, useState, useEffect, SetStateAction } from 'react'
 import { Listbox, Transition } from '@headlessui/react'
 import { Disclosure } from '@headlessui/react'
 import { Bars4Icon, CheckIcon, ChevronUpDownIcon, ChatBubbleLeftRightIcon } from '@heroicons/react/20/solid'
@@ -32,10 +32,10 @@ export default function EditEmail() {
     const [templateType, setTemplateType] = useState('')
     const [templateSubject, setTemplateSubject] = useState('')
     const [templateConstant, setTemplateConstant] = useState('')
-    const [templateDescription, setTemplateDescription] = useState('')
+    const [templateDescription, setTemplateDescription] = useState<string | undefined>()
     const [templateStatus, setTemplateStatus] = useState('')
 
-    const handleTemplateTypeChange = (type) => {
+    const handleTemplateTypeChange = (type: SetStateAction<string>) => {
 
         console.log(type)
         setTemplateType(type);
@@ -43,7 +43,7 @@ export default function EditEmail() {
         // onDateChange(newDate); // Call the callback passed from parent
     };
 
-    const handleEditorContentChange = (content: boolean | ((prevState: boolean) => boolean)) => {
+    const handleEditorContentChange = (content: any | ((prevState: any) => any)) => {
         setTemplateDescription(content)
     };
 

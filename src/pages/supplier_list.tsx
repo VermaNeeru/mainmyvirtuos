@@ -23,7 +23,7 @@ const ideas = [
 
 export default function SupplierList() {
     const [search, setSearch] = useState("");
-    const [selectedSupplier, setSelectedSupplier] = useState([]);
+    const [selectedSupplier, setSelectedSupplier] = useState<number[]>([]);
     const [searchKeyword, setSearchKeyword] = useState('');
     const [quickEdit, setQuickEdit] = useState(false)
     const [formType, setformType] = useState('')
@@ -85,7 +85,7 @@ export default function SupplierList() {
         }
     }
 
-    const handleButtonClick = (type: string, id: number) => {
+    const handleButtonClick = (type: string, id: number | null) => {
         setQuickEdit(true)
         setformType(type)
         console.log("id", id);
@@ -211,18 +211,16 @@ export default function SupplierList() {
     const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>, supplierId: string) => {
         if (supplierId === 'all') {
             if (event.target.checked) {
-                const allsupplierIds = itemlist.map(item => item.id);
+                const allsupplierIds = itemlist?.map(item => item.id) || [];
                 setSelectedSupplier(allsupplierIds);
             } else {
                 setSelectedSupplier([]);
             }
         } else {
             if (event.target.checked) {
-                setSelectedSupplier(prevSelected => [...prevSelected, supplierId]);
+                setSelectedSupplier(prevSelected => [...prevSelected, parseInt(supplierId, 10)]);
             } else {
-                setSelectedSupplier(prevSelected =>
-                    prevSelected.filter(id => id !== supplierId)
-                );
+                setSelectedSupplier(prevSelected => prevSelected.filter(id => id !== parseInt(supplierId, 10)));
             }
         }
     };
@@ -308,7 +306,7 @@ export default function SupplierList() {
                             </div>
 
                             <div className="mt-4 lg:ml-16 ml-0 sm:mt-0 sm:flex-none">
-                                <a onClick={() => handleButtonClick('add', '')}
+                                <a onClick={() => handleButtonClick('add', null)}
                                     className="block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                                 >
                                     Add New Supplier

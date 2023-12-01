@@ -26,7 +26,7 @@ const ideas = [
 
 export default function LeaveCategoryList() {
     const [search, setSearch] = useState("");
-    const [SelectedLeavetypes, setSelectedLeavetypes] = useState([]);
+    const [SelectedLeavetypes, setSelectedLeavetypes] = useState<number[]>([]);
     const [searchKeyword, setSearchKeyword] = useState('');
     const [quickEdit, setQuickEdit] = useState(false)
     const [formType, setformType] = useState('')
@@ -92,18 +92,16 @@ export default function LeaveCategoryList() {
     const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>, leavetypeId: string) => {
         if (leavetypeId === 'all') {
             if (event.target.checked) {
-                const allleavetypeIds = itemlist.map(item => item.id);
+                const allleavetypeIds = itemlist?.map(item => item.id) || [];
                 setSelectedLeavetypes(allleavetypeIds);
             } else {
                 setSelectedLeavetypes([]);
             }
         } else {
             if (event.target.checked) {
-                setSelectedLeavetypes(prevSelected => [...prevSelected, leavetypeId]);
+                setSelectedLeavetypes(prevSelected => [...prevSelected, parseInt(leavetypeId, 10)]);
             } else {
-                setSelectedLeavetypes(prevSelected =>
-                    prevSelected.filter(id => id !== leavetypeId)
-                );
+                setSelectedLeavetypes(prevSelected => prevSelected.filter(id => id !== parseInt(leavetypeId, 10)));
             }
         }
     };
