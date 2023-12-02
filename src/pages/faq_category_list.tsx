@@ -36,7 +36,7 @@ export default function FaqCategoryList() {
 
     const cancelButtonRef = useRef(null)
 
-    const [faqcategoryId, setFaqcategoryId] = useState<number>()
+    const [faqcategoryId, setFaqcategoryId] = useState<number | null | undefined>()
     const [faqcategoryName, setFaqcategoryName] = useState('')
     const [faqcatName, setFaqcatName] = useState('')
     const [mStatus, setmStatus] = useState('')

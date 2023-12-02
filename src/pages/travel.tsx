@@ -7,7 +7,7 @@ import { XMarkIcon, ChevronDownIcon, TrashIcon } from '@heroicons/react/20/solid
 import { useQuery, useLazyQuery, useMutation } from "@apollo/client";
 import { DELETE_Travelrequest_MUTATION, GET_Travelrequest_BY_UID, GET_Travelrequests, REMOVE_MULTIPLE_Travelrequests, UPDATE_Travelrequest_MUTATION } from '@/graphql/Travel/queries';
 import Alert from '@/components/Alert';
-import UserData from '@/components/UserData';
+import { getUserData } from '@/components/UserData';
 
 const table_header = [
     { name: 'Name' },
@@ -31,14 +31,14 @@ export default function Travel() {
     const [SelectedTravelrequests, setSelectedTravelrequests] = useState<number[]>([]);
     const [showErrorMessage, setshowErrorMessage] = useState<boolean>(false);
     const [searchKeyword, setSearchKeyword] = useState('');
-    const userData = UserData();
-    const [userId, setUserId] = useState<number>(userData.id)
+    const userData = getUserData();
+    const [userId, setUserId] = useState<number | null | undefined>(userData?.id)
 
     const [removeQuery] = useMutation(DELETE_Travelrequest_MUTATION);
     const [removeMultipleQuery] = useMutation(REMOVE_MULTIPLE_Travelrequests);
     const [updateQuery, { loading: updateQueryLoading, error: updateQueryError }] = useMutation(UPDATE_Travelrequest_MUTATION);
 
-    const [executeQueryByUid, { loadingut, errorByUid, data: getQueryByUid, refetch }] = useLazyQuery(GET_Travelrequest_BY_UID);
+    const [executeQueryByUid, { loading: loadingut, error: errorByUid, data: getQueryByUid, refetch }] = useLazyQuery(GET_Travelrequest_BY_UID);
     useEffect(() => {
         executeQueryByUid({ variables: { id: userId } });
         console.log(getQueryByUid);
@@ -53,7 +53,7 @@ export default function Travel() {
         const { travelrequestByUid } = getQueryByUid; // Destructure the division object
         // let quarters = [leavetype.quarter_one, leavetype.quarter_two, leavetype.quarter_three];
         // setSections1(quarters)
-        itemlist = getQueryByUid.travelrequestByUid.map((data) => ({
+        itemlist = getQueryByUid.travelrequestByUid.map((data: { id: any; travel_type: any; travel_name: any; travel_mode: any; travel_notes: any; travel_status: any; travel_purpose: any; travel_assistance: any; travel_approved_by: any; distance: any; advance_amount: any; amount_approved: any; assistance_type: any; approvedby: { firstname: any; lastname: any; }; }) => ({
             id: data.id,
             travel_type: data.travel_type,
             travel_name: data.travel_name,

@@ -6,7 +6,7 @@ import { Dialog, Menu, Transition } from '@headlessui/react'
 import { XMarkIcon, ChevronDownIcon, TrashIcon } from '@heroicons/react/20/solid'
 import Alert from '@/components/Alert';
 import { useQuery, useLazyQuery, useMutation } from "@apollo/client";
-import { ADD_Role_MUTATION, DELETE_Role_MUTATION, GET_Roles, GET_Role_BY_ID, REMOVE_MULTIPLE_Roles, UPDATE_Role_MUTATION } from '@/graphql/role/queries';
+import { ADD_Role_MUTATION, DELETE_Role_MUTATION, GET_Roles, GET_Role_BY_ID, REMOVE_MULTIPLE_Roles, UPDATE_Role_MUTATION } from '@/graphql/Role/queries';
 
 const table_header = [
     { name: 'Role Name' },
@@ -36,9 +36,9 @@ export default function RoleList() {
 
     const cancelButtonRef = useRef(null)
 
-    const [roleId, setRoleId] = useState<number>()
+    const [roleId, setRoleId] = useState<number | null | undefined>()
     const [roleName, setRoleName] = useState('')
-    const [rolePriority, setRolePriority] = useState<number>()
+    const [rolePriority, setRolePriority] = useState<number | null | undefined>()
     const [mStatus, setmStatus] = useState('')
 
     const [aError, setAError] = useState(false);
@@ -97,7 +97,7 @@ export default function RoleList() {
         } else {
 
             setRoleName('');
-            setRolePriority('');
+            setRolePriority(null);
             setmStatus('');
             setRoleId(null);
         }
@@ -159,7 +159,7 @@ export default function RoleList() {
 
 
                 setRoleName('');
-                setRolePriority('');
+                setRolePriority(null);
                 setmStatus('');
 
                 setshowSuccessMessage(true);
@@ -194,7 +194,7 @@ export default function RoleList() {
                 console.log('response', id);
 
                 setRoleName('');
-                setRolePriority('');
+                setRolePriority(null);
                 setmStatus('');
 
 

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { BarsArrowUpIcon, MagnifyingGlassIcon } from '@heroicons/react/20/solid'
 import EmployeeSearch from '@/components/EmployeeSearch'
 import DatePickerComp from '@/components/DatePickerComp/DatePickerComp'
@@ -18,7 +18,7 @@ const user_attendance = [
     // More people...
 ]
 export default function UserAccess() {
-    const [empFor, setEmpFor] = useState('')
+    const [empFor, setEmpFor] = useState('');
     const [stateDate, setStateDate] = useState('');
     const [endDate, setEndDate] = useState('');
     const handleStartDateChange = (newDate: any) => {

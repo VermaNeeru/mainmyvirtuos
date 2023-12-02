@@ -39,12 +39,17 @@ const ex_extension_list = [
 ]
 
 export default function Users() {
-    const [openTab, setOpenTab] = useState<number>(1);
+    const [openTab, setOpenTab] = useState<number | null | undefined>(1);
     const [showDeleteMessage, setshowDeleteMessage] = useState(false);
     const [updateLeaves, setUpdateLeaves] = useState(false)
     const [quickEdit, setQuickEdit] = useState(false)
     const [activateEmp, setActivateEmp] = useState(false)
     const [suspendEmp, setSuspendEmp] = useState(false)
+    const [departmentId, setDepartmentId] = useState<string>('');
+    const [roleId, setRoleId] = useState<number | null>();
+    const [doc, setDoc] = useState('');
+    const [noa, setNoa] = useState('');
+    const [noac, setNoac] = useState('');
 
     const cancelButtonRef = useRef(null)
     const [dob, setDob] = useState('');
@@ -58,8 +63,29 @@ export default function Users() {
         setDoj(newDate); // Update parent component's state
         console.log(newDate)
     };
+    const handleDepartmentChange = (departments: any) => {
+        console.log(departments)
+        setDepartmentId(departments?.id); // Update parent component's state
+    };
+    const handleRoleChange = (roles: any) => {
+        console.log(roles)
+        setRoleId(roles?.id); // Update parent component's state
+    };
+    const handleDocDateChange = (newDate: any) => {
+        setDoc(newDate); // Update parent component's state
+        console.log(newDate)
 
+    };
+    const handleNoaDateChange = (newDate: any) => {
+        setNoa(newDate); // Update parent component's state
+        console.log(newDate)
 
+    };
+    const handleNoacDateChange = (newDate: any) => {
+        setNoac(newDate); // Update parent component's state
+        console.log(newDate)
+
+    };
     return (
         <div className=' w-full rounded px-2'>
             <div className="rounded-t mb-4 px-4 bg-transparent">
@@ -750,7 +776,7 @@ export default function Users() {
 
                                                                             <div className="sm:col-span-1">
                                                                                 <div className="relative mt-2 rounded-md shadow-sm">
-                                                                                    <DepartmentSearch heading="hidden" />
+                                                                                    <DepartmentSearch onDepartmentChange={handleDepartmentChange} heading="hidden" />
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -947,7 +973,7 @@ export default function Users() {
                                                                         <div className="grid grid-cols-2 lg:grid-cols-2 gap-x-6 gap-y-4 sm:grid-cols-2">
                                                                             <div className="sm:col-span-1">
                                                                                 <div className="relative mt-2 rounded-md shadow-sm">
-                                                                                    <RoleSearch heading="hidden" />
+                                                                                    <RoleSearch onRoleChange={handleRoleChange} heading="hidden" />
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -988,7 +1014,7 @@ export default function Users() {
                                                                                 </label>
 
                                                                                 <div className='mt-2'>
-                                                                                    <DatePickerComp />
+                                                                                    <DatePickerComp onDateChange={handleDocDateChange} />
                                                                                 </div>
                                                                             </div>
                                                                             <div className="sm:col-span-1">
@@ -997,7 +1023,7 @@ export default function Users() {
                                                                                 </label>
 
                                                                                 <div className='mt-2'>
-                                                                                    <DatePickerComp />
+                                                                                    <DatePickerComp onDateChange={handleNoaDateChange} />
                                                                                 </div>
                                                                             </div>
 
@@ -1007,7 +1033,7 @@ export default function Users() {
                                                                                 </label>
 
                                                                                 <div className='mt-2'>
-                                                                                    <DatePickerComp />
+                                                                                    <DatePickerComp onDateChange={handleNoacDateChange} />
                                                                                 </div>
                                                                             </div>
 

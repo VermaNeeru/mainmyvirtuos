@@ -35,7 +35,7 @@ export default function EditEmail() {
     const [showSuccessMessage, setshowSuccessMessage] = useState<boolean>(false);
     const [showErrorMessage, setshowErrorMessage] = useState<boolean>(false);
 
-    const [templateId, setTemplateId] = useState<number>()
+    const [templateId, setTemplateId] = useState<number | null | undefined>()
     const [templateName, setTemplateName] = useState('')
     const [templateType, setTemplateType] = useState('')
     const [templateSubject, setTemplateSubject] = useState('')

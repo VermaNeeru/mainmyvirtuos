@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { BarsArrowUpIcon, MagnifyingGlassIcon } from '@heroicons/react/20/solid'
 import EmployeeSearch from '@/components/EmployeeSearch'
 import DatePickerComp from '@/components/DatePickerComp/DatePickerComp'

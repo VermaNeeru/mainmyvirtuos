@@ -2,7 +2,7 @@ import Image from 'next/image';
 import React, { useState } from 'react'
 
 export default function Profile() {
-    const [openTab, setOpenTab] = useState<number>(1);
+    const [openTab, setOpenTab] = useState<number | null | undefined>(1);
 
     return (
         <div className=' w-full rounded px-2'>

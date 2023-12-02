@@ -94,7 +94,7 @@ export default function AddTravelReq() {
     const [showSuccessMessage, setshowSuccessMessage] = useState<boolean>(false);
     const [showErrorMessage, setshowErrorMessage] = useState<boolean>(false);
 
-    const [TravelRequestId, setTravelRequestId] = useState<number>()
+    const [TravelRequestId, setTravelRequestId] = useState<number | null | undefined>()
     const userData = getUserData();
     const [userId, setUserId] = useState<number | undefined>(userData?.id)
     const [TravelName, setTravelName] = useState('')

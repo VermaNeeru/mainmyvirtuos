@@ -6,7 +6,7 @@ import { Dialog, Menu, Transition } from '@headlessui/react'
 import { XMarkIcon, ChevronDownIcon, TrashIcon } from '@heroicons/react/20/solid'
 import Alert from '@/components/Alert';
 import { useQuery, useLazyQuery, useMutation } from "@apollo/client";
-import { ADD_Manufacturer_MUTATION, DELETE_Manufacturer_MUTATION, GET_Manufacturers, GET_Manufacturer_BY_ID, REMOVE_MULTIPLE_Manufacturers, UPDATE_Manufacturer_MUTATION } from '@/graphql/manufacturer/queries';
+import { ADD_Manufacturer_MUTATION, DELETE_Manufacturer_MUTATION, GET_Manufacturers, GET_Manufacturer_BY_ID, REMOVE_MULTIPLE_Manufacturers, UPDATE_Manufacturer_MUTATION } from '@/graphql/Manufacturer/queries';
 
 const table_header = [
     { name: 'Name' },
@@ -34,7 +34,7 @@ export default function ManufacturerList() {
 
     const cancelButtonRef = useRef(null)
 
-    const [manufacturerId, setmanufacturerId] = useState<number>()
+    const [manufacturerId, setmanufacturerId] = useState<number | null | undefined>()
     const [manufacturerName, setmanufacturerName] = useState('')
     const [mStatus, setmStatus] = useState('')
 

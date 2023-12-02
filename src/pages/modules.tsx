@@ -38,13 +38,13 @@ export default function Modules() {
 
     const cancelButtonRef = useRef(null)
 
-    const [moduleId, setmoduleId] = useState<number>()
-    const [parentId, setparentId] = useState<number>()
+    const [moduleId, setmoduleId] = useState<number | null | undefined>()
+    const [parentId, setparentId] = useState<number | null | undefined>()
     const [moduleName, setmoduleName] = useState('')
     const [moduleController, setmoduleController] = useState('')
     const [submoduleName, setsubmoduleName] = useState('')
     const [className, setclassName] = useState('')
-    const [sortorder, setsortorder] = useState('')
+    const [sortorder, setsortorder] = useState<any>()
     const [mStatus, setmStatus] = useState('')
 
 
@@ -109,11 +109,11 @@ export default function Modules() {
             console.log("moduleId", moduleId);
         } else {
 
-            setparentId('');
+            setparentId(null);
             setmoduleName('');
             setsubmoduleName('');
             setmoduleController('');
-            setsortorder('');
+            setsortorder(null);
             setmStatus('');
             setmoduleId(null);
         }
@@ -187,11 +187,11 @@ export default function Modules() {
                 });
 
 
-                setparentId('');
+                setparentId(null);
                 setmoduleName('');
                 setsubmoduleName('');
                 setmoduleController('');
-                setsortorder('');
+                setsortorder(null);
                 setmStatus('');
 
                 setshowSuccessMessage(true);
@@ -219,7 +219,7 @@ export default function Modules() {
                 console.log('sortorder', sortorder)
                 console.log('mStatus', mStatus)
 
-                if (parentId === '') {
+                if (parentId == undefined || parent == null) {
                     setparentId(null);
                 }
                 console.log('parentId', parentId)
@@ -238,11 +238,11 @@ export default function Modules() {
                 });
                 console.log('response', id);
 
-                setparentId('');
+                setparentId(null);
                 setmoduleName('');
                 setsubmoduleName('');
                 setmoduleController('');
-                setsortorder('');
+                setsortorder(null);
                 setmStatus('');
 
 
@@ -511,8 +511,6 @@ export default function Modules() {
                                                                                                         id="location"
                                                                                                         name="location"
                                                                                                         onChange={(e) => setparentId(parseInt(e.target.value))}
-                                                                                                        value={parentId}
-
                                                                                                         className="px-2 mt-2 block w-full rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                                                                                         defaultValue="Canada"
                                                                                                     >

@@ -34,7 +34,7 @@ export default function UserTypeList() {
 
     const cancelButtonRef = useRef(null)
 
-    const [usertypeId, setusertypeId] = useState<number>()
+    const [usertypeId, setusertypeId] = useState<number | null | undefined>()
     const [TypeName, setTypeName] = useState('')
     const [utStatus, setutStatus] = useState('')
 

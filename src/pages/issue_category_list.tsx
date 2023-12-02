@@ -34,7 +34,7 @@ export default function IssueCategoryList() {
 
     const cancelButtonRef = useRef(null)
 
-    const [issuecategoryId, setIssuecategoryId] = useState<number>()
+    const [issuecategoryId, setIssuecategoryId] = useState<number | null | undefined>()
     const [issuecategoryName, setIssuecategoryName] = useState('')
     const [icstatus, setIcstatus] = useState('')
 

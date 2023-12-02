@@ -21,10 +21,10 @@ const modules = [
 ]
 
 import { useQuery, useLazyQuery, useMutation } from "@apollo/client";
-import { ADD_Useryearlyleavebalance_MUTATION, UPDATE_Useryearlyleavebalance_MUTATION, DELETE_Useryearlyleavebalance_MUTATION, REMOVE_MULTIPLE_Useryearlyleavebalances, GET_FILTERED_UseryearlyleavebalanceS, GET_Useryearlyleavebalances, GET_Useryearlyleavebalance_BY_ID } from '@/graphql/LeaveBalance/queries';
+import { ADD_Useryearlyleavebalance_MUTATION, DELETE_Useryearlyleavebalance_MUTATION, GET_Useryearlyleavebalance_BY_ID, GET_Useryearlyleavebalances, REMOVE_MULTIPLE_Useryearlyleavebalances, UPDATE_Useryearlyleavebalance_MUTATION } from '@/graphql/LeaveBalance/queries';
 
 export default function LeaveBalanceUpload() {
-    const [csvData, setCSVData] = useState<number[]>([]);
+    const [csvData, setCSVData] = useState<any[]>([]);
     const [errorMessage, setErrorMessage] = useState('');
 
     const [search, setSearch] = useState("");
@@ -38,7 +38,7 @@ export default function LeaveBalanceUpload() {
     const [leavetypeCode, setleavetypeCode] = useState('')
     const [leavetypeCount, setleavetypeCount] = useState('')
     const [leavetypeStatus, setleavetypeStatus] = useState('')
-    const [leavetypeId, setleavetypeId] = useState<number>()
+    const [leavetypeId, setleavetypeId] = useState<number | null | undefined>()
 
     const [dnameError, setDnameError] = useState(false);
     const [dcodeError, setDcodeError] = useState(false);
@@ -160,7 +160,7 @@ export default function LeaveBalanceUpload() {
             console.log('Try to submit');
 
             // Create an array of promises for GraphQL mutations
-            const mutationPromises = csvData.map(async (item) => {
+            const mutationPromises = csvData.map(async (item: any) => {
                 // Check if the item has all required values
                 if (item[0] && item[1] && item[2] && item[3]) {
                     console.log('user_id', item[0]);
@@ -251,8 +251,8 @@ export default function LeaveBalanceUpload() {
         return (item.firstname.toLowerCase().includes(lowerSearch) || item.lastname.toLowerCase().includes(lowerSearch));
     });
 
-    const handleFileChange = (event: { target: { files: any[]; }; }) => {
-        const selectedFile = event.target.files[0];
+    const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const selectedFile = event.target.files?.[0];
         if (selectedFile) {
             // Call a function to read the CSV file content
             readCSVFile(selectedFile);
@@ -262,18 +262,20 @@ export default function LeaveBalanceUpload() {
     const readCSVFile = (file: Blob) => {
         const reader = new FileReader();
         reader.onload = (event) => {
-            const content = event.target.result;
-            // Parse the CSV content into an array of rows and columns
-            const rows = content.split('\n').map((row: string) => row.split(','));
-            setCSVData(rows);
+            const content = event?.target?.result;
+            if (content && typeof content === 'string') {
+                // Parse the CSV content into an array of rows and columns
+                const rows = content.split('\n').map((row: string) => row.split(','));
+                setCSVData(rows);
+            }
         };
         reader.onerror = () => {
             setErrorMessage('Error reading the CSV file.');
         };
         reader.readAsText(file); // Read the file as text
-
-        console.log(csvData)
     };
+
+
 
     // useEffect(() => {
     //     console.log(csvData)

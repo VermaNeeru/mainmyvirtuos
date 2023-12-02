@@ -38,7 +38,7 @@ export default function LeaveCategoryList() {
 
     const cancelButtonRef = useRef(null)
 
-    const [leavetypeId, setLeavetypeId] = useState<number>()
+    const [leavetypeId, setLeavetypeId] = useState<number | null | undefined>()
     const [leavetypeName, setLeavetypeName] = useState('')
     const [mStatus, setmStatus] = useState('')
 
@@ -59,7 +59,7 @@ export default function LeaveCategoryList() {
     let itemlist: any[] = [];
 
     if (getAllData && getAllData.leavetypes) {
-        itemlist = getAllData.leavetypes.map((data) => ({
+        itemlist = getAllData.leavetypes?.map((data: any) => ({
             id: data.id,
             leave_color: data.leave_color,
             leave_type_name: data.leave_type_name,

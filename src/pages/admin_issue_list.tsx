@@ -6,9 +6,8 @@ import { Dialog, Menu, Transition } from '@headlessui/react'
 import { XMarkIcon, ChevronDownIcon, TrashIcon } from '@heroicons/react/20/solid'
 import Alert from '@/components/Alert';
 import { useQuery, useLazyQuery, useMutation } from "@apollo/client";
-import { ADD_Issue_MUTATION, DELETE_Issue_MUTATION, GET_Issues, GET_Issue_BY_ID, REMOVE_MULTIPLE_Issues, UPDATE_Issue_MUTATION } from '@/graphql/IssueList/queries';
+import { ADD_Issue_MUTATION, DELETE_Issue_MUTATION, GET_Issue_BY_ID, GET_Issues, REMOVE_MULTIPLE_Issues, UPDATE_Issue_MUTATION } from '@/graphql/IssueList/queries';
 import { GET_Roles } from '@/graphql/Role/queries';
-
 
 const table_header = [
     { name: 'Type' },

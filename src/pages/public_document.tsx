@@ -32,7 +32,7 @@ export default function PublicDocument() {
     const cancelButtonRef = useRef(null)
     const [getPublicDocuments, { data, loading, error }] = useMutation(GET_PUBLIC_DOCUMENTS_BY_ID);
     const [documents, setDocuments] = useState<Document[]>([]);
-    const [selectedDocumentId, setSelectedDocumentId] = useState<number | null>(null);
+    const [selectedDocumentId, setSelectedDocumentId] = useState<number | null | undefined>(null);
     const [searchQuery, setSearchQuery] = useState<string>('');
     interface Document {
         document_name: string;
@@ -64,7 +64,7 @@ export default function PublicDocument() {
         }
     };
 
-    const handleDocumentClick = (documentId: number | React.SetStateAction<null>) => {
+    const handleDocumentClick = (documentId: number) => {
         setSelectedDocumentId(documentId); // Set the selected document data
         setDoc(true); // Show the dialog
     };
@@ -112,7 +112,7 @@ export default function PublicDocument() {
                 console.error('Invalid token:', decodedToken);
             } else if (decodedToken) {
                 // Handle the case where decodedToken is a JWT payload
-                
+
                 console.log(decodedToken?.id);
                 fetchPublicDocuments(decodedToken.id);
             }

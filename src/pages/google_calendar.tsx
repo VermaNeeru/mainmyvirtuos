@@ -11,7 +11,7 @@ import EmployeeSearch from '@/components/EmployeeSearch';
 
 export default function GoogleCalendar() {
     const [empFor, setEmpFor] = useState('')
-    const [openTab, setOpenTab] = useState<number>(1);
+    const [openTab, setOpenTab] = useState<number | null | undefined>(1);
     const [quickEdit, setGoogleCal] = useState(false)
     const cancelButtonRef = useRef(null)
     const [stateDate, setStateDate] = useState('');
@@ -209,7 +209,7 @@ export default function GoogleCalendar() {
                                                                                             <div className="relative mt-2 rounded-md shadow-sm">
                                                                                                 <label htmlFor="start-date" className="block text-sm font-medium leading-6 text-gray-700"> End Date :
                                                                                                 </label>
-                                                                                                <DatePickerComp />
+                                                                                                <DatePickerComp onDateChange={handleStartDateChange} />
                                                                                             </div>
                                                                                         </div>
                                                                                         <div className="sm:col-span-1">

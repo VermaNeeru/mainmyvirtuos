@@ -7,13 +7,41 @@ import Alert from '@/components/Alert';
 import { GET_USER_TYPES } from '@/graphql/Usertype/queries';
 import { ADD_Leaveusertype_MUTATION, GET_Leaveusertype_BY_ID, GET_Leaveusertype_BY_LTID, UPDATE_Leaveusertype_MUTATION } from '@/graphql/LeaveUserType/queries';
 import { useRouter } from 'next/router';
+
+type QuarterType = {
+    // Define the properties of each item in quarterlist
+    // For example, if each item has an 'id' and 'name', you can define it as:
+    id: string;
+    name: string;
+    user_type: string;
+    quarters: number[];
+    // Add more properties as needed
+};
 export default function EditLeaveCategory() {
+    const [checkboxes, setCheckboxes] = useState([
+        { id: 'checkbox1', value: 'Value 1', isChecked: false },
+        { id: 'checkbox2', value: 'Value 2', isChecked: false },
+        // Add more checkboxes as needed
+    ]);
 
     const router = useRouter();
-    const { id } = router.query;
+    const { id } = router?.query;
 
+    // Use useEffect to handle changes in the router query
+    useEffect(() => {
+        if (id) {
+            const firstId = Array.isArray(id) ? id[0] : id;
+            setLeavetypeId(parseInt(firstId, 10));
+        } else {
+            setLeavetypeId(null);
+        }
+    }, [id]);
+
+    const [leavetypeId, setLeavetypeId] = useState<number | null>(
+        id ? parseInt(Array.isArray(id) ? id[0] : id, 10) : null
+    );
     const initialState = {
-        leavetypeId: id ? parseInt(id as string, 10) : null,
+        leavetypeId: leavetypeId,
         leavetypeColor: '',
         leavetypeName: '',
         leavetypeCode: '',
@@ -28,7 +56,7 @@ export default function EditLeaveCategory() {
         // quaterdm: [],
         aError: false,
         bError: false,
-        sections: [],
+        sections: [] as QuarterType[],
         sections1: [],
         checkboxes: [
             { id: 'checkbox1', value: 'HR', isChecked: false },
@@ -49,24 +77,24 @@ export default function EditLeaveCategory() {
     const [showSuccessMessage, setshowSuccessMessage] = useState<boolean>(false);
     const [showErrorMessage, setshowErrorMessage] = useState<boolean>(false);
 
-    // const [leavetypeId, setLeavetypeId] = useState<number>()
-    // const [leavetypeColor, setLeavetypeColor] = useState('')
-    // const [leavetypeName, setLeavetypeName] = useState('')
-    // const [leavetypeCode, setLeavetypeCode] = useState('')
-    // const [leavetypeRole, setLeavetypeRole] = useState('')
-    // const [leavetypeDescription, setLeavetypeDescription] = useState('')
-    // const [leavetypeEncashable, setLeavetypeEncashable] = useState('Yes')
-    // const [leavetypeCarryForwarded, setLeavetypeCarryForwarded] = useState('Yes')
-    // const [mStatus, setmStatus] = useState('')
+    // const [leavetypeId, setLeavetypeId] = useState<number | null | undefined>()
+    const [leavetypeColor, setLeavetypeColor] = useState('')
+    const [leavetypeName, setLeavetypeName] = useState('')
+    const [leavetypeCode, setLeavetypeCode] = useState('')
+    const [leavetypeRole, setLeavetypeRole] = useState('')
+    const [leavetypeDescription, setLeavetypeDescription] = useState('')
+    const [leavetypeEncashable, setLeavetypeEncashable] = useState('Yes')
+    const [leavetypeCarryForwarded, setLeavetypeCarryForwarded] = useState('Yes')
+    const [mStatus, setmStatus] = useState('')
     // const [usertypeId, setUsertypeId] = useState<number[]>([])
     // const [quateraj, setQuateraj] = useState([])
     // const [quateran, setQuateran] = useState([])
     // const [quaterdm, setQuaterdm] = useState([])
 
-    // const [aError, setAError] = useState(false);
-    // const [bError, setBError] = useState(false);
-    // const [sections, setSections] = useState<any[]>([]); // Initialize as an empty array
-    // const [sections1, setSections1] = useState<any[]>([]); // Initialize as an empty array
+    const [aError, setAError] = useState(false);
+    const [bError, setBError] = useState(false);
+    const [sections, setSections] = useState<any[]>([]); // Initialize as an empty array
+    const [sections1, setSections1] = useState<any[]>([]); // Initialize as an empty array
 
     // const [checkboxes, setCheckboxes] = useState([
     //     { id: 'checkbox1', value: 'HR', isChecked: false },
@@ -122,11 +150,11 @@ export default function EditLeaveCategory() {
     useEffect(() => {
         // Parse the id when it changes
         if (id) {
-            const parsedId = parseInt(id, 10);
+            const parsedId = id ? parseInt(id as string, 10) : null;
             // setLeavetypeId(parsedId);
             setFormData({ ...formData, leavetypeId: parsedId });
 
-            console.log(leavetypeId);
+            // console.log(leavetypeId);
             executeQuery({ variables: { id: id } });
             console.log(getQueryById);
 
@@ -186,7 +214,7 @@ export default function EditLeaveCategory() {
             // Assuming you have an array of `id` values in `roleArray`
             roleArray.forEach((id: any) => {
                 // Create a copy of the checkboxes array
-                const updatedCheckboxes = [...checkboxes];
+                const updatedCheckboxes = [...formData.checkboxes]; // Use formData.checkboxes
 
                 // Find the checkbox with the matching id
                 const checkboxToUpdate = updatedCheckboxes.find((checkbox) => checkbox.value === id);
@@ -197,10 +225,11 @@ export default function EditLeaveCategory() {
                 }
 
                 // Update the state with the modified array after processing each id
-                // setCheckboxes(updatedCheckboxes);
                 setFormData({ ...formData, checkboxes: updatedCheckboxes });
-
             });
+
+
+
 
             console.log(formData.checkboxes); // This will log the updated checkboxes after all iterations
 
@@ -218,7 +247,8 @@ export default function EditLeaveCategory() {
         const { leaveusertypeByLtid } = getQueryByIdLtu; // Destructure the division object
         // let quarters = [leavetype.quarter_one, leavetype.quarter_two, leavetype.quarter_three];
         // setSections1(quarters)
-        quarterlist = getQueryByIdLtu.leaveusertypeByLtid.map((data: { id: any; user_type_id: any; leave_type_id: any; usertype: { type_name: any; }; quarter_one: any; quarter_two: any; quarter_three: any; leave_count: any; }) => ({
+
+        const quarterlist: QuarterType[] = getQueryByIdLtu.leaveusertypeByLtid.map((data: { id: any; user_type_id: any; leave_type_id: any; usertype: { type_name: any; }; quarter_one: any; quarter_two: any; quarter_three: any; leave_count: any; }) => ({
             id: data.id,
             user_type_id: data.user_type_id,
             leave_type_id: data.leave_type_id,
@@ -230,6 +260,7 @@ export default function EditLeaveCategory() {
             // leave_count: data.leave_count
         }));
         console.log(quarterlist)
+
         setFormData({ ...formData, sections: quarterlist });
         // setSections1(quarterlist); // Update the state with the fetched data
         // setSections(quarterlist); // Update t
@@ -310,16 +341,16 @@ export default function EditLeaveCategory() {
             }
             console.log('response', id);
 
-            setLeavetypeName('');
-            setLeavetypeCode('');
-            setLeavetypeColor('');
-            setLeavetypeRole('');
-            setLeavetypeEncashable('');
-            setLeavetypeCarryForwarded('');
-            setLeavetypeDescription('');
+            // setLeavetypeName('');
+            // setLeavetypeCode('');
+            // setLeavetypeColor('');
+            // setLeavetypeRole('');
+            // setLeavetypeEncashable('');
+            // setLeavetypeCarryForwarded('');
+            // setLeavetypeDescription('');
             // setSections1('');
             // setSections('');
-            setmStatus('');
+            // setmStatus('');
 
 
             setshowSuccessMessage(true);
@@ -359,7 +390,7 @@ export default function EditLeaveCategory() {
         console.log('sections2', formData.sections)
     };
 
-    const handleCheckboxChange = (id) => {
+    const handleCheckboxChange = (id: any) => {
         // Create a copy of the checkboxes array
         const updatedCheckboxes = [...checkboxes];
 
@@ -371,9 +402,10 @@ export default function EditLeaveCategory() {
             checkboxToUpdate.isChecked = !checkboxToUpdate.isChecked;
             setCheckboxes(updatedCheckboxes); // Update the state with the modified array
         }
-        console.log(checkboxes)
+        console.log(checkboxes);
     };
 
+    // Your getCheckedValuesString function
     const getCheckedValuesString = () => {
         const checkedValues = checkboxes
             .filter((checkbox) => checkbox.isChecked)
@@ -934,7 +966,6 @@ export default function EditLeaveCategory() {
                                         <Bars3Icon className="h-5 w-5 -mt-6 text-gray-400" aria-hidden="true" />
                                     </div>
                                     <textarea
-                                        type="text"
                                         name="email"
                                         id="email"
                                         // onChange={(e) => setLeavetypeDescription(e.target.value)}
@@ -964,3 +995,7 @@ export default function EditLeaveCategory() {
         </div>
     )
 }
+function setLeavetypeName(arg0: string) {
+    throw new Error('Function not implemented.');
+}
+

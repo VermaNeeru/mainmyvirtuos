@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { BarsArrowUpIcon, MagnifyingGlassIcon } from '@heroicons/react/20/solid'
 import EmployeeSearch from '@/components/EmployeeSearch'
 import DatePickerComp from '@/components/DatePickerComp/DatePickerComp'
@@ -22,6 +22,11 @@ const user_attendance = [
     // More people...
 ]
 export default function TourHour() {
+    const [month, setMonth] = useState('');
+    const handleMonthChange = (newMonth: any) => {
+        setMonth(newMonth); // Update parent component's state
+        console.log(newMonth)
+    };
     return (
         <div className=' w-full rounded px-2'>
             <div className="rounded-t mb-4 px-4 bg-transparent">
@@ -41,7 +46,7 @@ export default function TourHour() {
                                 <div className="mt-2 grid lg:grid-cols-4 grid-cols-2 gap-x-6 lg:gap-y-8 gap-y-2">
                                     <div className="sm:col-span-1">
                                         <div className="mt-2">
-                                            <MonthYear />
+                                            <MonthYear onMonthChange={handleMonthChange} />
 
                                         </div>
                                     </div>

@@ -11,7 +11,7 @@ export default function AddLeaveCategory() {
     const [showSuccessMessage, setshowSuccessMessage] = useState<boolean>(false);
     const [showErrorMessage, setshowErrorMessage] = useState<boolean>(false);
 
-    const [leavetypeId, setLeavetypeId] = useState<number>()
+    const [leavetypeId, setLeavetypeId] = useState<number | null | undefined>()
     const [leavetypeColor, setLeavetypeColor] = useState('')
     const [leavetypeName, setLeavetypeName] = useState('')
     const [leavetypeCode, setLeavetypeCode] = useState('')

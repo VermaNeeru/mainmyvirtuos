@@ -35,13 +35,13 @@ export default function LeaveRule() {
 
     const cancelButtonRef = useRef(null)
 
-    const [leaveruleId, setLeaveruleId] = useState<number>()
+    const [leaveruleId, setLeaveruleId] = useState<number | null | undefined>()
     const [ruleName, setRuleName] = useState('')
     const [ruleDescription, setRuleDescription] = useState('')
     const [ruleCondition, setRuleCondition] = useState('')
     const [ruleStatus, setRuleStatus] = useState('')
-    const [userTypeId, setUserTypeId] = useState<number>()
-    const [leaveTypeId, setLeaveTypeId] = useState<number>()
+    const [userTypeId, setUserTypeId] = useState<number | null>()
+    const [leaveTypeId, setLeaveTypeId] = useState<number | null>()
 
     const [aError, setAError] = useState(false);
     const [bError, setBError] = useState(false);
@@ -580,8 +580,6 @@ export default function LeaveRule() {
                                                                                                         className="px-2 mt-2 block w-full rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                                                                                         defaultValue="Canada"
                                                                                                         onChange={(e) => setUserTypeId(parseInt(e.target.value))}
-                                                                                                        value={userTypeId}
-
                                                                                                     >
                                                                                                         <option>Choose User Type</option>
                                                                                                         {usertypeList.map((ut) => (
@@ -603,7 +601,6 @@ export default function LeaveRule() {
                                                                                                         className="px-2 mt-2 block w-full rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                                                                                         defaultValue="Canada"
                                                                                                         onChange={(e) => setLeaveTypeId(parseInt(e.target.value))}
-                                                                                                        value={leaveTypeId}
 
                                                                                                     >
                                                                                                         <option>Choose Leave Type</option>

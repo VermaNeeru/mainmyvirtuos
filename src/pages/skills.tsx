@@ -34,7 +34,7 @@ export default function Skills() {
 
     const cancelButtonRef = useRef(null)
 
-    const [skillId, setSkillId] = useState<number>()
+    const [skillId, setSkillId] = useState<number | null | undefined>()
     const [skillName, setSkillName] = useState('')
     const [mStatus, setmStatus] = useState('')
 
@@ -357,7 +357,7 @@ export default function Skills() {
                                                                 <div>
                                                                     <Menu.Button className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-600 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
                                                                         Actions
-                                                                        <ChevronDownIcon classNam e="-mr-1 h-5 w-5 text-gray-400" aria-hidden="true" />
+                                                                        <ChevronDownIcon className="-mr-1 h-5 w-5 text-gray-400" aria-hidden="true" />
                                                                     </Menu.Button>
                                                                 </div>
 

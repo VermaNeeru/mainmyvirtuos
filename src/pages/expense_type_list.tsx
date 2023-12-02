@@ -6,7 +6,7 @@ import { Dialog, Menu, Transition } from '@headlessui/react'
 import { XMarkIcon, ChevronDownIcon, TrashIcon } from '@heroicons/react/20/solid'
 import Alert from '@/components/Alert';
 import { useQuery, useLazyQuery, useMutation } from "@apollo/client";
-import { ADD_Expensetype_MUTATION, DELETE_Expensetype_MUTATION, GET_Expensetypes, GET_Expensetype_BY_ID, REMOVE_MULTIPLE_Expensetypes, UPDATE_Expensetype_MUTATION } from '@/graphql/expensetype/queries';
+import { ADD_Expensetype_MUTATION, DELETE_Expensetype_MUTATION, GET_Expensetypes, GET_Expensetype_BY_ID, REMOVE_MULTIPLE_Expensetypes, UPDATE_Expensetype_MUTATION } from '@/graphql/Expensetype/queries';
 
 const table_header = [
     { name: 'Expense Type' },
@@ -34,7 +34,7 @@ export default function ExpenseTypeList() {
 
     const cancelButtonRef = useRef(null)
 
-    const [expensetypeId, setExpensetypeId] = useState<number>()
+    const [expensetypeId, setExpensetypeId] = useState<number | null | undefined>()
     const [expensetypeName, setExpensetypeName] = useState('')
     const [expenseColor, setExpenseColor] = useState('')
     const [mStatus, setmStatus] = useState('')

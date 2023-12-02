@@ -28,7 +28,7 @@ export default function AddIdea() {
     const [showSuccessMessage, setshowSuccessMessage] = useState<boolean>(false);
     const [showErrorMessage, setshowErrorMessage] = useState<boolean>(false);
 
-    const [ideaId, setIdeaId] = useState<number>()
+    const [ideaId, setIdeaId] = useState<number | null | undefined>()
     const [ideaForAll, setIdeaForAll] = useState('')
     const [ideaFor, setIdeaFor] = useState('')
     const [ideaCategory, setIdeaCategory] = useState('')

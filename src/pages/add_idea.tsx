@@ -29,14 +29,14 @@ export default function AddIdea() {
     const [showSuccessMessage, setshowSuccessMessage] = useState<boolean>(false);
     const [showErrorMessage, setshowErrorMessage] = useState<boolean>(false);
 
-    const [ideaId, setIdeaId] = useState<number>()
+    const [ideaId, setIdeaId] = useState<number | null | undefined>()
     const [ideaForAll, setIdeaForAll] = useState('')
     const [ideaFor, setIdeaFor] = useState('')
     const [ideaCategory, setIdeaCategory] = useState('')
     const [ideaDescription, setIdeaDescription] = useState<any>()
     const [ideaSubmitType, setIdeaSubmitType] = useState('')
     const userData = getUserData();
-    // const [userId, setUserId] = useState<number>(1)
+    // const [userId, setUserId] = useState<number | null | undefined>(1)
     const [userId, setUserId] = useState<number | undefined>(userData?.id)
     const [userName, setUserNd] = useState('Neeru')
 

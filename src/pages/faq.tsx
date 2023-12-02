@@ -39,8 +39,8 @@ export default function Faq() {
 
     const cancelButtonRef = useRef(null)
 
-    const [faqId, setFaqId] = useState<number>()
-    const [faqcatid, setFaqcatid] = useState('')
+    const [faqId, setFaqId] = useState<number | null | undefined>()
+    const [faqcatid, setFaqcatid] = useState<number | null | undefined>()
     const [faqques, setFaqques] = useState('')
     const [faqans, setFaqans] = useState('')
     const [faqfeatured, setFaqfeatured] = useState('')
@@ -93,7 +93,7 @@ export default function Faq() {
     // }
 
     if (getAllData && getAllData.faqs) {
-        itemlist = getAllData.faqs.map((data) => ({
+        itemlist = getAllData.faqs?.map((data: any) => ({
             id: data.id,
             cat_id: data.cat_id,
             faq_ques: data.faq_ques,
@@ -132,7 +132,7 @@ export default function Faq() {
             console.log("faqId", faqId);
         } else {
 
-            setFaqcatid('');
+            setFaqcatid(null);
             setFaqques('');
             setFaqans('');
             setFaqfeatured('');
@@ -203,7 +203,7 @@ export default function Faq() {
                 });
 
 
-                setFaqcatid('');
+                setFaqcatid(null);
                 setmStatus('');
 
                 setshowSuccessMessage(true);
@@ -241,7 +241,7 @@ export default function Faq() {
                 });
                 console.log('response', id);
 
-                setFaqcatid('');
+                setFaqcatid(null);
                 setFaqques('');
                 setFaqans('');
                 setFaqfeatured('');
@@ -495,8 +495,6 @@ export default function Faq() {
                                                                                                         id="location"
                                                                                                         name="location"
                                                                                                         onChange={(e) => setFaqcatid(parseInt(e.target.value))}
-                                                                                                        value={faqcatid}
-
                                                                                                         className="px-2 mt-2 block w-full rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                                                                                         defaultValue="Canada"
                                                                                                     >

@@ -19,7 +19,7 @@ import { getUserData } from '@/components/UserData'
 
 export default function AddUser() {
     const userData = getUserData();
-    // const [userId, setUserId] = useState<number>(1)
+    // const [userId, setUserId] = useState<number | null | undefined>(1)
     const [userId, setUserId] = useState<number | undefined>(userData?.id);
     // const name = `${userData.firstname}.${userData.lastname}`;
     const [username, setUsername] = useState<string>('');

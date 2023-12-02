@@ -36,7 +36,7 @@ const rejected_leaves = [
 ]
 
 export default function AllRequisitions() {
-    const [openTab, setOpenTab] = useState<number>(1);
+    const [openTab, setOpenTab] = useState<number | null | undefined>(1);
     const [reqdetail, setReqDetail] = useState(false)
     const cancelButtonRef = useRef(null)
 

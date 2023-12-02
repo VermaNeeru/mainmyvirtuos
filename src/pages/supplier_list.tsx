@@ -35,7 +35,7 @@ export default function SupplierList() {
 
     const cancelButtonRef = useRef(null)
 
-    const [supplierId, setSupplierId] = useState<number>()
+    const [supplierId, setSupplierId] = useState<number | null | undefined>()
     const [supplierName, setSupplierName] = useState('')
     const [sStatus, setSStatus] = useState('')
 

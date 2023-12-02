@@ -10,7 +10,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import { useQuery, useLazyQuery, useMutation } from "@apollo/client";
 import { DELETE_Otherexpense_MUTATION, GET_Otherexpenses, REMOVE_MULTIPLE_Otherexpenses, UPDATE_Otherexpense_MUTATION } from '@/graphql/Otherexpense/queries';
 import Alert from '@/components/Alert';
-import UserData from '@/components/UserData';
+import { getUserData } from '@/components/UserData';
 
 const table_header = [
     { name: 'Month' },
@@ -39,8 +39,8 @@ export default function UserAdvanceList() {
     const [SelectedOtherexpenses, setSelectedOtherexpenses] = useState<number[]>([]);
     const [showErrorMessage, setshowErrorMessage] = useState<boolean>(false);
     const [searchKeyword, setSearchKeyword] = useState('');
-    const userData = UserData();
-    const [userId, setUserId] = useState<number>(userData.id)
+    const userData = getUserData();
+    const [userId, setUserId] = useState<number | null | undefined>(userData?.id)
 
     const handleYearChange = (date: Date) => {
         setSelectedYear(date);

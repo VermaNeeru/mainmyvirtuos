@@ -40,10 +40,10 @@ export default function Holidays() {
 
     const cancelButtonRef = useRef(null)
 
-    const [holidayId, setHolidayId] = useState<number>()
+    const [holidayId, setHolidayId] = useState<number | null | undefined>()
     const [holidayName, setHolidayName] = useState('')
     const [holidayType, setHolidayType] = useState('')
-    const [holidayYear, setHolidayYear] = useState('')
+    const [holidayYear, setHolidayYear] = useState<number | null>()
     const [holidayDate, setHolidayDate] = useState(new Date())
     const [holidayImage, setHolidayImage] = useState('')
     const [holidayDescription, setHolidayDescription] = useState('')
@@ -67,7 +67,7 @@ export default function Holidays() {
     let itemlist: any[] = [];
 
     if (getAllData && getAllData.holidaylists) {
-        itemlist = getAllData.holidaylists.map((data: { id: any; holiday_name: any; holiday_type: any; status: any; }) => ({
+        itemlist = getAllData.holidaylists.map((data: { id: any; holiday_name: any; holiday_type: any; holiday_year: any; holiday_date: any; holiday_image: any; holiday_description: any; notes: any; }) => ({
             id: data.id,
             holiday_name: data.holiday_name,
             holiday_type: data.holiday_type,

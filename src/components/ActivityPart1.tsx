@@ -38,7 +38,7 @@ export default function ActivityPart1() {
     }, []);
 
 
-    const [openTab, setOpenTab] = useState<number>(1);
+    const [openTab, setOpenTab] = useState<number | null | undefined>(1);
 
     const { loading, error, data } = useQuery(GET_Employees);
 

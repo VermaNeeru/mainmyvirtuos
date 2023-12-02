@@ -43,7 +43,7 @@ export default function EmailList() {
     let itemlist: any[] = [];
 
     if (getAllData && getAllData.templates) {
-        itemlist = getAllData.templates.map((data: { id: any; template_name: any; status: any; }) => ({
+        itemlist = getAllData.templates?.map((data: { id: any; template_name: any; template_type: any; template_status: any; template_subject: any; template_constant: any; template_description: any; }) => ({
             id: data.id,
             template_name: data.template_name,
             template_type: data.template_type,
