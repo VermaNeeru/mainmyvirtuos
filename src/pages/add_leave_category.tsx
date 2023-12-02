@@ -510,7 +510,7 @@ export default function AddLeaveCategory() {
                                     </div>
                                     <div className="grid grid-cols-1 lg:grid-cols-3 gap-x-6 lg:gap-y-4 gap-y-1">
                                         {utitem.quarters?.map((value: string | number | readonly string[] | undefined, quarterIndex: number) => (
-                                            <div className="sm:col-span-1" key={value.id} key={quarterIndex}>
+                                            <div className="sm:col-span-1" key={quarterIndex}>
                                                 <div className="relative mt-2 rounded-md shadow-sm">
                                                     <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
                                                         <Bars3Icon className="h-5 w-5 text-gray-400" aria-hidden="true" />

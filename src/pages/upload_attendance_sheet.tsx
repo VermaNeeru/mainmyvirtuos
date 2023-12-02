@@ -207,35 +207,8 @@ export default function UploadAttendanceSheet() {
             console.error('Error uploadAttendanceSheet:', error);
         }
     }
-    // const getUserId = async (employeeCode: any) => {
-    //     console.log("employeeCode: ", employeeCode);
-    //     // const employeeCode = 'VINABS2201';
-    //     try {
-    //         useEffect(() => {
-    //             // console.log(employeeCode);
-    //             executeQuery({ variables: { ecode: employeeCode } });
-    //             console.log(data);
-    //         }, [employeeCode]);
 
-    //         console.log(data);
-    //         useEffect(() => {
-    //             if (data && data.userDetailByCode) {
-    //                 const { userDetailByCode } = data; // Destructure the division object
-    //                 console.log('user_id', userDetailByCode.user_id);
-
-    //                 const userId = userDetailByCode.user_id;
-    //             } else {
-    //                 const userId = null;
-    //             }
-    //         }, [data]);
-
-
-    //         return userId;
-    //     } catch (error) {
-    //         console.error('Error user_id:', error);
-    //     }
-    // }
-    const handleSubmit = async (e) => {
+    const handleSubmit = async (e: { preventDefault: () => void; }) => {
         e.preventDefault();
         console.log('called');
 

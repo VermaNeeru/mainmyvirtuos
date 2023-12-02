@@ -22,7 +22,6 @@ const ideas = [
 ]
 
 export default function LeaveRule() {
-    const { loading: getUsertypeLoading, error: getUsertypeError, data: getUsertype } = useQuery(GET_USER_TYPES);
     const [search, setSearch] = useState("");
     const [SelectedLeaverules, setSelectedLeaverules] = useState<number[]>([]);
     const [searchKeyword, setSearchKeyword] = useState('');
