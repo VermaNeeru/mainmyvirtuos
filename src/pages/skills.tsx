@@ -22,7 +22,7 @@ const ideas = [
 
 export default function Skills() {
     const [search, setSearch] = useState("");
-    const [SelectedSkills, setSelectedSkills] = useState([]);
+    const [SelectedSkills, setSelectedSkills] = useState<number[]>([]);
     const [searchKeyword, setSearchKeyword] = useState('');
     const [quickEdit, setQuickEdit] = useState(false)
     const [formType, setformType] = useState('')
@@ -34,7 +34,7 @@ export default function Skills() {
 
     const cancelButtonRef = useRef(null)
 
-    const [skillId, setSkillId] = useState<number>()
+    const [skillId, setSkillId] = useState<number | null | undefined>()
     const [skillName, setSkillName] = useState('')
     const [mStatus, setmStatus] = useState('')
 
@@ -84,7 +84,7 @@ export default function Skills() {
         }
     }
 
-    const handleButtonClick = (type: string, id: number) => {
+    const handleButtonClick = (type: string, id: number | null) => {
         setQuickEdit(true)
         setformType(type)
         console.log("id", id);
@@ -208,18 +208,16 @@ export default function Skills() {
     const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>, skillId: string) => {
         if (skillId === 'all') {
             if (event.target.checked) {
-                const allskillIds = itemlist.map(item => item.id);
+                const allskillIds = itemlist?.map(item => item.id) || [];
                 setSelectedSkills(allskillIds);
             } else {
                 setSelectedSkills([]);
             }
         } else {
             if (event.target.checked) {
-                setSelectedSkills(prevSelected => [...prevSelected, skillId]);
+                setSelectedSkills(prevSelected => [...prevSelected, parseInt(skillId, 10)]);
             } else {
-                setSelectedSkills(prevSelected =>
-                    prevSelected.filter(id => id !== skillId)
-                );
+                setSelectedSkills(prevSelected => prevSelected.filter(id => id !== parseInt(skillId, 10)));
             }
         }
     };
@@ -304,7 +302,7 @@ export default function Skills() {
                                 </div>
                             </div>
                             <div className="mt-4 lg:ml-16 ml-0 sm:mt-0 sm:flex-none">
-                                <a onClick={() => handleButtonClick('add', '')}
+                                <a onClick={() => handleButtonClick('add', null)}
                                     className="block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                                 >
                                     Add New Skill
@@ -359,7 +357,7 @@ export default function Skills() {
                                                                 <div>
                                                                     <Menu.Button className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-600 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
                                                                         Actions
-                                                                        <ChevronDownIcon classNam e="-mr-1 h-5 w-5 text-gray-400" aria-hidden="true" />
+                                                                        <ChevronDownIcon className="-mr-1 h-5 w-5 text-gray-400" aria-hidden="true" />
                                                                     </Menu.Button>
                                                                 </div>
 

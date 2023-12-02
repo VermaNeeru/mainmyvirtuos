@@ -27,7 +27,7 @@ const faqs = [
 
 export default function Faq() {
     const [search, setSearch] = useState("");
-    const [selectedFaqs, setSelectedFaqs] = useState([]);
+    const [selectedFaqs, setSelectedFaqs] = useState<number[]>([]);
     const [searchKeyword, setSearchKeyword] = useState('');
     const [quickEdit, setQuickEdit] = useState(false)
     const [formType, setformType] = useState('')
@@ -39,8 +39,8 @@ export default function Faq() {
 
     const cancelButtonRef = useRef(null)
 
-    const [faqId, setFaqId] = useState<number>()
-    const [faqcatid, setFaqcatid] = useState('')
+    const [faqId, setFaqId] = useState<number | null | undefined>()
+    const [faqcatid, setFaqcatid] = useState<number | null | undefined>()
     const [faqques, setFaqques] = useState('')
     const [faqans, setFaqans] = useState('')
     const [faqfeatured, setFaqfeatured] = useState('')
@@ -93,7 +93,7 @@ export default function Faq() {
     // }
 
     if (getAllData && getAllData.faqs) {
-        itemlist = getAllData.faqs.map((data) => ({
+        itemlist = getAllData.faqs?.map((data: any) => ({
             id: data.id,
             cat_id: data.cat_id,
             faq_ques: data.faq_ques,
@@ -121,7 +121,7 @@ export default function Faq() {
         }
     }
 
-    const handleButtonClick = (type: string, id: number) => {
+    const handleButtonClick = (type: string, id: number | null) => {
         setQuickEdit(true)
         setformType(type)
         console.log("id", id);
@@ -132,7 +132,7 @@ export default function Faq() {
             console.log("faqId", faqId);
         } else {
 
-            setFaqcatid('');
+            setFaqcatid(null);
             setFaqques('');
             setFaqans('');
             setFaqfeatured('');
@@ -203,7 +203,7 @@ export default function Faq() {
                 });
 
 
-                setFaqcatid('');
+                setFaqcatid(null);
                 setmStatus('');
 
                 setshowSuccessMessage(true);
@@ -241,7 +241,7 @@ export default function Faq() {
                 });
                 console.log('response', id);
 
-                setFaqcatid('');
+                setFaqcatid(null);
                 setFaqques('');
                 setFaqans('');
                 setFaqfeatured('');
@@ -270,18 +270,16 @@ export default function Faq() {
     const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>, faqId: string) => {
         if (faqId === 'all') {
             if (event.target.checked) {
-                const allfaqIds = itemlist.map(item => item.id);
+                const allfaqIds = itemlist?.map(item => item.id) || [];
                 setSelectedFaqs(allfaqIds);
             } else {
                 setSelectedFaqs([]);
             }
         } else {
             if (event.target.checked) {
-                setSelectedFaqs(prevSelected => [...prevSelected, faqId]);
+                setSelectedFaqs(prevSelected => [...prevSelected, parseInt(faqId, 10)]);
             } else {
-                setSelectedFaqs(prevSelected =>
-                    prevSelected.filter(id => id !== faqId)
-                );
+                setSelectedFaqs(prevSelected => prevSelected.filter(id => id !== parseInt(faqId, 10)));
             }
         }
     };
@@ -366,7 +364,7 @@ export default function Faq() {
                                 </div>
                             </div>
                             <div className="mt-4 lg:ml-16 ml-0 sm:mt-0 sm:flex-none">
-                                <a onClick={() => handleButtonClick('add', '')}
+                                <a onClick={() => handleButtonClick('add', null)}
                                     className="block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                                 >
                                     Add New Faq
@@ -497,15 +495,13 @@ export default function Faq() {
                                                                                                         id="location"
                                                                                                         name="location"
                                                                                                         onChange={(e) => setFaqcatid(parseInt(e.target.value))}
-                                                                                                        value={faqcatid}
-
                                                                                                         className="px-2 mt-2 block w-full rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                                                                                         defaultValue="Canada"
                                                                                                     >
                                                                                                         <option>Choose Type</option>
                                                                                                         {faqcategorylist.map((catitem) => (
 
-                                                                                                            <option  key={catitem.id} value={catitem.id}>{catitem.cat_name}</option>
+                                                                                                            <option value={catitem.id} key={catitem.id}>{catitem.cat_name}</option>
                                                                                                         ))}
                                                                                                         {/* <option>Issues</option>
                                                                                                         <option>Leaves</option>

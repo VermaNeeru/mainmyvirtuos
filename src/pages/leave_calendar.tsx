@@ -5,11 +5,19 @@ import React, { useState } from 'react'
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 export default function LeaveCalendar() {
+    const [empFor, setEmpFor] = useState('')
     const [selectedYear, setSelectedYear] = useState<Date | null>(null);
 
     const handleYearChange = (date: Date) => {
 
         setSelectedYear(date);
+    };
+    const handleEmpValueChange = (newValue: { id: React.SetStateAction<string>; }) => {
+        console.log(newValue);
+        if (newValue) {
+            setEmpFor(newValue.id);
+        }
+
     };
     return (
         <div className=' w-full rounded px-2'>
@@ -33,7 +41,7 @@ export default function LeaveCalendar() {
                                         <div className="mt-2 grid grid-cols-1 gap-x-6 lg:gap-y-4 gap-y-2 sm:grid-cols-6">
                                             <div className="sm:col-span-6">
                                                 <div className="mt-1">
-                                                    <EmployeeSearch />
+                                                    <EmployeeSearch onEmpValueChange={handleEmpValueChange} heading={''} />
                                                 </div>
                                             </div>
                                             <div className="sm:col-span-6">

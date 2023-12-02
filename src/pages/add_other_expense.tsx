@@ -13,6 +13,12 @@ function classNames(...classes: any[]) {
     return classes.filter(Boolean).join(' ')
 }
 export default function AddOtherExpense() {
+    const [expenseDate, setExpenseDate] = useState('');
+    const handleExpenseDateChange = (newDate: any) => {
+        setExpenseDate(newDate); // Update parent component's state
+        console.log(newDate)
+
+    };
     const viewer = [
         { id: 1, name: 'Choose Expense Type' },
         { id: 2, name: 'HouseKeeping' },
@@ -121,7 +127,7 @@ export default function AddOtherExpense() {
                                                 Expense Date
                                             </label>
                                             <div className='mt-2'>
-                                                <DatePickerComp />
+                                                <DatePickerComp onDateChange={handleExpenseDateChange} />
                                             </div>
 
                                         </div>

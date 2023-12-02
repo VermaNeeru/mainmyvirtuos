@@ -10,7 +10,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import { useQuery, useLazyQuery, useMutation } from "@apollo/client";
 import { DELETE_Otherexpense_MUTATION, GET_Otherexpenses, REMOVE_MULTIPLE_Otherexpenses, UPDATE_Otherexpense_MUTATION } from '@/graphql/Otherexpense/queries';
 import Alert from '@/components/Alert';
-import UserData from '@/components/UserData';
+import { getUserData } from '@/components/UserData';
 
 const table_header = [
     { name: 'Month' },
@@ -36,11 +36,11 @@ export default function UserAdvanceList() {
     const cancelButtonRef = useRef(null)
     const [showDeletedMessage, setshowDeletedMessage] = useState(false);
     const [showUpdatedMessage, setshowUpdatedMessage] = useState(false);
-    const [SelectedOtherexpenses, setSelectedOtherexpenses] = useState([]);
+    const [SelectedOtherexpenses, setSelectedOtherexpenses] = useState<number[]>([]);
     const [showErrorMessage, setshowErrorMessage] = useState<boolean>(false);
     const [searchKeyword, setSearchKeyword] = useState('');
-    const userData = UserData();
-    const [userId, setUserId] = useState<number>(userData.id)
+    const userData = getUserData();
+    const [userId, setUserId] = useState<number | null | undefined>(userData?.id)
 
     const handleYearChange = (date: Date) => {
         setSelectedYear(date);
@@ -98,18 +98,16 @@ export default function UserAdvanceList() {
     const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>, otherexpenseId: string) => {
         if (otherexpenseId === 'all') {
             if (event.target.checked) {
-                const allotherexpenseIds = itemlist.map(item => item.id);
+                const allotherexpenseIds = itemlist?.map(item => item.id) || [];
                 setSelectedOtherexpenses(allotherexpenseIds);
             } else {
                 setSelectedOtherexpenses([]);
             }
         } else {
             if (event.target.checked) {
-                setSelectedOtherexpenses(prevSelected => [...prevSelected, otherexpenseId]);
+                setSelectedOtherexpenses(prevSelected => [...prevSelected, parseInt(otherexpenseId, 10)]);
             } else {
-                setSelectedOtherexpenses(prevSelected =>
-                    prevSelected.filter(id => id !== otherexpenseId)
-                );
+                setSelectedOtherexpenses(prevSelected => prevSelected.filter(id => id !== parseInt(otherexpenseId, 10)));
             }
         }
     };

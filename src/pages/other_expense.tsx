@@ -22,8 +22,16 @@ const expense = [
 ]
 
 export default function OtherExpense() {
+    const [empFor, setEmpFor] = useState('')
     const [startDate, setStartDate] = useState(new Date());
     const [endDate, setEndDate] = useState(new Date());
+    const handleEmpValueChange = (newValue: { id: React.SetStateAction<string>; }) => {
+        console.log(newValue);
+        if (newValue) {
+            setEmpFor(newValue.id);
+        }
+
+    };
     return (
         <div className=' w-full rounded px-2'>
             <div className="rounded-t mb-4 px-4 bg-transparent">
@@ -42,7 +50,7 @@ export default function OtherExpense() {
                             <div className="pb-4">
                                 <div className="mt-2 grid lg:grid-cols-2 grid-cols-1 gap-x-6 gap-y-4">
                                     <div className="sm:col-span-1">
-                                        <EmployeeSearch heading="Employee Name" />
+                                        <EmployeeSearch onEmpValueChange={handleEmpValueChange} heading="Employee Name" />
                                     </div>
 
                                     <div className="sm:col-span-1">

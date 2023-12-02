@@ -13,12 +13,13 @@ import { useMutation, useLazyQuery } from '@apollo/client';
 import { ADD_USER_ATTENDANCE_MUTATION } from '@/graphql/Userattendance/queries';
 import Alert from '@/components/Alert';
 
-import UserData from '@/components/UserData';
+
 import { ADD_Attendancesheet_MUTATION } from '@/graphql/Attendancesheet/queries';
 import FileUpload from '@/components/FileUpload';
 import { GET_Officialinfo_BY_ECODE } from '@/graphql/Officialinfo/queries';
 import { useGetUserByECode } from '@/hooks/GetUserByECode';
 import { GetUserByECode } from '@/components/GetUserByECode';
+import { getUserData } from '@/components/UserData';
 
 
 function classNames(...classes: any[]) {
@@ -29,7 +30,7 @@ function formatDateToHHII(date: { getHours: () => any; getMinutes: () => any; })
     const minutes = String(date.getMinutes()).padStart(2, '0');
     return `${hours}:${minutes}`;
 }
-function calculateTimeDifference(date1: string | number | Date, date2: string | number | Date) {
+function calculateTimeDifference(date1: any, date2: any) {
     // date2 = new Date(date2);
     // date1 = new Date(date1);
 
@@ -53,6 +54,7 @@ function calculateTimeDifference(date1: string | number | Date, date2: string | 
 export default function UploadAttendanceSheet() {
     const [showSuccessMessage, setshowSuccessMessage] = useState<boolean>(false);
     const [showErrorMessage, setshowErrorMessage] = useState<boolean>(false);
+    const [errorMessage, setErrorMessage] = useState('');
     const [month, setMonth] = useState('');
 
     const handleMonthChange = (newMonth: any) => {
@@ -63,17 +65,19 @@ export default function UploadAttendanceSheet() {
         { id: 1, name: 'In-Out Report' },
         { id: 2, name: 'Logon Hours' },
     ]
-    const user_id = UserData();
-    const [userId, setUserId] = useState<number>(user_id)
-    const [empUserId, setEmpUserId] = useState<number>(null)
+    const userData = getUserData();
+    const [userId, setUserId] = useState<number | null | undefined>(userData?.id)
+    const [empUserId, setEmpUserId] = useState<number | null | undefined>(null)
     const [comment, setComment] = useState('')
     const [selected, setSelected] = useState(viewer[0])
 
-    const [employeeAttendanceArray, setEmployeeAttendanceArray] = useState([]);
-    const [file, setFile] = useState([]);
+    const [employeeAttendanceArray, setEmployeeAttendanceArray] = useState<number[]>([]);
+    // const [file, setFile] = useState<number[]>([]);
+    const [file, setFile] = useState<File | null>(null);
     const [employeeCode, setEmployeeCode] = useState('');
     const [i, setI] = useState(0);
-    const [csvData, setCSVData] = useState([]);
+    // const [csvData, setCSVData] = useState<number[]>([]);
+    const [csvData, setCSVData] = useState<any[]>([]);
     const [createQuery, { loading: createQueryLoading, error: createQueryError }] = useMutation(ADD_USER_ATTENDANCE_MUTATION);
     // console.log(ADD_USER_ATTENDANCE_MUTATION.loc.source.body);
     const [createQueryAS, { loading: createQueryLoadingAS, error: createQueryErrorAS }] = useMutation(ADD_Attendancesheet_MUTATION);
@@ -108,7 +112,7 @@ export default function UploadAttendanceSheet() {
     // console.log(GET_Officialinfo_BY_ECODE.loc.source.body);
 
     const alphabetArray = {
-        C: 'employee_code',
+        A: 'employee_code',
         I: 'worked_hours',
         B: 'attendance_date',
         C: 'attendance_day',
@@ -120,26 +124,33 @@ export default function UploadAttendanceSheet() {
         K: 'status',
     };
 
-    const checkIsAValidDate = (date) => {
+    const checkIsAValidDate = (date: any) => {
         // Implement your date validation logic here
         // Return true if the date is valid, otherwise false
         // Example: return !isNaN(Date.parse(date));
     };
 
-    const handleFileUpload = (event: { target: { files: any[]; }; }) => {
-        console.log('Upload')
-        setFile(event.target.files[0]);
-        const selectedFile = event.target.files[0];
+    // const handleFileUpload = (event: { target: { files: any[]; }; }) => {
+    //     console.log('Upload')
+    //     setFile(event.target.files[0]);
+    //     const selectedFile = event.target.files[0];
+    //     if (selectedFile) {
+    //         // Call a function to read the CSV file content
+    //         readCSVFile(selectedFile);
+    //     }
+    // };
+    const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const selectedFile = event.target.files?.[0];
         if (selectedFile) {
-            // Call a function to read the CSV file content
             readCSVFile(selectedFile);
+            setFile(selectedFile);
         }
     };
 
     const readCSVFile = (file: Blob) => {
         const reader = new FileReader();
-        reader.onload = (event) => {
-            const content = event.target.result;
+        reader.onload = (event: any) => {
+            const content: string = event.target.result;
             // Parse the CSV content into an array of rows and columns
             const rows = content.split('\n').map((row: string) => row.split(','));
             setCSVData(rows);
@@ -247,9 +258,9 @@ export default function UploadAttendanceSheet() {
 
             const workbook = new ExcelJS.Workbook();
             const reader = new FileReader();
-            let empUID = null;
+            let empUID: any = null;
 
-            reader.onload = async (e) => {
+            reader.onload = async (e: any) => {
                 const data = new Uint8Array(e.target.result);
                 const buffer = Buffer.from(data);
 
@@ -258,12 +269,13 @@ export default function UploadAttendanceSheet() {
 
                     const sheet = workbook.getWorksheet(1); // Change 1 to the index of the desired sheet
                     console.log('sheet', sheet);
-                    const cellCollection = [];
+                    const cellCollection: any[] = [];
 
-                    sheet.eachRow((row) => {
+                    sheet!.eachRow((row) => {
                         const cellValues = row.values;
                         cellCollection.push(cellValues);
                     });
+
                     console.log('cellCollection', cellCollection);
                     // Process cellCollection as needed
 
@@ -271,9 +283,9 @@ export default function UploadAttendanceSheet() {
                     let j = i + 1;
                     let k = j + 3;
                     let employeeAttendanceArray = [];
-                    let employeeCodeNew = null;
+                    let employeeCodeNew: unknown = null;
                     let employeeName = '';
-                    cellCollection.map(async (row, index) => {
+                    cellCollection?.map(async (row, index) => {
                         console.log('index', index)
                         console.log(typeof (i), i)
 
@@ -423,7 +435,7 @@ export default function UploadAttendanceSheet() {
 
                     // console.log('employeeAttendanceArray', employeeAttendanceArray);
 
-                    setFile('');
+                    setFile(null);
                     setMonth('');
                     setComment('');
                     setshowSuccessMessage(true);

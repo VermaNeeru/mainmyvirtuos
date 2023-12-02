@@ -35,8 +35,14 @@ import { useRouter } from 'next/router';
 import Cookies from 'js-cookie';
 import UnsetAllCookiesAndRedirect from './UnsetAllCookiesAndRedirect'
 import { UseCookies } from './UseCookies'
-import UserData from './UserData'
+import { getUserData } from './UserData'
+// import UserData from './UserData'
 // import jwt_decode from "jwt-decode";
+
+interface JwtToken {
+    firstname: string;
+    // Add other properties as needed
+}
 
 function handleSignout() {
     // Remove the authToken cookie
@@ -89,8 +95,8 @@ export default function Layout({ children }: any) {
     // const decoded = jwt_decode(authToken);
     // console.log('decoded', JSON.stringify(decoded));
 
-    const userData = UserData();
-    // console.log('userData', userData);
+    const userData = getUserData();
+    console.log('userData', userData);
 
     // useEffect(() => {
     //     setUser(userData)
@@ -311,36 +317,39 @@ export default function Layout({ children }: any) {
                                 <div className="hidden lg:block lg:h-6 lg:w-px lg:bg-gray-900/10" aria-hidden="true" />
 
                                 {/* Profile dropdown */}
-                                <Menu as="div" className="relative">
-                                    <Menu.Button className="-m-1.5 flex items-center p-1.5">
-                                        <span className="sr-only">Open user menu</span>
-                                        <Image
-                                            src="https://myvirtuos.com/uploads/profile/medium_thumb/User_No-Frame_mediumthumb.png"
-                                            alt=""
-                                            width={100}
-                                            height={100}
-                                            className="h-8 w-8 rounded-full bg-gray-50"
-                                            loader={({ src }) => `${src}`}
-                                        />
-                                        <span className="hidden lg:flex lg:items-center">
-                                            <span className="ml-4 text-sm font-semibold leading-6 text-white" aria-hidden="true">
-                                                {/* Tom Cook */}
-                                                {userData.firstname}
+                                {
+                                    userData &&
+
+                                    <Menu as="div" className="relative">
+                                        <Menu.Button className="-m-1.5 flex items-center p-1.5">
+                                            <span className="sr-only">Open user menu</span>
+                                            <Image
+                                                src="https://myvirtuos.com/uploads/profile/medium_thumb/User_No-Frame_mediumthumb.png"
+                                                alt=""
+                                                width={100}
+                                                height={100}
+                                                className="h-8 w-8 rounded-full bg-gray-50"
+                                                loader={({ src }) => `${src}`}
+                                            />
+                                            <span className="hidden lg:flex lg:items-center">
+                                                <span className="ml-4 text-sm font-semibold leading-6 text-white" aria-hidden="true">
+                                                    {/* Tom Cook */}
+                                                    {userData?.firstname}
+                                                </span>
+                                                <ChevronDownIcon className="ml-2 h-5 w-5 text-gray-400" aria-hidden="true" />
                                             </span>
-                                            <ChevronDownIcon className="ml-2 h-5 w-5 text-gray-400" aria-hidden="true" />
-                                        </span>
-                                    </Menu.Button>
-                                    <Transition
-                                        as={Fragment}
-                                        enter="transition ease-out duration-100"
-                                        enterFrom="transform opacity-0 scale-95"
-                                        enterTo="transform opacity-100 scale-100"
-                                        leave="transition ease-in duration-75"
-                                        leaveFrom="transform opacity-100 scale-100"
-                                        leaveTo="transform opacity-0 scale-95"
-                                    >
-                                        <Menu.Items className="absolute right-0 z-10 mt-3.5 lg:-mr-8 -mr-4 w-72 origin-top-right rounded-md bg-white  shadow-lg ring-1 ring-gray-900/5 focus:outline-none">
-                                            {/* {userNavigation.map((item) => (
+                                        </Menu.Button>
+                                        <Transition
+                                            as={Fragment}
+                                            enter="transition ease-out duration-100"
+                                            enterFrom="transform opacity-0 scale-95"
+                                            enterTo="transform opacity-100 scale-100"
+                                            leave="transition ease-in duration-75"
+                                            leaveFrom="transform opacity-100 scale-100"
+                                            leaveTo="transform opacity-0 scale-95"
+                                        >
+                                            <Menu.Items className="absolute right-0 z-10 mt-3.5 lg:-mr-8 -mr-4 w-72 origin-top-right rounded-md bg-white  shadow-lg ring-1 ring-gray-900/5 focus:outline-none">
+                                                {/* {userNavigation.map((item) => (
                                                 <Menu.Item key={item.name}>
                                                     {({ active }) => (
                                                         <a
@@ -355,36 +364,38 @@ export default function Layout({ children }: any) {
                                                     )}
                                                 </Menu.Item>
                                             ))} */}
-                                            <div className="flex flex-1 flex-col p-8 text-center bg-top-header">
-                                                <Image loader={({ src }) => `${src}`} height={100} width={100} className="mx-auto h-32 w-32 flex-shrink-0 rounded-full" src="https://myvirtuos.com/uploads/profile/medium_thumb/User_No-Frame_mediumthumb.png" alt="" />
-                                                <h3 className="mt-4 text-sm font-medium text-gray-200">{userData.firstname} {userData.lastname}</h3>
-                                                <dl className="mt-1 flex flex-grow flex-col justify-between -pb-2">
-                                                    <dd className="text-sm text-gray-300">Member since 16 Sep 2021</dd>
+                                                <div className="flex flex-1 flex-col p-8 text-center bg-top-header">
+                                                    <Image loader={({ src }) => `${src}`} height={100} width={100} className="mx-auto h-32 w-32 flex-shrink-0 rounded-full" src="https://myvirtuos.com/uploads/profile/medium_thumb/User_No-Frame_mediumthumb.png" alt="" />
+                                                    <h3 className="mt-4 text-sm font-medium text-gray-200">{userData?.firstname} {userData?.lastname}</h3>
+                                                    <dl className="mt-1 flex flex-grow flex-col justify-between -pb-2">
+                                                        <dd className="text-sm text-gray-300">Member since 16 Sep 2021</dd>
 
-                                                </dl>
-                                            </div>
-                                            <div className="flex flex-1 flex-col -mt-2 mb-2 text-center">
-                                                <h3 className="mt-6 text-sm text-gray-900">{userData.role}</h3>
-                                            </div>
-                                            <div>
-                                                <div className="-mt-px flex divide-x divide-gray-200">
-                                                    <div className="flex w-0 flex-1">
-                                                        <Link href="/profile" className="relative -mr-px inline-flex w-0 flex-1 items-center justify-center gap-x-3 rounded-bl-lg border border-transparent py-4 text-sm font-semibold text-gray-900"
-                                                        >
-                                                            <span>Profile</span>
-                                                        </Link>
-                                                    </div>
-                                                    <div className="-ml-px flex w-0 flex-1">
-                                                        <Link href="/login" onClick={handleLogout} className="relative inline-flex w-0 flex-1 items-center justify-center gap-x-3 rounded-br-lg border border-transparent py-4 text-sm font-semibold text-gray-900"
-                                                        >
-                                                            <span>Signout</span>
-                                                        </Link>
+                                                    </dl>
+                                                </div>
+                                                <div className="flex flex-1 flex-col -mt-2 mb-2 text-center">
+                                                    <h3 className="mt-6 text-sm text-gray-900">{userData?.role}</h3>
+                                                </div>
+                                                <div>
+                                                    <div className="-mt-px flex divide-x divide-gray-200">
+                                                        <div className="flex w-0 flex-1">
+                                                            <Link href="/profile" className="relative -mr-px inline-flex w-0 flex-1 items-center justify-center gap-x-3 rounded-bl-lg border border-transparent py-4 text-sm font-semibold text-gray-900"
+                                                            >
+                                                                <span>Profile</span>
+                                                            </Link>
+                                                        </div>
+                                                        <div className="-ml-px flex w-0 flex-1">
+                                                            <Link href="/login" onClick={handleLogout} className="relative inline-flex w-0 flex-1 items-center justify-center gap-x-3 rounded-br-lg border border-transparent py-4 text-sm font-semibold text-gray-900"
+                                                            >
+                                                                <span>Signout</span>
+                                                            </Link>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        </Menu.Items>
-                                    </Transition>
-                                </Menu>
+                                            </Menu.Items>
+                                        </Transition>
+                                    </Menu>
+                                }
+
                             </div>
 
                         </div>

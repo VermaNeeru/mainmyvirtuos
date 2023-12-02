@@ -1,8 +1,20 @@
-import React from 'react'
+import React, { useState } from 'react'
 import CertificateSearch from './CertificateSearch'
 import DatePickerComp from '../DatePickerComp/DatePickerComp'
 
 export default function AddWorkExp() {
+    const [stateDate, setStateDate] = useState('');
+    const [endDate, setEndDate] = useState('');
+    const handleStartDateChange = (newDate: any) => {
+        setStateDate(newDate); // Update parent component's state
+        console.log(newDate)
+
+    };
+    const handleEndDateChange = (newDate: any) => {
+        setEndDate(newDate); // Update parent component's state
+        console.log(newDate)
+
+    };
     return (
         <div>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-6 gap-y-2">
@@ -27,7 +39,7 @@ export default function AddWorkExp() {
                         <label htmlFor="start-date" className="block text-sm font-medium leading-6 text-gray-700">
                             Worked from
                         </label>
-                        <DatePickerComp />
+                        <DatePickerComp onDateChange={handleStartDateChange} />
                     </div>
                 </div>
                 <div className="sm:col-span-1">
@@ -35,7 +47,7 @@ export default function AddWorkExp() {
                         <label htmlFor="start-date" className="block text-sm font-medium leading-6 text-gray-700">
                             Worked To
                         </label>
-                        <DatePickerComp />
+                        <DatePickerComp onDateChange={handleStartDateChange} />
                     </div>
                 </div>
 

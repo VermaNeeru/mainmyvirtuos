@@ -6,7 +6,7 @@ import { Dialog, Menu, Transition } from '@headlessui/react'
 import { XMarkIcon, ChevronDownIcon, TrashIcon } from '@heroicons/react/20/solid'
 import Alert from '@/components/Alert';
 import { useQuery, useLazyQuery, useMutation } from "@apollo/client";
-import { ADD_Expensetype_MUTATION, DELETE_Expensetype_MUTATION, GET_Expensetypes, GET_Expensetype_BY_ID, REMOVE_MULTIPLE_Expensetypes, UPDATE_Expensetype_MUTATION } from '@/graphql/expensetype/queries';
+import { ADD_Expensetype_MUTATION, DELETE_Expensetype_MUTATION, GET_Expensetypes, GET_Expensetype_BY_ID, REMOVE_MULTIPLE_Expensetypes, UPDATE_Expensetype_MUTATION } from '@/graphql/Expensetype/queries';
 
 const table_header = [
     { name: 'Expense Type' },
@@ -22,7 +22,7 @@ const ideas = [
 
 export default function ExpenseTypeList() {
     const [search, setSearch] = useState("");
-    const [Selectedexpensetypes, setSelectedexpensetypes] = useState([]);
+    const [Selectedexpensetypes, setSelectedexpensetypes] = useState<number[]>([]);
     const [searchKeyword, setSearchKeyword] = useState('');
     const [quickEdit, setQuickEdit] = useState(false)
     const [formType, setformType] = useState('')
@@ -34,7 +34,7 @@ export default function ExpenseTypeList() {
 
     const cancelButtonRef = useRef(null)
 
-    const [expensetypeId, setExpensetypeId] = useState<number>()
+    const [expensetypeId, setExpensetypeId] = useState<number | null | undefined>()
     const [expensetypeName, setExpensetypeName] = useState('')
     const [expenseColor, setExpenseColor] = useState('')
     const [mStatus, setmStatus] = useState('')
@@ -86,7 +86,7 @@ export default function ExpenseTypeList() {
         }
     }
 
-    const handleButtonClick = (type: string, id: number) => {
+    const handleButtonClick = (type: string, id: number | null) => {
         setQuickEdit(true)
         setformType(type)
         console.log("id", id);
@@ -218,18 +218,16 @@ export default function ExpenseTypeList() {
     const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>, expensetypeId: string) => {
         if (expensetypeId === 'all') {
             if (event.target.checked) {
-                const allexpensetypeIds = itemlist.map(item => item.id);
+                const allexpensetypeIds = itemlist?.map(item => item.id) || [];
                 setSelectedexpensetypes(allexpensetypeIds);
             } else {
                 setSelectedexpensetypes([]);
             }
         } else {
             if (event.target.checked) {
-                setSelectedexpensetypes(prevSelected => [...prevSelected, expensetypeId]);
+                setSelectedexpensetypes(prevSelected => [...prevSelected, parseInt(expensetypeId, 10)]);
             } else {
-                setSelectedexpensetypes(prevSelected =>
-                    prevSelected.filter(id => id !== expensetypeId)
-                );
+                setSelectedexpensetypes(prevSelected => prevSelected.filter(id => id !== parseInt(expensetypeId, 10)));
             }
         }
     };
@@ -312,7 +310,7 @@ export default function ExpenseTypeList() {
                                 </div>
                             </div>
                             <div className="mt-4 lg:ml-16 ml-0 sm:mt-0 sm:flex-none">
-                                <a onClick={() => handleButtonClick('add', '')}
+                                <a onClick={() => handleButtonClick('add', null)}
                                     className="block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                                 >Add Expense Type
                                 </a>

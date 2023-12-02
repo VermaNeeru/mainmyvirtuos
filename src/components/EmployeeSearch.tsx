@@ -2,7 +2,13 @@ import React, { useEffect, useState } from 'react'
 import { PhotoIcon, UserCircleIcon } from '@heroicons/react/24/solid'
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
 import { Combobox } from '@headlessui/react'
-export default function EmployeeSearch({ heading = () => { }, onEmpValueChange = () => { } }: any) {
+interface EmployeeSearchProps {
+    heading: string; // Add the heading property
+    onEmpValueChange: (selected: any) => void; // Replace 'any' with the actual type of 'selected'
+}
+
+const EmployeeSearch: React.FC<EmployeeSearchProps> = ({ heading, onEmpValueChange }) => {
+    // export default function EmployeeSearch({ heading = () => { }, onEmpValueChange = () => { } }: any) {
     const people = [
         { id: 1, name: 'Shivam Chawla' },
         { id: 2, name: 'Neeru Verma' },
@@ -36,7 +42,7 @@ export default function EmployeeSearch({ heading = () => { }, onEmpValueChange =
 
     useEffect(() => {
         onEmpValueChange(selectedPerson);
-    }, [selectedPerson])
+    }, [selectedPerson, onEmpValueChange])
     return (
         <div>
             <Combobox as="div" value={selectedPerson}
@@ -96,3 +102,4 @@ export default function EmployeeSearch({ heading = () => { }, onEmpValueChange =
         </div>
     )
 }
+export default EmployeeSearch;

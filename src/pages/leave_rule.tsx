@@ -24,7 +24,7 @@ const ideas = [
 export default function LeaveRule() {
     const { loading: getUsertypeLoading, error: getUsertypeError, data: getUsertype } = useQuery(GET_USER_TYPES);
     const [search, setSearch] = useState("");
-    const [SelectedLeaverules, setSelectedLeaverules] = useState([]);
+    const [SelectedLeaverules, setSelectedLeaverules] = useState<number[]>([]);
     const [searchKeyword, setSearchKeyword] = useState('');
     const [quickEdit, setQuickEdit] = useState(false)
     const [formType, setformType] = useState('')
@@ -36,13 +36,13 @@ export default function LeaveRule() {
 
     const cancelButtonRef = useRef(null)
 
-    const [leaveruleId, setLeaveruleId] = useState<number>()
+    const [leaveruleId, setLeaveruleId] = useState<number | null | undefined>()
     const [ruleName, setRuleName] = useState('')
     const [ruleDescription, setRuleDescription] = useState('')
     const [ruleCondition, setRuleCondition] = useState('')
     const [ruleStatus, setRuleStatus] = useState('')
-    const [userTypeId, setUserTypeId] = useState<number>()
-    const [leaveTypeId, setLeaveTypeId] = useState<number>()
+    const [userTypeId, setUserTypeId] = useState<number | null>()
+    const [leaveTypeId, setLeaveTypeId] = useState<number | null>()
 
     const [aError, setAError] = useState(false);
     const [bError, setBError] = useState(false);
@@ -57,6 +57,7 @@ export default function LeaveRule() {
     // const [deleteDivision, { loading: deleteDivisionLoading, error: deleteDivisionError }] = useMutation(DELETE_DIVISION_MUTATION);
     const [removeQuery] = useMutation(DELETE_LEAVE_RULE_MUTATION);
     const [removeMultipleQuery] = useMutation(REMOVE_MULTIPLE_LEAVE_RULES);
+    const { loading: getUsertypeLoading, error: getUsertypeError, data: getUsertype } = useQuery(GET_USER_TYPES);
 
 
     const { loading: getAllDataLoading, error: getAllDataError, data: getAllData, refetch } = useQuery(GET_LEAVE_RULES);
@@ -94,7 +95,7 @@ export default function LeaveRule() {
         }
     }
 
-    const handleButtonClick = (type: string, id: number) => {
+    const handleButtonClick = (type: string, id: number | null) => {
         setQuickEdit(true)
         setformType(type)
         console.log("id", id);
@@ -256,21 +257,20 @@ export default function LeaveRule() {
     const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>, leaveruleId: string) => {
         if (leaveruleId === 'all') {
             if (event.target.checked) {
-                const allleaveruleIds = itemlist.map(item => item.id);
+                const allleaveruleIds = itemlist?.map(item => item.id) || [];
                 setSelectedLeaverules(allleaveruleIds);
             } else {
                 setSelectedLeaverules([]);
             }
         } else {
             if (event.target.checked) {
-                setSelectedLeaverules(prevSelected => [...prevSelected, leaveruleId]);
+                setSelectedLeaverules(prevSelected => [...prevSelected, parseInt(leaveruleId, 10)]);
             } else {
-                setSelectedLeaverules(prevSelected =>
-                    prevSelected.filter(id => id !== leaveruleId)
-                );
+                setSelectedLeaverules(prevSelected => prevSelected.filter(id => id !== parseInt(leaveruleId, 10)));
             }
         }
     };
+
     const handleDeletes = async () => {
         console.log('SelectedLeaverules', SelectedLeaverules);
         // selectedleaveruleIds
@@ -372,7 +372,7 @@ export default function LeaveRule() {
 
                                 <a
                                     // onClick={() => setQuickEdit(true)}
-                                    onClick={() => handleButtonClick('add', '')}
+                                    onClick={() => handleButtonClick('add', null)}
                                     className="block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                                 >
                                     Add New Rule
@@ -582,12 +582,10 @@ export default function LeaveRule() {
                                                                                                         className="px-2 mt-2 block w-full rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                                                                                         defaultValue="Canada"
                                                                                                         onChange={(e) => setUserTypeId(parseInt(e.target.value))}
-                                                                                                        value={userTypeId}
-
                                                                                                     >
                                                                                                         <option>Choose User Type</option>
                                                                                                         {usertypeList.map((ut) => (
-                                                                                                            <option  key={ut.id} value={ut.id}>{ut.type_name}</option>
+                                                                                                            <option value={ut.id} key={ut.id}>{ut.type_name}</option>
                                                                                                         ))}
                                                                                                         {/* <option>PE</option>
                                                                                                         <option>QE</option>
@@ -605,7 +603,6 @@ export default function LeaveRule() {
                                                                                                         className="px-2 mt-2 block w-full rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                                                                                         defaultValue="Canada"
                                                                                                         onChange={(e) => setLeaveTypeId(parseInt(e.target.value))}
-                                                                                                        value={leaveTypeId}
 
                                                                                                     >
                                                                                                         <option>Choose Leave Type</option>

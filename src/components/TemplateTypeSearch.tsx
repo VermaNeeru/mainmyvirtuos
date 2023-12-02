@@ -9,7 +9,7 @@ export default function TemplateTypeSearch({ heading, handleTemplateTypeChange, 
     // useEffect(() => {
     //     setSelectedState(updateData)
     // }, [updateData])
-    const handleTypeChange = (type) => {
+    const handleTypeChange = (type: any) => {
         const newValue = type;
 
         console.log(newValue)

@@ -38,10 +38,11 @@ const user_attendance = [
 
 
 export default function AllAttendance() {
+    const [empFor, setEmpFor] = useState('')
     const [startDate, setStartDate] = useState(new Date());
     const [endDate, setEndDate] = useState(new Date());
     const [quickEdit, setQuickEdit] = useState(false)
-    const [userattendanceId, setUserattendanceId] = useState<number>()
+    const [userattendanceId, setUserattendanceId] = useState<number | null>()
     const [inTime, setInTime] = useState('')
     const [outTime, setOutTime] = useState('')
     const [empName, setEmpName] = useState('')
@@ -79,7 +80,7 @@ export default function AllAttendance() {
     const [query, setQuery] = useState('')
     const [selectedPerson, setSelectedPerson] = useState(null)
 
-    const handleButtonClick = (type: string, id: number) => {
+    const handleButtonClick = (type: string, id: number | null) => {
         setQuickEdit(true)
         // setformType(type)
         console.log("id", id);
@@ -112,6 +113,14 @@ export default function AllAttendance() {
     //         : itemlist.filter((item: { employee_name: string; }) => {
     //             return item.employee_name.toLowerCase().includes(query.toLowerCase())
     //         })
+    const handleEmpValueChange = (newValue: { id: React.SetStateAction<string>; }) => {
+        console.log(newValue);
+        if (newValue) {
+            setEmpFor(newValue.id);
+        }
+
+    };
+
 
     const filteredItemList = (empName === "") ? itemlist : itemlist.filter((item: { employee_name: string; attendance_date: Date }) => {
         const lowerEmpName = empName.toLowerCase();
@@ -167,7 +176,7 @@ export default function AllAttendance() {
                                 <div className="mt-2 grid grid-cols-1 gap-x-6 gap-y-2 sm:gap-y-8 sm:grid-cols-6">
                                     <div className="sm:col-span-2">
                                         <div className="mt-1">
-                                            <EmployeeSearch />
+                                            <EmployeeSearch onEmpValueChange={handleEmpValueChange} heading={''} />
                                         </div>
                                     </div>
                                     <div className="sm:col-span-2">

@@ -23,7 +23,7 @@ const ideas = [
 
 export default function AccessList() {
     const [search, setSearch] = useState("");
-    const [SelectedUseraccesstypes, setSelectedUseraccesstypes] = useState([]);
+    const [SelectedUseraccesstypes, setSelectedUseraccesstypes] = useState<any>([]);
     const [searchKeyword, setSearchKeyword] = useState('');
     const [quickEdit, setQuickEdit] = useState(false)
     const [formType, setformType] = useState('')
@@ -35,7 +35,7 @@ export default function AccessList() {
 
     const cancelButtonRef = useRef(null)
 
-    const [useraccesstypeId, setUseraccesstypeId] = useState<number>()
+    const [useraccesstypeId, setUseraccesstypeId] = useState<number | null>()
     const [useraccesstypeName, setUseraccesstypeName] = useState('')
     const [mStatus, setmStatus] = useState('')
 
@@ -81,7 +81,7 @@ export default function AccessList() {
         }
     }
 
-    const handleButtonClick = (type: string, id: number) => {
+    const handleButtonClick = (type: string, id: any) => {
         setQuickEdit(true)
         setformType(type)
         console.log("id", id);
@@ -115,6 +115,23 @@ export default function AccessList() {
             setmStatus(useraccesstype.status);
 
 
+        }
+    }, [getQueryById]);
+
+    useEffect(() => {
+        if (useraccesstypeId) {
+            console.log(useraccesstypeId);
+            executeQuery({ variables: { id: useraccesstypeId } });
+            console.log(getQueryById);
+        }
+    }, [useraccesstypeId, executeQuery]);
+
+    console.log(getQueryById);
+    useEffect(() => {
+        if (getQueryById && getQueryById.useraccesstype) {
+            const { useraccesstype } = getQueryById; // Destructure the division object
+            setUseraccesstypeName(useraccesstype.access_type_name);
+            setmStatus(useraccesstype.status);
         }
     }, [getQueryById]);
 
@@ -210,16 +227,18 @@ export default function AccessList() {
         if (useraccesstypeId === 'all') {
             if (event.target.checked) {
                 const alluseraccesstypeIds = itemlist.map(item => item.id);
+                console.log(alluseraccesstypeIds);
                 setSelectedUseraccesstypes(alluseraccesstypeIds);
+
             } else {
                 setSelectedUseraccesstypes([]);
             }
         } else {
             if (event.target.checked) {
-                setSelectedUseraccesstypes(prevSelected => [...prevSelected, useraccesstypeId]);
+                setSelectedUseraccesstypes((prevSelected: any) => [...prevSelected, useraccesstypeId]);
             } else {
-                setSelectedUseraccesstypes(prevSelected =>
-                    prevSelected.filter(id => id !== useraccesstypeId)
+                setSelectedUseraccesstypes((prevSelected: any[]) =>
+                    prevSelected.filter((id: string) => id !== useraccesstypeId)
                 );
             }
         }
@@ -305,7 +324,7 @@ export default function AccessList() {
                                 </div>
                             </div>
                             <div className="mt-4 lg:ml-16 ml-0 sm:mt-0 sm:flex-none">
-                                <a onClick={() => handleButtonClick('add', '')}
+                                <a onClick={() => handleButtonClick('add', null)}
                                     className="block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                                 >
                                     Add New Access Type

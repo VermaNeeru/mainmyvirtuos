@@ -1,5 +1,5 @@
 import EmployeeSearch from '@/components/EmployeeSearch'
-import React from 'react'
+import React, { useState } from 'react'
 import { Disclosure } from '@headlessui/react'
 import { MinusSmallIcon, PlusSmallIcon } from '@heroicons/react/24/outline'
 
@@ -13,6 +13,15 @@ const users = [
     // More questions...
 ]
 export default function UserLeaveDetail() {
+    const [empFor, setEmpFor] = useState('')
+    const handleEmpValueChange = (newValue: { id: React.SetStateAction<string>; }) => {
+        console.log(newValue);
+        if (newValue) {
+            setEmpFor(newValue.id);
+        }
+
+    };
+
     return (
         <div className=' w-full rounded px-2'>
             <div className="rounded-t mb-4 px-4 bg-transparent">
@@ -33,7 +42,7 @@ export default function UserLeaveDetail() {
                                 <div className="mt-2 grid grid-cols-1 gap-x-6 gap-y-8 lg:grid-cols-2">
                                     <div className="col-span-1">
                                         <div className="mt-1">
-                                            <EmployeeSearch heading="Search User" />
+                                            <EmployeeSearch onEmpValueChange={handleEmpValueChange} heading="Search User" />
                                         </div>
                                     </div>
                                     <div className="col-span-1">

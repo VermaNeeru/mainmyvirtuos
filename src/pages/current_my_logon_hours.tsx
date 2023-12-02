@@ -4,8 +4,7 @@ import React, { useState, useEffect } from 'react'
 
 import { useQuery, useLazyQuery, useMutation } from "@apollo/client";
 import { GET_USER_ATTENDANCE_BY_DATE } from '@/graphql/Userattendance/queries';
-import UserData from '@/components/UserData';
-
+import { getUserData } from '@/components/UserData';
 
 function classNames(...classes: any[]) {
     return classes.filter(Boolean).join(' ')
@@ -58,8 +57,8 @@ export default function CurrentMyLogonHours() {
     };
 
     const [currentPage, setCurrentPage] = useState(1);
-    const userData = UserData();
-    const [userId, setUserId] = useState<number>(userData.id)
+    const userData = getUserData();
+    const [userId, setUserId] = useState<number | null | undefined>(userData?.id)
     const itemsPerPage = 3;
 
     const indexOfLastItem = currentPage * itemsPerPage;

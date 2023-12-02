@@ -1,5 +1,6 @@
 import { MutableRefObject, useEffect, useRef } from 'react';
-import { Chart, ChartConfiguration, ChartOptions, ChartScales, LinearScale } from 'chart.js';
+// import { Chart, ChartConfiguration, ChartOptions, ChartScales, LinearScale } from 'chart.js';
+import { Chart, ChartConfiguration, ChartOptions, LinearScale } from 'chart.js';
 
 const MonthlyExpenseChart = () => {
     const chartRef = useRef<HTMLCanvasElement | null>(null);
@@ -21,16 +22,16 @@ const MonthlyExpenseChart = () => {
                         fill: true, // Fill the area under the line
                     },
                 ],
-            },
-            options: {
-                responsive: true,
-                scales: {
-                    y: {
-                        type: 'linear',
-                        beginAtZero: true,
-                    },
-                } as ChartScales & { y: LinearScale },
-            },
+            }
+            // options: {
+            //     responsive: true,
+            //     scales: {
+            //         y: {
+            //             type: 'linear',
+            //             beginAtZero: true,
+            //         },
+            //     } as ChartScales & { y: LinearScale },
+            // },
         };
 
         const myChart = new Chart(ctx, config);

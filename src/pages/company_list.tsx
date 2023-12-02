@@ -6,7 +6,7 @@ import { Dialog, Menu, Transition } from '@headlessui/react'
 import { XMarkIcon, ChevronDownIcon, TrashIcon } from '@heroicons/react/20/solid'
 import Alert from '@/components/Alert';
 import { useQuery, useLazyQuery, useMutation } from "@apollo/client";
-import { ADD_Company_MUTATION, DELETE_Company_MUTATION, GET_Companies, GET_Company_BY_ID, REMOVE_MULTIPLE_Companies, UPDATE_Company_MUTATION } from '@/graphql/company/queries';
+import { ADD_Company_MUTATION, DELETE_Company_MUTATION, GET_Companies, GET_Company_BY_ID, REMOVE_MULTIPLE_Companies, UPDATE_Company_MUTATION } from '@/graphql/Company/queries';
 
 const table_header = [
     { name: 'Name' },
@@ -22,7 +22,7 @@ const ideas = [
 
 export default function CompanyList() {
     const [search, setSearch] = useState("");
-    const [selectedCompany, setSelectedCompany] = useState([]);
+    const [selectedCompany, setSelectedCompany] = useState<number[]>([]);
     const [searchKeyword, setSearchKeyword] = useState('');
     const [quickEdit, setQuickEdit] = useState(false)
     const [formType, setformType] = useState('')
@@ -34,7 +34,7 @@ export default function CompanyList() {
 
     const cancelButtonRef = useRef(null)
 
-    const [companyId, setcompanyId] = useState<number>()
+    const [companyId, setcompanyId] = useState<number | null | undefined>()
     const [companyName, setcompanyName] = useState('')
     const [cStatus, setcStatus] = useState('')
 
@@ -84,7 +84,7 @@ export default function CompanyList() {
         }
     }
 
-    const handleButtonClick = (type: string, id: number) => {
+    const handleButtonClick = (type: string, id: number | null) => {
         setQuickEdit(true)
         setformType(type)
         console.log("id", id);
@@ -212,18 +212,16 @@ export default function CompanyList() {
     const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>, companyId: string) => {
         if (companyId === 'all') {
             if (event.target.checked) {
-                const allcompanyIds = itemlist.map(item => item.id);
+                const allcompanyIds = itemlist?.map(item => item.id) || [];
                 setSelectedCompany(allcompanyIds);
             } else {
                 setSelectedCompany([]);
             }
         } else {
             if (event.target.checked) {
-                setSelectedCompany(prevSelected => [...prevSelected, companyId]);
+                setSelectedCompany(prevSelected => [...prevSelected, parseInt(companyId, 10)]);
             } else {
-                setSelectedCompany(prevSelected =>
-                    prevSelected.filter(id => id !== companyId)
-                );
+                setSelectedCompany(prevSelected => prevSelected.filter(id => id !== parseInt(companyId, 10)));
             }
         }
     };
@@ -308,7 +306,7 @@ export default function CompanyList() {
                                 </div>
                             </div>
                             <div className="mt-4 lg:ml-16 ml-0 sm:mt-0 sm:flex-none">
-                                <a onClick={() => handleButtonClick('add', '')}
+                                <a onClick={() => handleButtonClick('add', null)}
                                     className="block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                                 >
                                     Add New Company

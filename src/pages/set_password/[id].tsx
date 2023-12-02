@@ -6,7 +6,6 @@ import { GET_ChangePassword } from "@/graphql/User/queries";
 import { ApolloError, useMutation, useQuery } from '@apollo/client'
 
 const ForgotPassword = () => {
-    const [changePassword, { data, error }] = useMutation(GET_ChangePassword);
     const [password1, setPassword1] = useState<any>("");
     const [password2, setPassword2] = useState<any>("");
     const [errorr, setError] = useState<unknown | any>(null);
@@ -16,6 +15,8 @@ const ForgotPassword = () => {
     const [emailSent, setEmailSent] = useState(false);
     const [emailSentMessage, setEmailSentMessage] = useState("");
     const [loading, setLoading] = useState(false); // Add loading state
+    const [changePassword, { data, error }] = useMutation(GET_ChangePassword);
+
     const router = useRouter();
     const { id } = router.query;
     // Check if params.id exists
@@ -26,10 +27,9 @@ const ForgotPassword = () => {
             </div>
         );
     }
-    
+
     console.log(id); // Use 'id' directly
     const resetKey = id.toString();
-
 
 
     // console.log("GraphQL Query:", GET_ForgotPassword?.loc?.source?.body);

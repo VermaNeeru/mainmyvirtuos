@@ -10,9 +10,23 @@ import TimePickerComp from '@/components/DatePickerComp/TimePickerComp';
 import EmployeeSearch from '@/components/EmployeeSearch';
 
 export default function GoogleCalendar() {
-    const [openTab, setOpenTab] = useState<number>(1);
+    const [empFor, setEmpFor] = useState('')
+    const [openTab, setOpenTab] = useState<number | null | undefined>(1);
     const [quickEdit, setGoogleCal] = useState(false)
     const cancelButtonRef = useRef(null)
+    const [stateDate, setStateDate] = useState('');
+    const handleStartDateChange = (newDate: any) => {
+        setStateDate(newDate); // Update parent component's state
+        console.log(newDate)
+
+    };
+    const handleEmpValueChange = (newValue: { id: React.SetStateAction<string>; }) => {
+        console.log(newValue);
+        if (newValue) {
+            setEmpFor(newValue.id);
+        }
+
+    };
 
     return (
         <div className=' w-full rounded px-2'>
@@ -180,7 +194,7 @@ export default function GoogleCalendar() {
                                                                                                 <label htmlFor="start-date" className="block text-sm font-medium leading-6 text-gray-700">
                                                                                                     Start Date :
                                                                                                 </label>
-                                                                                                <DatePickerComp />
+                                                                                                <DatePickerComp onDateChange={handleStartDateChange} />
                                                                                             </div>
                                                                                         </div>
                                                                                         <div className="sm:col-span-1">
@@ -195,7 +209,7 @@ export default function GoogleCalendar() {
                                                                                             <div className="relative mt-2 rounded-md shadow-sm">
                                                                                                 <label htmlFor="start-date" className="block text-sm font-medium leading-6 text-gray-700"> End Date :
                                                                                                 </label>
-                                                                                                <DatePickerComp />
+                                                                                                <DatePickerComp onDateChange={handleStartDateChange} />
                                                                                             </div>
                                                                                         </div>
                                                                                         <div className="sm:col-span-1">
@@ -236,7 +250,7 @@ export default function GoogleCalendar() {
                                                                             <div className="pb-4">
                                                                                 <div className="grid grid-cols-1 gap-x-6 gap-y-2 lg:gap-y-4 lg:grid-cols-2">
                                                                                     <div className="sm:col-span-6">
-                                                                                        <EmployeeSearch heading="Guest" />
+                                                                                        <EmployeeSearch onEmpValueChange={handleEmpValueChange} heading="Guest" />
                                                                                     </div>
                                                                                 </div>
                                                                             </div>

@@ -3,7 +3,15 @@ import { Listbox, Transition } from '@headlessui/react'
 import { PhotoIcon, UserCircleIcon } from '@heroicons/react/24/solid'
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
 import { Combobox } from '@headlessui/react'
-export default function CategorySearch({ onCatValueChange }) {
+
+interface CategorySearchProps {
+    onCatValueChange: (selected: any) => void; // Replace 'any' with the actual type of 'selected'
+}
+
+const CategorySearch: React.FC<CategorySearchProps> = ({ onCatValueChange }) => {
+
+
+    // export default function CategorySearch({ onCatValueChange }) {
     const category = [
         { id: 1, name: 'Choose Category' },
         { id: 2, name: 'Ux/Design Product Development' },
@@ -21,7 +29,7 @@ export default function CategorySearch({ onCatValueChange }) {
     useEffect(() => {
         console.log(selected)
         onCatValueChange(selected);
-    }, [setSelected])
+    }, [selected, onCatValueChange])
     return (
         <div>
             <Listbox value={selected} onChange={setSelected}>
@@ -83,3 +91,4 @@ export default function CategorySearch({ onCatValueChange }) {
         </div>
     )
 }
+export default CategorySearch;

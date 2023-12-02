@@ -4,8 +4,14 @@ import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
 import { Combobox } from '@headlessui/react'
 import { useQuery, useLazyQuery, useMutation } from "@apollo/client";
 import { GET_Roles } from '@/graphql/Role/queries';
+interface RoleSearchProps {
+    heading: string; // Add the heading property
+    onRoleChange: (selected: any) => void; // Replace 'any' with the actual type of 'selected'
+}
 
-export default function RoleSearch({ heading, onRoleChange }: any) {
+const RoleSearch: React.FC<RoleSearchProps> = ({ heading, onRoleChange }) => {
+
+    // export default function RoleSearch({ heading, onRoleChange }: any) {
     const people = [
         { id: 1, name: 'Role 1' },
         { id: 1, name: 'Role 2' },
@@ -47,7 +53,7 @@ export default function RoleSearch({ heading, onRoleChange }: any) {
     useEffect(() => {
         console.log(selectedPerson);
         onRoleChange(selectedPerson)
-    }, [selectedPerson])
+    }, [selectedPerson, onRoleChange])
 
     return (
         <div>
@@ -105,3 +111,4 @@ export default function RoleSearch({ heading, onRoleChange }: any) {
         </div>
     )
 }
+export default RoleSearch;

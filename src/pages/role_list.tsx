@@ -6,7 +6,7 @@ import { Dialog, Menu, Transition } from '@headlessui/react'
 import { XMarkIcon, ChevronDownIcon, TrashIcon } from '@heroicons/react/20/solid'
 import Alert from '@/components/Alert';
 import { useQuery, useLazyQuery, useMutation } from "@apollo/client";
-import { ADD_Role_MUTATION, DELETE_Role_MUTATION, GET_Roles, GET_Role_BY_ID, REMOVE_MULTIPLE_Roles, UPDATE_Role_MUTATION } from '@/graphql/role/queries';
+import { ADD_Role_MUTATION, DELETE_Role_MUTATION, GET_Roles, GET_Role_BY_ID, REMOVE_MULTIPLE_Roles, UPDATE_Role_MUTATION } from '@/graphql/Role/queries';
 
 const table_header = [
     { name: 'Role Name' },
@@ -24,7 +24,7 @@ const ideas = [
 
 export default function RoleList() {
     const [search, setSearch] = useState("");
-    const [SelectedRoles, setSelectedRoles] = useState([]);
+    const [SelectedRoles, setSelectedRoles] = useState<number[]>([]);
     const [searchKeyword, setSearchKeyword] = useState('');
     const [quickEdit, setQuickEdit] = useState(false)
     const [formType, setformType] = useState('')
@@ -36,9 +36,9 @@ export default function RoleList() {
 
     const cancelButtonRef = useRef(null)
 
-    const [roleId, setRoleId] = useState<number>()
+    const [roleId, setRoleId] = useState<number | null | undefined>()
     const [roleName, setRoleName] = useState('')
-    const [rolePriority, setRolePriority] = useState<number>()
+    const [rolePriority, setRolePriority] = useState<number | null | undefined>()
     const [mStatus, setmStatus] = useState('')
 
     const [aError, setAError] = useState(false);
@@ -85,7 +85,7 @@ export default function RoleList() {
         }
     }
 
-    const handleButtonClick = (type: string, id: number) => {
+    const handleButtonClick = (type: string, id: number | null) => {
         setQuickEdit(true)
         setformType(type)
         console.log("id", id);
@@ -97,7 +97,7 @@ export default function RoleList() {
         } else {
 
             setRoleName('');
-            setRolePriority('');
+            setRolePriority(null);
             setmStatus('');
             setRoleId(null);
         }
@@ -159,7 +159,7 @@ export default function RoleList() {
 
 
                 setRoleName('');
-                setRolePriority('');
+                setRolePriority(null);
                 setmStatus('');
 
                 setshowSuccessMessage(true);
@@ -194,7 +194,7 @@ export default function RoleList() {
                 console.log('response', id);
 
                 setRoleName('');
-                setRolePriority('');
+                setRolePriority(null);
                 setmStatus('');
 
 
@@ -221,18 +221,16 @@ export default function RoleList() {
     const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>, roleId: string) => {
         if (roleId === 'all') {
             if (event.target.checked) {
-                const allroleIds = itemlist.map(item => item.id);
+                const allroleIds = itemlist?.map(item => item.id) || [];
                 setSelectedRoles(allroleIds);
             } else {
                 setSelectedRoles([]);
             }
         } else {
             if (event.target.checked) {
-                setSelectedRoles(prevSelected => [...prevSelected, roleId]);
+                setSelectedRoles(prevSelected => [...prevSelected, parseInt(roleId, 10)]);
             } else {
-                setSelectedRoles(prevSelected =>
-                    prevSelected.filter(id => id !== roleId)
-                );
+                setSelectedRoles(prevSelected => prevSelected.filter(id => id !== parseInt(roleId, 10)));
             }
         }
     };
@@ -317,7 +315,7 @@ export default function RoleList() {
                                 </div>
                             </div>
                             <div className="mt-4 lg:ml-16 ml-0 sm:mt-0 sm:flex-none">
-                                <a onClick={() => handleButtonClick('add', '')}
+                                <a onClick={() => handleButtonClick('add', null)}
                                     className="block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                                 >
                                     Add New Role
