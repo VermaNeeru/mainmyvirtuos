@@ -1,6 +1,7 @@
 import { MutableRefObject, useEffect, useRef } from 'react';
 // import Chart, { ChartConfiguration } from 'chart.js';
-import { Chart, ChartConfiguration, ChartOptions, ChartScales, LinearScale } from 'chart.js';
+import { Chart, ChartConfiguration, ChartOptions, LinearScale } from 'chart.js';
+// import { ChartScales } from 'chart.js';
 
 // const chartRef = useRef<HTMLCanvasElement | null>(null);
 
@@ -27,12 +28,12 @@ const AnnualLeaveChart = () => {
             },
             options: {
                 responsive: true,
-                scales: {
-                    y: {
-                        type: 'linear', // Specify the type of scale
-                        beginAtZero: true,
-                    },
-                } as ChartScales & { y: LinearScale }, // Type assertion to define the type of scales
+                // scales: {
+                //     y: {
+                //         type: 'linear', // Specify the type of scale
+                //         beginAtZero: true,
+                //     },
+                // } as ChartScales & { y: LinearScale }, // Type assertion to define the type of scales
             },
         } as ChartConfiguration;
         const myChart = new Chart(ctx, config);

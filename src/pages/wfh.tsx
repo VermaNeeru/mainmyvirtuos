@@ -2,6 +2,8 @@ import React, { Fragment } from 'react'
 import Link from 'next/link';
 import { Menu, Transition } from '@headlessui/react'
 import { ChevronDownIcon } from '@heroicons/react/20/solid'
+import { GET_WFH, REMOVE_USER_WFH } from '@/graphql/User/queries';
+import { useMutation, useQuery } from '@apollo/client';
 const table_header = [
     { name: 'Type' },
     { name: 'Date' },
@@ -11,6 +13,7 @@ const table_header = [
     { name: 'Status' },
 
 ];
+
 const user_attendance = [
     { id: 1, leave_type: 'Short Leave', date: '04-07-2023', type: '04-07-2023', time: '16:30', byhr: 'test', status: 'Pending', },
     { id: 2, leave_type: 'Full Day Leave', date: '04-07-2023', type: '04-07-2023', time: '16:30', byhr: 'test', status: 'Pending', },
@@ -19,6 +22,30 @@ const user_attendance = [
 ]
 
 export default function WFH() {
+    const { loading, error, data } = useQuery(GET_WFH);
+    const [removeUserWfhMutation] = useMutation(REMOVE_USER_WFH);
+
+    if (loading) return <p>Loading...</p>;
+    if (error) return <p>Error: {error.message}</p>;
+
+    const user_attendance = data.userWfhall;
+
+    console.log(user_attendance);
+
+    const handleRemove = async (id:any) => {
+        try {
+            await removeUserWfhMutation({
+                variables: { id },
+                refetchQueries: [{ query: GET_WFH }],
+            });
+            // Optionally, add a success notification or perform any other action
+            alert("successfully removed");
+        } catch (error:any) {
+            console.error('Error deleting userWfh:', error.message);
+            // Handle the error, e.g., show an error message
+        }
+    };
+
     return (
         <div className=' w-full rounded px-2'>
             <div className="rounded-t mb-4 px-4 bg-transparent">
@@ -69,15 +96,15 @@ export default function WFH() {
                                             </tr>
                                         </thead>
                                         <tbody className="divide-y divide-gray-200 bg-white">
-                                            {user_attendance.map((person) => (
+                                            {user_attendance.map((person: any) => (
                                                 <tr key={person.id}>
                                                     <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
-                                                        {person.leave_type}
+                                                        {person.day_type}
                                                     </td>
                                                     <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.date}</td>
                                                     <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.type}</td>
-                                                    <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.time}</td>
-                                                    <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.byhr}</td>
+                                                    <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.time_slot}</td>
+                                                    <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.hours_slot}</td>
                                                     <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.status}</td>
 
                                                     <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">
@@ -101,7 +128,13 @@ export default function WFH() {
                                                                 <Menu.Items className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                                                                     <div className="py-1">
                                                                         <Menu.Item>
-                                                                            <a href="#" className="bg-gray-100 text-gray-900 block px-4 py-2 text-sm">Remove</a>
+                                                                            {/* <a href="#"  className="bg-gray-100 text-gray-900 block px-4 py-2 text-sm">Remove</a> */}
+                                                                            <button
+                                                                                onClick={() => handleRemove(person.id)}
+                                                                                className="bg-gray-100 text-gray-900 block px-4 py-2 text-sm"
+                                                                            >
+                                                                                Remove
+                                                                            </button>
                                                                         </Menu.Item>
 
 
