@@ -252,6 +252,17 @@ export default function IssueCategoryList() {
         const lowerSearch = search.toLowerCase();
         return (item.name.toLowerCase().includes(lowerSearch));
     });
+
+    // useEffect(() => {
+    //     setTimeout(() => {
+    //         setshowSuccessMessage(false);
+    //         setshowSuccessMessage(false);
+    //         setshowErrorMessage(false);
+    //     }, 5000);
+
+    // }, [showSuccessMessage, showSuccessMessage, showErrorMessage]);
+
+
     return (
         <div className=' w-full rounded px-2'>
             {showDeleteMessage && (
@@ -259,13 +270,13 @@ export default function IssueCategoryList() {
             )}
             {showSuccessMessage && (
                 // <Alert message="Division Added Successfully!" alertState={alertState} onAlertStateChange={handleAlertStateChange} />
-                <Alert message="Division Added Successfully!" />
+                <Alert message="Issue Category Added Successfully!" />
             )}
             {showErrorMessage && (
                 <Alert message="Something went wrong!" />
             )}
             {showDeletedMessage && (
-                <Alert message="Division Deleted Successfully!" />
+                <Alert message="Issue Category Deleted Successfully!" />
             )}
             <div className="rounded-t mb-4 px-4 bg-transparent">
                 <div className="flex flex-wrap items-center">
