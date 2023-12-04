@@ -22,6 +22,7 @@ const Login = () => {
 
     const [login, { data, error }] = useMutation(GET_Login);
     const handleSubmit = async (event: { preventDefault: () => void }) => {
+        console.log('login', event);
         event.preventDefault();
         setError(false);
         setError1(false)
@@ -32,6 +33,7 @@ const Login = () => {
             // return;
         }
         try {
+            console.log("inside")
             const { data } = await login({
                 variables: { username, password },
             });

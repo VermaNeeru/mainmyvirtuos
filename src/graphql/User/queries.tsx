@@ -10,7 +10,9 @@ mutation Login($username: String!, $password: String!) {
       lastname
       username
       password
-    role
+    role{
+      id
+    }
       officialemail
       extn
       gender
@@ -128,7 +130,7 @@ mutation($input: CreateUserWfhInput!) {
 
 
 `;
-export const CREATE_Leave= gql`
+export const CREATE_Leave = gql`
 mutation CreateLeave($input: CreateLeaveInput!) {
   createLeave(createLeaveInput: $input) {
     id
