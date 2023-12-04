@@ -10,9 +10,7 @@ mutation Login($username: String!, $password: String!) {
       lastname
       username
       password
-    role{
-      id
-    }
+      role
       officialemail
       extn
       gender

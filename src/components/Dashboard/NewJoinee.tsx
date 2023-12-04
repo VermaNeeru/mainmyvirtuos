@@ -3,6 +3,7 @@ import { useMutation } from "@apollo/client";
 import { ADD_USER_MUTATION } from '@/graphql/User/queries';
 import Alert from '../Alert';
 
+
 export default function NewJoinee() {
     const [user, setUser] = useState("");
     const [firstname, setFirstname] = useState("");
@@ -102,6 +103,7 @@ export default function NewJoinee() {
             {showErrorMessage && (
                 <Alert message="Something went wrong!" />
             )}
+
             <div className="mx-auto max-w-7xl lg:px-4  px-2 py-2">
                 <div className="rounded-t lg:mb-4 mb-2 px-0 lg:px-1 py-2 bg-transparent">
                     <div className="flex flex-wrap items-center">
