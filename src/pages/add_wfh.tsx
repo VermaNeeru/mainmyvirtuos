@@ -7,7 +7,7 @@ import Cookies from 'js-cookie';
 import jwt from 'jsonwebtoken';
 import { useLazyQuery, useMutation, useQuery } from '@apollo/client';
 import { CREATE_WFH, GET_FaqById, GET_OfficalInfoByUser } from '@/graphql/User/queries';
-
+import { useRouter } from 'next/router';
 const faqs = [
     {
         question: "Work From Home (WFH) & (WFH-S) Policy",
@@ -35,6 +35,7 @@ const faqs = [
 
 
 export default function AddWfh() {
+    const router = useRouter();
     // Add this type definition
     type FaqType = {
         __typename: string;
@@ -151,7 +152,8 @@ export default function AddWfh() {
                 });
 
                 // Display an alert for successful submission
-                alert('Form submitted successfully!');
+                // alert('Form submitted successfully!');
+                router.push('/wfh');
             } else {
                 // Handle any other response or error conditions as needed
                 console.error('Unexpected response:', data);

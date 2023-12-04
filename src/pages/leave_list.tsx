@@ -1,4 +1,6 @@
-import React from 'react'
+import { GET_Leave, REMOVE_USER_Leave } from '@/graphql/User/queries';
+import { useMutation, useQuery } from '@apollo/client';
+import React, { useState } from 'react'
 const table_header = [
     { name: 'Leave Type' },
     { name: 'From Date' },
@@ -17,6 +19,31 @@ const user_attendance = [
 
 
 export default function LeaveList() {
+    const { loading, error, data } = useQuery(GET_Leave);
+    const [removeUserLeaveMutation] = useMutation(REMOVE_USER_Leave);
+
+    const [searchTerm, setSearchTerm] = useState('');
+    if (loading) return <p>Loading...</p>;
+    if (error) return <p>Error: {error.message}</p>;
+
+    const user_attendance = data.leavesall;
+
+    const handleRemove = async (id: any) => {
+        try {
+            await removeUserLeaveMutation({
+                variables: { id },
+                refetchQueries: [{ query: GET_Leave }],
+            });
+            alert("Successfully removed");
+        } catch (error: any) {
+            console.error('Error deleting user leave:', error.message);
+            alert("Error removing user leave");
+        }
+    };
+    const filteredUserAttendance = user_attendance.filter((person: { leave_reason?: string }) =>
+        person.leave_reason && person.leave_reason.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+
     return (
         <div className=' w-full rounded px-2'>
             <div className="rounded-t mb-4 px-4 bg-transparent">
@@ -31,19 +58,27 @@ export default function LeaveList() {
             </div>
             <div className=' rounded-lg border border-gray-300 bg-white'>
                 <div className="px-4 sm:px-6 lg:px-8 mt-4 mb-10">
-                    <div className="lg:flex lg:items-center">
-                        <div className="sm:flex-auto">
-                            {/* <h1 className="text-base font-semibold leading-6 text-gray-900">My Logon Hours - Current Month</h1> */}
-
+                    <div className="lg:flex lg:items-center  xl:flex items-end gap-4">
+                        <input
+                            type="text"
+                            placeholder="Search by Reason"
+                            value={searchTerm}
+                            onChange={(e) => setSearchTerm(e.target.value)}
+                            className="px-4 py-2 border border-gray-300 rounded-md"
+                        />
+                        <button
+                            type="button"
+                            className="block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                        >
+                            Search
+                        </button>
+                        {/* <div className="sm:flex-auto">
+                        
+                         
                         </div>
                         <div className="mt-4 lg:ml-16  sm:mt-0 sm:flex-none">
-                            <button
-                                type="button"
-                                className="block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                            >
-                                Search
-                            </button>
-                        </div>
+                          
+                        </div> */}
                     </div>
                     <div className="mt-2 flow-root">
                         <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -65,21 +100,25 @@ export default function LeaveList() {
                                             </tr>
                                         </thead>
                                         <tbody className="divide-y divide-gray-200 bg-white">
-                                            {user_attendance.map((person) => (
+                                            {filteredUserAttendance.map((person: any) => (
+                                                // {user_attendance.map((person: any) => (
                                                 <tr key={person.id}>
                                                     <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
                                                         {person.leave_type}
                                                     </td>
-                                                    <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.fromdate}</td>
-                                                    <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.todate}</td>
-                                                    <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.day}</td>
-                                                    <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.reason}</td>
+                                                    <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.leave_start_date}</td>
+                                                    <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.leave_end_date}</td>
+                                                    <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.leave_total_days}</td>
+                                                    <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.leave_reason}</td>
                                                     <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.status}</td>
 
                                                     <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">
-                                                        <a href="#" className="text-indigo-600 hover:text-indigo-900">
-                                                            Pending
-                                                        </a>
+                                                        <button
+                                                            onClick={() => handleRemove(person.id)}
+                                                            className="bg-gray-100 text-gray-900 block px-4 py-2 text-sm"
+                                                        >
+                                                            Remove
+                                                        </button>
                                                     </td>
                                                 </tr>
                                             ))}

@@ -114,7 +114,7 @@ mutation CreateDocumentUpload($input: CreateDocumentuploadInput!) {
 `;
 export const CREATE_WFH = gql`
 mutation($input: CreateUserWfhInput!) {
-  createUserWfh(CreateUserWfhInput: $input) {
+  createUserWfh(createUserWfhInput: $input) {
     user_id
     manager_id
     m_manager_id
@@ -167,6 +167,50 @@ export const GET_CATEGORIES = gql`
         hobbies
         status
     }
+  }
+`;
+export const GET_WFH = gql`
+query {
+  userWfhall {
+  id
+    hours_slot
+    day_type
+    date
+    type
+    time_slot
+    
+  }
+}
+
+`;
+export const GET_Leave = gql`
+query {
+  leavesall {
+  id
+  leave_end_date
+  leave_start_date
+  leave_reason
+  leave_total_days
+  leave_type
+    
+  }
+}
+
+`;
+// export const REMOVE_USER_WFH = gql`
+// mutation {
+//   removeUserWfh(id: 2) 
+// }
+
+// `;
+export const REMOVE_USER_WFH = gql`
+  mutation RemoveUserWfh($id: Int!) {
+    removeUserWfh(id: $id)
+  }
+`;
+export const REMOVE_USER_Leave = gql`
+  mutation RemoveUserLeave($id: Int!) {
+    removeLeave(id: $id)
   }
 `;
 
