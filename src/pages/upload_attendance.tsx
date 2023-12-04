@@ -8,7 +8,7 @@ import Alert from '@/components/Alert';
 
 import { useQuery, useLazyQuery, useMutation } from "@apollo/client";
 import { GET_CURRENT_MY_ATTENDANCE } from '@/graphql/Userattendance/queries';
-import UserData from '@/components/UserData';
+import { getUserData } from '@/components/UserData';
 
 const table_header = [
     { name: 'Uploaded For' },
@@ -29,8 +29,8 @@ const modules = [
 export default function UploadAttendance() {
     const [showDeleteMessage, setshowDeleteMessage] = useState(false);
     const [quickEdit, setQuickEdit] = useState(false)
-    const userData = UserData();
-    const [userId, setUserId] = useState<number>(userData.id)
+    const userData = getUserData();
+    const [userId, setUserId] = useState<number | null | undefined>(userData?.id)
     const cancelButtonRef = useRef(null)
 
     const fromDate = new Date();

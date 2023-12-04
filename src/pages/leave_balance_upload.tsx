@@ -21,17 +21,14 @@ const modules = [
 ]
 
 import { useQuery, useLazyQuery, useMutation } from "@apollo/client";
-import { ADD_Useryearlyleavebalance_MUTATION, UPDATE_Useryearlyleavebalance_MUTATION, DELETE_Useryearlyleavebalance_MUTATION, REMOVE_MULTIPLE_Useryearlyleavebalances, GET_FILTERED_UseryearlyleavebalanceS, GET_Useryearlyleavebalances, GET_Useryearlyleavebalance_BY_ID } from '@/graphql/LeaveBalance/queries';
+import { ADD_Useryearlyleavebalance_MUTATION, DELETE_Useryearlyleavebalance_MUTATION, GET_Useryearlyleavebalance_BY_ID, GET_Useryearlyleavebalances, REMOVE_MULTIPLE_Useryearlyleavebalances, UPDATE_Useryearlyleavebalance_MUTATION } from '@/graphql/LeaveBalance/queries';
 
 export default function LeaveBalanceUpload() {
-    useEffect(() => {
-        console.log(csvData)
-    }, [csvData]);
-    const [csvData, setCSVData] = useState([]);
+    const [csvData, setCSVData] = useState<any[]>([]);
     const [errorMessage, setErrorMessage] = useState('');
 
     const [search, setSearch] = useState("");
-    const [selectedUseryearlyleavebalances, setSelectedUseryearlyleavebalances] = useState([]);
+    const [selectedUseryearlyleavebalances, setSelectedUseryearlyleavebalances] = useState<number[]>([]);
     const [searchKeyword, setSearchKeyword] = useState('');
     const [showDeleteMessage, setshowDeleteMessage] = useState(false);
     const [showDeletedMessage, setshowDeletedMessage] = useState(false);
@@ -41,7 +38,7 @@ export default function LeaveBalanceUpload() {
     const [leavetypeCode, setleavetypeCode] = useState('')
     const [leavetypeCount, setleavetypeCount] = useState('')
     const [leavetypeStatus, setleavetypeStatus] = useState('')
-    const [leavetypeId, setleavetypeId] = useState<number>()
+    const [leavetypeId, setleavetypeId] = useState<number | null | undefined>()
 
     const [dnameError, setDnameError] = useState(false);
     const [dcodeError, setDcodeError] = useState(false);
@@ -101,7 +98,7 @@ export default function LeaveBalanceUpload() {
             }
         }
     }
-    const handleButtonClick = (type: string, id: number) => {
+    const handleButtonClick = (type: string, id: number | null) => {
         setQuickEdit(true)
         setformType(type)
         console.log("id", id);
@@ -163,7 +160,7 @@ export default function LeaveBalanceUpload() {
             console.log('Try to submit');
 
             // Create an array of promises for GraphQL mutations
-            const mutationPromises = csvData.map(async (item) => {
+            const mutationPromises = csvData.map(async (item: any) => {
                 // Check if the item has all required values
                 if (item[0] && item[1] && item[2] && item[3]) {
                     console.log('user_id', item[0]);
@@ -220,18 +217,16 @@ export default function LeaveBalanceUpload() {
     const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>, leavetypeId: string) => {
         if (leavetypeId === 'all') {
             if (event.target.checked) {
-                const allleavetypeIds = itemlist.map(item => item.id);
+                const allleavetypeIds = itemlist?.map(item => item.id) || [];
                 setSelectedUseryearlyleavebalances(allleavetypeIds);
             } else {
                 setSelectedUseryearlyleavebalances([]);
             }
         } else {
             if (event.target.checked) {
-                setSelectedUseryearlyleavebalances(prevSelected => [...prevSelected, leavetypeId]);
+                setSelectedUseryearlyleavebalances(prevSelected => [...prevSelected, parseInt(leavetypeId, 10)]);
             } else {
-                setSelectedUseryearlyleavebalances(prevSelected =>
-                    prevSelected.filter(id => id !== leavetypeId)
-                );
+                setSelectedUseryearlyleavebalances(prevSelected => prevSelected.filter(id => id !== parseInt(leavetypeId, 10)));
             }
         }
     };
@@ -250,14 +245,14 @@ export default function LeaveBalanceUpload() {
         }
     };
 
-  
+
     const filteredUseryearlyleavebalance = search === "" ? itemlist : itemlist.filter((item: { firstname: string; lastname: string }) => {
         const lowerSearch = search.toLowerCase();
         return (item.firstname.toLowerCase().includes(lowerSearch) || item.lastname.toLowerCase().includes(lowerSearch));
     });
 
-    const handleFileChange = (event: { target: { files: any[]; }; }) => {
-        const selectedFile = event.target.files[0];
+    const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const selectedFile = event.target.files?.[0];
         if (selectedFile) {
             // Call a function to read the CSV file content
             readCSVFile(selectedFile);
@@ -267,20 +262,22 @@ export default function LeaveBalanceUpload() {
     const readCSVFile = (file: Blob) => {
         const reader = new FileReader();
         reader.onload = (event) => {
-            const content = event.target.result;
-            // Parse the CSV content into an array of rows and columns
-            const rows = content.split('\n').map((row: string) => row.split(','));
-            setCSVData(rows);
+            const content = event?.target?.result;
+            if (content && typeof content === 'string') {
+                // Parse the CSV content into an array of rows and columns
+                const rows = content.split('\n').map((row: string) => row.split(','));
+                setCSVData(rows);
+            }
         };
         reader.onerror = () => {
             setErrorMessage('Error reading the CSV file.');
         };
         reader.readAsText(file); // Read the file as text
-
-        console.log(csvData)
     };
 
-  
+
+
+
     return (
         <div className=' w-full rounded px-2'>
             {showDeleteMessage && (
@@ -340,7 +337,7 @@ export default function LeaveBalanceUpload() {
 
                                 <a
                                     // onClick={() => setQuickEdit(true)}
-                                    onClick={() => handleButtonClick('add', '')}
+                                    onClick={() => handleButtonClick('add', null)}
 
                                     type="button"
                                     className="block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"

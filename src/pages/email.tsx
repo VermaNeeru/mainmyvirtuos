@@ -27,7 +27,7 @@ export default function Email() {
     const [showSuccessMessage, setshowSuccessMessage] = useState<boolean>(false);
     const [showErrorMessage, setshowErrorMessage] = useState<boolean>(false);
 
-    const [templateId, setTemplateId] = useState<number>()
+    const [templateId, setTemplateId] = useState<number | null | undefined>()
     const [templateName, setTemplateName] = useState('')
     const [templateType, setTemplateType] = useState('')
     const [templateSubject, setTemplateSubject] = useState('')
@@ -35,7 +35,7 @@ export default function Email() {
     const [templateDescription, setTemplateDescription] = useState('')
     const [templateStatus, setTemplateStatus] = useState('')
 
-    const handleTemplateTypeChange = (type) => {
+    const handleTemplateTypeChange = (type: any) => {
 
         console.log(type)
         setTemplateType(type);
@@ -43,7 +43,7 @@ export default function Email() {
         // onDateChange(newDate); // Call the callback passed from parent
     };
 
-    const handleEditorContentChange = (content: boolean | ((prevState: boolean) => boolean)) => {
+    const handleEditorContentChange = (content: any | ((prevState: any) => any)) => {
         setTemplateDescription(content)
     };
 

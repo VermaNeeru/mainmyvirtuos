@@ -1,4 +1,4 @@
-import { Fragment, useState, useEffect } from 'react'
+import { Fragment, useState, useEffect, SetStateAction } from 'react'
 import { Listbox, Transition } from '@headlessui/react'
 import { Disclosure } from '@headlessui/react'
 import { Bars4Icon, CheckIcon, ChevronUpDownIcon, ChatBubbleLeftRightIcon } from '@heroicons/react/20/solid'
@@ -16,8 +16,10 @@ function classNames(...classes: any[]) {
 export default function EditEmail() {
     const router = useRouter();
     const { id } = router.query;
-    // const idInt = parseInt(id, 10);
-    const [emailId, setEmailId] = useState(parseInt(id, 10));
+    const initialEmailId = typeof id === 'string' ? parseInt(id, 10) : undefined;
+    const [emailId, setEmailId] = useState<number | undefined>(initialEmailId);
+
+    // Rest of your component...
 
     console.log(emailId)
     const viewer = [
@@ -33,7 +35,7 @@ export default function EditEmail() {
     const [showSuccessMessage, setshowSuccessMessage] = useState<boolean>(false);
     const [showErrorMessage, setshowErrorMessage] = useState<boolean>(false);
 
-    const [templateId, setTemplateId] = useState<number>()
+    const [templateId, setTemplateId] = useState<number | null | undefined>()
     const [templateName, setTemplateName] = useState('')
     const [templateType, setTemplateType] = useState('')
     const [templateSubject, setTemplateSubject] = useState('')
@@ -41,7 +43,7 @@ export default function EditEmail() {
     const [templateDescription, setTemplateDescription] = useState('')
     const [templateStatus, setTemplateStatus] = useState('')
 
-    const handleTemplateTypeChange = (type) => {
+    const handleTemplateTypeChange = (type: SetStateAction<string>) => {
 
         console.log(type)
         setTemplateType(type);
@@ -49,7 +51,7 @@ export default function EditEmail() {
         // onDateChange(newDate); // Call the callback passed from parent
     };
 
-    const handleEditorContentChange = (content: boolean | ((prevState: boolean) => boolean)) => {
+    const handleEditorContentChange = (content: any | ((prevState: any) => any)) => {
         setTemplateDescription(content)
     };
 

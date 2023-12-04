@@ -38,7 +38,7 @@ export default function ActivityPart1() {
     }, []);
 
 
-    const [openTab, setOpenTab] = useState<number>(1);
+    const [openTab, setOpenTab] = useState<number | null | undefined>(1);
 
     const { loading, error, data } = useQuery(GET_Employees);
 
@@ -81,8 +81,8 @@ export default function ActivityPart1() {
                 return person.name.toLowerCase().includes(query.toLowerCase())
             })
 
-    const handleEditorContentChange = (content: boolean | ((prevState: boolean) => boolean)) => {
-        // setMessage(content)
+    const handleEditorContentChange = (content: any | ((prevState: any) => any)) => {
+        setMessage(content)
         // This function will be called when the editor's content changes
         // console.log('Editor content in parent:', content);
         // You can also store the content in the parent's state or perform other actions

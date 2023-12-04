@@ -6,9 +6,13 @@ import { Combobox } from '@headlessui/react'
 import { useQuery, useLazyQuery, useMutation } from "@apollo/client";
 import { GET_Teams } from '@/graphql/Team/graphql';
 
+interface TeamSearchProps {
+    heading: string; // Add the heading property
+    onTeamChange: (selected: any) => void; // Replace 'any' with the actual type of 'selected'
+}
 
-
-export default function TeamSearch({ heading, onTeamChange }: any) {
+const TeamSearch: React.FC<TeamSearchProps> = ({ heading, onTeamChange }) => {
+    // export default function TeamSearch({ heading, onTeamChange }: any) {
     const people = [
         { id: 1, name: 'Alpha Team RN CX' },
         { id: 2, name: 'Alpha Team SFDC' },
@@ -55,7 +59,7 @@ export default function TeamSearch({ heading, onTeamChange }: any) {
     useEffect(() => {
         console.log(selectedPerson);
         onTeamChange(selectedPerson)
-    }, [selectedPerson])
+    }, [selectedPerson, onTeamChange])
     return (
         <div>
             <Combobox as="div" value={selectedPerson} onChange={setSelectedPerson}>
@@ -109,3 +113,4 @@ export default function TeamSearch({ heading, onTeamChange }: any) {
         </div>
     )
 }
+export default TeamSearch;

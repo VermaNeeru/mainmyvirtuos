@@ -6,15 +6,12 @@ export function useGetUserByECode(employeeCode: unknown) {
     const [executeQuery, { loading, error, data }] = useLazyQuery(GET_Officialinfo_BY_ECODE);
 
     useEffect(() => {
-        // console.log(employeeCode);
         executeQuery({ variables: { ecode: employeeCode } });
-        console.log(data);
-    }, [employeeCode]);
+    }, [employeeCode, executeQuery]);
 
-    console.log(data);
     useEffect(() => {
         if (data && data.userDetailByCode) {
-            const { userDetailByCode } = data; // Destructure the division object
+            const { userDetailByCode } = data;
             console.log('user_id', userDetailByCode.user_id);
             // setEmpUserId(userDetailByCode.user_id)
             return userDetailByCode.user_id;
@@ -24,7 +21,7 @@ export function useGetUserByECode(employeeCode: unknown) {
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error: {error.message}</p>;
 
-
-
-
+    // Note: You need to return something meaningful here, as this is a hook
+    return null;
 }
+

@@ -1,21 +1,22 @@
 import React, { useState } from 'react'
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-export default function DatePickerComp() {
-    const [startDate, setStartDate] = useState(new Date());
+interface DatePickerProps {
+    onDateChange: (date: string) => void;
+}
+
+export default function DatePickerComp({ onDateChange }: DatePickerProps) {
     const [selectedDate, setSelectedDate] = useState(new Date());
 
-    const handleDateChange = (newDate: React.SetStateAction<Date>) => {
+    const handleDateChange = (newDate: Date | null) => {
+        if (newDate) {
+            const isoDateString = newDate.toISOString();
+            const dateOnly = isoDateString.split('T')[0];
+            console.log(dateOnly);
 
-        console.log(newDate)
-        // const isoDateString = newDate.toString();
-        // const dateOnly = isoDateString.split('T')[0];
-        const dateOnly = newDate.toLocaleString();
-
-        console.log(dateOnly)
-        setSelectedDate(newDate);
-        // onDateChange(dateOnly);
-        // onDateChange(newDate); // Call the callback passed from parent
+            setSelectedDate(newDate);
+            onDateChange(dateOnly);
+        }
     };
     return (
         <div>

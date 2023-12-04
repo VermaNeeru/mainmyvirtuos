@@ -24,7 +24,7 @@ const table_header = [
 // ]
 export default function SearchOte() {
     const [search, setSearch] = useState("");
-    const [SelectedAuditlogs, setSelectedAuditlogs] = useState([]);
+    const [SelectedAuditlogs, setSelectedAuditlogs] = useState<number[]>([]);
     const [searchKeyword, setSearchKeyword] = useState('');
 
     const { loading: getAllDataLoading, error: getAllDataError, data: getAllData, refetch } = useQuery(GET_Auditlogs);

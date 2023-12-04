@@ -26,7 +26,7 @@ const modules = [
 
 export default function Modules() {
     const [search, setSearch] = useState("");
-    const [SelectedModules, setSelectedModules] = useState([]);
+    const [SelectedModules, setSelectedModules] = useState<number[]>([]);
     const [searchKeyword, setSearchKeyword] = useState('');
     const [quickEdit, setQuickEdit] = useState(false)
     const [formType, setformType] = useState('')
@@ -38,13 +38,13 @@ export default function Modules() {
 
     const cancelButtonRef = useRef(null)
 
-    const [moduleId, setmoduleId] = useState<number>()
-    const [parentId, setparentId] = useState<number>()
+    const [moduleId, setmoduleId] = useState<number | null | undefined>()
+    const [parentId, setparentId] = useState<number | null | undefined>()
     const [moduleName, setmoduleName] = useState('')
     const [moduleController, setmoduleController] = useState('')
     const [submoduleName, setsubmoduleName] = useState('')
     const [className, setclassName] = useState('')
-    const [sortorder, setsortorder] = useState('')
+    const [sortorder, setsortorder] = useState<any>()
     const [mStatus, setmStatus] = useState('')
 
 
@@ -98,7 +98,7 @@ export default function Modules() {
         }
     }
 
-    const handleButtonClick = (type: string, id: number) => {
+    const handleButtonClick = (type: string, id: number | null) => {
         setQuickEdit(true)
         setformType(type)
         console.log("id", id);
@@ -109,11 +109,11 @@ export default function Modules() {
             console.log("moduleId", moduleId);
         } else {
 
-            setparentId('');
+            setparentId(null);
             setmoduleName('');
             setsubmoduleName('');
             setmoduleController('');
-            setsortorder('');
+            setsortorder(null);
             setmStatus('');
             setmoduleId(null);
         }
@@ -187,11 +187,11 @@ export default function Modules() {
                 });
 
 
-                setparentId('');
+                setparentId(null);
                 setmoduleName('');
                 setsubmoduleName('');
                 setmoduleController('');
-                setsortorder('');
+                setsortorder(null);
                 setmStatus('');
 
                 setshowSuccessMessage(true);
@@ -219,7 +219,7 @@ export default function Modules() {
                 console.log('sortorder', sortorder)
                 console.log('mStatus', mStatus)
 
-                if (parentId === '') {
+                if (parentId == undefined || parent == null) {
                     setparentId(null);
                 }
                 console.log('parentId', parentId)
@@ -238,11 +238,11 @@ export default function Modules() {
                 });
                 console.log('response', id);
 
-                setparentId('');
+                setparentId(null);
                 setmoduleName('');
                 setsubmoduleName('');
                 setmoduleController('');
-                setsortorder('');
+                setsortorder(null);
                 setmStatus('');
 
 
@@ -269,21 +269,20 @@ export default function Modules() {
     const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>, moduleId: string) => {
         if (moduleId === 'all') {
             if (event.target.checked) {
-                const allmoduleIds = itemlist.map(item => item.id);
+                const allmoduleIds = itemlist?.map(item => item.id) || [];
                 setSelectedModules(allmoduleIds);
             } else {
                 setSelectedModules([]);
             }
         } else {
             if (event.target.checked) {
-                setSelectedModules(prevSelected => [...prevSelected, moduleId]);
+                setSelectedModules(prevSelected => [...prevSelected, parseInt(moduleId, 10)]);
             } else {
-                setSelectedModules(prevSelected =>
-                    prevSelected.filter(id => id !== moduleId)
-                );
+                setSelectedModules(prevSelected => prevSelected.filter(id => id !== parseInt(moduleId, 10)));
             }
         }
     };
+
     const handleDeletes = async () => {
         console.log('SelectedModules', SelectedModules);
         // selectedmoduleIds
@@ -365,7 +364,7 @@ export default function Modules() {
                                 </div>
                             </div>
                             <div className="mt-4 lg:ml-16 ml-0 gap-1  sm:mt-0 sm:flex-none flex lg:space-x-2">
-                                <a onClick={() => handleButtonClick('add', '')}
+                                <a onClick={() => handleButtonClick('add', null)}
                                     className="block rounded-md bg-indigo-600 px-3 py-2 text-center lg:text-sm text-xs font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                                 >
                                     Add New Module
@@ -512,8 +511,6 @@ export default function Modules() {
                                                                                                         id="location"
                                                                                                         name="location"
                                                                                                         onChange={(e) => setparentId(parseInt(e.target.value))}
-                                                                                                        value={parentId}
-
                                                                                                         className="px-2 mt-2 block w-full rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                                                                                         defaultValue="Canada"
                                                                                                     >

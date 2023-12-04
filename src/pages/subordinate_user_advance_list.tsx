@@ -21,6 +21,7 @@ const accounts_travel = [
     // More people...
 ]
 export default function SubordinateUserAdvanceList() {
+    const [empFor, setEmpFor] = useState('')
     const [selectedYear, setSelectedYear] = useState<Date | null>(null);
 
     const handleYearChange = (date: Date) => {
@@ -28,7 +29,13 @@ export default function SubordinateUserAdvanceList() {
     };
     const [trDetail, setTrDetail] = useState(false)
     const cancelButtonRef = useRef(null)
+    const handleEmpValueChange = (newValue: { id: React.SetStateAction<string>; }) => {
+        console.log(newValue);
+        if (newValue) {
+            setEmpFor(newValue.id);
+        }
 
+    };
     return (
         <div className=' w-full rounded px-2'>
             <div className="rounded-t mb-4 px-4 bg-transparent">
@@ -64,7 +71,7 @@ export default function SubordinateUserAdvanceList() {
 
                             <div className="sm:col-span-2">
                                 <div className="mt-1">
-                                    <EmployeeSearch />
+                                    <EmployeeSearch onEmpValueChange={handleEmpValueChange} heading={''} />
                                 </div>
                             </div>
                             <div className="sm:col-span-2">

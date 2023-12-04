@@ -26,7 +26,7 @@ const ideas = [
 
 export default function LeaveCategoryList() {
     const [search, setSearch] = useState("");
-    const [SelectedLeavetypes, setSelectedLeavetypes] = useState([]);
+    const [SelectedLeavetypes, setSelectedLeavetypes] = useState<number[]>([]);
     const [searchKeyword, setSearchKeyword] = useState('');
     const [quickEdit, setQuickEdit] = useState(false)
     const [formType, setformType] = useState('')
@@ -38,7 +38,7 @@ export default function LeaveCategoryList() {
 
     const cancelButtonRef = useRef(null)
 
-    const [leavetypeId, setLeavetypeId] = useState<number>()
+    const [leavetypeId, setLeavetypeId] = useState<number | null | undefined>()
     const [leavetypeName, setLeavetypeName] = useState('')
     const [mStatus, setmStatus] = useState('')
 
@@ -59,7 +59,7 @@ export default function LeaveCategoryList() {
     let itemlist: any[] = [];
 
     if (getAllData && getAllData.leavetypes) {
-        itemlist = getAllData.leavetypes.map((data) => ({
+        itemlist = getAllData.leavetypes?.map((data: any) => ({
             id: data.id,
             leave_color: data.leave_color,
             leave_type_name: data.leave_type_name,
@@ -92,18 +92,16 @@ export default function LeaveCategoryList() {
     const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>, leavetypeId: string) => {
         if (leavetypeId === 'all') {
             if (event.target.checked) {
-                const allleavetypeIds = itemlist.map(item => item.id);
+                const allleavetypeIds = itemlist?.map(item => item.id) || [];
                 setSelectedLeavetypes(allleavetypeIds);
             } else {
                 setSelectedLeavetypes([]);
             }
         } else {
             if (event.target.checked) {
-                setSelectedLeavetypes(prevSelected => [...prevSelected, leavetypeId]);
+                setSelectedLeavetypes(prevSelected => [...prevSelected, parseInt(leavetypeId, 10)]);
             } else {
-                setSelectedLeavetypes(prevSelected =>
-                    prevSelected.filter(id => id !== leavetypeId)
-                );
+                setSelectedLeavetypes(prevSelected => prevSelected.filter(id => id !== parseInt(leavetypeId, 10)));
             }
         }
     };

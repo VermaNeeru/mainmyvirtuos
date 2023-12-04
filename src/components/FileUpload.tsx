@@ -6,7 +6,7 @@ AWS.config.update({
     region: 'ap-south-1', // Set this to the correct region
 });
 
-export default function FileUpload(file, folder) {
+export default function FileUpload(file: any, folder: any) {
     const s3 = new AWS.S3();
     const timestamp = Date.now();
     const uniqueFileName = `${timestamp}_${file.name}`;

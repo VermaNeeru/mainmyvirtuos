@@ -4,8 +4,14 @@ import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
 import { Combobox } from '@headlessui/react'
 import { useQuery, useLazyQuery, useMutation } from "@apollo/client";
 import { GET_DIVISIONS } from '@/graphql/Division/queries';
+interface DivisionSearchProps {
+    heading: string; // Add the heading property
+    onDivisionChange: (selected: any) => void; // Replace 'any' with the actual type of 'selected'
+}
 
-export default function DivisionSearch({ heading, onDivisionChange }: any) {
+const DivisionSearch: React.FC<DivisionSearchProps> = ({ heading, onDivisionChange }) => {
+
+    // export default function DivisionSearch({ heading, onDivisionChange }: any) {
     const people = [
         { id: 1, name: 'Division 1' },
         { id: 1, name: 'Division 2' },
@@ -48,7 +54,7 @@ export default function DivisionSearch({ heading, onDivisionChange }: any) {
     useEffect(() => {
         console.log(selectedPerson);
         onDivisionChange(selectedPerson)
-    }, [selectedPerson])
+    }, [selectedPerson, onDivisionChange])
     return (
         <div>
             <Combobox as="div" value={selectedPerson} onChange={setSelectedPerson}>
@@ -102,3 +108,4 @@ export default function DivisionSearch({ heading, onDivisionChange }: any) {
         </div>
     )
 }
+export default DivisionSearch;

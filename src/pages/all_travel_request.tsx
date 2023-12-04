@@ -41,7 +41,7 @@ const rejected_leaves = [
 
 
 export default function SubordinateWfh() {
-    const [openTab, setOpenTab] = useState<number>(1);
+    const [openTab, setOpenTab] = useState<number | null | undefined>(1);
 
     const [leavedetail, setLeaveDetail] = useState(false)
     const [changeleavestatus, setChangeLeaveStatus] = useState(false)

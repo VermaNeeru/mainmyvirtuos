@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
-import { Chart, ChartConfiguration, ChartOptions, ChartScales } from 'chart.js';
+// import { Chart, ChartConfiguration, ChartOptions, ChartScales } from 'chart.js';
+import { Chart, ChartConfiguration, ChartOptions } from 'chart.js';
 
 const ExpenseDC2 = () => {
     const chartRef = useRef<HTMLCanvasElement | null>(null);
@@ -19,16 +20,16 @@ const ExpenseDC2 = () => {
                         backgroundColor: ['rgba(0, 123, 255, 0.8)', 'rgba(255, 99, 132, 0.8)', 'rgba(75, 192, 2, 0.8)', 'rgba(75, 192, 192, 2.8)'],
                     },
                 ],
-            },
-            options: {
-                responsive: true,
-                scales: {
-                    y: {
-                        type: 'linear',
-                        beginAtZero: true,
-                    },
-                } as ChartScales & { y: any },
-            },
+            }
+            // options: {
+            //     responsive: true,
+            //     scales: {
+            //         y: {
+            //             type: 'linear',
+            //             beginAtZero: true,
+            //         },
+            //     } as ChartScales & { y: any },
+            // },
         };
 
         const myChart = new Chart(ctx, config);

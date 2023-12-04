@@ -7,7 +7,8 @@ import { XMarkIcon, ChevronDownIcon, TrashIcon } from '@heroicons/react/20/solid
 import Alert from '@/components/Alert';
 import { useQuery, useLazyQuery, useMutation } from "@apollo/client";
 import { ADD_Tutorial_MUTATION, DELETE_Tutorial_MUTATION, GET_Tutorials, GET_Tutorial_BY_ID, REMOVE_MULTIPLE_Tutorials, UPDATE_Tutorial_MUTATION } from '@/graphql/Tutorial/queries';
-import UserData from '@/components/UserData';
+import { getUserData } from '@/components/UserData';
+
 
 const table_header = [
     { name: 'Name' },
@@ -24,7 +25,7 @@ const ideas = [
 
 export default function AllTutorial() {
     const [search, setSearch] = useState("");
-    const [SelectedTutorials, setSelectedTutorials] = useState([]);
+    const [SelectedTutorials, setSelectedTutorials] = useState<number[]>([]);
     const [searchKeyword, setSearchKeyword] = useState('');
     const [quickEdit, setQuickEdit] = useState(false)
     const [formType, setformType] = useState('')
@@ -36,9 +37,9 @@ export default function AllTutorial() {
 
     const cancelButtonRef = useRef(null)
 
-    const [tutorialId, setTutorialId] = useState<number>()
-    const userData = UserData();
-    const [userId, setUserId] = useState<number>(userData.id)
+    const [tutorialId, setTutorialId] = useState<number | null>()
+    const userData = getUserData();
+    const [userId, setUserId] = useState<number | null | undefined>(userData?.id)
     const [tutorialName, setTutorialName] = useState('')
     const [tutorialAttachment, setTutorialAttachment] = useState('')
     const [mStatus, setmStatus] = useState('')
@@ -61,7 +62,7 @@ export default function AllTutorial() {
     let itemlist: any[] = [];
 
     if (getAllData && getAllData.tutorials) {
-        itemlist = getAllData.tutorials.map((data: { id: any; tutorial_name: any; status: any; }) => ({
+        itemlist = getAllData.tutorials.map((data: { id: any; user_id: any; user: { firstname: any; lastname: any; }; tutorial_name: any; attachment: any; status: any; }) => ({
             id: data.id,
             user_id: data.user_id,
             firstname: data.user.firstname,
@@ -90,7 +91,7 @@ export default function AllTutorial() {
         }
     }
 
-    const handleButtonClick = (type: string, id: number) => {
+    const handleButtonClick = (type: string, id: number | null) => {
         setQuickEdit(true)
         setformType(type)
         console.log("id", id);
@@ -226,18 +227,16 @@ export default function AllTutorial() {
     const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>, tutorialId: string) => {
         if (tutorialId === 'all') {
             if (event.target.checked) {
-                const alltutorialIds = itemlist.map(item => item.id);
+                const alltutorialIds = itemlist?.map(item => item.id) || [];
                 setSelectedTutorials(alltutorialIds);
             } else {
                 setSelectedTutorials([]);
             }
         } else {
             if (event.target.checked) {
-                setSelectedTutorials(prevSelected => [...prevSelected, tutorialId]);
+                setSelectedTutorials(prevSelected => [...prevSelected, parseInt(tutorialId, 10)]);
             } else {
-                setSelectedTutorials(prevSelected =>
-                    prevSelected.filter(id => id !== tutorialId)
-                );
+                setSelectedTutorials(prevSelected => prevSelected.filter(id => id !== parseInt(tutorialId, 10)));
             }
         }
     };
@@ -322,7 +321,7 @@ export default function AllTutorial() {
                                 </div>
                             </div>
                             <div className="mt-4 lg:ml-16 ml-0 sm:mt-0 sm:flex-none">
-                                <a onClick={() => handleButtonClick('add', '')}
+                                <a onClick={() => handleButtonClick('add', null)}
                                     className="block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                                 >
                                     Add New Tutorial

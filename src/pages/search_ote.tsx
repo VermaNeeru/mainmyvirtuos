@@ -19,6 +19,18 @@ const accounts_travel = [
     // More people...
 ]
 export default function SearchOte() {
+    const [stateDate, setStateDate] = useState('');
+    const [endDate, setEndDate] = useState('');
+    const handleStartDateChange = (newDate: any) => {
+        setStateDate(newDate); // Update parent component's state
+        console.log(newDate)
+
+    };
+    const handleEndDateChange = (newDate: any) => {
+        setEndDate(newDate); // Update parent component's state
+        console.log(newDate)
+
+    };
     return (
         <div className=' w-full rounded px-2'>
             <div className="rounded-t mb-4 px-4 bg-transparent">
@@ -41,7 +53,7 @@ export default function SearchOte() {
                                     From Date
                                 </label>
                                 <div className="mt-3">
-                                    <DatePickerComp />
+                                    <DatePickerComp onDateChange={handleStartDateChange} />
                                 </div>
                             </div>
                             <div className="sm:col-span-2">
@@ -49,7 +61,7 @@ export default function SearchOte() {
                                     To Date
                                 </label>
                                 <div className="mt-3">
-                                    <DatePickerComp />
+                                    <DatePickerComp onDateChange={handleEndDateChange} />
                                 </div>
                             </div>
                             <div className="sm:col-span-2">

@@ -1,6 +1,6 @@
 import AssetSearch from '@/components/AssetSearch'
 import EmployeeSearch from '@/components/EmployeeSearch'
-import React from 'react'
+import React, { useState } from 'react'
 import { TableCellsIcon } from '@heroicons/react/20/solid'
 
 const table_header = [
@@ -33,6 +33,14 @@ const asset = [
 
 
 export default function AssetReport() {
+    const [empFor, setEmpFor] = useState('')
+    const handleEmpValueChange = (newValue: { id: React.SetStateAction<string>; }) => {
+        console.log(newValue);
+        if (newValue) {
+            setEmpFor(newValue.id);
+        }
+
+    };
     return (
         <div className=' w-full rounded px-2'>
             <div className="rounded-t mb-4 px-4 bg-transparent">
@@ -52,7 +60,7 @@ export default function AssetReport() {
                             <div className="border-b border-gray-900/10 pb-4">
                                 <div className="mt-2 grid lg:grid-cols-3 grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-6">
                                     <div className="sm:col-span-1">
-                                        <EmployeeSearch heading="Employee Name" />
+                                        <EmployeeSearch onEmpValueChange={handleEmpValueChange} heading="Employee Name" />
                                     </div>
 
                                     <div className="sm:col-span-1">

@@ -24,7 +24,7 @@ const ideas = [
 
 export default function DivisionList() {
     const [search, setSearch] = useState("");
-    const [selectedDivisions, setSelectedDivisions] = useState([]);
+    const [selectedDivisions, setSelectedDivisions] = useState<number[]>([]);
     const [searchKeyword, setSearchKeyword] = useState('');
     const [showDeleteMessage, setshowDeleteMessage] = useState(false);
     const [showDeletedMessage, setshowDeletedMessage] = useState(false);
@@ -34,7 +34,7 @@ export default function DivisionList() {
     const [divisionCode, setDivisionCode] = useState('')
     const [divisionColor, setDivisionColor] = useState('')
     const [divisionStatus, setDivisionStatus] = useState('')
-    const [divisionId, setDivisionId] = useState<number>()
+    const [divisionId, setDivisionId] = useState<number | null>()
 
     const [dnameError, setDnameError] = useState(false);
     const [dcodeError, setDcodeError] = useState(false);
@@ -100,7 +100,7 @@ export default function DivisionList() {
             }
         }
     }
-    const handleButtonClick = (type: string, id: number) => {
+    const handleButtonClick = (type: string, id: number | null) => {
         setQuickEdit(true)
         setformType(type)
         console.log("id", id);
@@ -241,18 +241,16 @@ export default function DivisionList() {
     const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>, divisionId: string) => {
         if (divisionId === 'all') {
             if (event.target.checked) {
-                const allDivisionIds = itemlist.map(item => item.id);
-                setSelectedDivisions(allDivisionIds);
+                const alldivisionIds = itemlist?.map(item => item.id) || [];
+                setSelectedDivisions(alldivisionIds);
             } else {
                 setSelectedDivisions([]);
             }
         } else {
             if (event.target.checked) {
-                setSelectedDivisions(prevSelected => [...prevSelected, divisionId]);
+                setSelectedDivisions(prevSelected => [...prevSelected, parseInt(divisionId, 10)]);
             } else {
-                setSelectedDivisions(prevSelected =>
-                    prevSelected.filter(id => id !== divisionId)
-                );
+                setSelectedDivisions(prevSelected => prevSelected.filter(id => id !== parseInt(divisionId, 10)));
             }
         }
     };
@@ -406,7 +404,7 @@ export default function DivisionList() {
 
                                 <a
                                     // onClick={() => setQuickEdit(true)}
-                                    onClick={() => handleButtonClick('add', '')}
+                                    onClick={() => handleButtonClick('add', null)}
                                     className="block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                                 >
                                     Add New Divison

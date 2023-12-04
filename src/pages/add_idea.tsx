@@ -9,7 +9,8 @@ import { useQuery, useLazyQuery, useMutation } from "@apollo/client";
 import { ADD_Notification_MUTATION } from '@/graphql/Notification/queries';
 import { ADD_Idea_MUTATION, GET_Idea_BY_ID, DELETE_Idea_MUTATION, GET_Ideas, REMOVE_MULTIPLE_Ideas } from '@/graphql/Idea/queries';
 import { GET_Faqs } from '@/graphql/Faq/queries';
-import UserData from '@/components/UserData';
+import { getUserData } from '@/components/UserData';
+
 const faqs = [
     {
         question: "Who can you send Ideas ?",
@@ -28,15 +29,15 @@ export default function AddIdea() {
     const [showSuccessMessage, setshowSuccessMessage] = useState<boolean>(false);
     const [showErrorMessage, setshowErrorMessage] = useState<boolean>(false);
 
-    const [ideaId, setIdeaId] = useState<number>()
+    const [ideaId, setIdeaId] = useState<number | null | undefined>()
     const [ideaForAll, setIdeaForAll] = useState('')
     const [ideaFor, setIdeaFor] = useState('')
     const [ideaCategory, setIdeaCategory] = useState('')
-    const [ideaDescription, setIdeaDescription] = useState('')
+    const [ideaDescription, setIdeaDescription] = useState<any>()
     const [ideaSubmitType, setIdeaSubmitType] = useState('')
-    const userData = UserData();
-    // const [userId, setUserId] = useState<number>(1)
-    const [userId, setUserId] = useState<number>(userData.id)
+    const userData = getUserData();
+    // const [userId, setUserId] = useState<number | null | undefined>(1)
+    const [userId, setUserId] = useState<number | undefined>(userData?.id)
     const [userName, setUserNd] = useState('Neeru')
 
     const { loading: getFAQAllDataLoading, error: getFAQAllDataError, data: getFAQAllData } = useQuery(GET_Faqs);
@@ -70,7 +71,7 @@ export default function AddIdea() {
     //     // onDateChange(newDate); // Call the callback passed from parent
     // };
 
-    const handleEditorContentChange = (content: boolean | ((prevState: boolean) => boolean)) => {
+    const handleEditorContentChange = (content: any | ((prevState: any) => any)) => {
         setIdeaDescription(content)
     };
 
@@ -97,7 +98,7 @@ export default function AddIdea() {
     const handleCatValueChange = (newValue1: { id: React.SetStateAction<string>; }) => {
         console.log(newValue1);
         if (newValue1) {
-            setIdeaCategory(newValue1.name);
+            setIdeaCategory(newValue1?.id);
         }
 
     };
@@ -112,9 +113,10 @@ export default function AddIdea() {
         // setIdeaFor(newValue.id);
     };
 
-    const handleSubmit = async (e: { preventDefault: () => void }) => {
-        console.log(e);
-        const type = e;
+    // const handleSubmit = async (e: { preventDefault: () => void }) => {
+    const handleSubmit = async (action: string) => {
+        console.log(action);
+        const type = action;
         console.log('called');
         (!ideaDescription) ? setAError(true) : setAError(false);
         (!ideaCategory) ? setBError(true) : setBError(false);

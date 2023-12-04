@@ -29,7 +29,7 @@ export default function Notification({ message, alertState, onAlertStateChange }
         setIsAlertVisible(!isAlertVisible);
         setShow(false);
         // Call the function passed from DivisionList to update alertState
-        onAlertStateChange(!isAlertVisible);
+        // onAlertStateChange(!isAlertVisible);
     };
 
     return (

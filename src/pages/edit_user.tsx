@@ -19,8 +19,8 @@ import AddEducation from '@/components/BasicInfo/AddEducation';
 import AddWorkExp from '@/components/BasicInfo/AddWorkExp';
 
 export default function AllLeaves() {
-    const [openTab, setOpenTab] = useState<number>(1);
-    const [openTabFamily, setOpenTabFamily] = useState<number>(1);
+    const [openTab, setOpenTab] = useState<number | null | undefined>(1);
+    const [openTabFamily, setOpenTabFamily] = useState<number | null | undefined>(1);
 
     const [leavedetail, setLeaveDetail] = useState(false)
     const [addSkills, setAddSkills] = useState(false)
@@ -29,7 +29,18 @@ export default function AllLeaves() {
 
     const [showUpdateMessage, setshowUpdateMessage] = useState(false);
     const [showDeleteMessage, setshowDeleteMessage] = useState(false);
+    const [dob, setDob] = useState('');
+    const [doj, setDoj] = useState('');
+    const handleDobDateChange = (newDate: any) => {
+        setDob(newDate); // Update parent component's state
+        console.log(newDate)
 
+    };
+    const handleDojChange = (newDate: any) => {
+        setDoj(newDate); // Update parent component's state
+        console.log(newDate)
+
+    };
     useEffect(() => {
         const timer = setTimeout(() => {
             console.log('update', showUpdateMessage)
@@ -480,7 +491,7 @@ export default function AllLeaves() {
                                                                     <label htmlFor="start-date" className="block text-sm font-medium leading-6 text-gray-700">
                                                                         DOB (YYYY-MM-DD)*
                                                                     </label>
-                                                                    <DatePickerComp />
+                                                                    <DatePickerComp onDateChange={handleDobDateChange} />
                                                                 </div>
                                                             </div>
                                                             <div className="sm:col-span-1">
@@ -578,7 +589,7 @@ export default function AllLeaves() {
                                                                     <label htmlFor="start-date" className="block text-sm font-medium leading-6 text-gray-700">
                                                                         DOJ(YYYY-MM-DD)
                                                                     </label>
-                                                                    <DatePickerComp />
+                                                                    <DatePickerComp onDateChange={handleDojChange} />
                                                                 </div>
                                                             </div>
 

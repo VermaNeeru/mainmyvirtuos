@@ -8,7 +8,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import YearViewCalendar from '@/components/Calendar/YearViewCalendar'
 import HolidaysList from '@/components/HolidaysList'
 export default function LeaveCalendar() {
-    const [openTab, setOpenTab] = useState<number>(1);
+    const [openTab, setOpenTab] = useState<number | null | undefined>(1);
 
     const [selectedYear, setSelectedYear] = useState<Date | null>(null);
 

@@ -5,8 +5,15 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
 export default function MyLeaveCalendar() {
+    const [empFor, setEmpFor] = useState('')
     const [selectMonth, setSelectMonth] = useState(new Date());
-    return (
+    const handleEmpValueChange = (newValue: { id: React.SetStateAction<string>; }) => {
+        console.log(newValue);
+        if (newValue) {
+            setEmpFor(newValue.id);
+        }
+
+    }; return (
         <div className=' w-full rounded px-2'>
             <div className="rounded-t mb-4 px-4 bg-transparent">
                 <div className="flex flex-wrap items-center">
@@ -34,7 +41,7 @@ export default function MyLeaveCalendar() {
                                         <div className="mt-2 grid grid-cols-1 gap-x-6 lg:gap-y-4 gap-y-2 sm:grid-cols-6">
                                             <div className="sm:col-span-6">
                                                 <div className="mt-1">
-                                                    <EmployeeSearch />
+                                                    <EmployeeSearch onEmpValueChange={handleEmpValueChange} heading={''} />
 
                                                 </div>
                                             </div>

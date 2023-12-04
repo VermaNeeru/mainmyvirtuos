@@ -11,6 +11,7 @@ function classNames(...classes: any[]) {
     return classes.filter(Boolean).join(' ')
 }
 export default function AddDocument() {
+    const [empFor, setEmpFor] = useState('')
     const viewer = [
         { id: 1, name: 'Choose Viewer' },
         { id: 2, name: 'HR' },
@@ -18,6 +19,14 @@ export default function AddDocument() {
         { id: 4, name: 'Accounts' },
     ]
     const [selected, setSelected] = useState(viewer[0])
+    const handleEmpValueChange = (newValue: { id: React.SetStateAction<string>; }) => {
+        console.log(newValue);
+        if (newValue) {
+            setEmpFor(newValue.id);
+        }
+
+    };
+
     return (
         <div className=' w-full rounded px-2'>
             <div className="rounded-t mb-4 px-4 bg-transparent">
@@ -55,7 +64,7 @@ export default function AddDocument() {
                                 <div className="border-b border-gray-900/10 pb-4">
                                     <div className="mt-2 grid grid-cols-1 gap-x-6 lg:gap-y-4 gap-y-2 lg:grid-cols-2">
                                         <div className="sm:col-span-1">
-                                            <EmployeeSearch heading="For :" />
+                                            <EmployeeSearch onEmpValueChange={handleEmpValueChange} heading="For :" />
                                             <div className="lg:flex lg:space-x-2 mt-2">
                                                 <input
                                                     id="comments"

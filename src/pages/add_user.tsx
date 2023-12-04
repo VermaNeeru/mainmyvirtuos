@@ -6,7 +6,7 @@ import DivisionSearch from '@/components/DivisionSearch'
 import ManagerSearch from '@/components/ManagerSearch'
 import RoleSearch from '@/components/RoleSearch'
 import TeamSearch from '@/components/TeamSearch'
-import UserData from '@/components/UserData'
+
 import { useQuery, useLazyQuery, useMutation } from "@apollo/client";
 import { GET_USER_TYPES } from '@/graphql/Usertype/queries'
 import { ADD_USER_MUTATION } from '@/graphql/User/queries'
@@ -15,11 +15,12 @@ import Alert from '@/components/Alert'
 import { parse, format } from 'date-fns';
 import { ADD_Officialinfo_MUTATION } from '@/graphql/Officialinfo/queries'
 import { GET_USER_ACCESS_TYPES } from '@/graphql/Useraccesstype/queries'
+import { getUserData } from '@/components/UserData'
 
 export default function AddUser() {
-    const userData = UserData();
-    // const [userId, setUserId] = useState<number>(1)
-    const [userId, setUserId] = useState<number>(userData.id)
+    const userData = getUserData();
+    // const [userId, setUserId] = useState<number | null | undefined>(1)
+    const [userId, setUserId] = useState<number | undefined>(userData?.id);
     // const name = `${userData.firstname}.${userData.lastname}`;
     const [username, setUsername] = useState<string>('');
     const [password, setPassword] = useState<string>('');
@@ -55,14 +56,14 @@ export default function AddUser() {
     const [email, setEmail] = useState<string>('');
     const [designation, setDesignation] = useState<string>('');
     const [departmentId, setDepartmentId] = useState<string>('');
-    const [divisionId, setDivisionId] = useState<number>();
-    const [roleId, setRoleId] = useState<number>();
+    const [divisionId, setDivisionId] = useState<number | null>();
+    const [roleId, setRoleId] = useState<number | null>();
     const [doj, setDoj] = useState('');
-    const [managerId1, setManagerId1] = useState<number>();
-    const [managerId2, setManagerId2] = useState<number>();
-    const [userTypeId, setUserTypeId] = useState<number>(3);
-    const [userAccessTypeId, setUserAccessTypeId] = useState<number>(4);
-    const [EmployeeAccess, setEmployeeAccess] = useState<number>();
+    const [managerId1, setManagerId1] = useState<number | null>();
+    const [managerId2, setManagerId2] = useState<number | null>();
+    const [userTypeId, setUserTypeId] = useState<number | null>(3);
+    const [userAccessTypeId, setUserAccessTypeId] = useState<number | null>(4);
+    const [EmployeeAccess, setEmployeeAccess] = useState<number | null>();
     const [userStatus, setUserStatus] = useState('Inactive');
     const [team, setTeam] = useState<string>();
     const [showSuccessMessage, setshowSuccessMessage] = useState<boolean>(false);
@@ -181,6 +182,7 @@ export default function AddUser() {
         console.log('userAccessTypeId', userAccessTypeId)
         console.log('extn', extn)//createUser
         const dateObject = parse(doj, 'dd/MM/yyyy', new Date());
+        let error;
 
         (!username) ? setUnameError(true) : setUnameError(false);
         (!password) ? setPasswordError(true) : setPasswordError(false);
@@ -192,10 +194,16 @@ export default function AddUser() {
         (!doj) ? setDojError(true) : setDojError(false);
         (!managerId1) ? setManager1Error(true) : setManager1Error(false);
 
+        if (!username || !password || !firstname || !lastname || !employeeCode || !email || !roleId || !doj || !managerId1) {
+            error = true;
+        }
 
-        if (unameError == true || passwordError == true || fnameError == true || lnameError == true || ecodeError == true || emailError == true || roleError == true || dojError == true || manager1Error == true) {
+        // if (unameError == true || passwordError == true || fnameError == true || lnameError == true || ecodeError == true || emailError == true || roleError == true || dojError == true || manager1Error == true) {
+        if (error == true) {
+            console.log('true');
             return;
         } else {
+            console.log('false');
             (!username) ? setUnameError(true) : setUnameError(false);
             (!password) ? setPasswordError(true) : setPasswordError(false);
             (!firstname) ? setFnameError(true) : setFnameError(false);
@@ -553,16 +561,16 @@ export default function AddUser() {
                                 </div>
                                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-6 lg:gap-y-4 gap-y-2 mt-2">
                                     <div className="sm:col-span-1">
-                                        <TeamSearch onTeamChange={handleTeamChange} />
+                                        <TeamSearch onTeamChange={handleTeamChange} heading={''} />
                                     </div>
                                     <div className="sm:col-span-1">
-                                        <DepartmentSearch onDepartmentChange={handleDepartmentChange} />
+                                        <DepartmentSearch onDepartmentChange={handleDepartmentChange} heading={''} />
                                     </div>
                                     <div className="sm:col-span-1">
-                                        <DivisionSearch onDivisionChange={handleDivisionChange} />
+                                        <DivisionSearch onDivisionChange={handleDivisionChange} heading={''} />
                                     </div>
                                     <div className="sm:col-span-1">
-                                        <RoleSearch onRoleChange={handleRoleChange} />
+                                        <RoleSearch onRoleChange={handleRoleChange} heading={''} />
                                         {roleError && <p className="text-red-500 text-xs" >*Role is required</p>}
                                     </div>
                                 </div>
