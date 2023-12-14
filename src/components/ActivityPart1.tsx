@@ -216,14 +216,22 @@ export default function ActivityPart1() {
         <div className="flex ">
             <div className="lg:-pt-20">
                 {showSuccessMessage && (
-                    <Alert message="Message Added Successfully!" alertState={false} onAlertStateChange={function (newState: boolean): void {
-                        throw new Error("Function not implemented.");
-                    } } />
+                    // <Alert message="Message Added Successfully!" alertState={false} onAlertStateChange={function (newState: boolean): void {
+                    //     throw new Error("Function not implemented.");
+                    // } } />
+
+                    <Alert message="Message Added Successfully!" />
+
+
                 )}
                 {showErrorMessage && (
-                    <Alert message="Something went wrong!" alertState={false} onAlertStateChange={function (newState: boolean): void {
-                        throw new Error("Function not implemented.");
-                    } } />
+                    // <Alert message="Something went wrong!" alertState={false} onAlertStateChange={function (newState: boolean): void {
+                    //     throw new Error("Function not implemented.");
+                    // }} />
+
+                    <Alert message="Something went wrong!" />
+
+
                 )}
             </div>
 

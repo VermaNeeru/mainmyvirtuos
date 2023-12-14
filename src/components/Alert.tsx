@@ -4,11 +4,11 @@ import { CheckCircleIcon } from "@heroicons/react/24/outline";
 import { XMarkIcon } from "@heroicons/react/20/solid";
 interface NotificationProps {
     message: string;
-    alertState: boolean;
-    onAlertStateChange: (newState: boolean) => void;
+    // alertState: boolean;
+    // onAlertStateChange: (newState: boolean) => void;
 }
-export default function Notification({ message, alertState, onAlertStateChange }: NotificationProps) {
-// export default function Notification({ message }: NotificationProps) {
+// export default function Notification({ message, alertState, onAlertStateChange }: NotificationProps) {
+export default function Notification({ message }: NotificationProps) {
     const [show, setShow] = useState(true);
     useEffect(() => {
         const timer = setTimeout(() => {
