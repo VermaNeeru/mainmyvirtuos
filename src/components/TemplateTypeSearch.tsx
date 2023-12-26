@@ -5,7 +5,7 @@ import { Combobox } from '@headlessui/react'
 export default function TemplateTypeSearch({ heading, handleTemplateTypeChange, updateData }: any) {
     console.log('type', updateData)
     const [query, setQuery] = useState('')
-    const [selectedState, setSelectedState] = useState(null)
+    const [selectedState, setSelectedState] = useState<any>('')
     // useEffect(() => {
     //     setSelectedState(updateData)
     // }, [updateData])
@@ -83,7 +83,13 @@ export default function TemplateTypeSearch({ heading, handleTemplateTypeChange, 
         { id: 62, name: 'Annual Review Reminder' },
         { id: 63, name: 'Pending Issues' },
     ];
-
+    useEffect(() => {
+        const matchingTemplate = template_type.find(template => (
+            template.name === updateData
+        ));
+        console.log(matchingTemplate);
+        setSelectedState(matchingTemplate)
+    }, [updateData])
     // const matchingTemplate = template_type.find(template => (
     //     template.name === updateData
     // ));

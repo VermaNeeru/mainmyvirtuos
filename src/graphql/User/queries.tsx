@@ -34,6 +34,53 @@ mutation GetPublicDocumentsByUserId($userId: Float!) {
 }
 
 `;
+export const GET_USER_BY_ID = gql`
+query Getuser($id:Int!){
+  getuser(id: $id) {
+    id
+    officialemail
+    username
+    extn
+    education
+    role{
+      id
+    }
+    gender
+    accesstype{
+      id
+      access_type_name
+    }
+    firstname
+    lastname
+    username
+    userlogonhours{
+      id
+      user_logon_hours_logon_hours
+      
+    }
+    userattendences{
+      id
+      late_hours
+      shortfall
+      early_hours
+      excess_hours
+      employee_code
+      employee_name
+      employee_department
+      notes
+      swipe_in
+      swipe_out
+      shortfall
+      source_id
+      late_hours
+    }
+    officialemail
+    hobbies
+    cdate
+  }
+}
+
+`;
 export const GET__DOCUMENTS_BY_ID = gql`
 query Document($id:Int!){
   documentupload(id: $id) {

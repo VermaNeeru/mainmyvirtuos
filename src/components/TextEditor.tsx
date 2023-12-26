@@ -61,7 +61,7 @@ export default function TextEditor({ onEditorContentChange, updateData }: any) {
     return (
         <div className='h-72'>
             <QuillNoSSRWrapper
-                // {...(updateData !== '' && { value: updateData })}
+                {...(updateData && updateData !== '' && { value: updateData })}
                 modules={modules}
                 formats={formats}
                 theme="snow"
