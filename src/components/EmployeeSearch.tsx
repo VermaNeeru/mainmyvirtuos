@@ -127,22 +127,58 @@ import { GET_Employees } from '@/graphql/User/queries';
 import { useQuery } from '@apollo/client';
 import { PhotoIcon, UserCircleIcon } from '@heroicons/react/24/solid'
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
+import { Combobox } from '@headlessui/react'
+import { useMutation, useQuery } from "@apollo/client";
+import { GET_Employees } from '@/graphql/User/queries';
 interface EmployeeSearchProps {
   heading: string; // Add the heading property
   onEmpValueChange: (selected: any) => void; // Replace 'any' with the actual type of 'selected'
 }
 
 const EmployeeSearch: React.FC<EmployeeSearchProps> = ({ heading, onEmpValueChange }) => {
+  // export default function EmployeeSearch({ heading = () => { }, onEmpValueChange = () => { } }: any) {
+
   const { loading, error, data } = useQuery(GET_Employees);
 
-  let people = [];
+  console.log("users", data);
+
+  type Employee = {
+    id: any;
+    firstname: any;
+    lastname: any;
+  };
+
+  // Assuming you have a type for the data structure
+  type Data = {
+    getalluser: Employee[];
+    // Add other properties as needed
+  };
+
+  // Initialize people array with a type
+  let people: { id: any; name: string }[] = [{ id: 1, name: 'all' }];
 
   if (data && data.getalluser) {
-    people = data.getalluser.map((employee: { id: any; firstname: any; lastname: any }) => ({
-      id: employee.id,
-      name: `${employee.firstname} ${employee.lastname}`,
-    }));
+    // Update people array using the spread operator to include existing elements
+    people = [
+      ...people,
+      ...data.getalluser.map((employee: Employee) => ({
+        id: employee.id,
+        name: `${employee.firstname} ${employee.lastname}`,
+      }))
+    ];
   }
+
+  console.log("users", people);
+  // const people = [
+  //     { id: 1, name: 'Shivam Chawla' },
+  //     { id: 2, name: 'Neeru Verma' },
+  //     { id: 3, name: 'Poorva Sharma' },
+  //     { id: 4, name: 'Sarika Sharma' },
+  //     { id: 5, name: 'Bhumika' },
+  //     { id: 6, name: 'Gagan' },
+  //     // More users...
+  // ]
+
 
   function classNames(...classes: any) {
     return classes.filter(Boolean).join(' ');
@@ -155,8 +191,8 @@ const EmployeeSearch: React.FC<EmployeeSearchProps> = ({ heading, onEmpValueChan
     query === ''
       ? people
       : people.filter((person: { name: string; }) => {
-          return person.name.toLowerCase().includes(query.toLowerCase());
-        });
+        return person.name.toLowerCase().includes(query.toLowerCase());
+      });
 
   useEffect(() => {
     onEmpValueChange(selectedPerson);
@@ -168,7 +204,7 @@ const EmployeeSearch: React.FC<EmployeeSearchProps> = ({ heading, onEmpValueChan
         as="div"
         value={selectedPerson}
         onChange={setSelectedPerson}
-        // onChange={(e) => handleChange(e.target.value)}
+      // onChange={(e) => handleChange(e.target.value)}
       >
         {heading && heading === 'hidden' ? (
           <></>
