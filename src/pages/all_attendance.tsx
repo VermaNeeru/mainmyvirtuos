@@ -97,7 +97,7 @@ export default function AllAttendance() {
             executeQuery({ variables: { id: userattendanceId } });
             // console.log(getDivisionById);
         }
-    }, [userattendanceId]);
+    }, [userattendanceId ,executeQuery]);
 
     useEffect(() => {
         if (getUserattendanceById && getUserattendanceById.userattendence) {

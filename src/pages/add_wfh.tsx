@@ -108,7 +108,7 @@ export default function AddWfh() {
         };
 
         fetchData();  // Call the fetchData function
-    }, []);
+    }, [authToken, executeQuery, executeQueryforfaq, getofficialinfobyuser,wfhFaq]);
     useEffect(() => {
         console.log('Form Values:', formValues);
     }, [formValues]);

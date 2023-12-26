@@ -122,7 +122,7 @@ export default function LeaveRule() {
             executeQuery({ variables: { id: leaveruleId } });
             console.log(getQueryById);
         }
-    }, [leaveruleId]);
+    }, [leaveruleId,getQueryById,executeQuery]);
 
     console.log(getQueryById);
     useEffect(() => {
@@ -137,7 +137,7 @@ export default function LeaveRule() {
             console.log('ruleName', ruleName)
 
         }
-    }, [getQueryById]);
+    }, [getQueryById,ruleName]);
 
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error: {error.message}</p>;
@@ -315,17 +315,25 @@ export default function LeaveRule() {
     return (
         <div className=' w-full rounded px-2'>
             {showDeleteMessage && (
-                <Alert message="Are you sure you want to delete these Leave Rule(s)?" />
+                <Alert message="Are you sure you want to delete these Leave Rule(s)?" alertState={false} onAlertStateChange={function (newState: boolean): void {
+                    throw new Error('Function not implemented.');
+                } } />
             )}
             {showSuccessMessage && (
                 // <Alert message="Division Added Successfully!" alertState={alertState} onAlertStateChange={handleAlertStateChange} />
-                <Alert message="Leave Rule Added Successfully!" />
+                <Alert message="Leave Rule Added Successfully!" alertState={false} onAlertStateChange={function (newState: boolean): void {
+                    throw new Error('Function not implemented.');
+                } } />
             )}
             {showErrorMessage && (
-                <Alert message="Something went wrong!" />
+                <Alert message="Something went wrong!" alertState={false} onAlertStateChange={function (newState: boolean): void {
+                    throw new Error('Function not implemented.');
+                } } />
             )}
             {showDeletedMessage && (
-                <Alert message="Leave Rule Deleted Successfully!" />
+                <Alert message="Leave Rule Deleted Successfully!" alertState={false} onAlertStateChange={function (newState: boolean): void {
+                    throw new Error('Function not implemented.');
+                } } />
             )}
             <div className="rounded-t mb-4 px-4 bg-transparent">
                 <div className="flex flex-wrap items-center">

@@ -93,7 +93,7 @@ export default function AddLeaveCategory() {
             executeQuery({ variables: { id: leavetypeId } });
             console.log(getQueryById);
         }
-    }, [leavetypeId]);
+    }, [leavetypeId,getQueryById,executeQuery]);
 
     console.log(getQueryById);
     useEffect(() => {
@@ -247,7 +247,9 @@ export default function AddLeaveCategory() {
         <div className=' w-full rounded px-2'>
             {showSuccessMessage && (
                 // <Alert message="Division Added Successfully!" alertState={alertState} onAlertStateChange={handleAlertStateChange} />
-                <Alert message="Leavetype Added Successfully!" />
+                <Alert message="Leavetype Added Successfully!" alertState={false} onAlertStateChange={function (newState: boolean): void {
+                    throw new Error('Function not implemented.');
+                } } />
             )}
             <div className="rounded-t mb-4 px-4 bg-transparent">
                 <div className="flex flex-wrap items-center">

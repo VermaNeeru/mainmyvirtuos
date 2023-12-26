@@ -148,7 +148,7 @@ export default function Faq() {
             executeQuery({ variables: { id: faqId } });
             console.log(getQueryById);
         }
-    }, [faqId]);
+    }, [faqId,getQueryById,executeQuery]);
 
     console.log(getQueryById);
     useEffect(() => {
@@ -313,17 +313,25 @@ export default function Faq() {
     return (
         <div className=' w-full rounded px-2'>
             {showDeleteMessage && (
-                <Alert message="Are you sure you want to delete these FAQ(s)?" />
+                <Alert message="Are you sure you want to delete these FAQ(s)?" alertState={false} onAlertStateChange={function (newState: boolean): void {
+                    throw new Error('Function not implemented.');
+                } } />
             )}
             {showSuccessMessage && (
                 // <Alert message="Division Added Successfully!" alertState={alertState} onAlertStateChange={handleAlertStateChange} />
-                <Alert message="FAQ Added Successfully!" />
+                <Alert message="FAQ Added Successfully!" alertState={false} onAlertStateChange={function (newState: boolean): void {
+                    throw new Error('Function not implemented.');
+                } } />
             )}
             {showErrorMessage && (
-                <Alert message="Something went wrong!" />
+                <Alert message="Something went wrong!" alertState={false} onAlertStateChange={function (newState: boolean): void {
+                    throw new Error('Function not implemented.');
+                } } />
             )}
             {showDeletedMessage && (
-                <Alert message="FAQ Deleted Successfully!" />
+                <Alert message="FAQ Deleted Successfully!" alertState={false} onAlertStateChange={function (newState: boolean): void {
+                    throw new Error('Function not implemented.');
+                } } />
             )}
             <div className="rounded-t mb-4 px-4 bg-transparent">
                 <div className="flex flex-wrap items-center">

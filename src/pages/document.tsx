@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from 'react'
+import React, { Fragment, useCallback, useEffect, useState } from 'react'
 import Link from 'next/link';
 import { MagnifyingGlassIcon, ChevronDownIcon } from '@heroicons/react/20/solid'
 import { useMutation, useQuery } from '@apollo/client';
@@ -32,23 +32,38 @@ export default function Document() {
     const [searchQuery, setSearchQuery] = useState<string>('');
     console.log("GraphQL Query:", GET_PUBLIC_DOCUMENTS_BY_ID?.loc?.source?.body);
 
-    const fetchPublicDocuments = async (userId: any) => {
+    // const fetchPublicDocuments = async (userId: any) => {
+    //     console.log(userId);
+    //     try {
+    //         const result = await getPublicDocuments({
+    //             variables: {
+    //                 userId, // Pass the userId variable here
+    //             },
+    //         });
+
+    //         // Extract the documents from the result and update the state
+    //         setDocuments(result.data.getPublicDocumentsByUserId);
+    //         console.log('Data:', result);
+    //     } catch (e: any) {
+    //         // Handle any errors
+    //         console.error('Error:', e.message);
+    //     }
+    // };
+    const fetchPublicDocuments = useCallback(async (userId: any) => {
         console.log(userId);
         try {
-            const result = await getPublicDocuments({
-                variables: {
-                    userId, // Pass the userId variable here
-                },
-            });
-
-            // Extract the documents from the result and update the state
-            setDocuments(result.data.getPublicDocumentsByUserId);
-            console.log('Data:', result);
+          const result = await getPublicDocuments({
+            variables: {
+              userId,
+            },
+          });
+    
+          setDocuments(result.data.getPublicDocumentsByUserId);
+          console.log('Data:', result);
         } catch (e: any) {
-            // Handle any errors
-            console.error('Error:', e.message);
+          console.error('Error:', e.message);
         }
-    };
+      }, [getPublicDocuments]);
 
     // Call fetchPublicDocuments with the desired userId
     useEffect(() => {
@@ -74,7 +89,7 @@ export default function Document() {
         }
         // Replace 1 with the actual userId
         // fetchPublicDocuments(tokenPayload); // Replace 1 with the actual userId
-    }, [tokenPayload]);
+    },[setTokenPayload,fetchPublicDocuments]);
     // Create a filteredDocuments array based on the search query
     const filteredDocuments = documents.filter((document) =>
         document.document_name.toLowerCase().includes(searchQuery.toLowerCase())

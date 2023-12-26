@@ -233,7 +233,7 @@ export default function AddTravelReq() {
             setShowArrivalDate(false);
 
         }
-    }, [travelAssistanceType1])
+    }, [travelAssistanceType1,tripType])
 
     useEffect(() => {
         console.log(tripType)
@@ -702,10 +702,14 @@ export default function AddTravelReq() {
         <div className=' w-full rounded px-2'>
             {showSuccessMessage && (
                 // <Alert message="Division Added Successfully!" alertState={alertState} onAlertStateChange={handleAlertStateChange} />
-                <Alert message="TravelRequest Added Successfully!" />
+                <Alert message="TravelRequest Added Successfully!" alertState={false} onAlertStateChange={function (newState: boolean): void {
+                    throw new Error('Function not implemented.');
+                } } />
             )}
             {showErrorMessage && (
-                <Alert message="Something went wrong!" />
+                <Alert message="Something went wrong!" alertState={false} onAlertStateChange={function (newState: boolean): void {
+                    throw new Error('Function not implemented.');
+                } } />
             )}
             <div className="rounded-t mb-4 px-4 bg-transparent">
                 <div className="flex flex-wrap items-center">

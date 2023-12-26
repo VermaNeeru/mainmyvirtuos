@@ -161,7 +161,7 @@ export default function EditLeaveCategory() {
             executeQueryLut({ variables: { id: id } });
             console.log(getQueryByIdLtu);
         }
-    }, [id]);
+    },[setFormData,executeQuery, executeQueryLut, formData, getQueryById, getQueryByIdLtu, id] );
 
     // console.log(leavetypeId);
 
@@ -234,7 +234,7 @@ export default function EditLeaveCategory() {
             console.log(formData.checkboxes); // This will log the updated checkboxes after all iterations
 
         }
-    }, [getQueryById]);
+    }, [getQueryById,formData]);
 
     if (loadingLut) return <p>Loading...</p>;
     if (errorLut) return <p>Error: {errorLut.message}</p>;
@@ -422,7 +422,9 @@ export default function EditLeaveCategory() {
         <div className=' w-full rounded px-2'>
             {showSuccessMessage && (
                 // <Alert message="Division Added Successfully!" alertState={alertState} onAlertStateChange={handleAlertStateChange} />
-                <Alert message="Leavetype Added Successfully!" />
+                <Alert message="Leavetype Added Successfully!" alertState={false} onAlertStateChange={function (newState: boolean): void {
+                    throw new Error('Function not implemented.');
+                } } />
             )}
             <div className="rounded-t mb-4 px-4 bg-transparent">
                 <div className="flex flex-wrap items-center">
