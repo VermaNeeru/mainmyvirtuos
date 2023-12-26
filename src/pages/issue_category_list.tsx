@@ -269,18 +269,24 @@ export default function IssueCategoryList() {
                 <Alert message="Are you sure you want to delete these Category(s)?" alertState={false} onAlertStateChange={function (newState: boolean): void {
                     throw new Error('Function not implemented.');
                 } } />
+                // <Alert message="Are you sure you want to delete these Category(s)" />
             )}
             {showSuccessMessage && (
                 // <Alert message="Division Added Successfully!" alertState={alertState} onAlertStateChange={handleAlertStateChange} />
-                <Alert message="Issue Category Added Successfully!" />
+                <Alert message="Division Added Successfully!" alertState={false} onAlertStateChange={function (newState: boolean): void {
+                    throw new Error('Function not implemented.');
+                } } />
             )}
             {showErrorMessage && (
                 <Alert message="Something went wrong!" alertState={false} onAlertStateChange={function (newState: boolean): void {
                     throw new Error('Function not implemented.');
                 } } />
+                // <Alert message="Something went wrong!" />
             )}
             {showDeletedMessage && (
-                <Alert message="Division Deleted Successfully!" />
+                <Alert message="Division Deleted Successfully!" alertState={false} onAlertStateChange={function (newState: boolean): void {
+                    throw new Error('Function not implemented.');
+                } } />
             )}
             <div className="rounded-t mb-4 px-4 bg-transparent">
                 <div className="flex flex-wrap items-center">

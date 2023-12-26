@@ -100,8 +100,10 @@ export default function NewJoinee() {
                 <Alert message="New Joinee Added Successfully!" alertState={false} onAlertStateChange={function (newState: boolean): void {
                     throw new Error('Function not implemented.');
                 } } />
+                // <Alert message="New Joinee Added Successfully!" />
             )}
             {showErrorMessage && (
+                    // <Alert message="Something went wrong!" />
                 <Alert message="Something went wrong!" alertState={false} onAlertStateChange={function (newState: boolean): void {
                     throw new Error('Function not implemented.');
                 } } />
