@@ -89,7 +89,7 @@ const DragDropFile: React.FC<DragDropFileProps> = ({
 
     const UploadedFile: React.FC<{ fileUrl: string }> = ({ fileUrl }) => {
         // Log the value of fileUrl to the console
-        // console.log("File URL:", fileUrl);
+        console.log("File URL:", fileUrl);
 
         return (
             <div className="flex items-center  mt-2">
@@ -117,8 +117,10 @@ const DragDropFile: React.FC<DragDropFileProps> = ({
 
         const onDrop = useCallback((acceptedFiles: File[]) => {
             const file = acceptedFiles[0];
+            console.log(file)
             setDroppedFile(file);
-            onFileDrop(acceptedFiles);
+            onFileDrop(acceptedFiles);  
+             console.log(acceptedFiles)
         }, [onFileDrop]);
 
         const { getRootProps, getInputProps } = useDropzone({ onDrop });

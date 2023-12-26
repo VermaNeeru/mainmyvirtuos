@@ -26,7 +26,7 @@ export default function LeaveList() {
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error: {error.message}</p>;
 
-    const user_attendance = data.leavesall;
+    const user_attendance = data.leaves;
 
     const handleRemove = async (id: any) => {
         try {
