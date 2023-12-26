@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { Disclosure } from '@headlessui/react'
@@ -93,20 +93,33 @@ export default function Leave() {
     const authToken = Cookies.get('authToken');
     console.log("the data from api", faqData);
 
-    const getRandomFAQs = () => {
+    // const getRandomFAQs = () => {
+    //     // Shuffle the faqs array
+    //     const shuffledFAQs = [...faqData].sort(() => Math.random() - 0.5);
+    //     // Take the first 4 elements to display
+    //     const selectedFAQs = shuffledFAQs.slice(0, 4);
+    //     setRandomFAQs(selectedFAQs);
+    // };
+    // useEffect(() => {
+    //     // Fetch FAQ data or use the existing data
+    //     if (faqData) {
+    //         getRandomFAQs();
+    //     }
+    // }, [faqData,getRandomFAQs]);
+    const getRandomFAQs = useCallback(() => {
         // Shuffle the faqs array
         const shuffledFAQs = [...faqData].sort(() => Math.random() - 0.5);
         // Take the first 4 elements to display
         const selectedFAQs = shuffledFAQs.slice(0, 4);
         setRandomFAQs(selectedFAQs);
-    };
+    }, [faqData]);
+    
     useEffect(() => {
         // Fetch FAQ data or use the existing data
         if (faqData) {
             getRandomFAQs();
         }
-    }, [faqData]);
-
+    }, [faqData, getRandomFAQs]);
 
 
     useEffect(() => {
@@ -133,7 +146,7 @@ export default function Leave() {
         }
 
 
-    }, []);
+    }, [authToken, data, executeQuery, getofficialinfobyuser]);
     // const getDatesBetween = (startDate: Date, endDate: Date): Date[] => {
     //     console.log('Start Date:', startDate);
     //     console.log('End Date:', endDate);

@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useRef, useEffect } from 'react'
+import React, { Fragment, useState, useRef, useEffect ,useCallback} from 'react'
 import { Dialog, Menu, Transition } from '@headlessui/react'
 import { XMarkIcon, ChevronDownIcon, PlusCircleIcon, EyeIcon, DocumentArrowDownIcon, MagnifyingGlassIcon } from '@heroicons/react/20/solid';
 import Cookies from 'js-cookie';
@@ -44,25 +44,23 @@ export default function PublicDocument() {
     console.log("GraphQL Query:", GET__DOCUMENTS_BY_ID?.loc?.source?.body);
 
 
-    const fetchPublicDocuments = async (userId: any) => {
-        // console.log(userId);
+    const fetchPublicDocuments = useCallback(async (userId: any) => {
         try {
-            const result = await getPublicDocuments({
-                variables: {
-                    userId,
-                },
-            });
-
-            // Extract the documents from the result and update the state
-            setDocuments(result.data.getPublicDocumentsByUserId);
-            setDocuments(result.data.getPublicDocumentsByUserId);
-            // console.log('Data:', result);
-            // console.log('Data:', documents);
+          const result = await getPublicDocuments({
+            variables: {
+              userId,
+            },
+          });
+    
+          // Extract the documents from the result and update the state
+          setDocuments(result.data.getPublicDocumentsByUserId);
+          // console.log('Data:', result);
+          // console.log('Data:', documents);
         } catch (e: any) {
-            // Handle any errors
-            console.error('Error:', e.message);
+          // Handle any errors
+          console.error('Error:', e.message);
         }
-    };
+      }, [getPublicDocuments]);
 
     const handleDocumentClick = (documentId: number) => {
         setSelectedDocumentId(documentId); // Set the selected document data
@@ -74,7 +72,7 @@ export default function PublicDocument() {
             executeQuery({ variables: { id: selectedDocumentId } });
             console.log("data of that particular doc", getDocumentById);
         }
-    }, [selectedDocumentId]);
+    }, [selectedDocumentId,getDocumentById,executeQuery]);
 
     console.log("data of that particular doc", getDocumentById);
     useEffect(() => {
@@ -129,7 +127,7 @@ export default function PublicDocument() {
         // //   setTokenPayload(decodedToken.id);
 
         // fetchPublicDocuments(decodedToken?.id);
-    }, []); // This effect will trigger whenever 'documents' changes
+    }, [fetchPublicDocuments]); // This effect will trigger whenever 'documents' changes
     const filteredDocuments = documents.filter((document) =>
         document.document_name.toLowerCase().includes(searchQuery.toLowerCase())
     );

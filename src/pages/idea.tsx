@@ -116,7 +116,9 @@ export default function Idea() {
     return (
         <div className=' w-full rounded px-2'>
             {showDeletedMessage && (
-                <Alert message="Idea Deleted Successfully!" />
+                <Alert message="Idea Deleted Successfully!" alertState={false} onAlertStateChange={function (newState: boolean): void {
+                    throw new Error('Function not implemented.');
+                } } />
             )}
             <div className="rounded-t mb-4 px-4 bg-transparent">
                 <div className="flex flex-wrap items-center">

@@ -124,7 +124,7 @@ export default function LeaveBalanceUpload() {
             executeQuery({ variables: { id: leavetypeId } });
             console.log(getUseryearlyleavebalanceById);
         }
-    }, [leavetypeId]);
+    }, [leavetypeId,executeQuery,getUseryearlyleavebalanceById]);
 
     console.log(getUseryearlyleavebalanceById);
     useEffect(() => {
@@ -281,17 +281,25 @@ export default function LeaveBalanceUpload() {
     return (
         <div className=' w-full rounded px-2'>
             {showDeleteMessage && (
-                <Alert message="Are you sure you want to delete these Category(s)?" />
+                <Alert message="Are you sure you want to delete these Category(s)?" alertState={false} onAlertStateChange={function (newState: boolean): void {
+                    throw new Error('Function not implemented.');
+                } } />
             )}
             {showSuccessMessage && (
                 // <Alert message="Useryearlyleavebalance Added Successfully!" alertState={alertState} onAlertStateChange={handleAlertStateChange} />
-                <Alert message="Useryearlyleavebalance Added Successfully!" />
+                <Alert message="Useryearlyleavebalance Added Successfully!" alertState={false} onAlertStateChange={function (newState: boolean): void {
+                    throw new Error('Function not implemented.');
+                } } />
             )}
             {showErrorMessage && (
-                <Alert message="Something went wrong!" />
+                <Alert message="Something went wrong!" alertState={false} onAlertStateChange={function (newState: boolean): void {
+                    throw new Error('Function not implemented.');
+                } } />
             )}
             {showDeletedMessage && (
-                <Alert message="Useryearlyleavebalance Deleted Successfully!" />
+                <Alert message="Useryearlyleavebalance Deleted Successfully!" alertState={false} onAlertStateChange={function (newState: boolean): void {
+                    throw new Error('Function not implemented.');
+                } } />
             )}
             <div className="rounded-t mb-4 px-4 bg-transparent">
                 <div className="flex flex-wrap items-center">

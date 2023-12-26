@@ -1,23 +1,17 @@
 import { Fragment, useEffect, useState } from 'react'
 import { Listbox, Transition } from '@headlessui/react'
-import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { Disclosure } from '@headlessui/react'
-import { UserIcon, CheckIcon, ChevronUpDownIcon, ChatBubbleLeftRightIcon } from '@heroicons/react/20/solid'
+import { CheckIcon, ChevronUpDownIcon, ChatBubbleLeftRightIcon } from '@heroicons/react/20/solid'
 import Link from 'next/link';
-import EmployeeSearch from '@/components/EmployeeSearch';
 import MonthYear from '@/components/DatePickerComp/MonthYear';
-import XLSX from 'xlsx';
 import ExcelJS from 'exceljs';
-import { useMutation, useLazyQuery } from '@apollo/client';
+import { useMutation } from '@apollo/client';
 import { ADD_USER_ATTENDANCE_MUTATION } from '@/graphql/Userattendance/queries';
 import Alert from '@/components/Alert';
 
 
 import { ADD_Attendancesheet_MUTATION } from '@/graphql/Attendancesheet/queries';
 import FileUpload from '@/components/FileUpload';
-import { GET_Officialinfo_BY_ECODE } from '@/graphql/Officialinfo/queries';
-import { useGetUserByECode } from '@/hooks/GetUserByECode';
 import { GetUserByECode } from '@/components/GetUserByECode';
 import { getUserData } from '@/components/UserData';
 
@@ -427,10 +421,14 @@ export default function UploadAttendanceSheet() {
     return (
         <div className=' w-full rounded px-2'>
             {showSuccessMessage && (
-                <Alert message="Attendance Uploaded Successfully!" />
+                <Alert message="Attendance Uploaded Successfully!" alertState={false} onAlertStateChange={function (newState: boolean): void {
+                    throw new Error('Function not implemented.');
+                } } />
             )}
             {showErrorMessage && (
-                <Alert message="Something went wrong!" />
+                <Alert message="Something went wrong!" alertState={false} onAlertStateChange={function (newState: boolean): void {
+                    throw new Error('Function not implemented.');
+                } } />
             )}
             <div className="rounded-t mb-4 px-4 bg-transparent">
                 <div className="flex flex-wrap items-center">

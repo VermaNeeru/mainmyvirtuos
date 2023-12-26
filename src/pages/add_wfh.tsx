@@ -108,8 +108,25 @@ export default function AddWfh() {
         };
 
         fetchData();  // Call the fetchData function
-    }, []);
-
+    }, [authToken, executeQuery, executeQueryforfaq, getofficialinfobyuser,wfhFaq]);
+    useEffect(() => {
+        console.log('Form Values:', formValues);
+    }, [formValues]);
+    const handleDateChange = (date:any) => {
+        console.log('Selected Date in onChange:', date);
+    
+        // Update state with the full date including time
+        setStartDate(date);
+    
+        // Format the date as a string in "YYYY-MM-DD" format
+        const formattedDate = date.toISOString().split('T')[0];
+    
+        // Update form values with the formatted date
+        setFormValues({
+            ...formValues,
+            startDate: formattedDate,
+        });
+    };
     const handleSubmit = async (event: { preventDefault: () => void }) => {
         event.preventDefault();
         // Log the form values
@@ -124,7 +141,8 @@ export default function AddWfh() {
             manager_id: managerid1,
             m_manager_id: managerid2,
             type: formValues.leaveType,
-            date: "2023-11-23",
+            date: formValues.startDate,
+            // date: "2023-11-23",
             day_type: formValues.dayType,
             time_slot: "9:00 AM - 5:00 PM",
             hours_slot: "8 hours",
@@ -211,8 +229,17 @@ export default function AddWfh() {
                                                     <option>Short Leave</option>
                                                     <option>WFH Special</option>
                                                 </select>
-                                                <DatePicker selected={startDate} onChange=
-                                                    {(date: React.SetStateAction<Date>) => setStartDate(date)} className="mt-4 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 px-2"
+                                                <DatePicker selected={startDate}
+                                                    //   onChange={(date: React.SetStateAction<Date>) => {
+                                                    //     console.log('Selected Date in onChange:', date);
+                                                    //     setStartDate(date);
+                                                    // }}
+
+                                                    onChange=
+                                                    {(date: React.SetStateAction<Date>) => handleDateChange(date)}
+
+
+                                                    className="mt-4 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 px-2"
                                                 />
 
                                                 {formValues.leaveType === 'WFH' || formValues.leaveType === 'WFH Special' ? (

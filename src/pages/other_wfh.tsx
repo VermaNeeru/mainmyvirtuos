@@ -71,10 +71,14 @@ export default function OtherWfh() {
     return (
         <div className=' w-full rounded px-2'>
             {showUpdateMessage && (
-                <Alert message="Please select leaves/status to update!" />
+                <Alert message="Please select leaves/status to update!" alertState={false} onAlertStateChange={function (newState: boolean): void {
+                    throw new Error('Function not implemented.');
+                } } />
             )}
             {showDeleteMessage && (
-                <Alert message="Please select leaves to delete!" />
+                <Alert message="Please select leaves to delete!" alertState={false} onAlertStateChange={function (newState: boolean): void {
+                    throw new Error('Function not implemented.');
+                } } />
             )}
             <div className="rounded-t mb-4 px-4 bg-transparent">
                 <div className="flex flex-wrap items-center">

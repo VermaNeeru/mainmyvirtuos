@@ -1,9 +1,11 @@
-import React, { Fragment, useState, useRef, useEffect } from 'react'
+import React, { Fragment, useState, useRef, useEffect, ReactNode } from 'react'
 import { PhotoIcon, UserCircleIcon } from '@heroicons/react/24/solid'
 import { Dialog, Menu, Transition } from '@headlessui/react'
 import { XMarkIcon, ChevronDownIcon } from '@heroicons/react/20/solid'
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { GET_ADVANCES_BY_YEAR } from '@/graphql/User/queries';
+import { useQuery } from '@apollo/client';
 
 const table_header = [
     { name: 'Month' },
@@ -18,13 +20,47 @@ const accounts_travel = [
     // More people...
 ]
 export default function AllUserAdvanceList() {
-    const [selectedYear, setSelectedYear] = useState<Date | null>(null);
+    const [empFor, setEmpFor] = useState('')
+    // const [selectedYear, setSelectedYear] = useState<Date | null>(null);
 
-    const handleYearChange = (date: Date) => {
+    // const handleYearChange = (date: Date) => {
+    //     setSelectedYear(date);
+    // };
+    const [trDetail, setTrDetail] = useState(false)
+    // const cancelButtonRef = useRef(null)
+    const handleEmpValueChange = (newValue: { id: React.SetStateAction<string>; }) => {
+        console.log(newValue);
+        if (newValue) {
+            setEmpFor(newValue.id);
+        }
+
+    };
+    const [selectedYear, setSelectedYear] = useState(new Date());
+    const [submitted, setSubmitted] = useState(false);
+
+    const { loading, error, data } = useQuery(GET_ADVANCES_BY_YEAR, {
+        variables: { userId: 1, year: submitted ? selectedYear.getFullYear() : new Date().getFullYear() },
+    });
+
+    const handleYearChange = (date: React.SetStateAction<Date>) => {
         setSelectedYear(date);
     };
-    const [trDetail, setTrDetail] = useState(false)
-    const cancelButtonRef = useRef(null)
+
+    const handleSubmit = () => {
+        setSubmitted(true);
+    };
+
+    const cancelButtonRef = useRef(null);
+
+    if (loading) return <p>Loading...</p>;
+    if (error) return <p>Error: {error.message}</p>;
+
+    const advances = data.otherexpensesByUserAndYear || [];
+    // Log the data to the console
+    console.log('Advances Data:', advances);
+    // function setTrDetail(arg0: boolean): void {
+    //     throw new Error('Function not implemented.');
+    // }
 
     return (
         <div className=' w-full rounded px-2'>
@@ -58,6 +94,7 @@ export default function AllUserAdvanceList() {
                                         />
                                     </div>
                                     <button
+                                        onClick={handleSubmit}
                                         type="button"
                                         className="sm:col-span-1  rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                                     >
@@ -90,16 +127,24 @@ export default function AllUserAdvanceList() {
                                     </tr>
                                 </thead>
                                 <tbody className="divide-y divide-gray-200 bg-white">
-                                    {accounts_travel.map((person) => (
+                                    {advances.map((person: {
+                                        expense_date: string | number | Date;
+                                        expense_amount: ReactNode;
+                                        amount_approved: ReactNode;
+                                        amount_requested: ReactNode; id: React.Key | null | undefined; month: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | React.ReactFragment | React.ReactPortal | React.PromiseLikeOfReactNode | null | undefined; total_advance_req: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | React.ReactFragment | React.ReactPortal | React.PromiseLikeOfReactNode | null | undefined; total_advance_approved: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | React.ReactFragment | React.ReactPortal | React.PromiseLikeOfReactNode | null | undefined; total_expenses: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | React.ReactFragment | React.ReactPortal | React.PromiseLikeOfReactNode | null | undefined;
+                                    }) => (
                                         <tr key={person.id}>
                                             <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
-                                                {person.month}
+                                                {/* Extracting and displaying the month */}
+                                                {new Intl.DateTimeFormat('en-US', { month: 'long' }).format(new Date(person.expense_date))}
                                             </td>
-                                            <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.total_advance_req}</td>
-                                            <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.total_advance_approved}</td>
-                                            <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.total_expenses}</td>
+                                            <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.amount_requested}</td>
+                                            <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.amount_approved}</td>
+                                            <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.expense_amount}</td>
                                             <td className="flex whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                                                <a onClick={() => setTrDetail(true)} className="bg-gray-100 text-gray-600 block px-4 py-2 ">Detail</a>
+                                                <a 
+                                                onClick={() => setTrDetail(true)} 
+                                                className="bg-gray-100 text-gray-600 block px-4 py-2 ">Detail</a>
                                             </td>
 
                                         </tr>

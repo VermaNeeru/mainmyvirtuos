@@ -97,10 +97,14 @@ export default function NewJoinee() {
     return (
         <div className="w-full relative items-center space-x-3 rounded-lg border border-gray-300 bg-white lg:px-6 px-4 py-5 shadow-sm focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 hover:border-gray-400">
             {showSuccessMessage && (
-                <Alert message="New Joinee Added Successfully!" />
+                <Alert message="New Joinee Added Successfully!" alertState={false} onAlertStateChange={function (newState: boolean): void {
+                    throw new Error('Function not implemented.');
+                } } />
             )}
             {showErrorMessage && (
-                <Alert message="Something went wrong!" />
+                <Alert message="Something went wrong!" alertState={false} onAlertStateChange={function (newState: boolean): void {
+                    throw new Error('Function not implemented.');
+                } } />
             )}
             <div className="mx-auto max-w-7xl lg:px-4  px-2 py-2">
                 <div className="rounded-t lg:mb-4 mb-2 px-0 lg:px-1 py-2 bg-transparent">

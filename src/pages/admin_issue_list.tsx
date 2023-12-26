@@ -129,7 +129,7 @@ export default function AdminIssueList() {
             executeQuery({ variables: { id: issueId } });
             console.log(getQueryById);
         }
-    }, [issueId]);
+    }, [issueId,getQueryById,executeQuery]);
 
     console.log(getQueryById);
     useEffect(() => {
@@ -285,17 +285,25 @@ export default function AdminIssueList() {
     return (
         <div className=' w-full rounded px-2'>
             {showDeleteMessage && (
-                <Alert message="Are you sure you want to delete these Category(s)?" />
+                <Alert message="Are you sure you want to delete these Category(s)?" alertState={false} onAlertStateChange={function (newState: boolean): void {
+                    throw new Error('Function not implemented.');
+                } } />
             )}
             {showSuccessMessage && (
                 // <Alert message="Issue Added Successfully!" alertState={alertState} onAlertStateChange={handleAlertStateChange} />
-                <Alert message="Issue Added Successfully!" />
+                <Alert message="Issue Added Successfully!" alertState={false} onAlertStateChange={function (newState: boolean): void {
+                    throw new Error('Function not implemented.');
+                } } />
             )}
             {showErrorMessage && (
-                <Alert message="Something went wrong!" />
+                <Alert message="Something went wrong!" alertState={false} onAlertStateChange={function (newState: boolean): void {
+                    throw new Error('Function not implemented.');
+                } } />
             )}
             {showDeletedMessage && (
-                <Alert message="Issue Deleted Successfully!" />
+                <Alert message="Issue Deleted Successfully!" alertState={false} onAlertStateChange={function (newState: boolean): void {
+                    throw new Error('Function not implemented.');
+                } } />
             )}
             <div className="rounded-t mb-4 px-4 bg-transparent">
                 <div className="flex flex-wrap items-center">
