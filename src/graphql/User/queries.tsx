@@ -273,30 +273,30 @@ query {
 `;
 
 
-export const GET_ADVANCES_BY_YEAR = gql`
-  query GetAdvancesByYear($userId: Int!, $year: Int!) {
-    otherexpensesByUserAndYear(userId: $userId, year: $year) {
-      user_id
-      status
-      amount_approved
-      amount_requested
-      expense_amount
-      expense_date
+// export const GET_ADVANCES_BY_YEAR = gql`
+//   query GetAdvancesByYear($userId: Int!, $year: Int!) {
+//     otherexpensesByUserAndYear(userId: $userId, year: $year) {
+//       user_id
+//       status
+//       amount_approved
+//       amount_requested
+//       expense_amount
+//       expense_date
   
-    }
-  }
-`;
-export const GET_ADVANCES_BY_USER_AND_YEAR_BOTH = gql`
-  query OtherexpensesByUserAndYearBoth($year: Int!, $fullname: String!) {
-    otherexpensesByUserAndYearBoth(year: $year, fullname: $fullname) {
-      user_id
-      expense_date
-      amount_approved
-      amount_requested
-      expense_amount
-      status
-    }
-  }
+//     }
+//   }
+// `;
+// export const GET_ADVANCES_BY_USER_AND_YEAR_BOTH = gql`
+//   query OtherexpensesByUserAndYearBoth($year: Int!, $fullname: String!) {
+//     otherexpensesByUserAndYearBoth(year: $year, fullname: $fullname) {
+//       user_id
+//       expense_date
+//       amount_approved
+//       amount_requested
+//       expense_amount
+//       status
+//     }
+//   }
 `;
 
 // export const REMOVE_USER_WFH = gql`

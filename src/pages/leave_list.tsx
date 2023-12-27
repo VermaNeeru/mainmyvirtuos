@@ -12,24 +12,28 @@ const table_header = [
     { name: 'Status' },
 
 ];
-const user_attendance = [
-    { id: 1, leave_type: 'SL', fromdate: '04-07-2023', todate: '04-07-2023', day: '1', reason: 'test', status: 'true', },
-    { id: 2, leave_type: 'CL', fromdate: '04-07-2023', todate: '04-07-2023', day: '1', reason: 'test', status: 'true', },
-    { id: 3, leave_type: 'CL', fromdate: '04-07-2023', todate: '04-07-2023', day: '1', reason: 'test', status: 'true', },
-    // More people...
-]
+// const user_attendance = [
+//     { id: 1, leave_type: 'SL', fromdate: '04-07-2023', todate: '04-07-2023', day: '1', reason: 'test', status: 'true', },
+//     { id: 2, leave_type: 'CL', fromdate: '04-07-2023', todate: '04-07-2023', day: '1', reason: 'test', status: 'true', },
+//     { id: 3, leave_type: 'CL', fromdate: '04-07-2023', todate: '04-07-2023', day: '1', reason: 'test', status: 'true', },
+//     // More people...
+// ]
 
 
 export default function LeaveList() {
     const { loading, error, data } = useQuery(GET_Leave);
+    console.log(data)
     const [removeUserLeaveMutation] = useMutation(REMOVE_USER_Leave);
     const [quickEdit, setQuickEdit] = useState(false)
     const [searchTerm, setSearchTerm] = useState('');
     const cancelButtonRef = useRef(null)
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error: {error.message}</p>;
+  
+    const user_attendance = data.leaves;
+console.log(user_attendance)
 
-    const user_attendance = data.leavesall;
+   
 
     const handleRemove = async (id: any) => {
         try {
@@ -48,7 +52,7 @@ export default function LeaveList() {
       
 
     };
-    const filteredUserAttendance = user_attendance.filter((person: { leave_reason?: string }) =>
+    const filteredUserAttendance = user_attendance?.filter((person: { leave_reason?: string }) =>
         person.leave_reason && person.leave_reason.toLowerCase().includes(searchTerm.toLowerCase())
     );
 console.log(filteredUserAttendance)
@@ -108,7 +112,7 @@ console.log(filteredUserAttendance)
                                             </tr>
                                         </thead>
                                         <tbody className="divide-y divide-gray-200 bg-white">
-                                            {filteredUserAttendance.map((person: any) => (
+                                            {filteredUserAttendance?.map((person: any) => (
                                                 // {user_attendance.map((person: any) => (
                                                 <tr key={person.id}>
                                                     <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
@@ -199,20 +203,20 @@ console.log(filteredUserAttendance)
                                                                                             <div className="sm:col-span-1">
                                                                                                 <div className="relative mt-2 rounded-md shadow-sm">
                                                                                                 <p className="">
-                                                                                                   {filteredUserAttendance.length > 0 ? filteredUserAttendance[0].leave_total_days : 'No leave reason available'}
+                                                                                                   {filteredUserAttendance?.length > 0 ? filteredUserAttendance[0].leave_total_days : 'No leave reason available'}
                                                                                                     
                                                                                                     </p>
                                                                                                 <p className="">
-                                                                                                   {filteredUserAttendance.length > 0 ? filteredUserAttendance[0].leave_reason : 'No leave reason available'}
+                                                                                                   {filteredUserAttendance?.length > 0 ? filteredUserAttendance[0].leave_reason : 'No leave reason available'}
                                                                                                     
                                                                                                     </p>
                                                                                                     <p className="">
-                                                                                                  {filteredUserAttendance.length > 0 ? filteredUserAttendance[0].leave_start_date : 'No leave reason available'}
+                                                                                                  {filteredUserAttendance?.length > 0 ? filteredUserAttendance[0].leave_start_date : 'No leave reason available'}
                                                                                                     
                                                                                                     
                                                                                                     </p>
                                                                                                     <p className="">
-                                                                                                    {filteredUserAttendance.length > 0 ? filteredUserAttendance[0].leave_type : 'No leave reason available'}
+                                                                                                    {filteredUserAttendance?.length > 0 ? filteredUserAttendance[0].leave_type : 'No leave reason available'}
                                                                                                     
                                                                                                     
                                                                                                     </p>
