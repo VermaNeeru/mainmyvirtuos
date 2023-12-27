@@ -368,6 +368,3 @@ export const ADD_USER_MUTATION = gql`
 //     deleteCategory(categoryId: $categoryId)
 //   }
 // `;
-
-
-

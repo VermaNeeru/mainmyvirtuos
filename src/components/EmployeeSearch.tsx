@@ -181,38 +181,37 @@ const EmployeeSearch: React.FC<EmployeeSearchProps> = ({ heading, onEmpValueChan
 
 
   function classNames(...classes: any) {
-    return classes.filter(Boolean).join(' ');
+    return classes.filter(Boolean).join(' ')
   }
 
-  const [query, setQuery] = useState('');
-  const [selectedPerson, setSelectedPerson] = useState(null);
+  const [query, setQuery] = useState('')
+  const [selectedPerson, setSelectedPerson] = useState(null)
 
   const filteredPeople =
     query === ''
       ? people
-      : people.filter((person: { name: string; }) => {
-        return person.name.toLowerCase().includes(query.toLowerCase());
-      });
+      : people.filter((person) => {
+        return person.name.toLowerCase().includes(query.toLowerCase())
+      })
+
+  // const handleChange = (e) => {
+  //     const newValue = e.target.value;
+  //     setSelectedPerson(newValue);
+  //     onEmpValueChange(newValue);
+  // };
 
   useEffect(() => {
     onEmpValueChange(selectedPerson);
-  }, [selectedPerson, onEmpValueChange]);
-
+  }, [selectedPerson, onEmpValueChange])
   return (
     <div>
-      <Combobox
-        as="div"
-        value={selectedPerson}
+      <Combobox as="div" value={selectedPerson}
         onChange={setSelectedPerson}
       // onChange={(e) => handleChange(e.target.value)}
       >
-        {heading && heading === 'hidden' ? (
-          <></>
-        ) : (
-          <Combobox.Label className="block text-sm font-medium leading-6 text-gray-900">
-            {heading ? heading : 'Employees'}
-          </Combobox.Label>
-        )}
+        {(heading && heading == 'hidden') ? <></>
+          : <Combobox.Label className="block text-sm font-medium leading-6 text-gray-900">{(heading) ? heading : "Employees"}</Combobox.Label>
+        }
 
         <div className="relative mt-2">
           <Combobox.Input
@@ -226,7 +225,7 @@ const EmployeeSearch: React.FC<EmployeeSearchProps> = ({ heading, onEmpValueChan
 
           {filteredPeople.length > 0 && (
             <Combobox.Options className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
-              {filteredPeople.map((person: { id: React.Key | null | undefined; name: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | React.ReactFragment | React.ReactPortal | React.PromiseLikeOfReactNode | null | undefined; }) => (
+              {filteredPeople.map((person) => (
                 <Combobox.Option
                   key={person.id}
                   value={person}
@@ -239,9 +238,7 @@ const EmployeeSearch: React.FC<EmployeeSearchProps> = ({ heading, onEmpValueChan
                 >
                   {({ active, selected }) => (
                     <>
-                      <span className={classNames('block truncate', selected && 'font-semibold')}>
-                        {person.name}
-                      </span>
+                      <span className={classNames('block truncate', selected && 'font-semibold')}>{person.name}</span>
 
                       {selected && (
                         <span
@@ -261,8 +258,8 @@ const EmployeeSearch: React.FC<EmployeeSearchProps> = ({ heading, onEmpValueChan
           )}
         </div>
       </Combobox>
-    </div>
-  );
-};
 
+    </div>
+  )
+}
 export default EmployeeSearch;

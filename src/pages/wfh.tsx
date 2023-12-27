@@ -32,7 +32,7 @@ export default function WFH() {
 
     console.log(user_attendance);
 
-    const handleRemove = async (id:any) => {
+    const handleRemove = async (id: any) => {
         try {
             await removeUserWfhMutation({
                 variables: { id },
@@ -40,7 +40,7 @@ export default function WFH() {
             });
             // Optionally, add a success notification or perform any other action
             alert("successfully removed");
-        } catch (error:any) {
+        } catch (error: any) {
             console.error('Error deleting userWfh:', error.message);
             // Handle the error, e.g., show an error message
         }
@@ -108,7 +108,7 @@ export default function WFH() {
                                                     <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.status}</td>
 
                                                     <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">
-                                                        <Menu as="div" className="relative inline-block text-left">
+                                                        <Menu as="div" className="align-baseline inline-block text-left">
                                                             <div>
                                                                 <Menu.Button className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
                                                                     Actions
@@ -125,7 +125,7 @@ export default function WFH() {
                                                                 leaveFrom="transform opacity-100 scale-100"
                                                                 leaveTo="transform opacity-0 scale-95"
                                                             >
-                                                                <Menu.Items className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                                                                <Menu.Items className="absolute lg:right-52 right-12 sm:right:10 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                                                                     <div className="py-1">
                                                                         <Menu.Item>
                                                                             {/* <a href="#"  className="bg-gray-100 text-gray-900 block px-4 py-2 text-sm">Remove</a> */}

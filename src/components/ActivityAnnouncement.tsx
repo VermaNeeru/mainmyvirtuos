@@ -139,7 +139,7 @@ const ActivityAnnouncement: React.FC<ActivityAnnouncementProps> = ({ userId }) =
                         type: "",
                         status: "",
                         activity_notes: "",
-                        user_id: empFor
+                        user_id: userId
                     },
                 },
             });

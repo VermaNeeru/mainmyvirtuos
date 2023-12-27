@@ -47,6 +47,8 @@ export default function DivisionList() {
 
 
     const [alertState, setAlertState] = useState(true);
+    const itemsPerPage = 5;
+    const [currentPage, setCurrentPage] = useState(1);
 
     // Function to update alertState when called from Alert component
     const handleAlertStateChange = (newState: boolean | ((prevState: boolean) => boolean)) => {
@@ -78,8 +80,6 @@ export default function DivisionList() {
 
         }));
     }
-
-
 
 
 
@@ -340,11 +340,32 @@ export default function DivisionList() {
         return (item.dname.toLowerCase().includes(lowerSearch) || item.dcode.toLowerCase().includes(lowerSearch));
     });
 
+    const totalItems = filteredDivision.length;
+    const totalPages = Math.ceil(totalItems / itemsPerPage);
+
+    // Calculate the start and end index for the current page
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+
+    // Slice the array to get the items for the current page
+    const currentItems = filteredDivision.slice(startIndex, endIndex);
+
+    const handlePageClick = (pageNumber: React.SetStateAction<number>) => {
+        setCurrentPage(pageNumber);
+    };
+
+
+    function classNames(...classes: string[]) {
+        return classes.filter(Boolean).join(' ')
+    }
+
     // console.log('itemlist', itemlist.
     //     map((item:
     //         { id: any; division_name: any; division_code: any; division_color: any; status: any; }
     //     ) => item)
     // );
+
+
     return (
         <div className=' w-full rounded px-2'>
             {showDeleteMessage && (
@@ -446,7 +467,7 @@ export default function DivisionList() {
                                                 </tr>
                                             </thead>
                                             <tbody className="divide-y divide-gray-200 bg-white">
-                                                {filteredDivision.map((item: { id: any; dname: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | React.ReactFragment | React.ReactPortal | React.PromiseLikeOfReactNode | null | undefined; dcode: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | React.ReactFragment | React.ReactPortal | React.PromiseLikeOfReactNode | null | undefined; dstatus: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | React.ReactFragment | React.ReactPortal | React.PromiseLikeOfReactNode | null | undefined; }) => (
+                                                {currentItems.map((item: { id: any; dname: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | React.ReactFragment | React.ReactPortal | React.PromiseLikeOfReactNode | null | undefined; dcode: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | React.ReactFragment | React.ReactPortal | React.PromiseLikeOfReactNode | null | undefined; dstatus: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | React.ReactFragment | React.ReactPortal | React.PromiseLikeOfReactNode | null | undefined; }) => (
                                                     <tr key={item.id}>
                                                         <td className="whitespace-nowrap py-1 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
                                                             <input
@@ -465,7 +486,7 @@ export default function DivisionList() {
                                                         <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{item.dcode}</td>
                                                         <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{item.dstatus}</td>
                                                         <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500 h-auto">
-                                                            <Menu as="div" className="relative inline-block text-left">
+                                                            <Menu as="div" className="align-baseline inline-block text-left">
                                                                 <div>
                                                                     <Menu.Button className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-600 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
                                                                         Actions
@@ -482,7 +503,7 @@ export default function DivisionList() {
                                                                     leaveFrom="transform opacity-100 scale-100"
                                                                     leaveTo="transform opacity-0 scale-95"
                                                                 >
-                                                                    <Menu.Items className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                                                                    <Menu.Items className="absolute lg:right-52 right-12 sm:right:10 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                                                                         <div className="py-1">
                                                                             <Menu.Item>
 
@@ -649,6 +670,34 @@ export default function DivisionList() {
                                         </Transition.Root>
                                     </div>
                                 </div>
+                            </div>
+                            <div className="mt-4">
+                                <button
+                                    onClick={() => setCurrentPage((prevPage) => Math.max(prevPage - 1, 1))}
+                                    disabled={currentPage === 1}
+                                    className="lg:mx-1 lg:px-2 lg:py-1 mx-1 px-2 py-1 rounded border bg-blue-800 text-white"
+                                >
+                                    Previous Page
+                                </button>
+                                {Array.from({ length: totalPages }, (_, index) => (
+                                    <button
+                                        key={index + 1}
+                                        onClick={() => handlePageClick(index + 1)}
+                                        className={classNames(
+                                            'lg:mx-0.5 lg:px-1 mx-1 px-1 rounded border',
+                                            currentPage === index + 1 ? 'bg-gray-500 text-white' : 'bg-gray-200 text-gray-700'
+                                        )}
+                                    >
+                                        {index + 1}
+                                    </button>
+                                ))}
+                                <button
+                                    onClick={() => setCurrentPage((prevPage) => Math.min(prevPage + 1, totalPages))}
+                                    disabled={currentPage === totalPages}
+                                    className="lg:mx-1 lg:px-2 lg:py-1 mx-1 px-2 py-1 rounded border bg-blue-800 text-white"
+                                >
+                                    Next Page
+                                </button>
                             </div>
                         </div>
                     </div>

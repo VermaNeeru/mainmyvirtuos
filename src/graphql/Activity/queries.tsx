@@ -7,3 +7,21 @@ mutation CreateActivity($createActivityInput: CreateActivityInput!) {
     }
   }  
 `;
+
+export const GET_ACTIVITY_POST = gql`
+query {
+  activities {
+    id
+    user_id
+    status
+    description
+    user{
+      id
+      firstname
+      lastname
+      username
+    }
+    cdate
+  }
+}
+`;

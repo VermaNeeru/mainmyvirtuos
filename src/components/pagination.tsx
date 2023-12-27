@@ -55,11 +55,13 @@ const announcements = {
 function classNames(...classes: string[]) {
     return classes.filter(Boolean).join(' ')
 }
-export default function ActivityPost() {
+export default function Pagination() {
 
     // const { loading, error, data } = useQuery(GET_ACTIVITY_POST);
     // console.log("posts", data);
-    const itemsPerPage = 1;
+    const itemsPerPage = 1; // Number of items to display per page
+    const [currentPage, setCurrentPage] = useState(1);
+
     const { loading: getActivityLoading, error: getActivityError, data: getActivityData, refetch } = useQuery(GET_ACTIVITY_POST);
     console.log("users", getActivityData);
 
@@ -80,22 +82,17 @@ export default function ActivityPost() {
 
     console.log(itemlist)
 
-    const [currentPage, setCurrentPage] = useState(1);
-
-    // Assuming `itemlist` is your array of items
     const totalItems = itemlist.length;
     const totalPages = Math.ceil(totalItems / itemsPerPage);
 
-    // Calculate the start and end index for the current page
+    // Calculate the start and end index of items to display on the current page
     const startIndex = (currentPage - 1) * itemsPerPage;
-    const endIndex = startIndex + itemsPerPage;
+    const endIndex = Math.min(startIndex + itemsPerPage - 1, totalItems - 1);
 
-    // Slice the array to get the items for the current page
-    const currentItems = itemlist.slice(startIndex, endIndex);
+    // Filter items to display on the current page
+    const itemsToDisplay = itemlist.slice(startIndex, endIndex + 1);
 
-    const handlePageClick = (pageNumber: React.SetStateAction<number>) => {
-        setCurrentPage(pageNumber);
-    };
+
     return (
         <div>
             <div className="mt-4 lg:mt-0 w-full relative items-center space-x-3 rounded-lg border border-gray-300 bg-white px-6 py-5 shadow-sm focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 hover:border-gray-400">
@@ -150,7 +147,7 @@ export default function ActivityPost() {
 
                     <div className="flow-root">
                         <div className="-my-12 divide-y divide-gray-200">
-                            {currentItems.map((review: any) => (
+                            {itemsToDisplay.map((review: any) => (
                                 <div key={review.id} className="py-12">
                                     <div className="flex items-center">
                                         <Image loader={({ src }) => `${src}`} height="100" width="100" src={review.avatarSrc} alt={`${review.firstname}.`} className="h-12 w-12 rounded-full" />
@@ -171,26 +168,15 @@ export default function ActivityPost() {
                             <button
                                 onClick={() => setCurrentPage((prevPage) => Math.max(prevPage - 1, 1))}
                                 disabled={currentPage === 1}
-                                className="lg:mx-1 lg:px-2 lg:py-1 mx-1 px-2 py-1 rounded border bg-blue-800 text-white"
                             >
                                 Previous Page
                             </button>
-                            {Array.from({ length: totalPages }, (_, index) => (
-                                <button
-                                    key={index + 1}
-                                    onClick={() => handlePageClick(index + 1)}
-                                    className={classNames(
-                                        'lg:mx-0.5 lg:px-1 mx-1 px-1 rounded border',
-                                        currentPage === index + 1 ? 'bg-gray-500 text-white' : 'bg-gray-200 text-gray-700'
-                                    )}
-                                >
-                                    {index + 1}
-                                </button>
-                            ))}
+                            <span className="mx-4">
+                                Page {currentPage} of {totalPages}
+                            </span>
                             <button
                                 onClick={() => setCurrentPage((prevPage) => Math.min(prevPage + 1, totalPages))}
                                 disabled={currentPage === totalPages}
-                                className="lg:mx-1 lg:px-2 lg:py-1 mx-1 px-2 py-1 rounded border bg-blue-800 text-white"
                             >
                                 Next Page
                             </button>

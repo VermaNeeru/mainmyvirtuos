@@ -163,7 +163,7 @@ export default function ActivityPart1() {
                         type: "",
                         status: "Publish",
                         activity_notes: "",
-                        user_id: empFor
+                        user_id: userId
                     },
                 },
             });
@@ -446,4 +446,3 @@ export default function ActivityPart1() {
 function sendEmailToUser(arg0: { variables: { email: any; template: string; }; }): { data: any; } | PromiseLike<{ data: any; }> {
     throw new Error("Function not implemented.");
 }
-
