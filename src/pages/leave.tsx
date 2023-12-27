@@ -8,54 +8,6 @@ import jwt from 'jsonwebtoken';
 import { useLazyQuery, useMutation, useQuery } from '@apollo/client';
 import { CREATE_Leave, CREATE_WFH, GET_ALL_FAq, GET_FaqById, GET_OfficalInfoByUser } from '@/graphql/User/queries';
 import { useRouter } from "next/router";
-const faqs = [
-    {
-        question: "What is Casual Leave (CL) ? How can i avail CL? Am I Eligible for CL?",
-        answer:
-            "CASUAL LEAVE (CL) All employees including probationers* will be entitled to 7 (Seven) days Casual Leaves during a Financial year. These leaves will be credited to an individual's account at the beginning of the financial year and can accrued proportionately on a periodic basis. An employee can avail CL, subject to the following: â€¢ A maximum of three dayâ€™s CL can be availed in a month*. Also not more than 3 casual leaves can be availed at one time unless the absence is due to illness. In such a situation a certificate must accompany the leave application from a Medical Practitioner. â€¢ CL cannot be clubbed with any other leave â€¢ In case CL is availed because of medical reasons it can be clubbed with Sick Leave (SL) if the duration of the leave is more than the CL balance in an individualâ€™s account. â€¢ Either suffixed or prefixed holidays and Sundays to the leave period shall not be accounted as leave. Saturdays or Sundays falling between the period of leave shall be treated as leave. If an employee is absent on Friday and Monday, Saturday and Sunday are treated as availed leaves (Only one exception* is given in a year, as part of planned holiday). *This is only applicable for Qualified Employees (QE). If eligible, an employee is required to apply in MyVirtuos for the exception to sandwich leave policy, to avail this benefit. If an employee takes leave from Monday to Friday continuously, automatically Saturday and Sundays are treated as absent and shall be debited from the total entitlement of leaves. Unused Casual Leaves (CL) lapse at the end of the financial year and cannot be carried forward or encashed. *For (PE) No leaves allowed in the first month of joining Casual Leaves (CL) can be applied online using Leave Application Form as per the following schedule. 1 Day CL Application at least 1 Day in advance. 2 to 3 Days CL Application at least One week in advance. 4 to 7 Days CL Application at least 3 to 4 weeks in advance. Exceptions apply only in case of Emergency.",
-    },
-    {
-        question: "What is Sick Leave (SL) ? How can I avail SL?",
-        answer:
-            "SICK LEAVE (SL) All employees including probationers* will be entitled to 7 (Seven) days Sick Leaves during a Financial year. These leaves will be credited to an individual's account at the beginning of the financial year and can accrued proportionately on a periodic basis. An employee can avail SL, subject to the following: â€¢ For more than three days of continuous sick leaves a certificate must accompany the leave application from a Medical Practitioner. â€¢ SL cannot be clubbed with any other leave. â€¢ In case CL is availed because of medical reasons it can be clubbed with Sick Leave (SL) if the duration of the leave is more than the SL balance in an individualâ€™s account. â€¢ Either suffixed or prefixed holidays and Sundays to the leave period shall not be accounted as leave. Saturdays or Sundays falling between the period of leave shall be treated as leave. If an employee is absent on Friday and Monday, Saturday and Sunday are treated as availed leaves (Only one exception* is given in a year, as part of planned holiday). *This is only applicable for Qualified Employees (QE). If eligible, an employee is required to apply in myVirtuos for the exception to sandwich leave policy, to avail this benefit. If an employee takes leave from Monday to Friday continuously, automatically Saturday and Sundays are treated as absent and shall be debited from the total entitlement of leaves. Unused SL lapse at the end of the financial year and cannot be carried forward or encashed. *For (PE) No leaves allowed in the first month of joining.",
-    },
-    {
-        question: "What is Leave Policy (Paid or Unpaid Leaves)",
-        answer:
-            "Company has comprehensive Leave Policy in place for each Financial year (April to March) 1) Holidays and Restricted Holidays (RH) as per the Holiday Calendar 2) Qualified Employees (QE) can avail of 12 Casual Leaves (CL) 03 Congratulatory/Compassionate Leaves (CCL) 03 Sick Leaves (SL) 03 Restricted Holidays (RH) 3) Probationary Employees (PE) can avail of 03 Casual Leaves (CL) 01 Congratulatory/Compassionate Leaves (CCL) 01 Sick Leave (SL) QE can carry forward unveiled RH and SL to the next financial year or encase at the end of financial year. PE can carry forward CCL to the Post Probation Period Please refer to the Leave Policy in the Document Section on this Portal.",
-    },
-    {
-        question: "How can I apply for Leave(s)?",
-        answer:
-            "Go to Leaves Section in this Portal and click New Leave Request. Please state the reason for availing the leave. Leaves are subject to approval by Manager and HR. You can check leave approval status under Leaves Section > My Applied Leaves.",
-    },
-    {
-        question: "Can I cancel my leaves?",
-        answer:
-            "You can cancel or make changes to your leaves before they are approved. Should you wish to cancel after they are approved, please contact HR",
-    },
-    {
-        question: "What happens if there is no leave balance and I need to take leaves?",
-        answer:
-            "Leaves are as per leave entitlement per trimester. Additional leaves may be treated as Leave without pay (LWP)",
-    },
-    {
-        question: "How to Apply for a Half Day ?",
-        answer:
-            "Leaves -> New Leave Request -> Select Leave type & Dates - > Click on Save -> Next Screen asks for Half/Full Day -> Select Half day there & Save",
-    },
-    {
-        question: "What is EL(Earned Leave)? How can I avail EL? Am I eligible for EL?",
-        answer:
-            "EARNED LEAVES (PL) All the Qualified Employees (QE) earn 7 (Seven days) Earned leaves (EL) during a Financial year. EL will be credited in three tranches (April, August and December). A Qualified Employee is an employee who has been confirmed after the initial six or twelve month probation period. EL can be availed only after putting in at least six months of work with the Company. EL can be accumulated maximum up to fourteen (14) days. An employee can have the option of encashing EL at the end of the financial year. The company shall do automatic encashment of unavailed EL once the balance exceeds 14 days as on 31st March every year. The EL can be encashed at the basic salary. Any holiday/weekly off falling during EL period shall be counted as Earned leave. Earned Leave (EL) can be applied online using Leave Application Form as per the following schedule. 1 Day EL Application at least 1 Day in advance. 2 to 3 Days EL Application at least One week in advance. 4 to 7 Days EL Application at least 3 to 4 weeks in advance. Exceptions apply only in case of Emergency.",
-    },
-    {
-        question: "Can I adjust my leaves against my notice period?",
-        answer:
-            "Neither an employer nor an employee can adjust leaves against the notice period. In addition the required notice period is likely can not be reduced by taking leaves.",
-    },
-    // More questions...
-]
 
 
 export default function Leave() {
@@ -66,6 +18,12 @@ export default function Leave() {
         faq_ques: string;
         faq_ans: string;
     };
+    const [leaveReasonError, setLeaveReasonError] = useState('');
+    const [leaveReasonError1, setLeaveReasonError1] = useState('');
+    const [leaveReasonError2, setLeaveReasonError2] = useState('');
+    const [leaveReasonError3, setLeaveReasonError3] = useState('');
+    const [start, setStartDateSelected] = useState(false);
+    const [end, setEndDateSelected] = useState(false);
     const [showForm, setShowForm] = useState(true);
     const [startDate, setStartDate] = useState(new Date());
     const [userid, setUserid] = useState();
@@ -294,9 +252,30 @@ export default function Leave() {
     };
     const handleSubmit1 = async (event: { preventDefault: () => void }) => {
         event.preventDefault();
+        console.log(formValues.startDate)
+        // Perform additional validation before submitting the form
+        if (formValues.leaveReason.trim() === '') {
+            setLeaveReasonError('Leave Reason is required.');
+            // return;
+        }
+        if (start == false) {
+            setLeaveReasonError2('startDate is required.');
+        }
+        if (end == false) {
+            setLeaveReasonError3('endDate is required.');
+        }
+        // if (!formValues.startDate) {
 
-
-
+        //     // return;
+        // }
+        if (!formValues.endDate) {
+            setLeaveReasonError3('endDate is required.');
+            // return;
+        }
+        if (formValues.leaveType.trim() === '') {
+            setLeaveReasonError1('Leave Type is required.');
+            return;
+        }
         try {
             // Toggle the state to hide the form and show the table
             setShowForm(false);
@@ -323,6 +302,24 @@ export default function Leave() {
             ...formValues,
             [e.target.name]: e.target.value,
         });
+        console.log(formValues);
+        // if (e.target.name === 'leaveReason') {
+        //     if (e.target.value.trim() === '') {
+        //         setLeaveReasonError('Leave Reason is required.');
+        //     } else {
+        //         setLeaveReasonError('');
+        //     }
+        // }
+
+        // if (e.target.name === 'leaveType') {
+        //     console.log(e.target.value)
+        //     if (e.target.value.trim() === '') {
+        //         console.log(e.target.value)
+        //         setLeaveReasonError1('Leave Type is required.');
+        //     } else {
+        //         setLeaveReasonError1('');
+        //     }
+        // }
 
         // Get random FAQs again when the leave type changes
         getRandomFAQs();
@@ -364,13 +361,16 @@ export default function Leave() {
                                                             onChange={handleInputChange}
                                                             className="mt-2 block w-full rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                                             defaultValue="Canada"
-                                                            
+
                                                         >
                                                             <option>Choose Type</option>
                                                             <option>Sick Leave</option>
                                                             <option>Casual Leave</option>
                                                             <option>Earned Leave</option>
                                                         </select>
+                                                        {leaveReasonError1 && (
+                                                            <p className="mt-1 text-red-500 text-sm">{leaveReasonError1}</p>
+                                                        )}
                                                     </div>
                                                 </div>
 
@@ -390,11 +390,22 @@ export default function Leave() {
                                                             name="startDate"
                                                             required
                                                             selected={formValues.startDate}
-                                                            onChange={(date: any) => handleInputChange({ target: { name: 'startDate', value: date } })}
+                                                            // onChange={(date: any) => handleInputChange({ target: { name: 'startDate', value: date } })}
+                                                            onChange={(date: any) => {
+                                                                handleInputChange({ target: { name: 'startDate', value: date } });
+                                                                setStartDateSelected(true); // Set to true when the user selects a date
+                                                            }}
+
+
+
                                                             className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 px-2"
-                                                            
+
                                                         />
 
+
+                                                        {leaveReasonError2 && (
+                                                            <p className="mt-1 text-red-500 text-sm">{leaveReasonError2}</p>
+                                                        )}
 
                                                     </div>
                                                 </div>
@@ -409,11 +420,19 @@ export default function Leave() {
                                                             name="endDate"
                                                             required
                                                             selected={formValues.endDate}
-                                                            onChange={(date: any) => handleInputChange({ target: { name: 'endDate', value: date } })}
-                                                            className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 px-2"
-                                                            
-                                                        />
 
+                                                            onChange={(date: any) => {
+                                                                handleInputChange({ target: { name: 'endDate', value: date } });
+                                                                setEndDateSelected(true); // Set to true when the user selects a date
+                                                            }}
+
+                                                           
+                                                            className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 px-2"
+
+                                                        />
+                                                        {leaveReasonError3 && (
+                                                            <p className="mt-1 text-red-500 text-sm">{leaveReasonError3}</p>
+                                                        )}
                                                     </div>
                                                 </div>
 
@@ -428,10 +447,12 @@ export default function Leave() {
                                                             rows={3}
                                                             className="px-2 h-16 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                                             defaultValue={''}
-                                                            required
+
                                                             placeholder={'Leave Reason'}
                                                         />
-
+                                                        {leaveReasonError && (
+                                                            <p className="mt-1 text-red-500 text-sm">{leaveReasonError}</p>
+                                                        )}
                                                     </div>
                                                 </div>
 
