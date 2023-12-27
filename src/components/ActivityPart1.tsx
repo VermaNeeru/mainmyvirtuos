@@ -4,8 +4,8 @@ import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
 import { Combobox } from '@headlessui/react'
 import TextEditor from "@/components/TextEditor";
 
-import { useQuery, useMutation } from "@apollo/client";
-import { GET_Employees } from '@/graphql/User/queries';
+import { useQuery, useMutation, useLazyQuery } from "@apollo/client";
+import { GET_Employees, GET_USER_BY_ID } from '@/graphql/User/queries';
 import { GET_TEMPLATE } from '@/graphql/Template/queries';
 import { ADD_ACTIVITY_MUTATION } from "@/graphql/Activity/queries";
 import Alert from "./Alert";
@@ -13,8 +13,19 @@ import { ADD_AuditLog_MUTATION } from "@/graphql/AuditLogs/queries";
 import { getIp } from "./IPAddress";
 import { ADD_ActivityAudience_MUTATION } from "@/graphql/ActivityAudience/queries";
 import ActivityAnnouncement from "./ActivityAnnouncement";
+import EmployeeSearch from "./EmployeeSearch";
+import { getUserData } from "./UserData";
+import { GET_Templates } from "@/graphql/EmailTemplate/queries";
 // import { getIp } from "@/pages/ipaddress";
+const replacePlaceholders = (template: string, replacements: Record<string, string>): string => {
+    // Create a regular expression pattern for each placeholder
+    const pattern = new RegExp(Object.keys(replacements).join('|'), 'g');
 
+    // Replace placeholders with their corresponding values
+    const replacedTemplate = template.replace(pattern, (match) => replacements[match]);
+
+    return replacedTemplate;
+};
 function filterActivity(description: string) {
     const targets = ["fuck", "porn", "sex", "ass"]; // Keywords to match (case-insensitive)
 
@@ -26,8 +37,13 @@ function filterActivity(description: string) {
 }
 
 export default function ActivityPart1() {
+    // const [empFor, setEmpFor] = useState<any[]>([]);
+    const [empFor, setEmpFor] = useState<any>('');
+    const [emailTemplate, setEmailTemplate] = useState<any>('');
     const [ip, setIp] = useState('');
-
+    const userData = getUserData();
+    // const [userId, setUserId] = useState<number | null | undefined>(1)
+    const [userId, setUserId] = useState<number | undefined>(userData?.id)
     useEffect(() => {
         async function fetchAndSetIp() {
             const fetchedIp = await getIp();
@@ -37,10 +53,10 @@ export default function ActivityPart1() {
         fetchAndSetIp();
     }, []);
 
-
     const [openTab, setOpenTab] = useState<number | null | undefined>(1);
 
     const { loading, error, data } = useQuery(GET_Employees);
+    const [executeQuery, { loading: userLoading, error: userError, data: getQueryById }] = useLazyQuery(GET_USER_BY_ID);
 
     console.log("users", data);
 
@@ -94,20 +110,23 @@ export default function ActivityPart1() {
 
     const [messageError, setMessageError] = useState(false);
     const [toError, setToError] = useState(false);
-
+    const { loading: getAllDataLoading, error: getAllDataError, data: getAllData, refetch } = useQuery(GET_Templates);
+    console.log("allData", getAllData);
     const [createActivity, { loading: activityLoading, error: activityError }] = useMutation(ADD_ACTIVITY_MUTATION);
     const [createAuditlog, { loading: auditlogLoading, error: auditlogError }] = useMutation(ADD_AuditLog_MUTATION);
     const [createActivitiesaudience, { loading: activitiesaudienceLoading, error: activitiesaudienceError }] = useMutation(ADD_ActivityAudience_MUTATION);
 
-    const handleSubmitMessage = async (e: { preventDefault: () => void }) => {
+    const HandleSubmitMessage = async (e: { preventDefault: () => void }) => {
         (!message || message.trim() === "") ? setMessageError(true) : setMessageError(false);
-        (!selectedPerson) ? setToError(true) : setToError(false);
+        (!empFor) ? setToError(true) : setToError(false);
         if (!message || message.trim() === "") {
             setMessageError(true);
             return; // Exit early if there's an error
         }
-
-        if (!selectedPerson) {
+        console.log(empFor);
+        console.log(toError);
+        if (!empFor) {
+            console.log(empFor);
             setToError(true);
             return; // Exit early if there's an error
         }
@@ -121,23 +140,8 @@ export default function ActivityPart1() {
         // return
         try {
             // console.log('Try to submit')
-            // console.log('message', message)
-            // console.log('query', selectedPerson)
-            // const userid = selectedPerson.id;
-            // return
-            // const replacedMessage = message.replace(/'/g, " ");
-            // const fieldData = {
-            //     description: replacedMessage,
-            //     user_id: 1
-            // }
-            // console.log(message);
-            // console.log(replacedMessage);
-            // return
 
-            // console.log('IPAddress', ip);
-            // return
-
-            const { data } = await createAuditlog({
+            const { data: { createAuditlog: { id: auditId } } } = await createAuditlog({
                 variables: {
                     createAuditlogInput: {
                         table_name: "Activity",
@@ -147,19 +151,19 @@ export default function ActivityPart1() {
                         ip_address: ip,
                         browser: "",
                         os: "",
-                        user_id: 1
+                        user_id: userId
                     },
                 },
             });
-
+            // const auditId = id;
             const { data: { createActivity: { id } } } = await createActivity({
                 variables: {
                     createActivityInput: {
                         description: message,
                         type: "",
-                        status: "",
+                        status: "Publish",
                         activity_notes: "",
-                        user_id: 1
+                        user_id: userId
                     },
                 },
             });
@@ -174,32 +178,69 @@ export default function ActivityPart1() {
                 variables: {
                     createActivitiesaudienceInput: {
                         activity_id: activityId,
-                        user_id: 1
+                        user_id: empFor
                     },
                 },
             });
 
-            // const { loading, error, data: templateData } = useQuery(GET_TEMPLATE, {
-            //     variables: { id: 1 }, // Pass the id parameter here
+
+
+
+            // let templateList: any[] = [];
+
+            // if (getAllData && getAllData.templates) {
+            //     templateList = getAllData.templates?.map((data: { id: any; template_name: any; template_type: any; template_status: any; template_subject: any; template_constant: any; template_description: any; }) => ({
+            //         id: data.id,
+            //         template_name: data.template_name,
+            //         template_type: data.template_type,
+            //         template_status: data.template_status,
+            //         template_subject: data.template_subject,
+            //         template_constant: data.template_constant,
+            //         template_description: data.template_description,
+
+            //     }));
+
+
+            // }
+            // if (templateList) {
+            //     const matchingTemplateList = templateList.find(template => (
+            //         template.template_type === 'Activity(New)'
+            //     ));
+            //     // setEmailTemplate(matchingTemplateList);
+            //     // console.log('matchingTemplateList', matchingTemplateList);
+            //     // // setEmailTemplate(matchingTemplateList);
+            //     if (matchingTemplateList) {
+            //         const templateDescription: string = matchingTemplateList.template_description;
+            //         console.log('templateDescription', templateDescription);
+
+
+            //         const replacements = {
+            //             '{{FIRST_NAME}}': 'fname',
+            //             '{{LAST_NAME}}': 'lname',
+            //             // Add more replacements as needed
+            //         };
+
+            //         // Replace placeholders in templateDescription
+            //         const modifiedTemplate = replacePlaceholders(templateDescription, replacements);
+
+
+
+            //     }
+            // }
+
+
+            // let templateDescription = emailTemplate.template_description;
+            // console.log('templateDescription', templateDescription);
+
+            // const template = "Activity";
+            // const { data } = await sendEmailToUser({
+            //     variables: { email, template },
             // });
 
-            // if (loading) return <p>Loading...</p>;
-            // if (error) return <p>Error: {error.message}</p>;
-
-            // const template = templateData.template;
-
-            // console.log("template", template);
-
-            // const { loading, error, data: templateData } = useQuery(GET_TEMPLATE, {
-            //     variables: { id: 1 }, // Provide the template ID you want to fetch
-            // });
-
-            // setMessage('');
-            // setQuery('');
-            // console.log("template", data.template);
 
             setMessage('');
             setSelectedPerson(null);
+            setEmpFor(null);
             setshowSuccessMessage(true);
             setshowErrorMessage(false);
 
@@ -212,6 +253,28 @@ export default function ActivityPart1() {
             console.log('catchError', error);
         }
     }
+
+    const handleEmpValueChange = (newValue: { id: React.SetStateAction<string>; }) => {
+        console.log(newValue);
+        if (newValue) {
+            // setEmpFor([...empFor, newValue.id]);
+            setEmpFor(newValue.id);
+        }
+        console.log(empFor);
+    };
+
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            console.log('successMsg', showSuccessMessage)
+            console.log('errorMessage', showErrorMessage)
+            setshowSuccessMessage(false);
+            setshowErrorMessage(false);
+        }, 3000);
+
+        return () => {
+            clearTimeout(timer);
+        };
+    }, [showSuccessMessage, showErrorMessage]);
     return (
         <div className="flex ">
             <div className="lg:-pt-20">
@@ -295,7 +358,7 @@ export default function ActivityPart1() {
 
                                                     </div>
                                                     <div className="mt-4 lg:mt-2 ">
-                                                        <Combobox as="div" value={selectedPerson} onChange={setSelectedPerson}>
+                                                        {/* <Combobox as="div" value={selectedPerson} onChange={setSelectedPerson}>
                                                             <Combobox.Label className="block text-sm font-medium leading-6 text-gray-900">To</Combobox.Label>
                                                             <div className="relative mt-2">
                                                                 <Combobox.Input
@@ -341,8 +404,9 @@ export default function ActivityPart1() {
                                                                     </Combobox.Options>
                                                                 )}
                                                             </div>
-                                                        </Combobox>
-                                                        {toError && <p className="text-red-500 text-xs" >*Employee is required</p>}
+                                                        </Combobox> */}
+                                                        <EmployeeSearch onEmpValueChange={handleEmpValueChange} heading={''} />
+                                                        {toError && <p className="text-red-500 text-xs" >*Employee is required </p>}
 
                                                     </div>
 
@@ -358,7 +422,7 @@ export default function ActivityPart1() {
                                     <div className="flex items-center ">
                                         <button
                                             type="button"
-                                            onClick={handleSubmitMessage}
+                                            onClick={HandleSubmitMessage}
                                             className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                                         >
                                             Send
@@ -367,7 +431,7 @@ export default function ActivityPart1() {
                                 </form>
                             </div>
                             <div className={openTab === 2 ? "block" : "hidden"} id="link2">
-                                <ActivityAnnouncement />
+                                <ActivityAnnouncement userId={userId} />
                             </div>
                         </div>
                     </div>
@@ -377,3 +441,8 @@ export default function ActivityPart1() {
     );
 };
 
+
+
+function sendEmailToUser(arg0: { variables: { email: any; template: string; }; }): { data: any; } | PromiseLike<{ data: any; }> {
+    throw new Error("Function not implemented.");
+}

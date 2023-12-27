@@ -12,6 +12,7 @@ import Alert from "./Alert";
 import { ADD_AuditLog_MUTATION } from "@/graphql/AuditLogs/queries";
 import { getIp } from "./IPAddress";
 import { ADD_ActivityAudience_MUTATION } from "@/graphql/ActivityAudience/queries";
+import EmployeeSearch from "./EmployeeSearch";
 
 function filterActivity(description: string) {
     const targets = ["fuck", "porn", "sex", "ass"]; // Keywords to match (case-insensitive)
@@ -22,8 +23,13 @@ function filterActivity(description: string) {
 
     return flag;
 }
+interface ActivityAnnouncementProps {
+    userId: any; // Add the heading property
+}
 
-export default function ActivityAnnouncement() {
+const ActivityAnnouncement: React.FC<ActivityAnnouncementProps> = ({ userId }) => {
+    // export default function ActivityAnnouncement({ userId }) {
+    const [empFor, setEmpFor] = useState<any>('');
     const [ip, setIp] = useState('');
 
     useEffect(() => {
@@ -90,13 +96,13 @@ export default function ActivityAnnouncement() {
 
     const handleSubmitAnnouncement = async (e: { preventDefault: () => void }) => {
         (!message || message.trim() === "") ? setMessageError(true) : setMessageError(false);
-        (!selectedPerson) ? setToError(true) : setToError(false);
+        (!empFor) ? setToError(true) : setToError(false);
         if (!message || message.trim() === "") {
             setMessageError(true);
             return; // Exit early if there's an error
         }
 
-        if (!selectedPerson) {
+        if (!empFor) {
             setToError(true);
             return; // Exit early if there's an error
         }
@@ -109,24 +115,9 @@ export default function ActivityAnnouncement() {
         e.preventDefault();
         // return
         try {
-            // console.log('Try to submit')
-            // console.log('message', message)
-            // console.log('query', selectedPerson)
-            // const userid = selectedPerson.id;
-            // return
-            // const replacedMessage = message.replace(/'/g, " ");
-            // const fieldData = {
-            //     description: replacedMessage,
-            //     user_id: 1
-            // }
-            // console.log(message);
-            // console.log(replacedMessage);
-            // return
 
-            // console.log('IPAddress', ip);
-            // return
 
-            const { data } = await createAuditlog({
+            const { data: { createAuditlog: { id: auditId } } } = await createAuditlog({
                 variables: {
                     createAuditlogInput: {
                         table_name: "Activity",
@@ -136,7 +127,7 @@ export default function ActivityAnnouncement() {
                         ip_address: ip,
                         browser: "",
                         os: "",
-                        user_id: 1
+                        user_id: userId,
                     },
                 },
             });
@@ -148,7 +139,7 @@ export default function ActivityAnnouncement() {
                         type: "",
                         status: "",
                         activity_notes: "",
-                        user_id: 1
+                        user_id: userId
                     },
                 },
             });
@@ -163,29 +154,10 @@ export default function ActivityAnnouncement() {
                 variables: {
                     createActivitiesaudienceInput: {
                         activity_id: activityId,
-                        user_id: 1
+                        user_id: empFor
                     },
                 },
             });
-
-            // const { loading, error, data: templateData } = useQuery(GET_TEMPLATE, {
-            //     variables: { id: 1 }, // Pass the id parameter here
-            // });
-
-            // if (loading) return <p>Loading...</p>;
-            // if (error) return <p>Error: {error.message}</p>;
-
-            // const template = templateData.template;
-
-            // console.log("template", template);
-
-            // const { loading, error, data: templateData } = useQuery(GET_TEMPLATE, {
-            //     variables: { id: 1 }, // Provide the template ID you want to fetch
-            // });
-
-            // setMessage('');
-            // setQuery('');
-            // console.log("template", data.template);
 
             setMessage('');
             setSelectedPerson(null);
@@ -201,8 +173,37 @@ export default function ActivityAnnouncement() {
             console.log('catchError', error);
         }
     }
+    const handleEmpValueChange = (newValue: { id: React.SetStateAction<string>; }) => {
+        console.log(newValue);
+        if (newValue && newValue.id) {
+            // setEmpFor([...empFor, newValue.id]);
+            setEmpFor(newValue.id);
+        }
+        console.log(empFor);
+    };
+
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            console.log('successMsg', showSuccessMessage)
+            console.log('errorMessage', showErrorMessage)
+            setshowSuccessMessage(false);
+            setshowErrorMessage(false);
+        }, 3000);
+
+        return () => {
+            clearTimeout(timer);
+        };
+    }, [showSuccessMessage, showErrorMessage]);
     return (
         <div>
+            <div className="lg:-pt-20">
+                {showSuccessMessage && (
+                    <Alert message="Message Added Successfully!" />
+                )}
+                {showErrorMessage && (
+                    <Alert message="Something went wrong!" />
+                )}
+            </div>
             <form>
                 <div className="space-y-12">
                     <div className="pb-2">
@@ -214,60 +215,15 @@ export default function ActivityAnnouncement() {
                                         name="about"
                                         onChange={(e) => setMessage(e.target.value)}
                                         rows={3}
-                                        className="h-52 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                        className="pt-2 pl-2 h-52 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                         defaultValue={''}
                                     />
                                     {messageError && <p className="text-red-500 text-xs" >*Message is required</p>}
 
                                 </div>
                                 <div className="mt-2 ">
-                                    <Combobox as="div" value={selectedPerson} onChange={setSelectedPerson}>
-                                        <Combobox.Label className="block text-sm font-medium leading-6 text-gray-900">To</Combobox.Label>
-                                        <div className="relative mt-2">
-                                            <Combobox.Input
-                                                className="w-full rounded-md border-0 bg-white py-1.5 pl-3 pr-10 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                                                onChange={(event) => setQuery(event.target.value)}
-                                                displayValue={(person: any) => person?.name}
-                                            />
-                                            <Combobox.Button className="absolute inset-y-0 right-0 flex items-center rounded-r-md px-2 focus:outline-none">
-                                                <ChevronUpDownIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
-                                            </Combobox.Button>
+                                    <EmployeeSearch onEmpValueChange={handleEmpValueChange} heading={''} />
 
-                                            {filteredPeople.length > 0 && (
-                                                <Combobox.Options className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
-                                                    {filteredPeople.map((person: { id: React.Key | null | undefined; name: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | React.ReactFragment | React.ReactPortal | React.PromiseLikeOfReactNode | null | undefined; }) => (
-                                                        <Combobox.Option
-                                                            key={person.id}
-                                                            value={person}
-                                                            className={({ active }) =>
-                                                                classNames(
-                                                                    'relative cursor-default select-none py-2 pl-3 pr-9',
-                                                                    active ? 'bg-indigo-600 text-white' : 'text-gray-900'
-                                                                )
-                                                            }
-                                                        >
-                                                            {({ active, selected }) => (
-                                                                <>
-                                                                    <span className={classNames('block truncate', selected && 'font-semibold')}>{person.name}</span>
-
-                                                                    {selected && (
-                                                                        <span
-                                                                            className={classNames(
-                                                                                'absolute inset-y-0 right-0 flex items-center pr-4',
-                                                                                active ? 'text-white' : 'text-indigo-600'
-                                                                            )}
-                                                                        >
-                                                                            <CheckIcon className="h-5 w-5" aria-hidden="true" />
-                                                                        </span>
-                                                                    )}
-                                                                </>
-                                                            )}
-                                                        </Combobox.Option>
-                                                    ))}
-                                                </Combobox.Options>
-                                            )}
-                                        </div>
-                                    </Combobox>
                                     {toError && <p className="text-red-500 text-xs" >*Employee is required</p>}
 
                                 </div>
@@ -290,3 +246,5 @@ export default function ActivityAnnouncement() {
         </div>
     )
 }
+
+export default ActivityAnnouncement;

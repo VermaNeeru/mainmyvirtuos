@@ -147,21 +147,21 @@ export default function EditLeaveCategory() {
 
     // useEffect(() => {
     // }, [null]);
-    useEffect(() => {
-        // Parse the id when it changes
-        if (id) {
-            const parsedId = id ? parseInt(id as string, 10) : null;
-            // setLeavetypeId(parsedId);
-            setFormData({ ...formData, leavetypeId: parsedId });
+    // useEffect(() => {
+    //     // Parse the id when it changes
+    //     if (id) {
+    //         const parsedId = id ? parseInt(id as string, 10) : null;
+    //         // setLeavetypeId(parsedId);
+    //         setFormData({ ...formData, leavetypeId: parsedId });
 
-            // console.log(leavetypeId);
-            executeQuery({ variables: { id: id } });
-            console.log(getQueryById);
+    //         // console.log(leavetypeId);
+    //         executeQuery({ variables: { id: id } });
+    //         console.log(getQueryById);
 
-            executeQueryLut({ variables: { id: id } });
-            console.log(getQueryByIdLtu);
-        }
-    }, [id]);
+    //         executeQueryLut({ variables: { id: id } });
+    //         console.log(getQueryByIdLtu);
+    //     }
+    // }, [id]);
 
     // console.log(leavetypeId);
 
