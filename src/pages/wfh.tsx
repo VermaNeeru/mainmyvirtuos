@@ -105,7 +105,7 @@ export default function WFH() {
                                                     <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.type}</td>
                                                     <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.time_slot}</td>
                                                     <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.hours_slot}</td>
-                                                    <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{person.status}</td>
+                                                    <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">Approved</td>
 
                                                     <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">
                                                         <Menu as="div" className="align-baseline inline-block text-left">
