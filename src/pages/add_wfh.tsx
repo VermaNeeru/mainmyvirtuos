@@ -8,30 +8,6 @@ import jwt from 'jsonwebtoken';
 import { useLazyQuery, useMutation, useQuery } from '@apollo/client';
 import { CREATE_WFH, GET_FaqById, GET_OfficalInfoByUser } from '@/graphql/User/queries';
 import { useRouter } from 'next/router';
-const faqs = [
-    {
-        question: "Work From Home (WFH) & (WFH-S) Policy",
-        answer:
-            "WORK FROM HOME (WFH) Work From Home (WFH) is rarely admissible for very pressing reasons. They are required to be approved by the Manager, HR and sometimes Higher Management. Reasons for taking WFH are: 1) Pressing Project deadlines warranting longer working hours (Commutation time included) 2) Physically unwell but project demands work from home for meeting the deadlines 3) Travel Fatigue (More than 10 hours of drive or 5 hours of one sided flight) with missed sleep time. 4) Unable to walk or drive due to injury or pain but project demands work from home to meet deadlines 5) One of the family members are unwell, and employee needs to see the doctor, but project demands work from home to meet critical timelines. However, such recurring reasons to apply for Work From Home (WFH) will become an integrity issue. WFH is not automatically granted, and Manager reserves the right to refuse work from home. WFH is strictly not allowed for certain category of employees who are in logistics, customer service, collaborative development, leadership, HR, Accounts or Administration. Optionally Work from Home Special (WFHS) can be availed by Female Employees subject to a maximum of one per month. Work From Home (WFH) (if approved) requires that an employee completes 9.5 hours of total working time (excluding breaks) in a day with online availability (through messenger, email, or video call). Additional one hour of total working time compensates for the time lost in collaboration, virtual connects and other such factors. WFH mandates sending EOD work report / time-sheet to Manager. Manager can reject WFH if he is not satisfied with day end reporting or if he/she feels that the work was not carried out as per the plan.",
-    },
-    {
-        question: "I fear COVID-19, and can I work from home?",
-        answer:
-            "The company shall offer Work From Anywhere (WFA) if the COVID cases are rising and if it's not safe to commute. Not withstanding conditions, if your manager/business demands work-from-office, then you can work from office. If your manager/business does not demand Work From Office, you can apply for WFH.",
-    },
-    {
-        question: "Can I work from home permanently?",
-        answer:
-            "Yes, You can if your manager/business does not have any Work-From-Office dependencies. Only Manager/Business Situations will allow you to work from anywhere. However if you only want to opt for WFH permanently then you can discuss with HR and apply afresh for joining Virtuos Virtual Office (VVO) revising your employment contract. However it's at the discretion of the company/HR/Manager whether you can be transferred to VVO.",
-    },
-    {
-        question: "What is Short Leave? What is Emergency Leave? How can I avail Short leave?",
-        answer:
-            "Yes, You can if your manager/business does not have any Work-From-Office dependencies. Only Manager/Business Situations will allow you to work from anywhere. However if you only want to opt for WFH permanently then you can discuss with HR and apply afresh for joining Virtuos Virtual Office (VVO) revising your employment contract. However it's at the discretion of the company/HR/Manager whether you can be transferred to VVO.",
-    },
-
-    // More questions...
-]
 
 
 export default function AddWfh() {
@@ -43,7 +19,13 @@ export default function AddWfh() {
         faq_ques: string;
         faq_ans: string;
     };
-
+    const [leaveReasonError, setLeaveReasonError] = useState('');
+    const [leaveReasonError1, setLeaveReasonError1] = useState('');
+    const [leaveReasonError2, setLeaveReasonError2] = useState('');
+    const [leaveReasonError3, setLeaveReasonError3] = useState('');
+    const [start, setStartDateSelected] = useState(false);
+    const [end, setEndDateSelected] = useState(false);
+    const [showForm, setShowForm] = useState(true);
     const [startDate, setStartDate] = useState(new Date());
     const [userid, setUserid] = useState();
     const [managerid1, setManagerId1] = useState();
@@ -108,30 +90,34 @@ export default function AddWfh() {
         };
 
         fetchData();  // Call the fetchData function
-    }, [authToken, executeQuery, executeQueryforfaq, getofficialinfobyuser,wfhFaq]);
-    useEffect(() => {
-        console.log('Form Values:', formValues);
-    }, [formValues]);
-    const handleDateChange = (date:any) => {
-        console.log('Selected Date in onChange:', date);
-    
-        // Update state with the full date including time
-        setStartDate(date);
-    
-        // Format the date as a string in "YYYY-MM-DD" format
-        const formattedDate = date.toISOString().split('T')[0];
-    
-        // Update form values with the formatted date
-        setFormValues({
-            ...formValues,
-            startDate: formattedDate,
-        });
-    };
+    }, []);
+
     const handleSubmit = async (event: { preventDefault: () => void }) => {
         event.preventDefault();
         // Log the form values
         console.log('Form Values:', formValues);
+        if (formValues.leaveReason.trim() === '') {
+            setLeaveReasonError('Leave Reason is required.');
+            // return;
+        }
+        if (start == false) {
+            setLeaveReasonError2('startDate is required.');
+        }
+        if (end == false) {
+            setLeaveReasonError3('endDate is required.');
+        }
+        // if (!formValues.startDate) {
 
+        //     // return;
+        // }
+        if (!formValues.endDate) {
+            setLeaveReasonError3('endDate is required.');
+            // return;
+        }
+        if (formValues.leaveType.trim() === '') {
+            setLeaveReasonError1('Leave Type is required.');
+            return;
+        }
         // Now you can use the formValues in the way you need
         // For example, send the data to the server or perform other actions
 
@@ -229,19 +215,12 @@ export default function AddWfh() {
                                                     <option>Short Leave</option>
                                                     <option>WFH Special</option>
                                                 </select>
-                                                <DatePicker selected={startDate}
-                                                    //   onChange={(date: React.SetStateAction<Date>) => {
-                                                    //     console.log('Selected Date in onChange:', date);
-                                                    //     setStartDate(date);
-                                                    // }}
-
-                                                    onChange=
-                                                    {(date: React.SetStateAction<Date>) => handleDateChange(date)}
-
-
-                                                    className="mt-4 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 px-2"
+                                                <DatePicker selected={startDate} onChange=
+                                                    {(date: React.SetStateAction<Date>) => setStartDate(date)} className="mt-4 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 px-2"
                                                 />
-
+                                                {leaveReasonError2 && (
+                                                    <p className="mt-1 text-red-500 text-sm">{leaveReasonError2}</p>
+                                                )}
                                                 {formValues.leaveType === 'WFH' || formValues.leaveType === 'WFH Special' ? (
                                                     <select
                                                         id="dayType"
@@ -287,6 +266,9 @@ export default function AddWfh() {
                                                     defaultValue={''}
                                                     placeholder={'Leave Reason'}
                                                 />
+                                                  {leaveReasonError && (
+                                                            <p className="mt-1 text-red-500 text-sm">{leaveReasonError3}</p>
+                                                        )}
                                             </div>
                                         </div>
 
